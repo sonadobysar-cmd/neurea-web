@@ -189,3 +189,4 @@ Vhodné: [Vercel](https://vercel.com) — nastavit env proměnné a `NEXT_PUBLIC
 - **`npm run start`** (produkce po `next build`) musí běžet **bez** vynucení jen na localhost — výchozí Next.js je **`0.0.0.0`** (všechna rozhraní). Nepřidávejte do start scriptu `-H 127.0.0.1`.
 
 V Dockeru zkontrolujte také mapování portu a proměnnou **`PORT`** (např. `3000`), kterou Next respektuje.
+# neurea-web

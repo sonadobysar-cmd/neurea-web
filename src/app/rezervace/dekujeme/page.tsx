@@ -17,7 +17,7 @@ export default function DekujemePage() {
         Platba zálohy byla přijata. Potvrzení vám přijde na e-mail (po nastavení e-mailů ve Stripe).
       </p>
       <Link href="/kontakt" className="btn-secondary mt-8 inline-flex">
-        Kontakt a ordinační hodiny
+        <span>Kontakt a ordinační hodiny</span>
       </Link>
     </PageShell>
   );

@@ -82,7 +82,7 @@ export function ScreeningRunner({ slug }: Props) {
             <span>Rezervovat vstupní diagnostiku</span>
           </Link>
           <Link href="/testy" className="btn-secondary">
-            Další testy
+            <span>Další testy</span>
           </Link>
         </div>
         <p className="mt-10 text-xs leading-relaxed text-ink/45">
@@ -141,7 +141,7 @@ export function ScreeningRunner({ slug }: Props) {
               onClick={back}
               className="btn-secondary !min-h-0 px-6 py-2.5"
             >
-              Zpět
+              <span>Zpět</span>
             </button>
           )}
           <button

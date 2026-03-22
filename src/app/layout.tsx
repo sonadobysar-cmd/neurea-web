@@ -1,26 +1,32 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, DM_Sans } from "next/font/google";
+import { EB_Garamond, Great_Vibes, Oxygen } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CookieBanner } from "@/components/CookieBanner";
 import { FloatingCta } from "@/components/FloatingCta";
-import { PageIntro } from "@/components/PageIntro";
 import { site } from "@/lib/site";
 
-/** Nadpisy: Cormorant Garamond — lehké řezy 300/400. Tělo: DM Sans. */
-const cormorant = Cormorant_Garamond({
+/** Nadpisy: EB Garamond. Tělo: Oxygen. Dekorativní skript: Great Vibes (bezplatná alternativa k placené „The Youngest Script“ — lze nahradit vlastním fontem v /public). */
+const ebGaramond = EB_Garamond({
   subsets: ["latin", "latin-ext"],
-  weight: ["300", "400", "500"],
+  weight: ["400", "500", "600"],
   style: ["normal", "italic"],
   variable: "--font-display",
   display: "swap",
 });
 
-const dmSans = DM_Sans({
+const oxygen = Oxygen({
   subsets: ["latin", "latin-ext"],
-  weight: ["400", "500", "600"],
+  weight: ["300", "400", "700"],
   variable: "--font-sans",
+  display: "swap",
+});
+
+const greatVibes = Great_Vibes({
+  subsets: ["latin", "latin-ext"],
+  weight: "400",
+  variable: "--font-script",
   display: "swap",
 });
 
@@ -46,9 +52,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="cs" className={`${cormorant.variable} ${dmSans.variable}`}>
+    <html
+      lang="cs"
+      className={`${ebGaramond.variable} ${oxygen.variable} ${greatVibes.variable}`}
+    >
       <body className="font-sans">
-        <PageIntro />
         <Header />
         <main className="min-h-[60vh] bg-white pb-28 text-ink md:pb-0">{children}</main>
         <Footer />

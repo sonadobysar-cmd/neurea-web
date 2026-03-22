@@ -144,7 +144,7 @@ Aby šlo web **sladit 1:1 s návrhem**, doplňte prosím šablonu **`docs/ZADANI
 **Oprava (únor 2026):** Hero dřív odkazoval na `neurea-symbol.png`, který v `public/` nebyl — nyní se používá existující **`/neurea-symbol.svg`** (`src/lib/site.ts`).
 
 **Oficiální zadání / vzor:** viz **`docs/ZADANI.md`** — referenční web [AEON Clinic](https://theaeonclinic.com) + váš **Canva vizuál + animované logo**.  
-**Vizuální směr (2026):** **bílá / krémová** (`#FFFFFF`, `#F9F6F0`), text `#1A1A1A`, zlato `#B8963E`. **Typografie:** Cormorant Garamond (nadpisy, lehké řezy) + DM Sans (text). **Hero** je centrovaný, logo bez rámečku, volitelné video se světlým přechodem; **jedna** kontrastní tmavá sekce (`section-velvet`) na úvodní stránce. Inspirace: světlý luxusní klinický web (např. AEON). Viz `Hero.tsx`, `page.tsx`, `globals.css`.
+**Vizuální směr (2026):** klinicky **bílé** pozadí, panely **mléčné sklo** (blur), **kovové zlato** (gradient, ne plochá barva). **Typografie:** EB Garamond + Oxygen + Great Vibes. **Hero** typografický; pruh statistik je `section-clinical-strip` (světlý, ne tmavý). Viz `globals.css`, `tailwind.config.ts`.
 
 ## Co je hotové
 
@@ -179,7 +179,7 @@ Vhodné: [Vercel](https://vercel.com) — nastavit env proměnné a `NEXT_PUBLIC
 
 ### Úvod (hero) — světlý luxusní styl
 
-Úvodní sekce je **bílá / krémová** (`#FFFFFF` / `#F9F6F0`), bez tmavých ploch. Logo je čistý obrázek (`LogoMark`), volitelně s jemnou animací. Pokud v `src/lib/site.ts` nastavíte **`heroVideoUrl`** (a případně poster), na pozadí se přehraje video se **světlým** přechodem — žádné černé „jeviště“.
+Úvodní sekce (hero) je **minimalistická**, bílá s jemným přechodem do krémové. Dřívější fullscreen intro a video pozadí byly odstraněny ve prospěch „high luxury“ vzhledu.
 
 ### „Interní chyba serveru“ / 502 po nasazení (Docker, VPS, vlastní hosting)
 

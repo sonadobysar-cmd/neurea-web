@@ -45,25 +45,25 @@ export default function HomePage() {
     <>
       <Hero />
 
-      {/* Jedna kontrastní tmavá sekce */}
-      <section className="section-velvet section-spacious">
-        <div className="relative z-[1] mx-auto grid max-w-6xl grid-cols-1 divide-y divide-white/10 px-4 md:grid-cols-3 md:divide-x md:divide-y-0 md:px-8">
+      {/* Klinický pruh — světlé sklo, kovové akcenty */}
+      <section className="section-clinical-strip section-spacious">
+        <div className="relative z-[1] mx-auto grid max-w-6xl grid-cols-1 divide-y divide-gray-200/50 px-4 md:grid-cols-3 md:divide-x md:divide-y-0 md:px-8">
           {stats.map((s) => (
             <div
               key={s.hint}
               className="flex flex-col items-center justify-center px-6 py-10 text-center md:py-12 md:px-10"
             >
-              <p className="mb-3 font-heading text-[10px] font-normal uppercase tracking-[0.38em] text-gold/80">
+              <p className="mb-3 font-heading text-[10px] font-normal uppercase tracking-[0.38em] text-gold opacity-80">
                 {s.hint}
               </p>
-              <p className="font-display text-3xl font-light text-cream md:text-[2.35rem]">{s.value}</p>
-              <p className="mt-2 text-[11px] font-normal uppercase tracking-[0.3em] text-cream/50">{s.sub}</p>
+              <p className="font-display text-3xl font-light text-ink md:text-[2.35rem]">{s.value}</p>
+              <p className="mt-2 text-[11px] font-normal uppercase tracking-[0.3em] text-ink/45">{s.sub}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <div className="h-[0.5px] w-full bg-gold/40" aria-hidden />
+      <div className="divider-gold w-full" aria-hidden />
 
       <section className="bg-white section-spacious">
         <div className="mx-auto max-w-4xl px-6 text-center md:px-8">
@@ -72,11 +72,11 @@ export default function HomePage() {
             Klid není doplněk. Je to podmínka, aby se nervová soustava mohla znovu naučit regulovat
             zátěž — měřitelně a s respektem k tempu vašeho těla.
           </blockquote>
-          <div className="mx-auto mt-10 h-[0.5px] w-24 bg-gold/60" />
+          <div className="divider-gold mx-auto mt-10 w-24" />
         </div>
       </section>
 
-      <section className="bg-cream section-spacious">
+      <section className="border-y border-gray-100/60 bg-[#fafbfc] section-spacious">
         <div className="mx-auto max-w-6xl px-4 md:px-8">
           <div className="grid gap-14 lg:grid-cols-2 lg:items-center lg:gap-20">
             <div>
@@ -122,7 +122,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <div className="h-[0.5px] w-full bg-gold/40" aria-hidden />
+      <div className="divider-gold w-full" aria-hidden />
 
       <section className="bg-white section-spacious">
         <div className="mx-auto max-w-6xl px-4 md:px-8">
@@ -159,7 +159,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-cream section-spacious">
+      <section className="border-y border-gray-100/60 bg-[#fafbfc] section-spacious">
         <div className="mx-auto max-w-6xl px-4 md:px-8">
           <div className="grid gap-16 lg:grid-cols-2 lg:items-start">
             <div className="glass-panel-strong p-9 md:p-11">
@@ -217,7 +217,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <div className="h-[0.5px] w-full bg-gold/40" aria-hidden />
+      <div className="divider-gold w-full" aria-hidden />
 
       <section className="bg-white section-spacious">
         <div className="mx-auto max-w-6xl px-4 md:px-8">
@@ -243,7 +243,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-cream section-spacious">
+      <section className="border-y border-gray-100/60 bg-[#fafbfc] section-spacious">
         <div className="mx-auto max-w-6xl px-4 md:px-8">
           <div className="glass-panel-strong px-8 py-12 text-center md:px-16 md:py-14">
             <p className="eyebrow">Podpora</p>

@@ -3,7 +3,7 @@ import { site } from "@/lib/site";
 
 export function Footer() {
   return (
-    <footer className="relative mt-0 border-t border-gold/25 bg-cream text-ink">
+    <footer className="relative mt-0 border-t border-white/80 bg-white/85 text-ink shadow-[inset_0_1px_0_0_rgba(184,150,62,0.1)] backdrop-blur-md supports-[backdrop-filter]:bg-white/75">
       <div className="mx-auto grid max-w-6xl gap-12 px-4 py-16 md:grid-cols-3 md:px-8 md:py-20">
         <div>
           <p className="font-display text-lg font-light tracking-[0.22em] text-gold">NEUREA</p>

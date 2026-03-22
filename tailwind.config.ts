@@ -36,6 +36,8 @@ const config: Config = {
         display: ["var(--font-display)", "Georgia", "serif"],
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
         heading: ["var(--font-sans)", "system-ui", "sans-serif"],
+        /** Dekorativní skript (Great Vibes) — luxusní akcenty */
+        script: ["var(--font-script)", "cursive"],
       },
       animation: {
         "logo-fade-in": "logoFadeIn 1.1s ease-out forwards",
@@ -69,7 +71,23 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    /** Kovové zlato jako text — přebije plochou barvu `gold` z theme */
+    function metallicGoldText({
+      addUtilities,
+    }: {
+      addUtilities: (u: Record<string, Record<string, string>>, options?: { respectPrefix?: boolean }) => void;
+    }) {
+      addUtilities({
+        ".text-gold": {
+          "background-image": "var(--gold-metal) !important",
+          "-webkit-background-clip": "text !important",
+          "background-clip": "text !important",
+          color: "transparent !important",
+        },
+      });
+    },
+  ],
 };
 
 export default config;

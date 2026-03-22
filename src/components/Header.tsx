@@ -32,7 +32,7 @@ export function Header() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-gold/20 bg-white">
+    <header className="sticky top-0 z-50 border-b border-white/70 bg-white/75 shadow-[0_1px_0_0_rgba(184,150,62,0.12)] backdrop-blur-xl backdrop-saturate-150 supports-[backdrop-filter]:bg-white/65">
       <div className="relative mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4 md:px-8">
         <Link href="/" className="relative z-10 flex min-w-0 shrink items-center" aria-label="NEUREA — úvod">
           {site.wordmarkUrl ? (

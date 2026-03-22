@@ -36,7 +36,7 @@ const config: Config = {
         display: ["var(--font-display)", "Georgia", "serif"],
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
         heading: ["var(--font-sans)", "system-ui", "sans-serif"],
-        /** Dekorativní skript (Great Vibes) — luxusní akcenty */
+        /** Dekorativní skript (Momo Signature) — luxusní akcenty */
         script: ["var(--font-script)", "cursive"],
       },
       animation: {

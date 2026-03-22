@@ -1,6 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Momo+Signature&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/** Dekorativní skript — Momo Signature (Google Fonts, „signature“ styl). */
 
 :root {
   --cream: #f9f6f0;
@@ -28,6 +32,7 @@
     rgba(166, 124, 40, 0.95) 65%,
     rgba(107, 90, 34, 0.88) 100%
   );
+  --font-script: "Momo Signature", "Brush Script MT", "Segoe Script", cursive;
 }
 
 html {

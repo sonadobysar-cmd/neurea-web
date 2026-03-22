@@ -144,7 +144,7 @@ Aby šlo web **sladit 1:1 s návrhem**, doplňte prosím šablonu **`docs/ZADANI
 **Oprava (únor 2026):** Hero dřív odkazoval na `neurea-symbol.png`, který v `public/` nebyl — nyní se používá existující **`/neurea-symbol.svg`** (`src/lib/site.ts`).
 
 **Oficiální zadání / vzor:** viz **`docs/ZADANI.md`** — referenční web [AEON Clinic](https://theaeonclinic.com) + váš **Canva vizuál + animované logo**.  
-**Vizuální směr (2026):** klinicky **bílé** pozadí, panely **mléčné sklo** (blur), **kovové zlato** (gradient, ne plochá barva). **Typografie:** EB Garamond + Oxygen + Great Vibes. **Hero** typografický; pruh statistik je `section-clinical-strip` (světlý, ne tmavý). Viz `globals.css`, `tailwind.config.ts`.
+**Vizuální směr (2026):** klinicky **bílé** pozadí, panely **mléčné sklo** (blur), **kovové zlato** (gradient, ne plochá barva). **Typografie:** EB Garamond + Oxygen + Momo Signature (skript). **Hero** typografický; pruh statistik je `section-clinical-strip` (světlý, ne tmavý). Viz `globals.css`, `tailwind.config.ts`.
 
 ## Co je hotové
 

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { EB_Garamond, Great_Vibes, Oxygen } from "next/font/google";
+import { EB_Garamond, Oxygen } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -7,7 +7,7 @@ import { CookieBanner } from "@/components/CookieBanner";
 import { FloatingCta } from "@/components/FloatingCta";
 import { site } from "@/lib/site";
 
-/** Nadpisy: EB Garamond. Tělo: Oxygen. Dekorativní skript: Great Vibes (bezplatná alternativa k placené „The Youngest Script“ — lze nahradit vlastním fontem v /public). */
+/** Nadpisy: EB Garamond. Tělo: Oxygen. Dekorativní skript: Momo Signature (globals.css). */
 const ebGaramond = EB_Garamond({
   subsets: ["latin", "latin-ext"],
   weight: ["400", "500", "600"],
@@ -20,13 +20,6 @@ const oxygen = Oxygen({
   subsets: ["latin", "latin-ext"],
   weight: ["300", "400", "700"],
   variable: "--font-sans",
-  display: "swap",
-});
-
-const greatVibes = Great_Vibes({
-  subsets: ["latin", "latin-ext"],
-  weight: "400",
-  variable: "--font-script",
   display: "swap",
 });
 
@@ -54,7 +47,7 @@ export default function RootLayout({
   return (
     <html
       lang="cs"
-      className={`${ebGaramond.variable} ${oxygen.variable} ${greatVibes.variable}`}
+      className={`${ebGaramond.variable} ${oxygen.variable}`}
     >
       <body className="font-sans">
         <Header />

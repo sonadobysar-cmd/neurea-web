@@ -1,0 +1,34 @@
+{
+  "name": "neurea-web",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "printf '\\n  NEUREA — otevři v prohlížeči PŘESNĚ adresu z řádku „Local:“ (port může být 3001, 3004… pokud je 3000 obsazený).\\n  Když „localhost“ nejde, zkus http://127.0.0.1:PORT\\n\\n' && WATCHPACK_POLLING=1 next dev -H 127.0.0.1",
+    "open-browser": "node scripts/open-dev-browser.mjs",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "clean": "rm -rf .next",
+    "rebuild": "npm run clean && npm run build"
+  },
+  "dependencies": {
+    "next": "^15.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "stripe": "^17.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "eslint": "^9.16.0",
+    "eslint-config-next": "^15.1.0",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.16",
+    "typescript": "^5.7.2"
+  }
+}

@@ -50,7 +50,13 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-gold/15 py-6 text-center text-[11px] font-normal uppercase tracking-[0.2em] text-ink/40">
-        © {new Date().getFullYear()} NEUREA · neurea.cz
+        <p>© {new Date().getFullYear()} NEUREA · neurea.cz</p>
+        {/* Na Vercelu je při buildu k dispozici — ověření, že vidíš nejnovější nasazení (srovnej s commitem na GitHubu). */}
+        {process.env.VERCEL_GIT_COMMIT_SHA ? (
+          <p className="mt-2 font-mono text-[10px] normal-case tracking-normal text-ink/35">
+            Build {process.env.VERCEL_GIT_COMMIT_SHA.slice(0, 7)}
+          </p>
+        ) : null}
       </div>
     </footer>
   );

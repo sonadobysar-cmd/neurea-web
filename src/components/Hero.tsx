@@ -61,7 +61,7 @@ export function Hero({
         </video>
       </div>
 
-      <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center px-6 pb-10 pt-6 text-center md:px-10 md:pb-14 md:pt-8">
+      <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center px-6 pb-4 pt-6 text-center md:px-10 md:pb-5 md:pt-8">
         <div className="flex flex-wrap items-center justify-center gap-4 md:gap-5">
           <Link href="/rezervace" className="btn-gold">
             <span>Rezervovat</span>

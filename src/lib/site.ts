@@ -57,7 +57,6 @@ export const navMain = [
 ];
 
 export const navMore = [
-  { href: "/", label: "Úvod" },
   { href: "/jak-to-funguje", label: "Jak to funguje" },
   { href: "/faq", label: "FAQ" },
   { href: "/kontakt", label: "Kontakt" },

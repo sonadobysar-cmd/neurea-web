@@ -292,7 +292,7 @@ export default function HomePage() {
       <div className="divider-gold w-full" aria-hidden />
 
       <section className="bg-white section-spacious">
-        <div className="mx-auto max-w-6xl px-4 md:px-8">
+        <div className="mx-auto max-w-[82rem] px-4 md:px-10">
           <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
             <div>
               <p className="eyebrow">Služby</p>
@@ -310,7 +310,7 @@ export default function HomePage() {
               </span>
             </Link>
           </div>
-          <div className="mt-16 grid gap-8 md:grid-cols-3 md:gap-7">
+          <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-4 md:gap-7">
             {serviceCards.map((c) => (
               <Link key={c.title} href={c.href} className="card-luxury group flex flex-col p-9">
                 <h3 className="font-display text-[1.55rem] font-light tracking-[-0.03em] text-gold md:text-[1.7rem]">

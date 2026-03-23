@@ -137,7 +137,7 @@ export default function HomePage() {
             <div>
               <p className="eyebrow">Proč NEUREA</p>
               <h2 className="mt-5 font-display text-[2rem] font-light tracking-[-0.03em] text-ink md:text-[2.35rem] lg:text-[2.65rem] lg:leading-[1.12]">
-                Neuro-somatická péče s měřitelnými daty
+                Neuro - stimulační klinika s měřitelnými daty a podloženými výsledky stovkami výzkumů
               </h2>
               <p className="mt-5 text-base font-normal leading-relaxed text-ink/65 md:text-[17px]">
                 Kombinujeme vstupní měření (HRV, koherence ANS), individuální protokol a klinicky

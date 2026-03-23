@@ -308,7 +308,7 @@ export default function HomePage() {
           <div className="mt-16 grid gap-8 md:grid-cols-3 md:gap-7">
             {serviceCards.map((c) => (
               <Link key={c.title} href={c.href} className="card-luxury group flex flex-col p-9">
-                <h3 className="font-display text-[1.35rem] font-light text-ink transition duration-300 group-hover:text-gold md:text-[1.45rem]">
+                <h3 className="font-display text-[1.55rem] font-light tracking-[-0.03em] text-gold md:text-[1.7rem]">
                   {c.title}
                 </h3>
                 <p className="mt-5 flex-1 text-[15px] font-normal leading-relaxed text-ink/55">{c.desc}</p>

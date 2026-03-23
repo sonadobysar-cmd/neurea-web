@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { getChargeAmountCzk, getServiceById, type PaymentOption } from "@/lib/bookingConfig";
 import { attachStripeSession, createBooking, isSlotAvailable } from "@/lib/bookingStore";
+import { getCheckoutBaseUrl } from "@/lib/publicSiteUrl";
 import { site } from "@/lib/site";
 
 type CheckoutPayload = {
@@ -79,7 +80,7 @@ export async function POST(req: Request) {
   }
 
   const stripe = new Stripe(secret, { apiVersion: "2025-02-24.acacia" });
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const baseUrl = getCheckoutBaseUrl();
 
   try {
     const session = await stripe.checkout.sessions.create({

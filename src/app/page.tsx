@@ -133,18 +133,24 @@ export default function HomePage() {
 
       <section className="border-y border-gray-100/60 bg-[#fafbfc] section-spacious">
         <div className="mx-auto max-w-6xl px-4 md:px-8">
-          <div className="grid gap-14 lg:grid-cols-2 lg:items-start lg:gap-20">
-            <div className="text-left">
-              <p className="eyebrow">Proč NEUREA</p>
-              <h2 className="mt-5 font-display text-[2rem] font-light tracking-[-0.03em] text-ink md:text-[2.35rem] lg:text-[2.65rem] lg:leading-[1.12]">
-                Neuro - stimulační klinika s měřitelnými daty a podloženými výsledky stovkami výzkumů
-              </h2>
-              <p className="mt-5 text-base font-normal leading-relaxed text-ink/65 md:text-[17px]">
+          <div className="text-center">
+            <p className="eyebrow">Proč NEUREA</p>
+            <h2 className="mt-5 font-display text-[2rem] font-light tracking-[-0.03em] text-ink md:text-[2.45rem] lg:text-[3rem] lg:leading-[1.08]">
+              Neuro - stimulační klinika s měřitelnými daty a podloženými výsledky stovkami výzkumů
+            </h2>
+          </div>
+
+          <div className="mt-5 grid gap-14 lg:grid-cols-2 lg:items-start lg:gap-20">
+            {/* Vlevo: text + tlačítka */}
+            <div className="text-left lg:pt-1">
+              <p className="text-base font-normal leading-relaxed text-ink/65 md:text-[17px]">
                 Kombinujeme vstupní měření (HRV, koherence ANS), individuální protokol a klinicky
                 používané technologie — v klidném, diskrétním prostředí.
               </p>
               <CtaButtons className="mt-10" />
             </div>
+
+            {/* Vpravo: rámeček */}
             <div className="glass-panel-strong p-9 md:p-10">
               <ul className="space-y-5 text-[15px] font-normal leading-relaxed text-ink/70">
                 <li className="flex gap-4">

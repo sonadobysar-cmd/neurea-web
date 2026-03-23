@@ -38,10 +38,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Vyplňte jméno, e-mail a telefon." }, { status: 400 });
   }
 
-  if (body.paymentOption === "test_10" && process.env.RESERVATION_TEST_10KC_ENABLED !== "true") {
-    return NextResponse.json({ error: "Testovací platba 10 Kč není povolena." }, { status: 403 });
-  }
-
   const slotAvailable = await isSlotAvailable(body.date, body.time, service.durationMin);
   if (!slotAvailable) {
     return NextResponse.json({ error: "Tento termín je mezitím obsazený. Vyberte prosím jiný." }, { status: 409 });

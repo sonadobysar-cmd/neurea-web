@@ -25,7 +25,11 @@ export const PAYMENT_OPTIONS: { id: PaymentOption; label: string }[] = [
   { id: "full", label: "Plná platba" },
 ];
 
-/** Dočasná testovací platba 10 Kč — zobrazí se jen když RESERVATION_TEST_10KC_ENABLED=true (viz BookingFlow). */
+/**
+ * Dočasná testovací platba 10 Kč (vždy v UI, dokud neodstraníme).
+ * Odstranění: smaž `test_10` z PaymentOption, řádky v getChargeAmountCzk, tuto konstantu,
+ * úpravu v BookingFlow (paymentOptions) a v checkout route (popis TEST 10 Kč).
+ */
 export const PAYMENT_OPTION_TEST_10: { id: PaymentOption; label: string } = {
   id: "test_10",
   label: "Test 10 Kč (dočasně)",

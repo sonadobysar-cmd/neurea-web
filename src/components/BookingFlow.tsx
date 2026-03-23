@@ -17,19 +17,15 @@ function toIsoDateLocal(date: Date) {
   return `${y}-${m}-${d}`;
 }
 
-type BookingFlowProps = {
-  /** Zapnout dočasnou testovací platbu 10 Kč (ENV RESERVATION_TEST_10KC_ENABLED na serveru). */
-  showTest10Kc?: boolean;
-};
-
-export function BookingFlow({ showTest10Kc = false }: BookingFlowProps) {
+export function BookingFlow() {
   const [serviceId, setServiceId] = useState(SERVICES[0]?.id ?? "");
   const service = useMemo(() => SERVICES.find((s) => s.id === serviceId) ?? SERVICES[0], [serviceId]);
 
-  const paymentOptions = useMemo(() => {
-    if (showTest10Kc) return [...PAYMENT_OPTIONS, PAYMENT_OPTION_TEST_10];
-    return PAYMENT_OPTIONS;
-  }, [showTest10Kc]);
+  /** Dočasně: test platba 10 Kč — po ověření odstranit (viz bookingConfig PAYMENT_OPTION_TEST_10 + test_10 v PaymentOption). */
+  const paymentOptions = useMemo(
+    () => [...PAYMENT_OPTIONS, PAYMENT_OPTION_TEST_10],
+    [],
+  );
 
   const [date, setDate] = useState(toIsoDateLocal(new Date(Date.now() + 24 * 60 * 60 * 1000)));
   const [time, setTime] = useState("");

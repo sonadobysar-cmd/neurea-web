@@ -133,8 +133,8 @@ export default function HomePage() {
 
       <section className="border-y border-gray-100/60 bg-[#fafbfc] section-spacious">
         <div className="mx-auto max-w-6xl px-4 md:px-8">
-          <div className="grid gap-14 lg:grid-cols-1 lg:items-start lg:gap-20">
-            <div>
+          <div className="grid gap-14 lg:grid-cols-2 lg:items-start lg:gap-20">
+            <div className="text-left">
               <p className="eyebrow">Proč NEUREA</p>
               <h2 className="mt-5 font-display text-[2rem] font-light tracking-[-0.03em] text-ink md:text-[2.35rem] lg:text-[2.65rem] lg:leading-[1.12]">
                 Neuro - stimulační klinika s měřitelnými daty a podloženými výsledky stovkami výzkumů

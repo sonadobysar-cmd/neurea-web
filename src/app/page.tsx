@@ -191,7 +191,7 @@ export default function HomePage() {
 
           <div className="mt-10 flex justify-center">
             <Link href="/testy" className="btn-gold">
-              <span>Spustit screening testy</span>
+              <span>Chci stejné výsledky</span>
             </Link>
           </div>
         </div>

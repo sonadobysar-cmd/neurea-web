@@ -160,7 +160,7 @@ export default function HomePage() {
           <div className="text-center">
             <p className="eyebrow">Statistiky úspěšnosti</p>
             <h2 className="mt-5 font-display text-[2rem] font-light tracking-[-0.03em] text-ink md:text-[2.5rem] lg:text-[2.9rem] lg:leading-[1.12]">
-              Výsledky, které se dají ukázat
+              PROKAZATELNÉ VÝSLEDKY
             </h2>
             <p className="mx-auto mt-5 max-w-3xl text-[15px] font-normal leading-relaxed text-ink/60">
               Hodnoty vycházejí ze studií a měření významných zdrojů i kliniky.

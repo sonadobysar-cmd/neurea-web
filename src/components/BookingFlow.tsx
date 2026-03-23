@@ -1,7 +1,12 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { PAYMENT_OPTIONS, SERVICES, type PaymentOption } from "@/lib/bookingConfig";
+import {
+  PAYMENT_OPTIONS,
+  PAYMENT_OPTION_TEST_10,
+  SERVICES,
+  type PaymentOption,
+} from "@/lib/bookingConfig";
 
 type SlotsResponse = { slots?: string[]; error?: string };
 
@@ -12,9 +17,19 @@ function toIsoDateLocal(date: Date) {
   return `${y}-${m}-${d}`;
 }
 
-export function BookingFlow() {
+type BookingFlowProps = {
+  /** Zapnout dočasnou testovací platbu 10 Kč (ENV RESERVATION_TEST_10KC_ENABLED na serveru). */
+  showTest10Kc?: boolean;
+};
+
+export function BookingFlow({ showTest10Kc = false }: BookingFlowProps) {
   const [serviceId, setServiceId] = useState(SERVICES[0]?.id ?? "");
   const service = useMemo(() => SERVICES.find((s) => s.id === serviceId) ?? SERVICES[0], [serviceId]);
+
+  const paymentOptions = useMemo(() => {
+    if (showTest10Kc) return [...PAYMENT_OPTIONS, PAYMENT_OPTION_TEST_10];
+    return PAYMENT_OPTIONS;
+  }, [showTest10Kc]);
 
   const [date, setDate] = useState(toIsoDateLocal(new Date(Date.now() + 24 * 60 * 60 * 1000)));
   const [time, setTime] = useState("");
@@ -157,8 +172,8 @@ export function BookingFlow() {
 
       <fieldset className="mt-7">
         <legend className="text-sm text-ink/70">Platba při rezervaci</legend>
-        <div className="mt-3 grid gap-2 sm:grid-cols-3">
-          {PAYMENT_OPTIONS.map((opt) => (
+        <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+          {paymentOptions.map((opt) => (
             <label
               key={opt.id}
               className="flex cursor-pointer items-center gap-2 rounded-lg border border-gold/20 bg-white/80 px-3 py-2 text-sm text-ink/80"

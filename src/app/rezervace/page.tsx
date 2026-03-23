@@ -7,7 +7,12 @@ export const metadata: Metadata = {
   title: "Rezervace",
 };
 
+/** Aby se RESERVATION_TEST_10KC_ENABLED četl za běhu z Vercelu, ne jen při buildu. */
+export const dynamic = "force-dynamic";
+
 export default function RezervacePage() {
+  const showTest10Kc = process.env.RESERVATION_TEST_10KC_ENABLED === "true";
+
   return (
     <PageShell>
       <p className="eyebrow">Rezervace</p>
@@ -19,7 +24,7 @@ export default function RezervacePage() {
         potvrzení rezervace.
       </p>
 
-      <BookingFlow />
+      <BookingFlow showTest10Kc={showTest10Kc} />
 
       <div className="mt-10 glass-panel p-6 text-sm text-ink/68 md:p-8">
         <p className="font-medium text-ink">Před první terapií</p>

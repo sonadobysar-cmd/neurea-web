@@ -5,7 +5,7 @@ export type ServiceDefinition = {
   priceCzk: number;
 };
 
-export type PaymentOption = "deposit_500" | "deposit_1000" | "full";
+export type PaymentOption = "deposit_500" | "deposit_1000" | "full" | "test_10";
 
 export const SERVICES: ServiceDefinition[] = [
   { id: "vstupni-diagnostika", name: "Vstupní diagnostika", durationMin: 75, priceCzk: 3500 },
@@ -25,7 +25,14 @@ export const PAYMENT_OPTIONS: { id: PaymentOption; label: string }[] = [
   { id: "full", label: "Plná platba" },
 ];
 
+/** Dočasná testovací platba 10 Kč — zobrazí se jen když RESERVATION_TEST_10KC_ENABLED=true (viz BookingFlow). */
+export const PAYMENT_OPTION_TEST_10: { id: PaymentOption; label: string } = {
+  id: "test_10",
+  label: "Test 10 Kč (dočasně)",
+};
+
 export function getChargeAmountCzk(servicePriceCzk: number, paymentOption: PaymentOption) {
+  if (paymentOption === "test_10") return 10;
   if (paymentOption === "deposit_500") return 500;
   if (paymentOption === "deposit_1000") return 1000;
   return servicePriceCzk;

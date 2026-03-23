@@ -25,6 +25,8 @@ export type Booking = {
   paidAt?: string;
   /** Odeslán potvrzovací e-mail po platbě */
   confirmationEmailSent?: boolean;
+  /** Odeslán připomínkový e-mail den před termínem */
+  reminderEmailSent?: boolean;
 };
 
 const DATA_DIR = process.env.BOOKINGS_DATA_DIR || "/tmp/neurea";
@@ -104,6 +106,27 @@ export async function markConfirmationEmailSent(bookingId: string) {
   bookings[idx].confirmationEmailSent = true;
   await writeAllUnsafe(bookings);
   return bookings[idx];
+}
+
+export async function markReminderEmailSent(bookingId: string) {
+  const bookings = await readAllUnsafe();
+  const idx = bookings.findIndex((b) => b.id === bookingId);
+  if (idx === -1) return null;
+  bookings[idx].reminderEmailSent = true;
+  await writeAllUnsafe(bookings);
+  return bookings[idx];
+}
+
+/** Rezervace v daný kalendářní den (YYYY-MM-DD), zaplacené, bez odeslané připomínky */
+export async function listBookingsNeedingReminderForDate(serviceDateYmd: string) {
+  const bookings = await readAllUnsafe();
+  return bookings.filter(
+    (b) =>
+      b.status === "paid" &&
+      b.date === serviceDateYmd &&
+      !b.reminderEmailSent &&
+      Boolean(b.clientEmail?.trim()),
+  );
 }
 
 export async function isSlotAvailable(date: string, time: string, durationMin: number) {

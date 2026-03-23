@@ -53,47 +53,44 @@ export default function HomePage() {
           </p>
           <div className="divider-gold mx-auto mt-7 h-px w-20" aria-hidden />
 
-          <div className="relative mx-auto mt-12 h-[280px] md:h-[320px]">
+          <div className="mx-auto mt-12 max-w-5xl">
             {/* SR-only heading for accessibility */}
             <h2 className="sr-only">Diagnózy a orientační testy</h2>
 
-            {/* Outline bubliny */}
-            {[
-              { label: "Deprese", x: 12, y: 24, s: 0.95, r: -6 },
-              { label: "Úzkosti", x: 28, y: 46, s: 1.1, r: 4 },
-              { label: "Vyhoření", x: 48, y: 22, s: 1.0, r: -2 },
-              { label: "Nespavost", x: 64, y: 50, s: 0.92, r: 6 },
-              { label: "ADHD", x: 78, y: 28, s: 1.18, r: -3 },
-              { label: "Chronická bolest", x: 18, y: 74, s: 1.1, r: 3 },
-              { label: "Panické ataky", x: 40, y: 66, s: 0.95, r: -5 },
-              { label: "Burnout", x: 66, y: 74, s: 1.0, r: 7 },
-              { label: "Poruchy pozornosti", x: 86, y: 62, s: 0.86, r: -4 },
-            ].map((b) => (
-              <span
-                key={b.label}
-                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-gold/65 bg-white/55 px-4 py-2 text-[13px] font-light text-ink/70 backdrop-blur-md"
-                style={{
-                  left: `${b.x}%`,
-                  top: `${b.y}%`,
-                  transform: `translate(-50%, -50%) rotate(${b.r}deg) scale(${b.s})`,
-                }}
-              >
-                {b.label}
-              </span>
-            ))}
+            {/* Hezky seskupené bubliny (flex-wrap), různé velikosti, všechny VELKÝMI PÍSMENY */}
+            <div className="mx-auto flex flex-wrap items-center justify-center gap-x-4 gap-y-4 md:gap-x-5 md:gap-y-5">
+              {[
+                { label: "Deprese", size: "sm" },
+                { label: "Úzkosti", size: "lg" },
+                { label: "Vyhoření", size: "md" },
+                { label: "Nespavost", size: "md" },
+                { label: "ADHD", size: "lg" },
+                { label: "Chronická bolest", size: "sm" },
+                { label: "Panické ataky", size: "md" },
+                { label: "Burnout", size: "lg" },
+                { label: "Poruchy pozornosti", size: "sm" },
+              ].map((b) => (
+                <span
+                  key={b.label}
+                  className={[
+                    "rounded-full border border-gold/65 bg-white/55 text-ink/70 backdrop-blur-md font-light uppercase tracking-[0.04em]",
+                    b.size === "sm" ? "px-4 py-2 text-[13px]" : "",
+                    b.size === "md" ? "px-5 py-2.5 text-[14px]" : "",
+                    b.size === "lg" ? "px-6 py-2.5 text-[15px]" : "",
+                  ].join(" ")}
+                >
+                  {b.label}
+                </span>
+              ))}
 
-            {/* Poslední bublina: zlatá, plná */}
-            <Link
-              href="/testy"
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-gold bg-gold px-6 py-3 text-[14px] font-light text-ink shadow-glow-gold"
-              style={{
-                left: "55%",
-                top: "90%",
-                transform: "translate(-50%, -50%) rotate(2deg) scale(1.05)",
-              }}
-            >
-              + Orientační testy &rarr;
-            </Link>
+              {/* Poslední bublina: zlatá, plná */}
+              <Link
+                href="/testy"
+                className="rounded-full border border-gold bg-gold px-7 py-2.5 text-[15px] font-light uppercase tracking-[0.02em] text-ink shadow-glow-gold"
+              >
+                + Orientační testy &rarr;
+              </Link>
+            </div>
           </div>
         </div>
       </section>

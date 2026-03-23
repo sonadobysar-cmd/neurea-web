@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { navMain, navMore, site } from "@/lib/site";
 
 const navLinkDesktop =
-  "inline-flex items-center border-b border-transparent px-3 py-2 text-[14px] font-normal uppercase tracking-[0.16em] text-ink/70 transition-all duration-200 hover:border-gold/50 hover:text-gold";
+  "inline-flex items-center whitespace-nowrap border-b border-transparent px-3 py-2 text-[13px] font-normal uppercase tracking-[0.12em] text-ink/70 transition-all duration-200 hover:border-gold/50 hover:text-gold";
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -56,7 +56,7 @@ export function Header() {
           <div className="relative pl-1" ref={moreRef}>
             <button
               type="button"
-              className={`inline-flex items-center gap-1 border-b border-transparent px-3 py-2 text-[14px] font-normal uppercase tracking-[0.16em] transition-all ${
+              className={`inline-flex items-center gap-1 whitespace-nowrap border-b border-transparent px-3 py-2 text-[13px] font-normal uppercase tracking-[0.12em] transition-all ${
                 moreOpen ? "border-gold/55 text-gold" : "text-ink/70 hover:border-gold/50 hover:text-gold"
               }`}
               aria-expanded={moreOpen}

@@ -1,0 +1,37 @@
+export type ServiceDefinition = {
+  id: string;
+  name: string;
+  durationMin: number;
+  priceCzk: number;
+};
+
+export type PaymentOption = "deposit_500" | "deposit_1000" | "full";
+
+export const SERVICES: ServiceDefinition[] = [
+  { id: "vstupni-diagnostika", name: "Vstupní diagnostika", durationMin: 75, priceCzk: 3500 },
+  { id: "serie-5", name: "Série 5 sezení", durationMin: 75, priceCzk: 14000 },
+  { id: "serie-10", name: "Série 10 sezení", durationMin: 75, priceCzk: 25000 },
+  { id: "detsky-program", name: "Dětský program (série 5)", durationMin: 60, priceCzk: 12000 },
+  { id: "hrv-biofeedback", name: "HRV biofeedback", durationMin: 45, priceCzk: 1600 },
+  { id: "tdcs", name: "Transkraniální stimulace (tDCS)", durationMin: 45, priceCzk: 2200 },
+  { id: "ces", name: "Kranální elektrostimulace (CES)", durationMin: 45, priceCzk: 1800 },
+  { id: "fotobiomodulace", name: "Fotobiomodulace mozku", durationMin: 45, priceCzk: 2200 },
+  { id: "myofascialni-prace", name: "Myofasciální práce", durationMin: 60, priceCzk: 2000 },
+];
+
+export const PAYMENT_OPTIONS: { id: PaymentOption; label: string }[] = [
+  { id: "deposit_500", label: "Záloha 500 Kč" },
+  { id: "deposit_1000", label: "Záloha 1 000 Kč" },
+  { id: "full", label: "Plná platba" },
+];
+
+export function getChargeAmountCzk(servicePriceCzk: number, paymentOption: PaymentOption) {
+  if (paymentOption === "deposit_500") return 500;
+  if (paymentOption === "deposit_1000") return 1000;
+  return servicePriceCzk;
+}
+
+export function getServiceById(serviceId: string) {
+  return SERVICES.find((s) => s.id === serviceId) || null;
+}
+

@@ -48,7 +48,7 @@ export default function HomePage() {
       {/* Sekce pod hero: věta + plovoucí bubliny diagnóz */}
       <section className="border-t border-gray-100/60 bg-[#fafbfc] pt-14 pb-12 md:pt-16 md:pb-16">
         <div className="mx-auto max-w-6xl px-4 text-center md:px-8">
-          <p className="font-display text-[1.7rem] font-light tracking-[-0.02em] text-ink/90 md:text-[2.15rem]">
+          <p className="font-display text-[2.2rem] font-light tracking-[-0.03em] text-ink/90 md:text-[2.85rem] lg:text-[3.15rem]">
             Pomáháme tam, kde klinická cesta nestačila.
           </p>
           <div className="divider-gold mx-auto mt-7 h-px w-20" aria-hidden />
@@ -135,7 +135,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl px-4 md:px-8">
           <div className="text-center">
             <p className="eyebrow">Proč NEUREA</p>
-            <h2 className="mt-5 font-display text-[2rem] font-light tracking-[-0.03em] text-ink md:text-[2.45rem] lg:text-[3rem] lg:leading-[1.08]">
+            <h2 className="mt-5 font-display text-[2.35rem] font-light tracking-[-0.04em] text-ink md:text-[2.85rem] lg:text-[3.5rem] lg:leading-[1.06]">
               Neuro - stimulační klinika s měřitelnými daty a podloženými výsledky stovkami výzkumů
             </h2>
           </div>
@@ -190,7 +190,7 @@ export default function HomePage() {
           <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
             <div>
               <p className="eyebrow">Služby</p>
-              <h2 className="mt-4 font-display text-[2rem] font-light tracking-[-0.03em] text-ink md:text-[2.5rem]">
+              <h2 className="mt-4 font-display text-[2.35rem] font-light tracking-[-0.04em] text-ink md:text-[2.95rem] lg:text-[3.25rem]">
                 Co u nás můžete absolvovat
               </h2>
             </div>

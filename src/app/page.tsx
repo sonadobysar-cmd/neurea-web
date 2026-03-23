@@ -171,7 +171,7 @@ export default function HomePage() {
             {diagnosisStats.map((s) => (
               <div
                 key={s.title}
-                className="glass-panel-strong flex h-full flex-col p-7 md:p-8"
+                className="glass-panel-strong flex h-full flex-col border border-gold/35 p-7 shadow-glow-gold md:p-8"
               >
                 <p className="font-heading text-[13px] font-normal uppercase tracking-[0.26em] text-gold">
                   {s.title}

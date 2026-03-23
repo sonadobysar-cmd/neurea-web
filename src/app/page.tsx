@@ -140,7 +140,7 @@ export default function HomePage() {
             </h2>
           </div>
 
-          <div className="mt-8 grid gap-14 lg:grid-cols-2 lg:items-start lg:gap-20 md:mt-10">
+          <div className="mt-5 grid gap-14 lg:grid-cols-2 lg:items-start lg:gap-20">
             {/* Vlevo: text + tlačítka */}
             <div className="text-left lg:pt-1">
               <p className="text-base font-normal leading-relaxed text-ink/65 md:text-[17px]">

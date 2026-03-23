@@ -86,9 +86,9 @@ export default function HomePage() {
               {/* Poslední bublina: zlatá, plná */}
               <Link
                 href="/testy"
-                className="rounded-full border border-gold bg-gold px-7 py-2.5 text-[15px] font-light uppercase tracking-[0.02em] text-ink shadow-glow-gold"
+                className="btn-gold !min-h-0 rounded-full !px-7 !py-2.5 !text-[15px] !font-light uppercase tracking-[0.02em]"
               >
-                + Orientační testy &rarr;
+                <span>+ Orientační testy &rarr;</span>
               </Link>
             </div>
           </div>

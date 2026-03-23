@@ -173,7 +173,7 @@ export default function HomePage() {
                 key={s.title}
                 className="glass-panel-strong flex h-full flex-col p-7 md:p-8"
               >
-                <p className="font-heading text-[11px] font-normal uppercase tracking-[0.32em] text-gold">
+                <p className="font-heading text-[13px] font-normal uppercase tracking-[0.26em] text-gold">
                   {s.title}
                 </p>
                 <p className="mt-5 font-display text-[1.9rem] font-light tracking-[-0.03em] text-ink">

@@ -49,7 +49,15 @@ export function Header() {
           aria-label="Hlavní menu"
         >
           {navMain.map((item) => (
-            <Link key={item.href} href={item.href} className={navLinkDesktop}>
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`${navLinkDesktop} ${
+                item.href === "/testy"
+                  ? "border-gold/55 text-gold hover:border-gold hover:text-gold-bright"
+                  : ""
+              }`}
+            >
               {item.label}
             </Link>
           ))}

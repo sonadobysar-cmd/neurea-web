@@ -314,7 +314,15 @@ export default function HomePage() {
             {serviceCards.map((c) => (
               <Link key={c.title} href={c.href} className="card-luxury group flex flex-col p-9">
                 <h3 className="font-display text-[1.55rem] font-light tracking-[-0.03em] text-gold md:text-[1.7rem]">
-                  {c.title}
+                  {c.title === "Klinické sezení" ? (
+                    <>
+                      Klinické
+                      <br />
+                      sezení
+                    </>
+                  ) : (
+                    c.title
+                  )}
                 </h3>
                 <p className="mt-5 flex-1 text-[15px] font-normal leading-relaxed text-ink/55">{c.desc}</p>
                 <span className="mt-8 text-[11px] font-normal uppercase tracking-[0.32em] text-gold transition group-hover:text-gold-bright">

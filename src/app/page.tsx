@@ -45,6 +45,59 @@ export default function HomePage() {
     <>
       <Hero />
 
+      {/* Sekce pod hero: věta + plovoucí bubliny diagnóz */}
+      <section className="border-t border-gray-100/60 bg-[#fafbfc] pt-14 pb-12 md:pt-16 md:pb-16">
+        <div className="mx-auto max-w-6xl px-4 text-center md:px-8">
+          <p className="font-display text-[1.7rem] font-light tracking-[-0.02em] text-ink/90 md:text-[2.15rem]">
+            Pomáháme tam, kde klinická cesta nestačila.
+          </p>
+          <div className="divider-gold mx-auto mt-7 h-px w-20" aria-hidden />
+
+          <div className="relative mx-auto mt-12 h-[280px] md:h-[320px]">
+            {/* SR-only heading for accessibility */}
+            <h2 className="sr-only">Diagnózy a orientační testy</h2>
+
+            {/* Outline bubliny */}
+            {[
+              { label: "Deprese", x: 12, y: 24, s: 0.95, r: -6 },
+              { label: "Úzkosti", x: 28, y: 46, s: 1.1, r: 4 },
+              { label: "Vyhoření", x: 48, y: 22, s: 1.0, r: -2 },
+              { label: "Nespavost", x: 64, y: 50, s: 0.92, r: 6 },
+              { label: "ADHD", x: 78, y: 28, s: 1.18, r: -3 },
+              { label: "Chronická bolest", x: 18, y: 74, s: 1.1, r: 3 },
+              { label: "Panické ataky", x: 40, y: 66, s: 0.95, r: -5 },
+              { label: "Burnout", x: 66, y: 74, s: 1.0, r: 7 },
+              { label: "Poruchy pozornosti", x: 86, y: 62, s: 0.86, r: -4 },
+            ].map((b) => (
+              <span
+                key={b.label}
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-gold/65 bg-white/55 px-4 py-2 text-[13px] font-light text-ink/70 backdrop-blur-md"
+                style={{
+                  left: `${b.x}%`,
+                  top: `${b.y}%`,
+                  transform: `translate(-50%, -50%) rotate(${b.r}deg) scale(${b.s})`,
+                }}
+              >
+                {b.label}
+              </span>
+            ))}
+
+            {/* Poslední bublina: zlatá, plná */}
+            <Link
+              href="/testy"
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-gold bg-gold px-6 py-3 text-[14px] font-light text-ink shadow-glow-gold"
+              style={{
+                left: "55%",
+                top: "90%",
+                transform: "translate(-50%, -50%) rotate(2deg) scale(1.05)",
+              }}
+            >
+              + Orientační testy &rarr;
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Klinický pruh — světlé sklo, kovové akcenty */}
       <section className="section-clinical-strip section-spacious">
         <div className="relative z-[1] mx-auto grid max-w-6xl grid-cols-1 divide-y divide-gray-200/50 px-4 md:grid-cols-3 md:divide-x md:divide-y-0 md:px-8">

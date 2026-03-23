@@ -25,9 +25,9 @@ export const site = {
   /** Volitelný poster (JPG/PNG) — první snímek videa, lepší LCP než prázdné video. */
   heroVideoPosterUrl: null as string | null,
   /**
-   * Volitelné logo (SVG) v hlavičce místo textu „NEUREA“. Soubor v `public/`.
+   * Volitelné obrázkové logo v levé části hlavičky. `null` = pouze text „NEUREA“ (stejný zlatý styl jako značka ve hero).
    */
-  wordmarkUrl: "/neurea-wordmark.svg" as string | null,
+  wordmarkUrl: null as string | null,
   ico: "00736813",
   operator: "Nia Dobyšar",
   locations: {

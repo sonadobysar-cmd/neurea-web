@@ -34,21 +34,14 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-white/70 bg-white/75 shadow-[0_1px_0_0_rgba(184,150,62,0.12)] backdrop-blur-xl backdrop-saturate-150 supports-[backdrop-filter]:bg-white/65">
       <div className="relative mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4 md:px-8">
-        <Link href="/" className="relative z-10 flex min-w-0 shrink items-center" aria-label="NEUREA — úvod">
-          {site.wordmarkUrl ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={site.wordmarkUrl}
-              alt="NEUREA"
-              className="h-7 w-auto max-h-7 max-w-[104px] shrink-0 object-contain object-left sm:max-w-[118px] md:h-8 md:max-h-8 md:max-w-[132px]"
-              width={180}
-              height={48}
-              decoding="async"
-              fetchPriority="high"
-            />
-          ) : (
-            <span className="font-display text-xl font-light tracking-[0.28em] text-gold">NEUREA</span>
-          )}
+        <Link
+          href="/"
+          className="relative z-10 flex shrink-0 items-center"
+          aria-label="NEUREA — úvod"
+        >
+          <span className="select-none font-sans text-lg font-light uppercase leading-none tracking-[0.32em] text-gold sm:text-xl sm:tracking-[0.34em] md:text-2xl md:tracking-[0.36em]">
+            {site.name}
+          </span>
         </Link>
 
         <nav

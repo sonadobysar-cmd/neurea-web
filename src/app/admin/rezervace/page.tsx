@@ -1,4 +1,5 @@
 import { cookies } from "next/headers";
+import Link from "next/link";
 import { AdminLoginPanel } from "@/components/AdminLoginPanel";
 import { AdminLogoutButton } from "@/components/AdminLogoutButton";
 import { PageShell } from "@/components/PageShell";
@@ -40,7 +41,15 @@ export default async function AdminRezervacePage() {
           </h1>
           <p className="mt-4 text-sm text-ink/60">Přihlášená agenda: {session.email}</p>
         </div>
-        <AdminLogoutButton />
+        <div className="flex shrink-0 flex-col items-end gap-3 sm:flex-row sm:items-center">
+          <Link
+            href="/admin/email-preview"
+            className="text-sm font-normal text-gold transition hover:underline"
+          >
+            Náhled e-mailu →
+          </Link>
+          <AdminLogoutButton />
+        </div>
       </div>
 
       <div className="mt-10 overflow-hidden rounded-2xl border border-white/70 bg-white/60 shadow-luxury backdrop-blur-md">

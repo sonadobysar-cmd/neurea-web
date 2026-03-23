@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Hero } from "@/components/Hero";
 import { CtaButtons } from "@/components/CtaButtons";
+import { AnimatedCounters } from "@/components/AnimatedCounters";
 
 const steps = [
   { title: "Přijdeš", desc: "Rezervace termínu online — přehledně, bez zbytečných kroků." },
@@ -393,39 +394,7 @@ export default function HomePage() {
       </section>
 
       <div className="divider-gold w-full" aria-hidden />
-
-      <section className="bg-white section-spacious">
-        <div className="mx-auto max-w-6xl px-4 md:px-8">
-          <div className="glass-panel-strong relative flex flex-col items-start justify-between gap-10 overflow-hidden p-10 md:flex-row md:items-center md:p-14">
-            <div
-              className="pointer-events-none absolute -right-20 top-0 h-64 w-64 rounded-full bg-[radial-gradient(circle,rgba(200,175,100,0.1)_0%,transparent_70%)] blur-2xl"
-              aria-hidden
-            />
-            <div className="relative w-full">
-              <p className="eyebrow">Lokace, Expanze, Rezervace</p>
-              <h2 className="mt-4 font-display text-2xl font-light text-ink md:text-[2.15rem]">
-                Kde vás čekáme
-              </h2>
-              <div className="mt-4 grid gap-5 sm:grid-cols-3">
-                {stats.map((s) => (
-                  <div key={s.hint} className="text-left">
-                    <p className="font-heading text-[11px] font-normal uppercase tracking-[0.32em] text-gold opacity-80">
-                      {s.hint}
-                    </p>
-                    <p className="mt-2 font-display text-lg font-light text-ink">{s.value}</p>
-                    <p className="mt-1 text-[11px] font-normal uppercase tracking-[0.3em] text-ink/45">
-                      {s.sub}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <Link href="/rezervace" className="btn-gold shrink-0 px-10">
-              <span>Rezervovat</span>
-            </Link>
-          </div>
-        </div>
-      </section>
+      <AnimatedCounters />
 
       <section className="border-y border-gray-100/60 bg-[#fafbfc] section-spacious">
         <div className="mx-auto max-w-6xl px-4 md:px-8">

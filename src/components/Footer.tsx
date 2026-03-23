@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { site } from "@/lib/site";
 
 export function Footer() {
   return (
@@ -39,14 +38,21 @@ export function Footer() {
         </div>
         <div>
           <p className="eyebrow">Kontakt</p>
-          <p className="mt-5 text-sm text-ink/75">
-            <a href={`mailto:${site.email}`} className="transition hover:text-gold">
-              {site.email}
-            </a>
-          </p>
-          <p className="mt-2 text-xs text-ink/45">
-            IČO {site.ico} · {site.operator}
-          </p>
+          <div className="mt-5 space-y-2 text-sm text-ink/75">
+            <p>NEUREA</p>
+            <p>
+              <a href="mailto:info@neurea.cz" className="transition hover:text-gold">
+                info@neurea.cz
+              </a>
+            </p>
+            <p>
+              <a href="tel:+420735887773" className="transition hover:text-gold">
+                +420 735 887 773
+              </a>
+            </p>
+            <p>IČO: MS Luxury s.r.o. 14392704</p>
+            <p>Datová sch.: 9h7uxuz</p>
+          </div>
         </div>
       </div>
       <div className="border-t border-gold/15 py-6 text-center text-[11px] font-normal uppercase tracking-[0.2em] text-ink/40">

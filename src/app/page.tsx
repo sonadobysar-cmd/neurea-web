@@ -95,6 +95,9 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Tenká zlatá linka mezi bublinami a Lokace/Expanze/Rezervace */}
+      <div className="divider-gold w-full" aria-hidden />
+
       {/* Klinický pruh — světlé sklo, kovové akcenty */}
       <section className="section-clinical-strip section-spacious">
         <div className="relative z-[1] mx-auto grid max-w-6xl grid-cols-1 divide-y divide-gray-200/50 px-4 md:grid-cols-3 md:divide-x md:divide-y-0 md:px-8">

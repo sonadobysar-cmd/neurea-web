@@ -1,7 +1,8 @@
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
-import { markBookingPaidBySessionId } from "@/lib/bookingStore";
+import { sendBookingConfirmationEmail } from "@/lib/email/sendBookingConfirmation";
+import { markBookingPaidBySessionId, markConfirmationEmailSent } from "@/lib/bookingStore";
 
 export async function POST(req: Request) {
   const secret = process.env.STRIPE_SECRET_KEY;
@@ -29,7 +30,17 @@ export async function POST(req: Request) {
   if (event.type === "checkout.session.completed") {
     const session = event.data.object as Stripe.Checkout.Session;
     if (session.payment_status === "paid" && session.id) {
-      await markBookingPaidBySessionId(session.id);
+      const booking = await markBookingPaidBySessionId(session.id);
+      if (booking && !booking.confirmationEmailSent) {
+        try {
+          const sent = await sendBookingConfirmationEmail(booking);
+          if (sent) {
+            await markConfirmationEmailSent(booking.id);
+          }
+        } catch (e) {
+          console.error("sendBookingConfirmationEmail:", e);
+        }
+      }
     }
   }
 

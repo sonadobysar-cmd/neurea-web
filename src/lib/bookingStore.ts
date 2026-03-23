@@ -23,6 +23,8 @@ export type Booking = {
   stripeSessionId?: string;
   createdAt: string;
   paidAt?: string;
+  /** Odeslán potvrzovací e-mail po platbě */
+  confirmationEmailSent?: boolean;
 };
 
 const DATA_DIR = process.env.BOOKINGS_DATA_DIR || "/tmp/neurea";
@@ -86,8 +88,20 @@ export async function markBookingPaidBySessionId(stripeSessionId: string) {
   const bookings = await readAllUnsafe();
   const idx = bookings.findIndex((b) => b.stripeSessionId === stripeSessionId);
   if (idx === -1) return null;
+  if (bookings[idx].status === "paid") {
+    return bookings[idx];
+  }
   bookings[idx].status = "paid";
   bookings[idx].paidAt = new Date().toISOString();
+  await writeAllUnsafe(bookings);
+  return bookings[idx];
+}
+
+export async function markConfirmationEmailSent(bookingId: string) {
+  const bookings = await readAllUnsafe();
+  const idx = bookings.findIndex((b) => b.id === bookingId);
+  if (idx === -1) return null;
+  bookings[idx].confirmationEmailSent = true;
   await writeAllUnsafe(bookings);
   return bookings[idx];
 }

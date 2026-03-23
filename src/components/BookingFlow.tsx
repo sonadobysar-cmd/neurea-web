@@ -21,7 +21,7 @@ export function BookingFlow() {
   const [serviceId, setServiceId] = useState(SERVICES[0]?.id ?? "");
   const service = useMemo(() => SERVICES.find((s) => s.id === serviceId) ?? SERVICES[0], [serviceId]);
 
-  /** Dočasně: test platba 10 Kč — po ověření odstranit (viz bookingConfig PAYMENT_OPTION_TEST_10 + test_10 v PaymentOption). */
+  /** Dočasně: test platba 15 Kč (min. Stripe pro CZK) — po ověření odstranit. */
   const paymentOptions = useMemo(
     () => [...PAYMENT_OPTIONS, PAYMENT_OPTION_TEST_10],
     [],

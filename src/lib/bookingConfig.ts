@@ -26,17 +26,19 @@ export const PAYMENT_OPTIONS: { id: PaymentOption; label: string }[] = [
 ];
 
 /**
- * Dočasná testovací platba 10 Kč (vždy v UI, dokud neodstraníme).
+ * Dočasná nejnižší testovací platba (vždy v UI, dokud neodstraníme).
+ * Pozn.: Stripe pro CZK obvykle nepřijme méně než ~15 Kč — proto 15 Kč, ne 10 Kč.
  * Odstranění: smaž `test_10` z PaymentOption, řádky v getChargeAmountCzk, tuto konstantu,
- * úpravu v BookingFlow (paymentOptions) a v checkout route (popis TEST 10 Kč).
+ * úpravu v BookingFlow (paymentOptions) a v checkout route (popis TEST … Kč).
  */
 export const PAYMENT_OPTION_TEST_10: { id: PaymentOption; label: string } = {
   id: "test_10",
-  label: "Test 10 Kč (dočasně)",
+  label: "Test 15 Kč (dočasně)",
 };
 
 export function getChargeAmountCzk(servicePriceCzk: number, paymentOption: PaymentOption) {
-  if (paymentOption === "test_10") return 10;
+  /** Minimální částka pro CZK u Stripe (~15 Kč) - viz chyby při 10 Kč */
+  if (paymentOption === "test_10") return 15;
   if (paymentOption === "deposit_500") return 500;
   if (paymentOption === "deposit_1000") return 1000;
   return servicePriceCzk;

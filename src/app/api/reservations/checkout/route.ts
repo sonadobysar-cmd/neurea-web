@@ -15,6 +15,15 @@ type CheckoutPayload = {
   paymentOption: PaymentOption;
 };
 
+function getErrorMessage(err: unknown, fallback: string) {
+  if (err instanceof Error && err.message) return err.message;
+  if (typeof err === "object" && err !== null && "message" in err) {
+    const m = (err as { message: unknown }).message;
+    if (typeof m === "string" && m) return m;
+  }
+  return fallback;
+}
+
 export async function POST(req: Request) {
   const secret = process.env.STRIPE_SECRET_KEY;
   if (!secret) {
@@ -45,20 +54,29 @@ export async function POST(req: Request) {
 
   const chargedAmountCzk = getChargeAmountCzk(service.priceCzk, body.paymentOption);
 
-  const booking = await createBooking({
-    serviceId: service.id,
-    serviceName: service.name,
-    durationMin: service.durationMin,
-    servicePriceCzk: service.priceCzk,
-    paymentOption: body.paymentOption,
-    chargedAmountCzk,
-    date: body.date,
-    time: body.time,
-    clientName: body.clientName.trim(),
-    clientEmail: body.clientEmail.trim(),
-    clientPhone: body.clientPhone.trim(),
-    notes: body.notes?.trim() || "",
-  });
+  let booking;
+  try {
+    booking = await createBooking({
+      serviceId: service.id,
+      serviceName: service.name,
+      durationMin: service.durationMin,
+      servicePriceCzk: service.priceCzk,
+      paymentOption: body.paymentOption,
+      chargedAmountCzk,
+      date: body.date,
+      time: body.time,
+      clientName: body.clientName.trim(),
+      clientEmail: body.clientEmail.trim(),
+      clientPhone: body.clientPhone.trim(),
+      notes: body.notes?.trim() || "",
+    });
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json(
+      { error: getErrorMessage(err, "Nelze uložit rezervaci (úložiště serveru).") },
+      { status: 500 },
+    );
+  }
 
   const stripe = new Stripe(secret, { apiVersion: "2025-02-24.acacia" });
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
@@ -79,7 +97,7 @@ export async function POST(req: Request) {
               name: `${booking.serviceName} — ${site.name}`,
               description:
                 booking.paymentOption === "test_10"
-                  ? `TEST 10 Kč — ${booking.date} ${booking.time} (${booking.durationMin} min)`
+                  ? `TEST 15 Kč — ${booking.date} ${booking.time} (${booking.durationMin} min)`
                   : `${booking.date} ${booking.time} (${booking.durationMin} min)`,
             },
           },
@@ -100,7 +118,10 @@ export async function POST(req: Request) {
     return NextResponse.json({ url: session.url });
   } catch (err) {
     console.error(err);
-    return NextResponse.json({ error: "Chyba při vytváření platby." }, { status: 500 });
+    return NextResponse.json(
+      { error: getErrorMessage(err, "Chyba při vytváření platby.") },
+      { status: 500 },
+    );
   }
 }
 

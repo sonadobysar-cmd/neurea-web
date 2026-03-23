@@ -129,6 +129,8 @@ export default function HomePage() {
         </div>
       </section>
 
+      <div className="divider-gold w-full" aria-hidden />
+
       <section className="border-y border-gray-100/60 bg-[#fafbfc] section-spacious">
         <div className="mx-auto max-w-6xl px-4 md:px-8">
           <div className="grid gap-14 lg:grid-cols-2 lg:items-center lg:gap-20">

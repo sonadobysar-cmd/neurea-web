@@ -17,7 +17,7 @@ const serviceCards = [
   },
   {
     title: "Klinické sezení",
-    desc: "1, 5 nebo 10 sezení podle plánu.",
+    desc: "1, 5 nebo 10 sezení podle plánu. Každý krok navazujeme na měření a individuální protokol.",
     href: "/sluzby",
   },
   {

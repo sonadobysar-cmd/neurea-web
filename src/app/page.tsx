@@ -40,12 +40,6 @@ const techTeaser = [
   "Myofasciální přístup k chronické bolesti",
 ];
 
-const stats = [
-  { value: "Brno", sub: "centrum", hint: "Lokace" },
-  { value: "Praha", sub: "připravujeme", hint: "Expanze" },
-  { value: "Online", sub: "přehledná rezervace", hint: "Rezervace" },
-];
-
 const diagnosisStats = [
   {
     title: "Deprese",
@@ -205,23 +199,7 @@ export default function HomePage() {
 
       <div className="divider-gold w-full" aria-hidden />
 
-      {/* Klinický pruh — světlé sklo, kovové akcenty */}
-      <section className="section-clinical-strip section-spacious">
-        <div className="relative z-[1] mx-auto grid max-w-6xl grid-cols-1 divide-y divide-gray-200/50 px-4 md:grid-cols-3 md:divide-x md:divide-y-0 md:px-8">
-          {stats.map((s) => (
-            <div
-              key={s.hint}
-              className="flex flex-col items-center justify-center px-6 py-10 text-center md:py-12 md:px-10"
-            >
-              <p className="mb-3 font-heading text-[10px] font-normal uppercase tracking-[0.38em] text-gold opacity-80">
-                {s.hint}
-              </p>
-              <p className="font-display text-3xl font-light text-ink md:text-[2.35rem]">{s.value}</p>
-              <p className="mt-2 text-[11px] font-normal uppercase tracking-[0.3em] text-ink/45">{s.sub}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      <AnimatedCounters />
 
       <div className="divider-gold w-full" aria-hidden />
 
@@ -392,9 +370,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      <div className="divider-gold w-full" aria-hidden />
-      <AnimatedCounters />
 
       <section className="border-y border-gray-100/60 bg-[#fafbfc] section-spacious">
         <div className="mx-auto max-w-6xl px-4 md:px-8">

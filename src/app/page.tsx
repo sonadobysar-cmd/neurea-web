@@ -16,13 +16,18 @@ const serviceCards = [
     href: "/sluzby",
   },
   {
-    title: "Terapeutické série",
-    desc: "5 nebo 10 sezení podle plánu; dětské protokoly pro ADHD a související obtíže.",
+    title: "Klinické sezení",
+    desc: "1, 5 nebo 10 sezení podle plánu.",
     href: "/sluzby",
   },
   {
-    title: "À la carte technologie",
-    desc: "HRV biofeedback, tDCS, CES, fotobiomodulace, myofasciální práce — jednotlivě.",
+    title: "Samostatné úkony",
+    desc: "HRV biofeedback, tDCS, CES, fotobiomodulace, myofasciální práce — samostatně.",
+    href: "/sluzby",
+  },
+  {
+    title: "Dětský program",
+    desc: "Podpora pro děti s ADHD a souvisejícími obtížemi — dětské protokoly včetně vybraných technologií.",
     href: "/sluzby",
   },
 ];

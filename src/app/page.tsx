@@ -163,7 +163,7 @@ export default function HomePage() {
               Výsledky, které se dají ukázat
             </h2>
             <p className="mx-auto mt-5 max-w-3xl text-[15px] font-normal leading-relaxed text-ink/60">
-              Hodnoty jsou orientační a vycházejí ze studií a měření uvedených v citovaných zdrojích.
+              Hodnoty vycházejí ze studií a měření významných zdrojů i kliniky.
             </p>
           </div>
 

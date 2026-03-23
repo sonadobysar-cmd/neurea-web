@@ -97,7 +97,7 @@ export async function POST(req: Request) {
               name: `${booking.serviceName} — ${site.name}`,
               description:
                 booking.paymentOption === "test_10"
-                  ? `TEST 15 Kč — ${booking.date} ${booking.time} (${booking.durationMin} min)`
+                  ? `TEST 20 Kč — ${booking.date} ${booking.time} (${booking.durationMin} min)`
                   : `${booking.date} ${booking.time} (${booking.durationMin} min)`,
             },
           },

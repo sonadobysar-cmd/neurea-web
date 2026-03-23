@@ -48,7 +48,7 @@ export default function HomePage() {
       {/* Sekce pod hero: věta + plovoucí bubliny diagnóz */}
       <section className="border-t border-gray-100/60 bg-[#fafbfc] pt-14 pb-12 md:pt-16 md:pb-16">
         <div className="mx-auto max-w-6xl px-4 text-center md:px-8">
-          <p className="normal-case font-display text-[1.45rem] font-light tracking-[-0.02em] text-ink/90 md:text-[1.85rem] lg:text-[2.05rem]">
+          <p className="uppercase font-display text-[1.45rem] font-light tracking-[-0.02em] text-ink/90 md:text-[1.85rem] lg:text-[2.05rem]">
             Pomáháme tam, kde klinická cesta nestačila.
           </p>
           <div className="divider-gold mx-auto mt-7 h-px w-20" aria-hidden />

@@ -401,18 +401,27 @@ export default function HomePage() {
               className="pointer-events-none absolute -right-20 top-0 h-64 w-64 rounded-full bg-[radial-gradient(circle,rgba(200,175,100,0.1)_0%,transparent_70%)] blur-2xl"
               aria-hidden
             />
-            <div className="relative">
-              <p className="eyebrow">Orientace</p>
+            <div className="relative w-full">
+              <p className="eyebrow">Lokace, Expanze, Rezervace</p>
               <h2 className="mt-4 font-display text-2xl font-light text-ink md:text-[2.15rem]">
-                Screening testy
+                Kde vás čekáme
               </h2>
-              <p className="mt-3 max-w-lg text-[15px] font-normal leading-relaxed text-ink/58">
-                PHQ-9, GAD-7, ISI, ASRS (dospělí) a rodičovský checklist — výsledky jsou orientační,
-                ne diagnóza.
-              </p>
+              <div className="mt-4 grid gap-5 sm:grid-cols-3">
+                {stats.map((s) => (
+                  <div key={s.hint} className="text-left">
+                    <p className="font-heading text-[11px] font-normal uppercase tracking-[0.32em] text-gold opacity-80">
+                      {s.hint}
+                    </p>
+                    <p className="mt-2 font-display text-lg font-light text-ink">{s.value}</p>
+                    <p className="mt-1 text-[11px] font-normal uppercase tracking-[0.3em] text-ink/45">
+                      {s.sub}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
-            <Link href="/testy" className="btn-gold shrink-0 px-10">
-              <span>Spustit testy</span>
+            <Link href="/rezervace" className="btn-gold shrink-0 px-10">
+              <span>Rezervovat</span>
             </Link>
           </div>
         </div>

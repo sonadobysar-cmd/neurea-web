@@ -156,7 +156,7 @@ export default function HomePage() {
 
       {/* Prodejní sekce: statistiky pro jednotlivé diagnózy */}
       <section className="bg-white section-spacious">
-        <div className="mx-auto max-w-6xl px-4 md:px-8">
+        <div className="mx-auto max-w-[82rem] px-4 md:px-10">
           <div className="text-center">
             <p className="eyebrow">Statistiky úspěšnosti</p>
             <h2 className="mt-5 font-display text-[2rem] font-light tracking-[-0.03em] text-ink md:text-[2.5rem] lg:text-[2.9rem] lg:leading-[1.12]">
@@ -167,7 +167,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {diagnosisStats.map((s) => (
               <div
                 key={s.title}

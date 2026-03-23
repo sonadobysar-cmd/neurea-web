@@ -49,16 +49,16 @@ export const hours = [
 
 /** Hlavní položky v horní liště — zbytek v „Více“ (viz `navMore`), aby menu nebylo namačkané. */
 export const navMain = [
-  { href: "/", label: "Úvod" },
   { href: "/sluzby", label: "Služby" },
   { href: "/technologie", label: "Technologie" },
   { href: "/o-nas", label: "O nás" },
   { href: "/cenik", label: "Ceník" },
-  { href: "/jak-to-funguje", label: "Jak to funguje" },
+  { href: "/testy", label: "Screening testy" },
 ];
 
 export const navMore = [
-  { href: "/testy", label: "Screening testy" },
+  { href: "/", label: "Úvod" },
+  { href: "/jak-to-funguje", label: "Jak to funguje" },
   { href: "/faq", label: "FAQ" },
   { href: "/kontakt", label: "Kontakt" },
 ];

@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { navMain, navMore, site } from "@/lib/site";
 
 const navLinkDesktop =
-  "px-3 py-2 text-[13px] font-light tracking-[0.12em] text-ink/55 transition-colors duration-200 hover:text-gold";
+  "inline-flex items-center border-b border-transparent px-3 py-2 text-[14px] font-normal uppercase tracking-[0.16em] text-ink/70 transition-all duration-200 hover:border-gold/50 hover:text-gold";
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -45,7 +45,7 @@ export function Header() {
         </Link>
 
         <nav
-          className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 lg:flex"
+          className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-0.5 lg:flex"
           aria-label="Hlavní menu"
         >
           {navMain.map((item) => (
@@ -56,8 +56,8 @@ export function Header() {
           <div className="relative pl-1" ref={moreRef}>
             <button
               type="button"
-              className={`inline-flex items-center gap-1 px-3 py-2 text-[13px] font-light tracking-[0.12em] transition-colors ${
-                moreOpen ? "text-gold" : "text-ink/55 hover:text-gold"
+              className={`inline-flex items-center gap-1 border-b border-transparent px-3 py-2 text-[14px] font-normal uppercase tracking-[0.16em] transition-all ${
+                moreOpen ? "border-gold/55 text-gold" : "text-ink/70 hover:border-gold/50 hover:text-gold"
               }`}
               aria-expanded={moreOpen}
               aria-haspopup="menu"
@@ -80,7 +80,7 @@ export function Header() {
                     key={item.href}
                     role="menuitem"
                     href={item.href}
-                    className="block px-4 py-3 text-[14px] font-normal text-ink/75 transition hover:bg-cream hover:text-gold"
+                    className="block px-4 py-3 text-[13px] font-normal uppercase tracking-[0.12em] text-ink/75 transition hover:bg-cream hover:text-gold"
                     onClick={() => setMoreOpen(false)}
                   >
                     {item.label}

@@ -40,6 +40,62 @@ const stats = [
   { value: "Online", sub: "přehledná rezervace", hint: "Rezervace" },
 ];
 
+const diagnosisStats = [
+  {
+    title: "Deprese",
+    value: "94 % lidí se zlepšilo do 10 týdnů",
+    quote:
+      "Zastavte přemítání, zvedněte se z postele a začněte zase žít. Ne za rok. Za týdny.",
+    source: "Zdroj: 462 pacientů · Nature Medicine · transkraniální stimulace mozku",
+  },
+  {
+    title: "Úzkosti",
+    value: "100 % studií prokázalo zlepšení",
+    quote:
+      "Zatáhnout ruční brzdu nervového systému jde. Nemusíte žít v permanentní pohotovosti.",
+    source: "Zdroj: 8 randomizovaných studií · 337 pacientů · Harvard School of Public Health · CES",
+  },
+  {
+    title: "Nespavost",
+    value: "48 % – úplná remise insomnie za 21 dní",
+    quote: "Konečně spát celou noc. Vstát odpočatý. Bez prášků a bez závislosti.",
+    source: "Zdroj: Objektivně měřeno actigrafií · reálné podmínky · CES terapie",
+  },
+  {
+    title: "ADHD – Dospělí",
+    value: "4 týdny do měřitelného zlepšení pozornosti",
+    quote:
+      "Konečně dokončovat to, co začnete. Soustředit se bez boje. Bez stimulantů a vedlejších účinků.",
+    source: "Zdroj: 64 dospělých s ADHD · randomizovaná studie TUNED · tDCS",
+  },
+  {
+    title: "ADHD – Děti",
+    value: "6 z 7 dětí zaznamenalo zlepšení příznaků",
+    quote: "Vaše dítě se umí soustředit. Jen jeho mozek potřebuje správný impuls, ne chemii.",
+    source: "Zdroj: Fotobiomodulace mozku · klinické case studies · Harvard & Boston University",
+  },
+  {
+    title: "Chronická bolest",
+    value: "99 % veteránů hodnotilo léčbu jako účinnou",
+    quote: "Bolest bez příčiny je vždy bolest s příčinou. Najdeme ji. A zaměříme se přímo na ni.",
+    source: "Zdroj: 152 účastníků · US Department of Veterans Affairs · CES",
+  },
+  {
+    title: "Vyhoření",
+    value: "77 % – klinické zlepšení do 3 týdnů",
+    quote:
+      "Dovolená nepomohla. Protože problém není únava – je to dysregulovaný nervový systém. Ten umíme změřit a změnit.",
+    source: "Zdroj: 50 000+ uživatelů · reálná data · transkraniální stimulace",
+  },
+  {
+    title: "Fotobiomodulace / Kognitivní výkon",
+    value: "82 % studií potvrdilo zlepšení kognitivních funkcí",
+    quote: "Světlo které mění mozek. Bez léků. Bez elektrod. 35+ klinických studií za sebou.",
+    source:
+      "Zdroj: 35+ klinických studií · Harvard · Boston University · UCSF · Mount Sinai",
+  },
+];
+
 export default function HomePage() {
   return (
     <>
@@ -96,6 +152,51 @@ export default function HomePage() {
       </section>
 
       {/* Tenká zlatá linka mezi bublinami a Lokace/Expanze/Rezervace */}
+      <div className="divider-gold w-full" aria-hidden />
+
+      {/* Prodejní sekce: statistiky pro jednotlivé diagnózy */}
+      <section className="bg-white section-spacious">
+        <div className="mx-auto max-w-6xl px-4 md:px-8">
+          <div className="text-center">
+            <p className="eyebrow">Statistiky úspěšnosti</p>
+            <h2 className="mt-5 font-display text-[2rem] font-light tracking-[-0.03em] text-ink md:text-[2.5rem] lg:text-[2.9rem] lg:leading-[1.12]">
+              Výsledky, které se dají ukázat
+            </h2>
+            <p className="mx-auto mt-5 max-w-3xl text-[15px] font-normal leading-relaxed text-ink/60">
+              Hodnoty jsou orientační a vycházejí ze studií a měření uvedených v citovaných zdrojích.
+            </p>
+          </div>
+
+          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {diagnosisStats.map((s) => (
+              <div
+                key={s.title}
+                className="glass-panel-strong flex h-full flex-col p-7 md:p-8"
+              >
+                <p className="font-heading text-[11px] font-normal uppercase tracking-[0.32em] text-gold">
+                  {s.title}
+                </p>
+                <p className="mt-5 font-display text-[1.9rem] font-light tracking-[-0.03em] text-ink">
+                  {s.value}
+                </p>
+                <p className="mt-5 text-[15px] font-normal leading-relaxed text-ink/70 italic">
+                  {s.quote}
+                </p>
+                <p className="mt-auto pt-6 text-[13px] font-normal leading-relaxed text-ink/45">
+                  {s.source}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10 flex justify-center">
+            <Link href="/testy" className="btn-gold">
+              <span>Spustit screening testy</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <div className="divider-gold w-full" aria-hidden />
 
       {/* Klinický pruh — světlé sklo, kovové akcenty */}

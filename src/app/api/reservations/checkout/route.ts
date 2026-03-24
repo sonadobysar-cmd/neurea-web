@@ -108,6 +108,13 @@ export async function POST(req: Request) {
         bookingId: booking.id,
         serviceId: booking.serviceId,
         paymentOption: booking.paymentOption,
+        serviceName: booking.serviceName,
+        durationMin: String(booking.durationMin),
+        chargedAmountCzk: String(booking.chargedAmountCzk),
+        date: booking.date,
+        time: booking.time,
+        clientName: booking.clientName,
+        clientEmail: booking.clientEmail,
       },
     });
 

@@ -96,10 +96,7 @@ export async function POST(req: Request) {
             unit_amount: chargedAmountCzk * 100,
             product_data: {
               name: `${booking.serviceName} — ${site.name}`,
-              description:
-                booking.paymentOption === "test_10"
-                  ? `TEST 20 Kč — ${booking.date} ${booking.time} (${booking.durationMin} min)`
-                  : `${booking.date} ${booking.time} (${booking.durationMin} min)`,
+              description: `${booking.date} ${booking.time} (${booking.durationMin} min)`,
             },
           },
         },

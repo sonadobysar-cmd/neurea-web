@@ -11,7 +11,7 @@ function toNumber(value: string | null | undefined, fallback: number) {
 }
 
 function parsePaymentOption(value: string | null | undefined): Booking["paymentOption"] {
-  if (value === "deposit_500" || value === "deposit_1000" || value === "full" || value === "test_10") {
+  if (value === "deposit_500" || value === "deposit_1000" || value === "full") {
     return value;
   }
   return "full";

@@ -5,7 +5,7 @@ export type ServiceDefinition = {
   priceCzk: number;
 };
 
-export type PaymentOption = "deposit_500" | "deposit_1000" | "full" | "test_10";
+export type PaymentOption = "deposit_500" | "deposit_1000" | "full";
 
 export const SERVICES: ServiceDefinition[] = [
   { id: "vstupni-diagnostika", name: "Vstupní diagnostika", durationMin: 75, priceCzk: 3500 },
@@ -25,18 +25,7 @@ export const PAYMENT_OPTIONS: { id: PaymentOption; label: string }[] = [
   { id: "full", label: "Plná platba" },
 ];
 
-/**
- * Dočasná testovací platba 20 Kč (vždy v UI, dokud neodstraníme).
- * Odstranění: smaž `test_10` z PaymentOption, řádky v getChargeAmountCzk, tuto konstantu,
- * úpravu v BookingFlow (paymentOptions) a v checkout route (popis TEST … Kč).
- */
-export const PAYMENT_OPTION_TEST_10: { id: PaymentOption; label: string } = {
-  id: "test_10",
-  label: "Test 20 Kč (dočasně)",
-};
-
 export function getChargeAmountCzk(servicePriceCzk: number, paymentOption: PaymentOption) {
-  if (paymentOption === "test_10") return 20;
   if (paymentOption === "deposit_500") return 500;
   if (paymentOption === "deposit_1000") return 1000;
   return servicePriceCzk;

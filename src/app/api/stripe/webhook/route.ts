@@ -3,7 +3,13 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import type { Booking } from "@/lib/bookingStore";
 import { sendBookingConfirmationEmail } from "@/lib/email/sendBookingConfirmation";
-import { markBookingPaidBySessionId, markConfirmationEmailSent } from "@/lib/bookingStore";
+import { sendReminderEmail } from "@/lib/email/sendReminderEmail";
+import { getTomorrowYmdPrague } from "@/lib/pragueDate";
+import {
+  markBookingPaidBySessionId,
+  markConfirmationEmailSent,
+  markReminderEmailSent,
+} from "@/lib/bookingStore";
 
 function toNumber(value: string | null | undefined, fallback: number) {
   const n = Number(value);
@@ -82,6 +88,24 @@ export async function POST(req: Request) {
           }
         } catch (e) {
           console.error("sendBookingConfirmationEmail:", e);
+        }
+      }
+
+      // Odeslání připomínky i pro případy, kdy se klient zaplatí pozdě večer
+      // (cron pro "den předem" už nestihl běžet).
+      // Pravidlo: připomínka se posílá, když kalendářní datum termínu je "zítra"
+      // podle času v Evropě/Praze.
+      const tomorrowYmd = getTomorrowYmdPrague(new Date());
+      if (bookingForEmail?.date === tomorrowYmd && bookingForEmail.clientEmail) {
+        if (!booking?.reminderEmailSent) {
+          try {
+            const sent = await sendReminderEmail(bookingForEmail);
+            if (sent && booking) {
+              await markReminderEmailSent(booking.id);
+            }
+          } catch (e) {
+            console.error("sendReminderEmail:", e);
+          }
         }
       }
     }

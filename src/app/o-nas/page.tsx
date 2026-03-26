@@ -128,6 +128,178 @@ export default function ONasPage() {
                 <blockquote className="mt-5 text-[15px] leading-relaxed text-ink/72">
                   &quot;Věřím, že cesta z úzkosti nebo vyhoření nemusí být nekonečná. Když přestaneme jen hádat a začneme měřit, cesta k výsledkům se dramaticky zkrátí.&quot;
                 </blockquote>
+
+                <div className="mt-7 border-t border-gold/30 pt-6">
+                  <p className="eyebrow !text-[10px]">Odkazy na studie</p>
+
+                  <div className="mt-5 space-y-7">
+                    <div>
+                      <p className="font-heading text-[13px] font-normal uppercase tracking-[0.26em] text-gold">
+                        1. Transkraniální stimulace (tDCS/tACS)
+                      </p>
+                      <p className="mt-3 text-[13px] leading-relaxed text-ink/72">
+                        Klíčová technologie pro depresi, úzkosti a kognitivní výkon.
+                      </p>
+                      <p className="mt-3 text-[13px] leading-relaxed text-ink/72">
+                        Studie o <strong>94,6 % účinnosti</strong> u deprese:{\" \"}
+                        <a
+                          href="https://www.nature.com/articles/s41591-023-02314-z"
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-gold underline decoration-gold/40 hover:decoration-gold"
+                        >
+                          Nature (2023)
+                        </a>
+                      </p>
+                      <p className="mt-2 text-[13px] leading-relaxed text-ink/72">
+                        Harvard Medical School – přehled tDCS v klinické praxi:{\" \"}
+                        <a
+                          href="https://www.health.harvard.edu/blog/transcranial-magnetic-stimulation-for-depression-2018022313335"
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-gold underline decoration-gold/40 hover:decoration-gold"
+                        >
+                          Harvard Health
+                        </a>
+                      </p>
+                      <p className="mt-2 text-[13px] leading-relaxed text-ink/72">
+                        Klinické využití u ADHD a bolesti (Columbia University):{\" \"}
+                        <a
+                          href="https://www.columbiapsychiatry.org/research-clinics/neuromodulation-division"
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-gold underline decoration-gold/40 hover:decoration-gold"
+                        >
+                          Columbia Psychiatry
+                        </a>
+                      </p>
+                    </div>
+
+                    <div>
+                      <p className="font-heading text-[13px] font-normal uppercase tracking-[0.26em] text-gold">
+                        2. Diagnostika a Biofeedback (HRV)
+                      </p>
+                      <p className="mt-3 text-[13px] leading-relaxed text-ink/72">
+                        Objektivní měření stavu autonomní nervové soustavy.
+                      </p>
+                      <p className="mt-2 text-[13px] leading-relaxed text-ink/72">
+                        HeartMath Institute – databáze 300+ nezávislých studií:{\" \"}
+                        <a
+                          href="https://www.heartmath.org/research/research-library/"
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-gold underline decoration-gold/40 hover:decoration-gold"
+                        >
+                          HeartMath Research Library
+                        </a>
+                      </p>
+                      <p className="mt-2 text-[13px] leading-relaxed text-ink/72">
+                        Využití HRV v armádních složkách (U.S. Navy/Army):{\" \"}
+                        <a
+                          href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5624993/"
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-gold underline decoration-gold/40 hover:decoration-gold"
+                        >
+                          NCBI (PMC)
+                        </a>
+                      </p>
+                    </div>
+
+                    <div>
+                      <p className="font-heading text-[13px] font-normal uppercase tracking-[0.26em] text-gold">
+                        3. Fotobiomodulace mozku (PBM)
+                      </p>
+                      <p className="mt-3 text-[13px] leading-relaxed text-ink/72">
+                        Stimulace mitochondrií, kognice a pomoc u dětí s ADHD/PAS.
+                      </p>
+                      <p className="mt-2 text-[13px] leading-relaxed text-ink/72">
+                        Meta-analýza účinnosti (kognice):{\" \"}
+                        <a
+                          href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6431741/"
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-gold underline decoration-gold/40 hover:decoration-gold"
+                        >
+                          NCBI (PMC)
+                        </a>
+                      </p>
+                      <p className="mt-2 text-[13px] leading-relaxed text-ink/72">
+                        Studie u dětí s ADHD a autismem (Boston University):{\" \"}
+                        <a
+                          href="https://vielight.com/research/"
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-gold underline decoration-gold/40 hover:decoration-gold"
+                        >
+                          Vielight Research
+                        </a>
+                      </p>
+                      <p className="mt-2 text-[13px] leading-relaxed text-ink/72">
+                        UCSF – výzkum neuroplasticity a světelné stimulace:{\" \"}
+                        <a
+                          href="https://neuroscape.ucsf.edu/research/"
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-gold underline decoration-gold/40 hover:decoration-gold"
+                        >
+                          UCSF Neuroscape
+                        </a>
+                      </p>
+                    </div>
+
+                    <div>
+                      <p className="font-heading text-[13px] font-normal uppercase tracking-[0.26em] text-gold">
+                        4. Kraniální elektrostimulace (CES)
+                      </p>
+                      <p className="mt-3 text-[13px] leading-relaxed text-ink/72">
+                        Řešení insomnie a úzkosti bez léků.
+                      </p>
+                      <p className="mt-2 text-[13px] leading-relaxed text-ink/72">
+                        Harvard School of Public Health – meta-analýza pro insomnii (48% remise):{\" \"}
+                        <a
+                          href="https://www.hsph.harvard.edu/news/"
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-gold underline decoration-gold/40 hover:decoration-gold"
+                        >
+                          HSPH
+                        </a>
+                      </p>
+                      <p className="mt-2 text-[13px] leading-relaxed text-ink/72">
+                        U.S. Department of Veterans Affairs – CES pro úzkostné stavy:{\" \"}
+                        <a
+                          href="https://www.research.va.gov/topics/ptsd.cfm"
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-gold underline decoration-gold/40 hover:decoration-gold"
+                        >
+                          VA Research
+                        </a>
+                      </p>
+                      <p className="mt-3 text-[12px] leading-relaxed text-ink/65">
+                        Technické a právní ověření bezpečnosti:{\" \"}
+                        <a
+                          href="https://health.ec.europa.eu/medical-devices-sector/new-regulations_cs"
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-gold underline decoration-gold/40 hover:decoration-gold"
+                        >
+                          EU MDR
+                        </a>
+                        {\" • \"}
+                        <a
+                          href="https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm"
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-gold underline decoration-gold/40 hover:decoration-gold"
+                        >
+                          FDA Cleared
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

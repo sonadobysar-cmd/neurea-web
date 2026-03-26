@@ -30,6 +30,16 @@ export function BookingFlow() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
+  // Umožní předvybrat službu z odkazu typu /rezervace?serviceId=...
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    const sid = params.get("serviceId");
+    if (!sid) return;
+    if (!SERVICES.some((s) => s.id === sid)) return;
+    setServiceId(sid);
+  }, []);
+
   useEffect(() => {
     let cancelled = false;
     async function load() {

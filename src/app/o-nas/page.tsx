@@ -16,7 +16,7 @@ export default function ONasPage() {
       </h1>
       <div className="mt-12 glass-panel-strong p-9 md:p-11">
         <div className="space-y-6">
-          <p className="text-[15px] leading-relaxed text-ink/72">
+          <p className="font-display text-[2.1rem] font-light leading-[1.08] tracking-[-0.03em] text-gold md:text-[2.6rem]">
             Terapie mluví. Neurea měří.
           </p>
 

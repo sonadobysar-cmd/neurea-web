@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function ONasPage() {
   return (
-    <PageShell>
+    <PageShell variant="wide">
       <p className="eyebrow">O nás</p>
       <h1 className="mt-4 font-display text-4xl font-normal tracking-tight text-ink md:text-5xl">
         O nás

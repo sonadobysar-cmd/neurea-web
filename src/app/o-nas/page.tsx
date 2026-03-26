@@ -15,7 +15,7 @@ export default function ONasPage() {
         O nás
       </h1>
       <div className="mt-12 glass-panel-strong p-9 md:p-11">
-        <div className="space-y-6">
+        <div className="space-y-8 md:space-y-10">
           <p className="font-display text-[2.1rem] font-light leading-[1.08] tracking-[-0.03em] text-gold md:text-[2.6rem]">
             Terapie mluví. Neurea měří.
           </p>
@@ -33,14 +33,16 @@ export default function ONasPage() {
             ověřené technologie s hlubokou znalostí lidské fyziologie.
           </p>
 
-          <div className="pt-2">
-            <h3 className="font-display text-[18px] font-light text-ink">Proč Neurea?</h3>
-            <div className="mt-4 space-y-4">
+          <div className="pt-6 md:pt-7">
+            <h3 className="font-display text-[22px] md:text-[26px] font-light tracking-[-0.02em] text-gold uppercase">
+              PROČ NEUREA?
+            </h3>
+            <div className="mt-6 space-y-6">
               <div>
                 <p className="font-heading text-[13px] font-normal uppercase tracking-[0.26em] text-gold">
                   Objektivní data
                 </p>
-                <p className="mt-2 text-[15px] leading-relaxed text-ink/72">
+                <p className="mt-3 text-[15px] leading-relaxed text-ink/72">
                   Pomocí diagnostiky HRV (variability srdečního rytmu) vidíme přesný stav vaší nervové soustavy v reálném čase.
                   Nemusíme se spoléhat jen na to, jak se cítíte – my to změříme.
                 </p>
@@ -50,7 +52,7 @@ export default function ONasPage() {
                 <p className="font-heading text-[13px] font-normal uppercase tracking-[0.26em] text-gold">
                   Moderní technologie
                 </p>
-                <p className="mt-2 text-[15px] leading-relaxed text-ink/72">
+                <p className="mt-3 text-[15px] leading-relaxed text-ink/72">
                   Využíváme metody jako transkraniální stimulace (tDCS/tACS), fotobiomodulace mozku nebo kardiální elektrostimulace (CES).
                   Jde o postupy s vysokou úspěšností (např. až 94,6 % u klinického zlepšení depresí), které využívají instituce jako Harvard Medical School nebo armáda USA.
                 </p>
@@ -60,7 +62,7 @@ export default function ONasPage() {
                 <p className="font-heading text-[13px] font-normal uppercase tracking-[0.26em] text-gold">
                   Neuro-somatická synergie
                 </p>
-                <p className="mt-2 text-[15px] leading-relaxed text-ink/72">
+                <p className="mt-3 text-[15px] leading-relaxed text-ink/72">
                   Propojujeme stimulaci mozku s manuální myofasciální terapií. Uvolněním fascií mechanicky dekomprimujeme bloudivý nerv (nervus vagus),
                   což okamžitě aktivuje regenerační procesy těla – výsledek vidíte v datech hned po sezení.
                 </p>
@@ -68,14 +70,16 @@ export default function ONasPage() {
             </div>
           </div>
 
-          <div className="pt-2">
-            <h3 className="font-display text-[18px] font-light text-ink">Co řešíme</h3>
-            <div className="mt-4 space-y-4">
+          <div className="pt-6">
+            <h3 className="font-display text-[22px] md:text-[26px] font-light tracking-[-0.02em] text-ink uppercase">
+              CO ŘEŠÍME
+            </h3>
+            <div className="mt-6 space-y-6">
               <div>
                 <p className="font-heading text-[13px] font-normal uppercase tracking-[0.26em] text-gold">
                   Dospělí (25–45 let)
                 </p>
-                <p className="mt-2 text-[15px] leading-relaxed text-ink/72">
+                <p className="mt-3 text-[15px] leading-relaxed text-ink/72">
                   Vyhoření, chronický stres, úzkosti, nespavost, deprese, chronické bolesti a další.
                 </p>
               </div>
@@ -84,7 +88,7 @@ export default function ONasPage() {
                 <p className="font-heading text-[13px] font-normal uppercase tracking-[0.26em] text-gold">
                   Děti
                 </p>
-                <p className="mt-2 text-[15px] leading-relaxed text-ink/72">
+                <p className="mt-3 text-[15px] leading-relaxed text-ink/72">
                   ADHD, úzkosti a autismus. Nabízíme bezpečnou cestu bez vedlejších účinků medikace, podloženou studiemi o zlepšení pozornosti
                   a kognitivní flexibility.
                 </p>
@@ -92,7 +96,7 @@ export default function ONasPage() {
             </div>
           </div>
 
-          <div className="pt-3 border-t border-gold/30">
+          <div className="pt-6 border-t border-gold/30">
             <div className="grid gap-10 md:grid-cols-[420px_1fr] md:items-start">
               {/* Fotka: přímo u sekce zakladatelky */}
               <div className="flex justify-center md:justify-start">

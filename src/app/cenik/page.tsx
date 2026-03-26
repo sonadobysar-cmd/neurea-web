@@ -9,13 +9,16 @@ export const metadata: Metadata = {
 
 const rows: [string, string, string][] = [
   ["Vstupní diagnostika", "75 min", "3 500 Kč"],
+  ["Samostatné terapeutické sezení dospělí", "60–90 min", "3 000 Kč"],
   ["Série 5 sezení", "60–90 min / sezení", "14 000 Kč"],
   ["Série 10 sezení", "60–90 min / sezení", "25 000 Kč"],
   ["Dětský protokol série 5", "45–60 min", "12 000 Kč"],
+  ["Samostatné dětské sezení", "45–60 min", "2 600 Kč"],
+  ["Dětský protokol série 10", "45–60 min", "22 000 Kč"],
   ["HRV biofeedback", "45 min", "1 600 Kč"],
-  ["Transkraniální stimulace (tDCS)", "45 min", "2 200 Kč"],
-  ["Kranální elektrostimulace (CES)", "45 min", "1 800 Kč"],
-  ["Fotobiomodulace mozku", "45 min", "2 200 Kč"],
+  ["Transkraniální stimulace (tDCS / tACS)", "45 min", "2 200 Kč"],
+  ["Kraniální elektrostimulace (CES)", "45 min", "1 800 Kč"],
+  ["Fotobiomodulace mozku (PBM)", "45 min", "2 200 Kč"],
   ["Myofasciální práce", "60 min", "2 000 Kč"],
 ];
 

@@ -18,15 +18,46 @@ export default function SluzbyPage() {
         Přehled podle vašich podkladů — ceny viz ceník.
       </p>
 
-      <div className="mt-14 space-y-7">
-        {/* Vstupní diagnostika */}
+      <div className="mt-14 space-y-10">
+        {/* 01: Vstupní diagnostika */}
         <section className="glass-panel-strong p-9">
-          <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-            <div>
-              <h2 className="font-display text-2xl font-normal text-ink">Vstupní diagnostika</h2>
-              <p className="mt-2 text-sm font-medium uppercase tracking-wider text-ink/45">75 min</p>
-            </div>
+          <h2 className="font-display text-2xl font-normal text-ink">
+            01 | VSTUPNÍ DIAGNOSTIKA: DATA + PRVNÍ KROK K ŘEŠENÍ
+          </h2>
+          <p className="mt-3 text-[15px] leading-relaxed text-ink/68">
+            Povinný start pro nové klienty. Nejen měření, ale i zahájení regulace.
+          </p>
+          <p className="mt-4 text-[15px] leading-relaxed text-ink/68">
+            Těžištěm naší spolupráce je přesnost. Během 75 minut provedeme komplexní hloubkovou anamnézu a HRV analýzu,
+            která nám ukáže, v jakém stavu se nachází vaše nervová soustava „pod kapotou“.
+          </p>
 
+          <div className="mt-6">
+            <p className="font-heading text-[13px] font-normal uppercase tracking-[0.26em] text-gold">
+              Co od nás během diagnostiky dostanete
+            </p>
+            <ul className="mt-4 space-y-3 text-[15px] leading-relaxed text-ink/68">
+              <li>
+                <strong>Objektivní biomárkry:</strong> Změříme variabilitu vašeho srdečního rytmu a úroveň koherence mezi srdcem a mozkem.
+              </li>
+              <li>
+                <strong>Zahájení řešení:</strong> Součástí diagnostiky je již první terapeutický zásah (např. úvodní stimulace nebo dekomprese),
+                abyste okamžitě pocítili vliv technologie na vaši fyziologii.
+              </li>
+              <li>
+                <strong>Individuální protokol:</strong> Na základě naměřených dat sestavíme plán na míru vašim potížím (vyhoření, ADHD, úzkosti, nespavost).
+              </li>
+              <li>
+                <strong>Terapie mluví. Neurea měří.</strong> Z diagnostiky neodejdete jen s diagnózou, ale s jasným směrem a prvním prožitkem neuro-somatické úlevy.
+              </li>
+            </ul>
+          </div>
+
+          <div className="mt-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="text-sm font-medium uppercase tracking-wider text-ink/45">Délka: 75 min</p>
+              <p className="text-sm font-medium uppercase tracking-wider text-ink/45 mt-1">Cena: 3 500 Kč</p>
+            </div>
             <Link
               href="/rezervace?serviceId=vstupni-diagnostika"
               className="btn-gold inline-flex min-h-[44px] items-center justify-center px-8"
@@ -34,104 +65,153 @@ export default function SluzbyPage() {
               <span>Rezervovat diagnostiku</span>
             </Link>
           </div>
-
-          <p className="mt-5 text-[15px] leading-relaxed text-ink/68">
-            Anamnéza · HRV měření · analýza koherence autonomního nervového systému · návrh protokolu.
-            Povinná před zahájením terapie pro nové klienty.
-          </p>
         </section>
 
-        {/* Terapeutické protokoly */}
+        {/* 03: Terapeutické protokoly */}
         <section className="glass-panel-strong p-9">
-          <h2 className="font-display text-2xl font-normal text-ink">Terapeutické protokoly</h2>
+          <h2 className="font-display text-2xl font-normal text-ink">
+            03 | Terapeutické protokoly (Balíčky)
+          </h2>
+          <p className="mt-4 max-w-3xl text-[15px] leading-relaxed text-ink/68">
+            Komplexní práce na změně biometrických dat a úlevě od symptomů.
+          </p>
 
-          <div className="mt-8 grid gap-8 md:grid-cols-2">
+          <div className="mt-10 grid gap-8 lg:grid-cols-2">
             <div>
               <p className="eyebrow !text-[10px]">Dospělí</p>
-              <ul className="mt-5 space-y-4 text-[15px] text-ink/68">
-                <li className="flex flex-wrap items-center justify-between gap-3">
-                  <span>Jedno sezení (45 min) — kontrolní měření & nastavení</span>
-                  <Link href="/rezervace?serviceId=hrv-biofeedback" className="text-gold underline decoration-gold/40 hover:decoration-gold">
-                    Rezervovat
+              <div className="mt-5 space-y-6">
+                <div className="rounded-xl border border-white/60 bg-white/50 p-6 shadow-luxury backdrop-blur-sm">
+                  <h3 className="font-display text-[18px] font-light text-ink">
+                    Samostatné terapeutické sezení dospělí (60–90 min) — 3 000 Kč
+                  </h3>
+                  <p className="mt-3 text-[15px] leading-relaxed text-ink/68">
+                    Jednotlivá návštěva kombinující technologie a somatickou práci po absolvování diagnostiky.
+                  </p>
+                  <Link
+                    href="/rezervace?serviceId=jedno-dospeli"
+                    className="mt-5 inline-flex items-center text-sm text-gold underline decoration-gold/40 hover:decoration-gold"
+                  >
+                    Rezervovat službu →
                   </Link>
-                </li>
-                <li className="flex flex-wrap items-center justify-between gap-3">
-                  <span>Série 5 sezení (60–90 min)</span>
-                  <Link href="/rezervace?serviceId=serie-5" className="text-gold underline decoration-gold/40 hover:decoration-gold">
-                    Rezervovat
+                </div>
+
+                <div className="rounded-xl border border-white/60 bg-white/50 p-6 shadow-luxury backdrop-blur-sm">
+                  <h3 className="font-display text-[18px] font-light text-ink">
+                    Série 5 sezení dospělí (60–90 min) — 14 000 Kč
+                  </h3>
+                  <p className="mt-3 text-[15px] leading-relaxed text-ink/68">
+                    Intenzivní stabilizace a úleva od akutního stresu nebo úzkostných stavů.
+                  </p>
+                  <Link
+                    href="/rezervace?serviceId=serie-5"
+                    className="mt-5 inline-flex items-center text-sm text-gold underline decoration-gold/40 hover:decoration-gold"
+                  >
+                    Rezervovat službu →
                   </Link>
-                </li>
-                <li className="flex flex-wrap items-center justify-between gap-3">
-                  <span>Série 10 sezení (60–90 min)</span>
-                  <Link href="/rezervace?serviceId=serie-10" className="text-gold underline decoration-gold/40 hover:decoration-gold">
-                    Rezervovat
+                </div>
+
+                <div className="rounded-xl border border-white/60 bg-white/50 p-6 shadow-luxury backdrop-blur-sm">
+                  <h3 className="font-display text-[18px] font-light text-ink">
+                    Série 10 sezení dospělí (60–90 min) — 25 000 Kč
+                  </h3>
+                  <p className="mt-3 text-[15px] leading-relaxed text-ink/68">
+                    Maximální efekt pro hlubokou restrukturalizaci nervové soustavy a dlouhodobé výsledky.
+                  </p>
+                  <Link
+                    href="/rezervace?serviceId=serie-10"
+                    className="mt-5 inline-flex items-center text-sm text-gold underline decoration-gold/40 hover:decoration-gold"
+                  >
+                    Rezervovat službu →
                   </Link>
-                </li>
-              </ul>
+                </div>
+              </div>
             </div>
 
             <div>
               <p className="eyebrow !text-[10px]">Děti</p>
-              <ul className="mt-5 space-y-4 text-[15px] text-ink/68">
-                <li className="flex flex-wrap items-center justify-between gap-3">
-                  <span>Jedno sezení (45 min) — vstupní kontrola & nastavení</span>
-                  <Link href="/rezervace?serviceId=hrv-biofeedback" className="text-gold underline decoration-gold/40 hover:decoration-gold">
-                    Rezervovat
+              <div className="mt-5 space-y-6">
+                <div className="rounded-xl border border-white/60 bg-white/50 p-6 shadow-luxury backdrop-blur-sm">
+                  <h3 className="font-display text-[18px] font-light text-ink">
+                    Samostatné dětské sezení (45–60 min) — 2 600 Kč
+                  </h3>
+                  <p className="mt-3 text-[15px] leading-relaxed text-ink/68">
+                    Jednotlivá návštěva v rámci udržovací fáze nebo krátkodobé podpory pro děti.
+                  </p>
+                  <Link
+                    href="/rezervace?serviceId=jedno-deti"
+                    className="mt-5 inline-flex items-center text-sm text-gold underline decoration-gold/40 hover:decoration-gold"
+                  >
+                    Rezervovat službu →
                   </Link>
-                </li>
-                <li className="flex flex-wrap items-center justify-between gap-3">
-                  <span>Dětský protokol série 5 (45–60 min) — ADHD, autismus; Vielight Gamma + emWave</span>
-                  <Link href="/rezervace?serviceId=detsky-program" className="text-gold underline decoration-gold/40 hover:decoration-gold">
-                    Rezervovat
+                </div>
+
+                <div className="rounded-xl border border-white/60 bg-white/50 p-6 shadow-luxury backdrop-blur-sm">
+                  <h3 className="font-display text-[18px] font-light text-ink">
+                    Dětský protokol – série 5 (45–60 min) — 12 000 Kč
+                  </h3>
+                  <p className="mt-3 text-[15px] leading-relaxed text-ink/68">
+                    Základní cyklus pro nastartování změn v kognitivní flexibilitě a zklidnění u dětí (ADHD, autismus).
+                  </p>
+                  <Link
+                    href="/rezervace?serviceId=detsky-program"
+                    className="mt-5 inline-flex items-center text-sm text-gold underline decoration-gold/40 hover:decoration-gold"
+                  >
+                    Rezervovat službu →
                   </Link>
-                </li>
-                <li className="flex flex-wrap items-center justify-between gap-3">
-                  <span>Dětský protokol série 10 (60–90 min / sezení)</span>
-                  <Link href="/rezervace?serviceId=serie-10" className="text-gold underline decoration-gold/40 hover:decoration-gold">
-                    Rezervovat
+                </div>
+
+                <div className="rounded-xl border border-white/60 bg-white/50 p-6 shadow-luxury backdrop-blur-sm">
+                  <h3 className="font-display text-[18px] font-light text-ink">
+                    Dětský protokol – série 10 (45–60 min) — 22 000 Kč
+                  </h3>
+                  <p className="mt-3 text-[15px] leading-relaxed text-ink/68">
+                    Dlouhodobý trénink pro trvalé zlepšení pozornosti a emoční regulace u dětí.
+                  </p>
+                  <Link
+                    href="/rezervace?serviceId=detsky-program-10"
+                    className="mt-5 inline-flex items-center text-sm text-gold underline decoration-gold/40 hover:decoration-gold"
+                  >
+                    Rezervovat službu →
                   </Link>
-                </li>
-              </ul>
-              <p className="mt-4 text-sm leading-relaxed text-ink/52">
-                U dětských variant řešíme konkrétní nastavení protokolu individuálně v první diagnostice.
-              </p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Jednotlivé procedury (dříve à la carte) */}
+        {/* Samostatné technologie / Jednotlivé procedury */}
         <section className="glass-panel-strong p-9">
           <h2 className="font-display text-2xl font-normal text-ink">Jednotlivé procedury</h2>
-          <p className="mt-2 max-w-2xl text-[15px] leading-relaxed text-ink/62">
-            Vyberte si konkrétní technologii nebo modul bez kompletního protokolu. Doporučujeme nejdřív vstupní diagnostiku.
+          <p className="mt-3 text-[15px] leading-relaxed text-ink/68">
+            Cílená aplikace konkrétní metody pro klienty, kteří přesně vědí, co jejich tělo a mozek potřebují.
           </p>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[
               {
-                title: "HRV biofeedback",
-                desc: "45 min — diagnostika a trénink nervové soustavy",
+                title: "HRV Biofeedback (45 min) — 1 600 Kč",
+                desc: "Aktivní trénink odolnosti nervové soustavy v reálném čase.",
                 serviceId: "hrv-biofeedback",
               },
               {
-                title: "Transkraniální stimulace (tDCS)",
-                desc: "45 min — deprese, ADHD, bolest, kognitivní výkon",
-                serviceId: "tdcs",
-              },
-              {
-                title: "Kranální elektrostimulace (CES)",
-                desc: "45 min — úzkosti, nespavost, chronická bolest",
+                title: "Kraniální elektrostimulace (CES) (45 min) — 1 800 Kč",
+                desc: "Mikroproudy pro rychlou úlevu od nespavosti, úzkosti a tenze.",
                 serviceId: "ces",
               },
               {
-                title: "Fotobiomodulace mozku",
-                desc: "45 min — deprese, únava, spánek, ADHD",
-                serviceId: "fotobiomodulace",
+                title: "Myofasciální práce (60 min) — 2 000 Kč",
+                desc: "Manuální uvolnění pojivových tkání pro fyzickou dekompresi bloudivého nervu.",
+                serviceId: "myofasciální-práce",
               },
               {
-                title: "Myofasciální práce",
-                desc: "60 min — chronická bolest, napětí",
-                serviceId: "myofasialni-prace",
+                title: "Transkraniální stimulace (tDCS / tACS) (45 min) — 2 200 Kč",
+                desc: "Modulace neuronální aktivity pro řešení deprese, ADHD a chronické bolesti.",
+                serviceId: "tdcs",
+              },
+              {
+                title: "Fotobiomodulace mozku (PBM) (45 min) — 2 200 Kč",
+                desc: "Světelná stimulace mitochondrií pro zvýšení energie mozku, zlepšení spánku a kognice.",
+                serviceId: "fotobiomodulace",
               },
             ].map((item) => (
               <div
@@ -139,7 +219,7 @@ export default function SluzbyPage() {
                 className="rounded-xl border border-white/60 bg-white/50 p-6 shadow-luxury backdrop-blur-sm"
               >
                 <h3 className="font-medium text-ink">{item.title}</h3>
-                <p className="mt-2 text-xs leading-relaxed text-ink/58">{item.desc}</p>
+                <p className="mt-3 text-[13px] leading-relaxed text-ink/64">{item.desc}</p>
                 <Link
                   href={`/rezervace?serviceId=${item.serviceId}`}
                   className="mt-5 inline-flex items-center text-sm text-gold underline decoration-gold/40 hover:decoration-gold"
@@ -148,6 +228,47 @@ export default function SluzbyPage() {
                 </Link>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* Rezervace a platba */}
+        <section className="glass-panel-strong p-9">
+          <h2 className="font-display text-2xl font-normal text-ink">Rezervace a platba</h2>
+
+          <p className="mt-4 text-[15px] leading-relaxed text-ink/68">
+            Pro potvrzení vašeho termínu je nutné provést online platbu přes bránu Stripe.
+          </p>
+
+          <p className="mt-4 font-heading text-[13px] font-normal uppercase tracking-[0.26em] text-gold">
+            Můžete si vybrat ze tří možností úhrady
+          </p>
+          <ul className="mt-4 space-y-2 text-[15px] leading-relaxed text-ink/68">
+            <li>Záloha 500 Kč</li>
+            <li>Záloha 1 000 Kč</li>
+            <li>Plná cena služby</li>
+          </ul>
+
+          <p className="mt-5 font-heading text-[13px] font-normal uppercase tracking-[0.26em] text-gold">
+            Doplatek na místě
+          </p>
+          <ul className="mt-4 space-y-2 text-[15px] leading-relaxed text-ink/68">
+            <li>Hotovost</li>
+            <li>Platební karty</li>
+            <li>QR platbu</li>
+          </ul>
+
+          <p className="mt-6 font-heading text-[13px] font-normal uppercase tracking-[0.26em] text-gold">
+            Storno podmínky
+          </p>
+          <p className="mt-3 text-[15px] leading-relaxed text-ink/68">
+            Změna nebo zrušení termínu je zdarma do 48 hodin předem. Při zrušení méně než 24 hodin před termínem nebo při nedostavení se
+            záloha propadá.
+          </p>
+
+          <div className="mt-8">
+            <Link href="/rezervace" className="btn-gold inline-flex items-center justify-center px-8 min-h-[44px]">
+              <span>Rezervovat termín</span>
+            </Link>
           </div>
         </section>
       </div>

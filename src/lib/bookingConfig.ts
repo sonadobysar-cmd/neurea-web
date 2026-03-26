@@ -11,11 +11,17 @@ export const SERVICES: ServiceDefinition[] = [
   { id: "vstupni-diagnostika", name: "Vstupní diagnostika", durationMin: 75, priceCzk: 3500 },
   { id: "serie-5", name: "Série 5 sezení", durationMin: 75, priceCzk: 14000 },
   { id: "serie-10", name: "Série 10 sezení", durationMin: 75, priceCzk: 25000 },
-  { id: "detsky-program", name: "Dětský program (série 5)", durationMin: 60, priceCzk: 12000 },
+
+  { id: "jedno-dospeli", name: "Samostatné terapeutické sezení dospělí", durationMin: 75, priceCzk: 3000 },
+  { id: "jedno-deti", name: "Samostatné dětské sezení", durationMin: 60, priceCzk: 2600 },
+
+  { id: "detsky-program", name: "Dětský protokol série 5", durationMin: 60, priceCzk: 12000 },
+  { id: "detsky-program-10", name: "Dětský protokol série 10", durationMin: 60, priceCzk: 22000 },
+
   { id: "hrv-biofeedback", name: "HRV biofeedback", durationMin: 45, priceCzk: 1600 },
-  { id: "tdcs", name: "Transkraniální stimulace (tDCS)", durationMin: 45, priceCzk: 2200 },
-  { id: "ces", name: "Kranální elektrostimulace (CES)", durationMin: 45, priceCzk: 1800 },
-  { id: "fotobiomodulace", name: "Fotobiomodulace mozku", durationMin: 45, priceCzk: 2200 },
+  { id: "tdcs", name: "Transkraniální stimulace (tDCS / tACS)", durationMin: 45, priceCzk: 2200 },
+  { id: "ces", name: "Kraniální elektrostimulace (CES)", durationMin: 45, priceCzk: 1800 },
+  { id: "fotobiomodulace", name: "Fotobiomodulace mozku (PBM)", durationMin: 45, priceCzk: 2200 },
   { id: "myofascialni-prace", name: "Myofasciální práce", durationMin: 60, priceCzk: 2000 },
 ];
 

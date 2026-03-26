@@ -22,7 +22,7 @@ export default function ONasPage() {
               <div className="relative overflow-hidden rounded-[1.1rem]">
                 {/* Nahraj fotku č. 4 (bílá košile) do public/ pod tímto názvem */}
                 <Image
-                  src="/portraits/o-nas-nia.jpg"
+                  src="/portraits/o-nas-nia.png"
                   alt="Nia Dobyšar"
                   width={720}
                   height={900}

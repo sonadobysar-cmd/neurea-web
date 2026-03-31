@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { RezervaceLandingForm } from "./RezervaceLandingForm";
 
@@ -6,12 +5,13 @@ const STATS = [
   { value: "94,6 %", detail: "zlepšení deprese · Harvard" },
   { value: "6 z 7", detail: "dětí s ADHD · bez léků" },
   { value: "48 %", detail: "remise nespavosti · 21 dní" },
+  { value: "100 %", detail: "zlepšení úzkostí · Harvard" },
 ] as const;
 
 const HELP_CARDS = [
   {
     title: "Deprese a úzkosti",
-    detail: "94,6 % klinické zlepšení · Harvard · Nature Medicine",
+    detail: "94,6 % deprese, 100 % úzkosti klinické zlepšení · Harvard",
   },
   {
     title: "ADHD u dětí",
@@ -30,21 +30,78 @@ const HELP_CARDS = [
 const HOW_STEPS = [
   {
     title: "Vstupní diagnostika",
-    body: "Změříme stav vaší nervové soustavy.\nHRV koherence objektivně před i po každém sezení.",
+    body: "Změříme stav vaší nervové soustavy. HRV koherence objektivně před i po každém sezení.",
   },
   {
     title: "Individuální protokol",
-    body: "Kombinace klinicky ověřených neurotechnologií\npřesně pro váš problém. Bez léků.\nBez vedlejších účinků.",
+    body: "Kombinace klinicky ověřených neurotechnologií přesně pro váš problém. Bez léků. Bez vedlejších účinků.",
   },
   {
     title: "Měřitelný výsledek",
-    body: "Vidíte přesnou změnu v číslech. Garantujeme\nměřitelné zlepšení nebo vracíme 50 % ceny série.",
+    body: "Vidíte přesnou změnu v číslech. Garantujeme měřitelné zlepšení nebo vracíme 50 % ceny série.",
   },
 ] as const;
 
-/** Placeholder — klidný portrét / wellness (Unsplash) */
-const HERO_IMAGE =
-  "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1600&q=80";
+function IconDiagnostics() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="h-7 w-7"
+      aria-hidden
+    >
+      <path d="M4 12h2.5l2-6 3 12 2.5-9L17 12h3" />
+    </svg>
+  );
+}
+
+function IconProtocol() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="h-7 w-7"
+      aria-hidden
+    >
+      <path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z" />
+      <path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.64 0l8.58-3.9A1 1 0 0 0 22 12" />
+      <path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.64 0l8.58-3.9A1 1 0 0 0 22 17" />
+    </svg>
+  );
+}
+
+function IconMeasurable() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="h-7 w-7"
+      aria-hidden
+    >
+      <path d="M3 3v18h18" />
+      <path d="M7 16V9" />
+      <path d="M12 16v-5" />
+      <path d="M17 16V6" />
+    </svg>
+  );
+}
+
+const HOW_ICONS = [IconDiagnostics, IconProtocol, IconMeasurable] as const;
 
 export function RezervaceLandingView() {
   return (
@@ -53,7 +110,7 @@ export function RezervaceLandingView() {
       <div className="relative z-10 mx-auto flex min-h-[100dvh] max-w-6xl flex-col px-4 pb-12 pt-10 sm:px-6 md:px-8 md:pb-16 md:pt-14">
         <header className="text-center">
           <div className="flex flex-col items-center gap-4 md:gap-5">
-            <p className="font-heading text-[clamp(1.35rem,5vw,2.25rem)] font-normal uppercase tracking-[0.28em] text-gold sm:tracking-[0.34em] md:tracking-[0.38em]">
+            <p className="font-heading text-[clamp(0.8125rem,2vw,1rem)] font-normal uppercase tracking-[0.22em] text-gold sm:tracking-[0.26em] md:tracking-[0.28em]">
               NEUREA · BRNO
             </p>
             <hr className="rez-landing-divider mx-auto w-[min(100%,24rem)]" />
@@ -63,25 +120,13 @@ export function RezervaceLandingView() {
             <span className="text-gold-gradient">Terapie mluví.</span> Neurea měří.
           </h1>
 
-          <div className="rez-landing-hero mx-auto mt-8 max-w-5xl sm:mt-10">
-            <Image
-              src={HERO_IMAGE}
-              alt="Klidná atmosféra — minimalistický prostor"
-              fill
-              className="object-cover"
-              sizes="(max-width: 1152px) 100vw, 1152px"
-              priority
-            />
-            <div className="rez-landing-hero-overlay" aria-hidden />
-          </div>
-
-          <p className="mx-auto mt-8 max-w-2xl text-[15px] leading-relaxed text-[#1A1A1A]/72 sm:text-base md:mt-10 md:text-lg">
+          <p className="mx-auto mt-7 max-w-2xl text-[15px] leading-relaxed text-[#1A1A1A]/72 sm:mt-8 sm:text-base md:mt-10 md:text-lg">
             První neuro-somatické pracoviště v ČR. Klinicky ověřené technologie. Měřitelné výsledky.
           </p>
         </header>
 
         <section
-          className="mt-12 grid grid-cols-1 gap-4 sm:mt-14 sm:grid-cols-3 sm:gap-5 md:mt-16 md:gap-6"
+          className="mt-12 grid grid-cols-2 gap-4 sm:mt-14 sm:gap-5 md:mt-16 md:gap-6 lg:grid-cols-4"
           aria-label="Klíčové výsledky"
         >
           {STATS.map((s) => (
@@ -131,22 +176,26 @@ export function RezervaceLandingView() {
           >
             Jak to funguje
           </h2>
-          <ol className="mx-auto mt-8 max-w-3xl space-y-10 md:mt-10 md:space-y-12">
-            {HOW_STEPS.map((step, i) => (
-              <li key={step.title} className="flex gap-5 sm:gap-6">
-                <span className="rez-step-num" aria-hidden>
-                  {i + 1}
-                </span>
-                <div className="min-w-0 pt-0.5">
-                  <h3 className="font-heading text-lg font-medium text-[#1A1A1A] sm:text-xl">
+          <ol className="mt-8 grid grid-cols-1 gap-6 md:mt-10 md:grid-cols-3 md:gap-5 lg:gap-8">
+            {HOW_STEPS.map((step, i) => {
+              const Icon = HOW_ICONS[i];
+              return (
+                <li key={step.title} className="rez-cream-card flex flex-col items-center px-5 py-7 text-center sm:px-6 sm:py-8">
+                  <div className="rez-how-icon-wrap">
+                    <Icon />
+                  </div>
+                  <span className="mt-4 font-heading text-xs font-medium uppercase tracking-[0.28em] text-[#B8963E]/90">
+                    {i + 1}
+                  </span>
+                  <h3 className="font-heading mt-2 text-lg font-medium text-[#1A1A1A] sm:text-xl">
                     {step.title}
                   </h3>
-                  <p className="mt-3 whitespace-pre-line text-[15px] leading-relaxed text-[#1A1A1A]/72">
+                  <p className="mt-3 text-[15px] leading-relaxed text-[#1A1A1A]/72">
                     {step.body}
                   </p>
-                </div>
-              </li>
-            ))}
+                </li>
+              );
+            })}
           </ol>
         </section>
 

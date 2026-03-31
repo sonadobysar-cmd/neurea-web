@@ -201,31 +201,6 @@ body.rezervace-landing {
   background: #fafbfc;
 }
 
-/* Hero pod nadpisem — kremový overlay */
-.rez-landing-hero {
-  position: relative;
-  width: 100%;
-  height: 400px;
-  overflow: hidden;
-  border-radius: 0.75rem;
-}
-
-.rez-landing-hero img {
-  object-fit: cover;
-}
-
-.rez-landing-hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(250, 248, 244, 0.42) 0%,
-    rgba(250, 248, 244, 0.28) 45%,
-    rgba(250, 248, 244, 0.5) 100%
-  );
-  pointer-events: none;
-}
-
 /* Karty „S čím pomáháme“ — krem #FAF8F4, zlatý okraj */
 .rez-cream-card {
   border-radius: 1rem;
@@ -234,18 +209,17 @@ body.rezervace-landing {
   box-shadow: 0 2px 16px rgba(26, 26, 26, 0.04);
 }
 
-/* Kroky „Jak to funguje“ */
-.rez-step-num {
-  flex-shrink: 0;
+/* Kroky „Jak to funguje“ — ikona v kruhu */
+.rez-how-icon-wrap {
   display: flex;
-  height: 2.75rem;
-  width: 2.75rem;
+  height: 3.5rem;
+  width: 3.5rem;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
   border-radius: 9999px;
   border: 1px solid #b8963e;
-  font-family: var(--font-display), Georgia, serif;
-  font-size: 1.125rem;
-  color: #b8963e;
   background: linear-gradient(180deg, #fffefb 0%, #faf8f4 100%);
+  color: #b8963e;
+  box-shadow: 0 2px 12px rgba(26, 26, 26, 0.04);
 }

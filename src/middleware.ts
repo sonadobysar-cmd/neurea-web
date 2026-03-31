@@ -5,7 +5,6 @@ const MAIN_HOSTS = new Set(["neurea.cz", "www.neurea.cz"]);
 
 const LANDING_HOSTS = new Set(["rezervace.neurea.cz", "www.rezervace.neurea.cz"]);
 
-/** Na Vercelu bývá spolehlivější než jen `host` (proxies, edge). */
 function getHost(request: NextRequest): string {
   const xf = request.headers.get("x-forwarded-host");
   if (xf) {
@@ -35,21 +34,12 @@ export function middleware(request: NextRequest) {
     if (isStaticPath(pathname)) {
       return NextResponse.next();
     }
-
-    /**
-     * Kořen `/` na subdoméně řeší `vercel.json` (rewrite → /rezervace).
-     * Lokálně / preview bez rewrite: stejný obsah přes fallback rewrite.
-     */
-    if (pathname === "/" || pathname === "") {
-      const url = request.nextUrl.clone();
-      url.pathname = "/rezervace";
-      return NextResponse.rewrite(url);
-    }
-
     if (pathname.startsWith("/rezervace")) {
       return NextResponse.next();
     }
-
+    if (pathname === "/" || pathname === "") {
+      return NextResponse.next();
+    }
     const main = new URL(`https://neurea.cz${pathname}${request.nextUrl.search}`);
     return NextResponse.redirect(main, 301);
   }

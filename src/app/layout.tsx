@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
+import { headers } from "next/headers";
 import { EB_Garamond, Oxygen } from "next/font/google";
 import "./globals.css";
+import "./rezervace/rezervace-landing.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CookieBanner } from "@/components/CookieBanner";
 import { FloatingCta } from "@/components/FloatingCta";
+import { isRezervaceLandingHost } from "@/lib/landingHost";
 import { site } from "@/lib/site";
 
-/** Nadpisy: EB Garamond. Tělo: Oxygen. Dekorativní skript: Momo Signature (globals.css). */
 const ebGaramond = EB_Garamond({
   subsets: ["latin", "latin-ext"],
   weight: ["400", "500", "600"],
@@ -39,16 +42,22 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+  const h = await headers();
+  const landing = isRezervaceLandingHost(h);
+
+  if (landing) {
+    return (
+      <html lang="cs" className={`${ebGaramond.variable} ${oxygen.variable}`}>
+        <body className="font-sans rezervace-landing">
+          <main className="min-h-[100dvh] bg-[#111110] pb-0 text-white">{children}</main>
+        </body>
+      </html>
+    );
+  }
+
   return (
-    <html
-      lang="cs"
-      className={`${ebGaramond.variable} ${oxygen.variable}`}
-    >
+    <html lang="cs" className={`${ebGaramond.variable} ${oxygen.variable}`}>
       <body className="font-sans">
         <Header />
         <main className="min-h-[60vh] bg-white pb-28 text-ink md:pb-0">{children}</main>

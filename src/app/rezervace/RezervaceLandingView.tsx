@@ -116,13 +116,19 @@ export function RezervaceLandingView() {
             <hr className="rez-landing-divider mx-auto w-[min(100%,24rem)]" />
           </div>
 
-          <h1 className="font-display mt-7 text-[clamp(1.65rem,6vw,3.15rem)] font-normal leading-[1.08] tracking-tight text-[#1A1A1A] sm:mt-8 md:mt-10">
+          <h1 className="font-display mt-7 text-[clamp(1.65rem,6vw,3.15rem)] font-normal uppercase leading-[1.08] tracking-tight text-[#1A1A1A] sm:mt-8 md:mt-10">
             <span className="text-gold-gradient">Terapie mluví.</span> Neurea měří.
           </h1>
 
           <p className="mx-auto mt-7 max-w-2xl text-[15px] leading-relaxed text-[#1A1A1A]/72 sm:mt-8 sm:text-base md:mt-10 md:text-lg">
             První neuro-somatické pracoviště v ČR. Klinicky ověřené technologie. Měřitelné výsledky.
           </p>
+
+          <div className="mx-auto mt-8 flex w-full max-w-[min(100%,20rem)] justify-center sm:mt-10">
+            <a href="#rezervace-registrace" className="rez-btn-outline-gold">
+              <span>Chci se registrovat</span>
+            </a>
+          </div>
         </header>
 
         <section
@@ -199,7 +205,11 @@ export function RezervaceLandingView() {
           </ol>
         </section>
 
-        <section className="mt-16 flex flex-1 flex-col items-center justify-center sm:mt-20 md:mt-24">
+        <section
+          id="rezervace-registrace"
+          className="scroll-mt-8 mt-16 flex flex-1 flex-col items-center justify-center sm:mt-20 md:scroll-mt-10 md:mt-24"
+          aria-label="Registrace"
+        >
           <RezervaceLandingForm />
         </section>
 

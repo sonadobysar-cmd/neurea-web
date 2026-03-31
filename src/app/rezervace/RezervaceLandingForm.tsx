@@ -243,9 +243,9 @@ export function RezervaceLandingForm() {
           <h2 className="font-heading text-xl font-normal tracking-tight text-gold sm:text-2xl">
             Rezervační seznam
           </h2>
-          <p className={`mt-1.5 text-[13px] ${muted}`}>Spouštíme září 2025</p>
+          <p className={`mt-1.5 text-[13px] ${muted}`}>Neurea přichází do Brna.</p>
           <p className={`mt-4 text-[15px] leading-relaxed ${muted}`}>
-            Buďte mezi prvními kteří se dozví o spuštění. Žádný závazek.
+            Vybíráme první klienty kteří zažijí měřitelnou změnu dřív než kdokoliv jiný. Omezená kapacita.
           </p>
 
           <div className="mt-7 space-y-4">

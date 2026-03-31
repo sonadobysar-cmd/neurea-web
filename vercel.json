@@ -1,5 +1,17 @@
 {
   "framework": "nextjs",
+  "rewrites": [
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "rezervace.neurea.cz" }],
+      "destination": "/rezervace"
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "www.rezervace.neurea.cz" }],
+      "destination": "/rezervace"
+    }
+  ],
   "crons": [
     {
       "path": "/api/cron/reminders",

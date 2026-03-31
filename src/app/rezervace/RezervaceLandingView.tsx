@@ -10,7 +10,7 @@ const STATS = [
 
 export function RezervaceLandingView() {
   return (
-    <div className="relative w-full overflow-hidden font-sans text-white">
+    <div className="relative w-full overflow-hidden font-sans text-ink">
       <div className="rez-landing-noise pointer-events-none absolute inset-0 z-0" aria-hidden />
       <div className="relative z-10 mx-auto flex min-h-[100dvh] max-w-6xl flex-col px-4 pb-12 pt-10 sm:px-6 md:px-8 md:pb-16 md:pt-14">
         <header className="text-center">
@@ -34,14 +34,13 @@ export function RezervaceLandingView() {
               />
             </div>
             <p className="eyebrow text-[10px] sm:text-[11px]">NEUREA · BRNO</p>
-            <hr className="rez-landing-divider mx-auto w-[min(100%,20rem)] opacity-90" />
+            <hr className="rez-landing-divider mx-auto w-[min(100%,20rem)]" />
           </div>
 
-          <h1 className="font-display mt-8 text-[clamp(1.65rem,6vw,3.15rem)] font-normal leading-[1.08] tracking-tight text-white md:mt-10">
-            <span className="text-gold-gradient">Terapie mluví.</span>{" "}
-            <span className="text-white">Neurea měří.</span>
+          <h1 className="font-display mt-8 text-[clamp(1.65rem,6vw,3.15rem)] font-normal leading-[1.08] tracking-tight text-ink md:mt-10">
+            <span className="text-gold-gradient">Terapie mluví.</span> Neurea měří.
           </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-[15px] leading-relaxed text-white/75 sm:text-base md:mt-6 md:text-lg">
+          <p className="mx-auto mt-5 max-w-2xl text-[15px] leading-relaxed text-ink/72 sm:text-base md:mt-6 md:text-lg">
             První neuro-somatické pracoviště v ČR. Klinicky ověřené technologie. Měřitelné výsledky.
           </p>
         </header>
@@ -55,7 +54,7 @@ export function RezervaceLandingView() {
               <p className="font-heading text-[clamp(1.85rem,5vw,2.65rem)] font-semibold tracking-tight text-gold md:text-4xl">
                 {s.value}
               </p>
-              <p className="mt-3 text-xs leading-snug text-white/55 sm:text-sm">{s.detail}</p>
+              <p className="mt-3 text-xs leading-snug text-ink/58 sm:text-sm">{s.detail}</p>
             </div>
           ))}
         </section>
@@ -64,11 +63,11 @@ export function RezervaceLandingView() {
           <RezervaceLandingForm />
         </section>
 
-        <footer className="mt-auto shrink-0 pt-12 text-center text-xs text-white/40 sm:pt-16 sm:text-sm md:pt-20">
+        <footer className="mt-auto shrink-0 pt-12 text-center text-xs text-ink/45 sm:pt-16 sm:text-sm md:pt-20">
           <Link href="https://neurea.cz" className="text-gold transition hover:opacity-90">
             neurea.cz
           </Link>
-          <span className="mx-2 text-white/25" aria-hidden>
+          <span className="mx-2 text-ink/25" aria-hidden>
             ·
           </span>
           <a href="mailto:info@neurea.cz" className="text-gold transition hover:opacity-90">

@@ -52,8 +52,8 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   if (landing) {
     return (
       <html lang="cs" className={`${ebGaramond.variable} ${oxygen.variable}`}>
-        <body className="font-sans rezervace-landing">
-          <main className="min-h-[100dvh] bg-[#111110] pb-0 text-white">{children}</main>
+        <body className="font-sans rezervace-landing antialiased">
+          <main className="min-h-[100dvh] bg-white pb-0 text-ink">{children}</main>
         </body>
       </html>
     );

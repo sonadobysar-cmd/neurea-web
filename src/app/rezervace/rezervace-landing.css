@@ -17,22 +17,20 @@ body.rezervace-landing > div:nth-child(5) {
 body.rezervace-landing > main {
   min-height: 100dvh !important;
   padding-bottom: 0 !important;
-  background-color: #111110 !important;
-  color: #ffffff !important;
+  background: linear-gradient(180deg, #ffffff 0%, #fafbfc 45%, #ffffff 100%) !important;
+  background-attachment: fixed !important;
+  color: #1a1a1a !important;
 }
 
-/* --- Luxusní landing (sladění s neurea.cz — kovové zlato, hloubka) --- */
+/* --- Rezervační landing — světlé pozadí jako neurea.cz --- */
 
 body.rezervace-landing {
-  background:
-    radial-gradient(ellipse 100% 70% at 50% -15%, rgba(201, 168, 76, 0.14) 0%, transparent 55%),
-    radial-gradient(ellipse 60% 45% at 100% 0%, rgba(184, 150, 62, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse 50% 40% at 0% 80%, rgba(92, 74, 26, 0.12) 0%, transparent 50%),
-    linear-gradient(180deg, #161614 0%, #111110 35%, #0c0c0b 100%) !important;
+  background: linear-gradient(180deg, #ffffff 0%, #fafbfc 45%, #ffffff 100%) !important;
+  background-attachment: fixed !important;
 }
 
 .rez-landing-noise {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.018'/%3E%3C/svg%3E");
 }
 
 .rez-landing-divider {
@@ -41,33 +39,39 @@ body.rezervace-landing {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(200, 168, 90, 0.25) 18%,
-    rgba(240, 224, 180, 0.55) 50%,
-    rgba(166, 124, 40, 0.35) 82%,
+    rgba(200, 168, 90, 0.35) 20%,
+    rgba(240, 224, 180, 0.95) 50%,
+    rgba(166, 124, 40, 0.55) 80%,
     transparent 100%
   );
+  opacity: 0.95;
 }
 
-/* Logo — wordmark ze /public, lehký „zlatý“ lesk na tmavém podkladu */
+/* Logo na světlém podkladu — jemný stín (stejné SVG jako na webu) */
 .rez-landing-wordmark {
-  filter: drop-shadow(0 0 28px rgba(212, 181, 92, 0.35)) drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0 1px 2px rgba(26, 26, 26, 0.06));
 }
 
 .rez-landing-symbol {
-  filter: drop-shadow(0 0 20px rgba(184, 150, 62, 0.4));
-  opacity: 0.98;
+  filter: drop-shadow(0 1px 3px rgba(26, 26, 26, 0.08));
+  opacity: 1;
 }
 
-/* Karta formuláře — #1a1a18 + jemný kovový okraj */
+/* Karta — „mléčné sklo“ jako card-luxury na hlavním webu */
 .rez-landing-card {
   position: relative;
+  overflow: hidden;
   border-radius: 1.25rem;
-  background: linear-gradient(165deg, rgba(32, 30, 26, 0.55) 0%, #1a1a18 48%, #141412 100%);
-  border: 1px solid rgba(184, 150, 62, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.92) 0%,
+    rgba(252, 252, 253, 0.88) 100%
+  );
   box-shadow:
-    0 28px 72px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(0, 0, 0, 0.35) inset,
-    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    0 4px 24px rgba(26, 26, 26, 0.05),
+    0 1px 2px rgba(26, 26, 26, 0.02),
+    inset 0 1px 0 rgba(255, 255, 255, 0.98);
 }
 
 .rez-landing-card::before {
@@ -78,48 +82,68 @@ body.rezervace-landing {
   padding: 1px;
   background: linear-gradient(
     145deg,
-    rgba(240, 228, 184, 0.22) 0%,
-    rgba(184, 150, 62, 0.08) 40%,
-    rgba(92, 74, 26, 0.2) 100%
+    rgba(240, 228, 184, 0.45) 0%,
+    rgba(184, 150, 62, 0.12) 45%,
+    rgba(92, 74, 26, 0.12) 100%
   );
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
+  opacity: 0.85;
 }
 
-/* Statistiky — skleněný pruh */
+/* Statistiky — klinický pruh (světlý), jako section-clinical-strip */
 .rez-stat-tile {
+  position: relative;
+  overflow: hidden;
   border-radius: 1rem;
-  border: 1px solid rgba(184, 150, 62, 0.12);
-  background: linear-gradient(160deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.02) 100%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  background: linear-gradient(180deg, #fbfcfd 0%, #f4f6f8 45%, #fafbfc 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
-/* Outline tlačítko na tmavém pozadí — kovový text + zlatý okraj */
+.rez-stat-tile::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 1;
+  background: radial-gradient(ellipse 80% 60% at 50% -20%, rgba(255, 255, 255, 0.9), transparent 55%),
+    radial-gradient(ellipse 50% 40% at 100% 100%, rgba(184, 150, 62, 0.06), transparent 45%);
+}
+
+.rez-stat-tile > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Druhé tlačítko — stejné jako btn-outline-gold na hlavním webu */
 .rez-btn-outline-gold {
   display: inline-flex;
   min-height: 52px;
   width: 100%;
   align-items: center;
   justify-content: center;
-  padding: 14px 28px;
+  padding: 16px 40px;
   font-family: var(--font-sans), system-ui, sans-serif;
   font-size: 13px;
   font-weight: 500;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   border-radius: 2px;
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  border: 1px solid rgba(212, 181, 92, 0.55);
-  background: linear-gradient(180deg, rgba(40, 36, 28, 0.9) 0%, rgba(22, 21, 18, 0.95) 100%);
+  border: 1px solid rgba(200, 175, 120, 0.45);
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.82) 0%, rgba(252, 253, 255, 0.55) 100%);
+  backdrop-filter: blur(16px) saturate(165%);
+  -webkit-backdrop-filter: blur(16px) saturate(165%);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    0 4px 24px rgba(0, 0, 0, 0.35),
-    0 0 32px rgba(184, 150, 62, 0.08);
-  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 2px 16px rgba(26, 26, 26, 0.04),
+    0 0 0 1px rgba(255, 255, 255, 0.4) inset;
+  transition: background 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease, transform 0.2s ease;
 }
 
 .rez-btn-outline-gold > span {
@@ -132,11 +156,20 @@ body.rezervace-landing {
 }
 
 .rez-btn-outline-gold:hover:not(:disabled) {
-  border-color: rgba(240, 228, 184, 0.65);
+  background-image: var(--gold-metal);
+  border-color: rgba(180, 150, 70, 0.55);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.1),
-    0 8px 36px rgba(184, 150, 62, 0.22);
+    inset 0 2px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(80, 60, 20, 0.12),
+    0 8px 28px rgba(184, 150, 62, 0.25);
   transform: translateY(-1px);
+}
+
+.rez-btn-outline-gold:hover:not(:disabled) > span {
+  background-image: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  color: #1a1a1a;
 }
 
 .rez-btn-outline-gold:disabled {
@@ -144,14 +177,14 @@ body.rezervace-landing {
   cursor: not-allowed;
 }
 
-/* Pole — tmavé sklo, zlatý focus */
+/* Pole — svělé jako na webu */
 .rez-input {
   min-height: 48px;
   width: 100%;
   border-radius: 0.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: linear-gradient(180deg, rgba(10, 10, 9, 0.95) 0%, rgba(17, 17, 16, 0.98) 100%);
-  color: #f5f3ef;
+  border: 1px solid rgba(26, 26, 26, 0.12);
+  background: #ffffff;
+  color: #1a1a1a;
   padding: 0.75rem 1rem;
   font-size: 16px;
   outline: none;
@@ -165,14 +198,15 @@ body.rezervace-landing {
 }
 
 .rez-input::placeholder {
-  color: rgba(255, 255, 255, 0.32);
+  color: rgba(26, 26, 26, 0.35);
 }
 
 .rez-input:focus {
   border-color: rgba(184, 150, 62, 0.55);
-  box-shadow: 0 0 0 2px rgba(184, 150, 62, 0.15);
+  box-shadow: 0 0 0 2px rgba(184, 150, 62, 0.12);
 }
 
 .rez-input:disabled {
   opacity: 0.55;
+  background: #fafbfc;
 }

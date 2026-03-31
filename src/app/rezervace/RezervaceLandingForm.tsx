@@ -33,10 +33,10 @@ function SuccessCard({ interest }: { interest: Interest }) {
       aria-live="polite"
     >
       <p className="font-heading text-lg text-gold sm:text-xl">{title}</p>
-      <p className="mt-4 text-[15px] leading-relaxed text-white/85">
+      <p className="mt-4 text-[15px] leading-relaxed text-ink/72">
         Vaše údaje jsme zaznamenali. Brzy vás budeme kontaktovat na uvedený e-mail.
       </p>
-      <p className="mt-6 text-sm text-white/45">
+      <p className="mt-6 text-sm text-ink/48">
         NEUREA · Brno ·{" "}
         <a href="mailto:info@neurea.cz" className="text-gold transition hover:opacity-90">
           info@neurea.cz
@@ -89,7 +89,10 @@ export function RezervaceLandingForm() {
   }
 
   const labelClass =
-    "block text-[11px] font-medium uppercase tracking-[0.2em] text-white/50";
+    "block text-[11px] font-medium uppercase tracking-[0.2em] text-ink/48";
+
+  const muted = "text-ink/62";
+  const finePrint = "text-ink/45";
 
   return (
     <div className="mx-auto grid w-full max-w-5xl grid-cols-1 gap-7 md:grid-cols-2 md:gap-10">
@@ -105,8 +108,8 @@ export function RezervaceLandingForm() {
           <h2 className="font-heading text-xl font-normal tracking-tight text-gold sm:text-2xl">
             Testovací studie zdarma
           </h2>
-          <p className="mt-1.5 text-[13px] text-white/78">Zbývá 6 míst</p>
-          <p className="mt-4 text-[15px] leading-relaxed text-white/68">
+          <p className={`mt-1.5 text-[13px] ${muted}`}>Zbývá 6 míst</p>
+          <p className={`mt-4 text-[15px] leading-relaxed ${muted}`}>
             Absolvujte sérii sezení zdarma výměnou za anonymní data o výsledcích.
           </p>
 
@@ -146,7 +149,7 @@ export function RezervaceLandingForm() {
 
           {errStudie ? (
             <p
-              className="mt-4 rounded-lg border border-red-500/35 bg-red-950/40 px-3 py-2 text-center text-sm text-red-100/95"
+              className="mt-4 rounded-lg border border-red-200 bg-red-50/90 px-3 py-2 text-center text-sm text-red-800"
               role="alert"
             >
               {errStudie}
@@ -160,7 +163,7 @@ export function RezervaceLandingForm() {
           >
             <span>{studie === "submitting" ? "Odesílám…" : "Přihlásit se do studie"}</span>
           </button>
-          <p className="mt-4 text-center text-[12px] leading-snug text-white/42">
+          <p className={`mt-4 text-center text-[12px] leading-snug ${finePrint}`}>
             Kapacita je omezená. Vybereme vás do 48 hodin.
           </p>
         </form>
@@ -178,8 +181,8 @@ export function RezervaceLandingForm() {
           <h2 className="font-heading text-xl font-normal tracking-tight text-gold sm:text-2xl">
             Rezervační seznam
           </h2>
-          <p className="mt-1.5 text-[13px] text-white/78">Spouštíme září 2025</p>
-          <p className="mt-4 text-[15px] leading-relaxed text-white/68">
+          <p className={`mt-1.5 text-[13px] ${muted}`}>Spouštíme září 2025</p>
+          <p className={`mt-4 text-[15px] leading-relaxed ${muted}`}>
             Buďte mezi prvními kteří se dozví o spuštění. Žádný závazek.
           </p>
 
@@ -219,7 +222,7 @@ export function RezervaceLandingForm() {
 
           {errSeznam ? (
             <p
-              className="mt-4 rounded-lg border border-red-500/35 bg-red-950/40 px-3 py-2 text-center text-sm text-red-100/95"
+              className="mt-4 rounded-lg border border-red-200 bg-red-50/90 px-3 py-2 text-center text-sm text-red-800"
               role="alert"
             >
               {errSeznam}
@@ -233,7 +236,7 @@ export function RezervaceLandingForm() {
           >
             <span>{seznam === "submitting" ? "Odesílám…" : "Rezervovat místo na seznamu"}</span>
           </button>
-          <p className="mt-4 text-center text-[12px] leading-snug text-white/42">
+          <p className={`mt-4 text-center text-[12px] leading-snug ${finePrint}`}>
             Zavoláme vám jako prvním — ještě před spuštěním.
           </p>
         </form>

@@ -1,6 +1,15 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        pathname: "/**",
+      },
+    ],
+  },
   /**
    * Záložní rewrite na úrovni Nextu — na subdoméně vždy obsluhovat /rezervace místo úvodní stránky.
    * (Middleware + headers() v layoutu zůstávají jako hlavní logika.)

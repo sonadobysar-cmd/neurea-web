@@ -6,6 +6,14 @@ type Interest = "studie" | "seznam";
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
 
+/** Počet zbývajících míst ve studii — z NEXT_PUBLIC_REZERVACE_STUDIE_MIST, výchozí 6. */
+const STUDIE_MIST_ZBYVA = (() => {
+  const raw = process.env.NEXT_PUBLIC_REZERVACE_STUDIE_MIST;
+  if (raw === undefined || raw === "") return 6;
+  const n = parseInt(String(raw), 10);
+  return Number.isFinite(n) && n >= 0 ? n : 6;
+})();
+
 async function postLead(payload: {
   name: string;
   email: string;
@@ -108,7 +116,9 @@ export function RezervaceLandingForm() {
           <h2 className="font-heading text-xl font-normal tracking-tight text-gold sm:text-2xl">
             Testovací studie zdarma
           </h2>
-          <p className={`mt-1.5 text-[13px] ${muted}`}>Zbývá 6 míst</p>
+          <p className={`mt-1.5 text-[13px] ${muted}`}>
+            Zbývá <strong className="font-bold text-ink">{STUDIE_MIST_ZBYVA}</strong> míst
+          </p>
           <p className={`mt-4 text-[15px] leading-relaxed ${muted}`}>
             Absolvujte sérii sezení zdarma výměnou za anonymní data o výsledcích.
           </p>

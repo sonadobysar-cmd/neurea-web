@@ -176,9 +176,17 @@ export function RezervaceLandingView() {
           className="mt-16 md:mt-20"
           aria-labelledby="rez-how-heading"
         >
+          <div className="flex justify-center">
+            <a
+              href="#rezervace-registrace"
+              className="btn-gold inline-flex min-h-[52px] w-full max-w-[min(100%,20rem)] items-center justify-center"
+            >
+              <span>JDU DO TOHO</span>
+            </a>
+          </div>
           <h2
             id="rez-how-heading"
-            className="font-heading text-center text-lg font-normal uppercase tracking-[0.22em] text-gold sm:text-xl md:tracking-[0.28em]"
+            className="font-heading mt-8 text-center text-lg font-normal uppercase tracking-[0.22em] text-gold sm:mt-10 sm:text-xl md:tracking-[0.28em]"
           >
             Jak to funguje
           </h2>

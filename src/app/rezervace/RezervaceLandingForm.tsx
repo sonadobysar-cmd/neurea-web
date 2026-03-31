@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useMemo, useState, type FormEvent } from "react";
 
 type Interest = "studie" | "seznam";
 
@@ -13,6 +13,60 @@ const STUDIE_MIST_ZBYVA = (() => {
   const n = parseInt(String(raw), 10);
   return Number.isFinite(n) && n >= 0 ? n : 6;
 })();
+
+function easeOutCubic(t: number) {
+  return 1 - (1 - t) ** 3;
+}
+
+/** Odpočet dolů k cílovému číslu z env — působí jako živé počítadlo. */
+function StudieMistCounter({ target, mutedClass }: { target: number; mutedClass: string }) {
+  const startVal = useMemo(() => {
+    if (target <= 0) return 0;
+    const raw = Math.min(target + 6, 48);
+    return raw > target ? raw : target;
+  }, [target]);
+
+  const [display, setDisplay] = useState(startVal);
+
+  useEffect(() => {
+    if (target <= 0) {
+      setDisplay(0);
+      return;
+    }
+    if (startVal <= target) {
+      setDisplay(target);
+      return;
+    }
+
+    setDisplay(startVal);
+    const duration = 2200;
+    const t0 = performance.now();
+    let raf = 0;
+
+    function tick(now: number) {
+      const elapsed = now - t0;
+      const u = Math.min(1, elapsed / duration);
+      const eased = easeOutCubic(u);
+      const v = Math.round(startVal - (startVal - target) * eased);
+      setDisplay(v);
+      if (u < 1) raf = requestAnimationFrame(tick);
+      else setDisplay(target);
+    }
+
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [target, startVal]);
+
+  return (
+    <p className={`mt-1.5 text-[13px] ${mutedClass}`}>
+      <span className="sr-only">Zbývá {target} míst</span>
+      <span aria-hidden className="inline">
+        Zbývá{" "}
+        <strong className="font-bold tabular-nums text-ink">{display}</strong> míst
+      </span>
+    </p>
+  );
+}
 
 async function postLead(payload: {
   name: string;
@@ -116,9 +170,7 @@ export function RezervaceLandingForm() {
           <h2 className="font-heading text-xl font-normal tracking-tight text-gold sm:text-2xl">
             Testovací studie zdarma
           </h2>
-          <p className={`mt-1.5 text-[13px] ${muted}`}>
-            Zbývá <strong className="font-bold text-ink">{STUDIE_MIST_ZBYVA}</strong> míst
-          </p>
+          <StudieMistCounter target={STUDIE_MIST_ZBYVA} mutedClass={muted} />
           <p className={`mt-4 text-[15px] leading-relaxed ${muted}`}>
             Absolvujte sérii sezení zdarma výměnou za anonymní data o výsledcích.
           </p>

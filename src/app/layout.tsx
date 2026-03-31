@@ -26,6 +26,9 @@ const oxygen = Oxygen({
   display: "swap",
 });
 
+/** Bez plné cache HTML — landing podle hostu musí být vždy čerstvá. */
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {

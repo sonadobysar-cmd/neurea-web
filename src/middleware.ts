@@ -23,6 +23,11 @@ export function middleware(request: NextRequest) {
   const host = getHost(request);
   const { pathname } = request.nextUrl;
 
+  const requestHeaders = new Headers(request.headers);
+  if (LANDING_HOSTS.has(host)) {
+    requestHeaders.set("x-neurea-landing", "1");
+  }
+
   if (MAIN_HOSTS.has(host) && pathname.startsWith("/rezervace")) {
     const url = request.nextUrl.clone();
     url.hostname = "rezervace.neurea.cz";
@@ -32,13 +37,13 @@ export function middleware(request: NextRequest) {
 
   if (LANDING_HOSTS.has(host)) {
     if (isStaticPath(pathname)) {
-      return NextResponse.next();
+      return NextResponse.next({ request: { headers: requestHeaders } });
     }
     if (pathname.startsWith("/rezervace")) {
-      return NextResponse.next();
+      return NextResponse.next({ request: { headers: requestHeaders } });
     }
     if (pathname === "/" || pathname === "") {
-      return NextResponse.next();
+      return NextResponse.next({ request: { headers: requestHeaders } });
     }
     const main = new URL(`https://neurea.cz${pathname}${request.nextUrl.search}`);
     return NextResponse.redirect(main, 301);

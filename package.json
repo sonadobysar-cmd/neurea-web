@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": ">=20"
+    "node": "20.x"
   },
   "scripts": {
     "dev": "printf '\\n  NEUREA — otevři v prohlížeči PŘESNĚ adresu z řádku „Local:“ (port může být 3001, 3004… pokud je 3000 obsazený).\\n  Když „localhost“ nejde, zkus http://127.0.0.1:PORT\\n\\n' && WATCHPACK_POLLING=1 next dev -H 127.0.0.1",

@@ -1,0 +1,22 @@
+/**
+ * Skryje globální chrome (Header, Footer, FloatingCta, CookieBanner) na /rezervace,
+ * aniž by se měnil root layout — třídu na body přidá RezervaceLandingBodyClass.
+ */
+body.rezervace-landing > header,
+body.rezervace-landing > footer {
+  display: none !important;
+}
+
+/* FloatingCta — 4. přímý potomek body (po header, main, footer) */
+body.rezervace-landing > div:nth-child(4),
+/* Cookie lišta — 5. potomek, pokud je zobrazená */
+body.rezervace-landing > div:nth-child(5) {
+  display: none !important;
+}
+
+body.rezervace-landing > main {
+  min-height: 100dvh !important;
+  padding-bottom: 0 !important;
+  background-color: #111110 !important;
+  color: #ffffff !important;
+}

@@ -1,39 +1,17 @@
-import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { headers } from "next/headers";
+import { isRezervaceLandingHost } from "@/lib/landingHost";
 import { RezervaceLandingBodyClass } from "./RezervaceLandingBodyClass";
 
-const landingUrl = "https://rezervace.neurea.cz";
+/** SEO / metadata: `page.tsx` (generateMetadata podle hostu), `dekujeme/page.tsx` atd. */
 
-export const metadata: Metadata = {
-  metadataBase: new URL(landingUrl),
-  title: {
-    default: "NEUREA Brno — rezervace",
-    template: "%s | NEUREA Brno",
-  },
-  description:
-    "První neuro-somatické pracoviště v ČR. Testovací studie a zájem o spuštění — NEUREA Brno.",
-  alternates: {
-    canonical: "/",
-  },
-  openGraph: {
-    type: "website",
-    locale: "cs_CZ",
-    url: landingUrl,
-    siteName: "NEUREA",
-    title: "NEUREA Brno — Terapie mluví. Neurea měří.",
-    description:
-      "První neuro-somatické pracoviště v ČR. Klinicky ověřené technologie. Měřitelné výsledky.",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+export default async function RezervaceLayout({ children }: { children: ReactNode }) {
+  const h = await headers();
+  const landing = isRezervaceLandingHost(h);
 
-export default function RezervaceLayout({ children }: { children: ReactNode }) {
   return (
     <>
-      <RezervaceLandingBodyClass />
+      {landing ? <RezervaceLandingBodyClass /> : null}
       {children}
     </>
   );

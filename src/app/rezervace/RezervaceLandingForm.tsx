@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, type FormEvent } from "react";
-import { createPortal } from "react-dom";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import { site } from "@/lib/site";
 
 type Interest = "studie" | "seznam";
@@ -79,11 +78,16 @@ async function postLead(payload: {
       ? `${window.location.origin}/rezervace/api/lead`
       : "/rezervace/api/lead";
 
+  const ctrl = new AbortController();
+  const timeoutMs = 28_000;
+  const kill = setTimeout(() => ctrl.abort(), timeoutMs);
+
   try {
     const res = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
+      signal: ctrl.signal,
     });
     const raw = await res.text();
     let data: { ok?: boolean; error?: string };
@@ -96,62 +100,52 @@ async function postLead(payload: {
       return { ok: false, error: data.error ?? "Odeslání se nepovedlo. Zkuste to prosím znovu." };
     }
     return { ok: true };
-  } catch {
+  } catch (err) {
+    if (err instanceof Error && err.name === "AbortError") {
+      return { ok: false, error: "Vypršel čas odpovědi serveru. Zkuste to prosím znovu." };
+    }
     return { ok: false, error: "Spojení se nepovedlo. Zkontrolujte síť a zkuste to znovu." };
+  } finally {
+    clearTimeout(kill);
   }
 }
 
-function ThankYouDialog({
-  open,
-  onClose,
-  kind,
-}: {
-  open: boolean;
-  onClose: () => void;
-  kind: Interest | null;
-}) {
-  const [mounted, setMounted] = useState(false);
+/** Nativní `<dialog>` + `showModal()` = top layer v prohlížeči (neřeže ho `overflow` na předcích). */
+function ThankYouNativeDialog({ interest, onDismiss }: { interest: Interest; onDismiss: () => void }) {
+  const ref = useRef<HTMLDialogElement>(null);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    window.addEventListener("keydown", onKey);
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    try {
+      if (!el.open) el.showModal();
+    } catch {
+      onDismiss();
+    }
     return () => {
-      window.removeEventListener("keydown", onKey);
-      document.body.style.overflow = prevOverflow;
+      if (el.open) el.close();
     };
-  }, [open, onClose]);
-
-  if (!open || !mounted || kind === null) return null;
+  }, [interest, onDismiss]);
 
   const title =
-    kind === "seznam" ? "Jste na seznamu" : "Přihlášení do studie přijato";
+    interest === "seznam" ? "Jste na seznamu" : "Přihlášení do studie přijato";
 
-  return createPortal(
-    <div
-      className="fixed inset-0 z-[2147483646] flex items-center justify-center bg-[#1A1A1A]/45 p-4 backdrop-blur-[2px]"
-      role="presentation"
-      onMouseDown={(e) => {
-        if (e.target === e.currentTarget) onClose();
+  const close = () => {
+    ref.current?.close();
+  };
+
+  return (
+    <dialog
+      ref={ref}
+      className="rez-thank-dialog"
+      onClose={onDismiss}
+      onCancel={(e) => {
+        e.preventDefault();
+        close();
       }}
     >
-      <div
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="rez-thank-title"
-        className="rez-cream-card relative max-h-[90dvh] w-full max-w-lg overflow-y-auto px-6 py-8 shadow-lg sm:px-8 sm:py-10"
-      >
-        <h2 id="rez-thank-title" className="font-heading text-xl font-medium text-gold sm:text-2xl">
-          {title}
-        </h2>
+      <div className="rez-thank-dialog-panel rez-cream-card max-h-[90dvh] overflow-y-auto px-6 py-8 sm:px-8 sm:py-10">
+        <h2 className="font-heading text-xl font-medium text-gold sm:text-2xl">{title}</h2>
         <div className="mt-5 space-y-4 text-left text-[15px] leading-relaxed text-[#1A1A1A]/85">
           <p>
             Vaše údaje jsme zaznamenali. Brzy vás budeme kontaktovat na uvedený e-mail. Děkujeme za zájem —
@@ -185,12 +179,11 @@ function ThankYouDialog({
           </p>
           <p className="font-heading pt-1 text-sm tracking-wide text-[#1A1A1A]/60">Budeme se těšit — vaše Neurea</p>
         </div>
-        <button type="button" onClick={onClose} className="btn-gold mt-8 w-full min-h-[48px] sm:mt-10">
+        <button type="button" onClick={close} className="btn-gold mt-8 w-full min-h-[48px] sm:mt-10">
           <span>Zavřít</span>
         </button>
       </div>
-    </div>,
-    document.body,
+    </dialog>
   );
 }
 
@@ -208,13 +201,11 @@ export function RezervaceLandingForm() {
   const [seznam, setSeznam] = useState<SubmitState>("idle");
   const [errStudie, setErrStudie] = useState<string | null>(null);
   const [errSeznam, setErrSeznam] = useState<string | null>(null);
-  const [thankYouOpen, setThankYouOpen] = useState(false);
-  const [thankYouKind, setThankYouKind] = useState<Interest | null>(null);
+  const [thankYouInterest, setThankYouInterest] = useState<Interest | null>(null);
 
-  function closeThankYou() {
-    setThankYouOpen(false);
-    setThankYouKind(null);
-  }
+  const dismissThankYou = useCallback(() => {
+    setThankYouInterest(null);
+  }, []);
 
   async function onSubmitStudie(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -225,15 +216,20 @@ export function RezervaceLandingForm() {
     const neurea_hp = String(fd.get("neurea_hp") ?? "");
     setErrStudie(null);
     setStudie("submitting");
-    const r = await postLead({ name, email, interest: "studie", neurea_hp });
-    if (!r.ok) {
-      setErrStudie(r.error ?? "Chyba");
+    try {
+      const r = await postLead({ name, email, interest: "studie", neurea_hp });
+      if (!r.ok) {
+        setErrStudie(r.error ?? "Chyba");
+        setStudie("error");
+        return;
+      }
+      setStudie("success");
+      setThankYouInterest("studie");
+      document.getElementById("rezervace-registrace")?.scrollIntoView({ behavior: "smooth", block: "center" });
+    } catch {
+      setErrStudie("Něco se pokazilo. Zkuste to prosím znovu.");
       setStudie("error");
-      return;
     }
-    setStudie("success");
-    setThankYouKind("studie");
-    setThankYouOpen(true);
   }
 
   async function onSubmitSeznam(e: FormEvent<HTMLFormElement>) {
@@ -245,15 +241,20 @@ export function RezervaceLandingForm() {
     const neurea_hp = String(fd.get("neurea_hp") ?? "");
     setErrSeznam(null);
     setSeznam("submitting");
-    const r = await postLead({ name, email, interest: "seznam", neurea_hp });
-    if (!r.ok) {
-      setErrSeznam(r.error ?? "Chyba");
+    try {
+      const r = await postLead({ name, email, interest: "seznam", neurea_hp });
+      if (!r.ok) {
+        setErrSeznam(r.error ?? "Chyba");
+        setSeznam("error");
+        return;
+      }
+      setSeznam("success");
+      setThankYouInterest("seznam");
+      document.getElementById("rezervace-registrace")?.scrollIntoView({ behavior: "smooth", block: "center" });
+    } catch {
+      setErrSeznam("Něco se pokazilo. Zkuste to prosím znovu.");
       setSeznam("error");
-      return;
     }
-    setSeznam("success");
-    setThankYouKind("seznam");
-    setThankYouOpen(true);
   }
 
   const labelClass =
@@ -264,7 +265,9 @@ export function RezervaceLandingForm() {
 
   return (
     <>
-      <ThankYouDialog open={thankYouOpen} onClose={closeThankYou} kind={thankYouKind} />
+      {thankYouInterest ? (
+        <ThankYouNativeDialog interest={thankYouInterest} onDismiss={dismissThankYou} />
+      ) : null}
       <div className="mx-auto grid w-full max-w-5xl grid-cols-1 gap-7 md:grid-cols-2 md:gap-10">
         {studie === "success" ? (
           <SentStub />

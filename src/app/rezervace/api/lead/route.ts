@@ -22,6 +22,15 @@ function escapeHtml(s: string): string {
     .replace(/"/g, "&quot;");
 }
 
+/** Stejná priorita jako u `sendBookingConfirmationEmail` — ověřený odesílatel v Resend. */
+function resolveResendFrom(): string {
+  return (
+    process.env.EMAIL_FROM?.trim() ||
+    process.env.RESEND_FROM_EMAIL?.trim() ||
+    "NEUREA <onboarding@resend.dev>"
+  );
+}
+
 function clientLeadSubject(interest: string): string {
   if (interest === "studie") return "Potvrzení přihlášky do studie — NEUREA Brno";
   if (interest === "seznam") return "Potvrzení zájmu o rezervační seznam — NEUREA Brno";
@@ -46,6 +55,63 @@ function clientLeadHtml(interest: string, nameClean: string): string {
   `.trim();
 }
 
+function clientLeadPlain(interest: string, nameClean: string): string {
+  if (interest === "studie") {
+    return [
+      `Dobrý den, ${nameClean},`,
+      "",
+      "děkujeme za přihlášení do testovací studie na rezervace.neurea.cz. Váš zájem jsme zaznamenali.",
+      "",
+      "Brzy vás budeme kontaktovat na tento e-mail s dalšími informacemi.",
+      "",
+      `NEUREA · Brno · ${site.email}`,
+    ].join("\n");
+  }
+  return [
+    `Dobrý den, ${nameClean},`,
+    "",
+    "děkujeme za zájem o rezervační seznam na rezervace.neurea.cz. Vaše údaje jsme uložili.",
+    "",
+    "Až budeme připraveni, dáme vám vědět mezi prvními.",
+    "",
+    `NEUREA · Brno · ${site.email}`,
+  ].join("\n");
+}
+
+function adminLeadPlain(
+  interestLabel: string,
+  interest: string,
+  nameClean: string,
+  emailClean: string,
+): string {
+  return [
+    interestLabel,
+    "",
+    `Zdroj: rezervace.neurea.cz · interest=${interest}`,
+    "",
+    `Jméno: ${nameClean}`,
+    `E-mail: ${emailClean}`,
+  ].join("\n");
+}
+
+async function resendSend(
+  apiKey: string,
+  payload: Record<string, unknown>,
+): Promise<{ ok: boolean; status: number; body: string }> {
+  const res = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+  const body = await res.text();
+  return { ok: res.ok, status: res.status, body };
+}
+
+export const runtime = "nodejs";
+
 export async function POST(request: Request) {
   let body: unknown;
   try {
@@ -67,7 +133,7 @@ export async function POST(request: Request) {
   const { name, email, interest, website } = body as Record<string, unknown>;
 
   if (typeof website === "string" && website.length > 0) {
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({ ok: true, clientEmailSent: true });
   }
 
   if (typeof name !== "string" || name.trim().length < 1) {
@@ -93,62 +159,64 @@ export async function POST(request: Request) {
     );
   }
 
-  const from =
-    process.env.RESEND_FROM_EMAIL?.trim() ||
-    process.env.EMAIL_FROM?.trim() ||
-    "NEUREA <onboarding@resend.dev>";
+  const from = resolveResendFrom();
 
-  const html = `
+  const adminHtml = `
     <p style="font-size:18px;margin:0 0 16px 0;"><strong>${escapeHtml(interestLabel)}</strong></p>
     <p style="margin:0 0 12px 0;"><strong>Zdroj:</strong> rezervace.neurea.cz · interest=<code>${escapeHtml(interest)}</code></p>
     <p style="margin:0;"><strong>Jméno:</strong> ${escapeHtml(nameClean)}<br/>
     <strong>E-mail:</strong> ${escapeHtml(emailClean)}</p>
   `;
+  const adminPlain = adminLeadPlain(interestLabel, interest, nameClean, emailClean);
 
-  const res = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from,
-      to: [TO_EMAIL],
-      reply_to: emailClean,
-      subject: `${subjectPrefix(interest)} Rezervace landing: ${nameClean}`,
-      html,
-    }),
+  const adminRes = await resendSend(apiKey, {
+    from,
+    to: [TO_EMAIL],
+    reply_to: emailClean,
+    subject: `${subjectPrefix(interest)} Rezervace landing: ${nameClean}`,
+    html: adminHtml,
+    text: adminPlain,
   });
 
-  if (!res.ok) {
-    const text = await res.text();
-    console.error("[rezervace/lead] Resend error:", res.status, text);
+  if (!adminRes.ok) {
+    console.error("[rezervace/lead] Resend admin:", adminRes.status, adminRes.body);
     return NextResponse.json(
       { ok: false, error: "Odeslání se nepovedlo. Zkuste to prosím znovu." },
       { status: 502 },
     );
   }
 
-  const clientRes = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
+  const clientSubject = clientLeadSubject(interest);
+  const clientHtml = clientLeadHtml(interest, nameClean);
+  const clientPlain = clientLeadPlain(interest, nameClean);
+
+  const clientPayloadFull = {
+    from,
+    to: [emailClean],
+    reply_to: TO_EMAIL,
+    subject: clientSubject,
+    html: clientHtml,
+    text: clientPlain,
+  };
+
+  let clientRes = await resendSend(apiKey, clientPayloadFull);
+  if (!clientRes.ok) {
+    console.warn("[rezervace/lead] klient 1. pokus:", clientRes.status, clientRes.body);
+    await new Promise((r) => setTimeout(r, 450));
+    /** Druhý pokus bez reply_to (některá API pravidla / DMARC to umí ovlivnit). */
+    clientRes = await resendSend(apiKey, {
       from,
       to: [emailClean],
-      reply_to: TO_EMAIL,
-      subject: clientLeadSubject(interest),
-      html: clientLeadHtml(interest, nameClean),
-    }),
-  });
-
-  if (!clientRes.ok) {
-    const text = await clientRes.text();
-    console.error("[rezervace/lead] Resend client confirmation error:", clientRes.status, text);
-    /** Interní notifikace už proběhla — klientovi se potvrzení nepovedlo (např. sandbox doména). */
+      subject: clientSubject,
+      html: clientHtml,
+      text: clientPlain,
+    });
   }
 
-  return NextResponse.json({ ok: true });
+  if (!clientRes.ok) {
+    console.error("[rezervace/lead] Resend klient po 2 pokusech:", clientRes.status, clientRes.body);
+    return NextResponse.json({ ok: true, clientEmailSent: false });
+  }
+
+  return NextResponse.json({ ok: true, clientEmailSent: true });
 }

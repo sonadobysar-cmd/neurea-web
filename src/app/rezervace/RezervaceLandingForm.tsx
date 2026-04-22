@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState, type FormEvent } from "react";
+import { site } from "@/lib/site";
 
 type Interest = "studie" | "seznam";
 
@@ -73,20 +74,20 @@ async function postLead(payload: {
   email: string;
   interest: Interest;
   website: string;
-}): Promise<{ ok: boolean; error?: string }> {
+}): Promise<{ ok: boolean; error?: string; clientEmailSent?: boolean }> {
   const res = await fetch("/rezervace/api/lead", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   });
-  const data = (await res.json()) as { ok?: boolean; error?: string };
+  const data = (await res.json()) as { ok?: boolean; error?: string; clientEmailSent?: boolean };
   if (!res.ok || !data.ok) {
     return { ok: false, error: data.error ?? "Odeslání se nepovedlo. Zkuste to prosím znovu." };
   }
-  return { ok: true };
+  return { ok: true, clientEmailSent: data.clientEmailSent !== false };
 }
 
-function SuccessCard({ interest }: { interest: Interest }) {
+function SuccessCard({ interest, clientEmailSent = true }: { interest: Interest; clientEmailSent?: boolean }) {
   const title = interest === "studie" ? "Přihlášení do studie přijato" : "Jste na seznamu";
   return (
     <div
@@ -98,10 +99,24 @@ function SuccessCard({ interest }: { interest: Interest }) {
       <p className="mt-4 text-[15px] leading-relaxed text-ink/72">
         Vaše údaje jsme zaznamenali. Brzy vás budeme kontaktovat na uvedený e-mail.
       </p>
+      {!clientEmailSent ? (
+        <p
+          className="mt-4 rounded-lg border border-amber-200/90 bg-amber-50/95 px-3 py-2.5 text-left text-[13px] leading-snug text-amber-950 sm:text-sm"
+          role="status"
+        >
+          Automatické potvrzení na váš e-mail se nepodařilo odeslat (typicky neověřená odesílací doména v
+          Resend nebo filtr u příjemce). Zájem máme u nás v pořádku — zkontrolujte prosím spam. Když nic
+          nedorazí, napište nám na{" "}
+          <a href={`mailto:${site.email}`} className="text-gold underline-offset-2 hover:underline">
+            {site.email}
+          </a>
+          .
+        </p>
+      ) : null}
       <p className="mt-6 text-sm text-ink/48">
         NEUREA · Brno ·{" "}
-        <a href="mailto:info@neurea.cz" className="text-gold transition hover:opacity-90">
-          info@neurea.cz
+        <a href={`mailto:${site.email}`} className="text-gold transition hover:opacity-90">
+          {site.email}
         </a>
       </p>
     </div>
@@ -113,6 +128,8 @@ export function RezervaceLandingForm() {
   const [seznam, setSeznam] = useState<SubmitState>("idle");
   const [errStudie, setErrStudie] = useState<string | null>(null);
   const [errSeznam, setErrSeznam] = useState<string | null>(null);
+  const [studieClientEmailSent, setStudieClientEmailSent] = useState(true);
+  const [seznamClientEmailSent, setSeznamClientEmailSent] = useState(true);
 
   async function onSubmitStudie(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -129,6 +146,7 @@ export function RezervaceLandingForm() {
       setStudie("error");
       return;
     }
+    setStudieClientEmailSent(r.clientEmailSent !== false);
     setStudie("success");
   }
 
@@ -147,6 +165,7 @@ export function RezervaceLandingForm() {
       setSeznam("error");
       return;
     }
+    setSeznamClientEmailSent(r.clientEmailSent !== false);
     setSeznam("success");
   }
 
@@ -159,7 +178,7 @@ export function RezervaceLandingForm() {
   return (
     <div className="mx-auto grid w-full max-w-5xl grid-cols-1 gap-7 md:grid-cols-2 md:gap-10">
       {studie === "success" ? (
-        <SuccessCard interest="studie" />
+        <SuccessCard interest="studie" clientEmailSent={studieClientEmailSent} />
       ) : (
         <form onSubmit={onSubmitStudie} className="rez-landing-card relative flex flex-col p-6 sm:p-7 md:p-8" noValidate>
           <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
@@ -232,7 +251,7 @@ export function RezervaceLandingForm() {
       )}
 
       {seznam === "success" ? (
-        <SuccessCard interest="seznam" />
+        <SuccessCard interest="seznam" clientEmailSent={seznamClientEmailSent} />
       ) : (
         <form onSubmit={onSubmitSeznam} className="rez-landing-card relative flex flex-col p-6 sm:p-7 md:p-8" noValidate>
           <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">

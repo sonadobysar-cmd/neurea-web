@@ -76,7 +76,12 @@ async function postLead(payload: {
   /** Honeypot — musí zůstat prázdné (nepoužívat název „website“, vyplňuje ho autofill). */
   neurea_hp: string;
 }): Promise<{ ok: boolean; error?: string; clientEmailSent?: boolean }> {
-  const res = await fetch("/rezervace/api/lead", {
+  const url =
+    typeof window !== "undefined"
+      ? `${window.location.origin}/rezervace/api/lead`
+      : "/rezervace/api/lead";
+
+  const res = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { site } from "@/lib/site";
 
-const TO_EMAIL = site.email;
+const TO_EMAIL = site.email.toLowerCase();
 
 const INTEREST_LABELS: Record<string, string> = {
   studie: "Testovací studie zdarma (formulář vlevo)",
@@ -78,17 +78,28 @@ function clientLeadPlain(interest: string, nameClean: string): string {
   ].join("\n");
 }
 
-function adminLeadPlain(
+function adminFooterHtml(
   interestLabel: string,
   interest: string,
   nameClean: string,
   emailClean: string,
 ): string {
+  return `
+<hr style="border:none;border-top:1px solid #ddd;margin:28px 0 16px;" />
+<p style="font-size:12px;line-height:1.55;color:#666;margin:0;">
+<strong>Kopie pro NEUREA (interní)</strong><br/>
+${escapeHtml(interestLabel)} · typ: <code>${escapeHtml(interest)}</code><br/>
+Jméno: ${escapeHtml(nameClean)} · e-mail: <a href="mailto:${escapeHtml(emailClean)}">${escapeHtml(emailClean)}</a>
+</p>`.trim();
+}
+
+function adminFooterPlain(interestLabel: string, interest: string, nameClean: string, emailClean: string): string {
   return [
+    "",
+    "---",
+    "[NEUREA interní]",
     interestLabel,
-    "",
-    `Zdroj: rezervace.neurea.cz · interest=${interest}`,
-    "",
+    `typ: ${interest}`,
     `Jméno: ${nameClean}`,
     `E-mail: ${emailClean}`,
   ].join("\n");
@@ -161,61 +172,40 @@ export async function POST(request: Request) {
 
   const from = resolveResendFrom();
 
-  const adminHtml = `
-    <p style="font-size:18px;margin:0 0 16px 0;"><strong>${escapeHtml(interestLabel)}</strong></p>
-    <p style="margin:0 0 12px 0;"><strong>Zdroj:</strong> rezervace.neurea.cz · interest=<code>${escapeHtml(interest)}</code></p>
-    <p style="margin:0;"><strong>Jméno:</strong> ${escapeHtml(nameClean)}<br/>
-    <strong>E-mail:</strong> ${escapeHtml(emailClean)}</p>
-  `;
-  const adminPlain = adminLeadPlain(interestLabel, interest, nameClean, emailClean);
+  /**
+   * Jeden e-mail: příjemce = klient (v Resend logu uvidíš jeho adresu v „To“).
+   * BCC = info@ — stejná zpráva, bez druhého API volání (které u vás vůbec neprošlo).
+   */
+  const html =
+    clientLeadHtml(interest, nameClean) +
+    adminFooterHtml(interestLabel, interest, nameClean, emailClean);
+  const text =
+    clientLeadPlain(interest, nameClean) +
+    adminFooterPlain(interestLabel, interest, nameClean, emailClean);
 
-  const adminRes = await resendSend(apiKey, {
+  const subject = `${subjectPrefix(interest)} ${clientLeadSubject(interest)}`;
+
+  const payload: Record<string, unknown> = {
     from,
-    to: [TO_EMAIL],
-    reply_to: emailClean,
-    subject: `${subjectPrefix(interest)} Rezervace landing: ${nameClean}`,
-    html: adminHtml,
-    text: adminPlain,
-  });
+    to: [emailClean],
+    reply_to: TO_EMAIL,
+    subject,
+    html,
+    text,
+  };
 
-  if (!adminRes.ok) {
-    console.error("[rezervace/lead] Resend admin:", adminRes.status, adminRes.body);
+  if (emailClean !== TO_EMAIL) {
+    payload.bcc = [TO_EMAIL];
+  }
+
+  const res = await resendSend(apiKey, payload);
+
+  if (!res.ok) {
+    console.error("[rezervace/lead] Resend:", res.status, res.body);
     return NextResponse.json(
       { ok: false, error: "Odeslání se nepovedlo. Zkuste to prosím znovu." },
       { status: 502 },
     );
-  }
-
-  const clientSubject = clientLeadSubject(interest);
-  const clientHtml = clientLeadHtml(interest, nameClean);
-  const clientPlain = clientLeadPlain(interest, nameClean);
-
-  const clientPayloadFull = {
-    from,
-    to: [emailClean],
-    reply_to: TO_EMAIL,
-    subject: clientSubject,
-    html: clientHtml,
-    text: clientPlain,
-  };
-
-  let clientRes = await resendSend(apiKey, clientPayloadFull);
-  if (!clientRes.ok) {
-    console.warn("[rezervace/lead] klient 1. pokus:", clientRes.status, clientRes.body);
-    await new Promise((r) => setTimeout(r, 450));
-    /** Druhý pokus bez reply_to (některá API pravidla / DMARC to umí ovlivnit). */
-    clientRes = await resendSend(apiKey, {
-      from,
-      to: [emailClean],
-      subject: clientSubject,
-      html: clientHtml,
-      text: clientPlain,
-    });
-  }
-
-  if (!clientRes.ok) {
-    console.error("[rezervace/lead] Resend klient po 2 pokusech:", clientRes.status, clientRes.body);
-    return NextResponse.json({ ok: true, clientEmailSent: false });
   }
 
   return NextResponse.json({ ok: true, clientEmailSent: true });

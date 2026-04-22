@@ -79,16 +79,26 @@ async function postLead(payload: {
       ? `${window.location.origin}/rezervace/api/lead`
       : "/rezervace/api/lead";
 
-  const res = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
-  const data = (await res.json()) as { ok?: boolean; error?: string };
-  if (!res.ok || !data.ok) {
-    return { ok: false, error: data.error ?? "Odeslání se nepovedlo. Zkuste to prosím znovu." };
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const raw = await res.text();
+    let data: { ok?: boolean; error?: string };
+    try {
+      data = JSON.parse(raw) as { ok?: boolean; error?: string };
+    } catch {
+      return { ok: false, error: "Neočekávaná odpověď serveru. Zkuste to prosím znovu." };
+    }
+    if (!res.ok || !data.ok) {
+      return { ok: false, error: data.error ?? "Odeslání se nepovedlo. Zkuste to prosím znovu." };
+    }
+    return { ok: true };
+  } catch {
+    return { ok: false, error: "Spojení se nepovedlo. Zkontrolujte síť a zkuste to znovu." };
   }
-  return { ok: true };
 }
 
 function ThankYouDialog({

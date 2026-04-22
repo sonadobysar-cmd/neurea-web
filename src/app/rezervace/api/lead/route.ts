@@ -102,13 +102,19 @@ export async function POST(request: Request) {
   const emailClean = email.trim().toLowerCase();
   const interestLabel = INTEREST_LABELS[interest];
 
-  const apiKey = process.env.RESEND_API_KEY;
+  /**
+   * Klientovi vždy potvrdíme přijetí (modal na landing stránce).
+   * Interní e-mail přes Resend je „best effort“ — při chybě klienta neblokujeme.
+   */
+  const respondOk = () => NextResponse.json({ ok: true });
+
+  const apiKey = process.env.RESEND_API_KEY?.trim();
   if (!apiKey) {
-    console.error("[rezervace/lead] RESEND_API_KEY is not set");
-    return NextResponse.json(
-      { ok: false, error: "Odeslání e-mailu není nakonfigurováno." },
-      { status: 503 },
-    );
+    console.error("[rezervace/lead] RESEND_API_KEY missing; lead not emailed", {
+      interest,
+      email: emailClean,
+    });
+    return respondOk();
   }
 
   const from = resolveResendFrom();
@@ -131,12 +137,14 @@ export async function POST(request: Request) {
   });
 
   if (!adminRes.ok) {
-    console.error("[rezervace/lead] Resend:", adminRes.status, adminRes.body);
-    return NextResponse.json(
-      { ok: false, error: "Odeslání se nepovedlo. Zkuste to prosím znovu." },
-      { status: 502 },
-    );
+    console.error("[rezervace/lead] Resend failed", {
+      status: adminRes.status,
+      body: adminRes.body,
+      interest,
+      email: emailClean,
+    });
+    return respondOk();
   }
 
-  return NextResponse.json({ ok: true });
+  return respondOk();
 }

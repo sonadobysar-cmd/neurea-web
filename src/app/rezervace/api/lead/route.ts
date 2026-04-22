@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
+import { site } from "@/lib/site";
 
-const TO_EMAIL = "info@neurea.cz";
+const TO_EMAIL = site.email;
 
 const INTEREST_LABELS: Record<string, string> = {
   studie: "Testovací studie zdarma (formulář vlevo)",
@@ -19,6 +20,30 @@ function escapeHtml(s: string): string {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
+}
+
+function clientLeadSubject(interest: string): string {
+  if (interest === "studie") return "Potvrzení přihlášky do studie — NEUREA Brno";
+  if (interest === "seznam") return "Potvrzení zájmu o rezervační seznam — NEUREA Brno";
+  return "Potvrzení — NEUREA Brno";
+}
+
+function clientLeadHtml(interest: string, nameClean: string): string {
+  const name = escapeHtml(nameClean);
+  if (interest === "studie") {
+    return `
+<p style="margin:0 0 16px 0;font-size:16px;line-height:1.5;">Dobrý den, ${name},</p>
+<p style="margin:0 0 16px 0;font-size:16px;line-height:1.5;">děkujeme za přihlášení do <strong>testovací studie</strong> na rezervace.neurea.cz. Váš zájem jsme zaznamenali.</p>
+<p style="margin:0 0 16px 0;font-size:16px;line-height:1.5;">Brzy vás budeme kontaktovat na tento e-mail s dalšími informacemi.</p>
+<p style="margin:0;font-size:14px;line-height:1.5;color:#555;">NEUREA · Brno · <a href="mailto:${escapeHtml(site.email)}">${escapeHtml(site.email)}</a></p>
+    `.trim();
+  }
+  return `
+<p style="margin:0 0 16px 0;font-size:16px;line-height:1.5;">Dobrý den, ${name},</p>
+<p style="margin:0 0 16px 0;font-size:16px;line-height:1.5;">děkujeme za zájem o <strong>rezervační seznam</strong> na rezervace.neurea.cz. Vaše údaje jsme uložili.</p>
+<p style="margin:0 0 16px 0;font-size:16px;line-height:1.5;">Až budeme připraveni, dáme vám vědět mezi prvními.</p>
+<p style="margin:0;font-size:14px;line-height:1.5;color:#555;">NEUREA · Brno · <a href="mailto:${escapeHtml(site.email)}">${escapeHtml(site.email)}</a></p>
+  `.trim();
 }
 
 export async function POST(request: Request) {
@@ -69,7 +94,9 @@ export async function POST(request: Request) {
   }
 
   const from =
-    process.env.RESEND_FROM_EMAIL?.trim() || "Neurea rezervace <onboarding@resend.dev>";
+    process.env.RESEND_FROM_EMAIL?.trim() ||
+    process.env.EMAIL_FROM?.trim() ||
+    "NEUREA <onboarding@resend.dev>";
 
   const html = `
     <p style="font-size:18px;margin:0 0 16px 0;"><strong>${escapeHtml(interestLabel)}</strong></p>
@@ -100,6 +127,27 @@ export async function POST(request: Request) {
       { ok: false, error: "Odeslání se nepovedlo. Zkuste to prosím znovu." },
       { status: 502 },
     );
+  }
+
+  const clientRes = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from,
+      to: [emailClean],
+      reply_to: TO_EMAIL,
+      subject: clientLeadSubject(interest),
+      html: clientLeadHtml(interest, nameClean),
+    }),
+  });
+
+  if (!clientRes.ok) {
+    const text = await clientRes.text();
+    console.error("[rezervace/lead] Resend client confirmation error:", clientRes.status, text);
+    /** Interní notifikace už proběhla — klientovi se potvrzení nepovedlo (např. sandbox doména). */
   }
 
   return NextResponse.json({ ok: true });

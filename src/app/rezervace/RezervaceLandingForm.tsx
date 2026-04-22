@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type FormEvent } from "react";
+import { trackRezervaceMetaLead } from "@/lib/rezervaceMetaPixel";
 import { site } from "@/lib/site";
 
 type Interest = "studie" | "seznam";
@@ -225,6 +226,7 @@ export function RezervaceLandingForm() {
       }
       setStudie("success");
       setThankYouInterest("studie");
+      trackRezervaceMetaLead();
       document.getElementById("rezervace-registrace")?.scrollIntoView({ behavior: "smooth", block: "center" });
     } catch {
       setErrStudie("Něco se pokazilo. Zkuste to prosím znovu.");
@@ -250,6 +252,7 @@ export function RezervaceLandingForm() {
       }
       setSeznam("success");
       setThankYouInterest("seznam");
+      trackRezervaceMetaLead();
       document.getElementById("rezervace-registrace")?.scrollIntoView({ behavior: "smooth", block: "center" });
     } catch {
       setErrSeznam("Něco se pokazilo. Zkuste to prosím znovu.");

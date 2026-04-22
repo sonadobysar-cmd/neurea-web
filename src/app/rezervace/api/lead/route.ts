@@ -22,61 +22,12 @@ function escapeHtml(s: string): string {
     .replace(/"/g, "&quot;");
 }
 
-/** Stejná priorita jako u `sendBookingConfirmationEmail` — ověřený odesílatel v Resend. */
 function resolveResendFrom(): string {
   return (
     process.env.EMAIL_FROM?.trim() ||
     process.env.RESEND_FROM_EMAIL?.trim() ||
     "NEUREA <onboarding@resend.dev>"
   );
-}
-
-/** Předmět jen pro klienta (bez prefixu [STUDIE] kvůli filtrům). */
-function clientLeadSubject(interest: string): string {
-  if (interest === "studie") return "Potvrzení přihlášky do studie - NEUREA Brno";
-  if (interest === "seznam") return "Potvrzení zájmu o rezervační seznam - NEUREA Brno";
-  return "Potvrzení - NEUREA Brno";
-}
-
-function clientLeadHtml(interest: string, nameClean: string): string {
-  const name = escapeHtml(nameClean);
-  if (interest === "studie") {
-    return `
-<p style="margin:0 0 16px 0;font-size:16px;line-height:1.5;">Dobrý den, ${name},</p>
-<p style="margin:0 0 16px 0;font-size:16px;line-height:1.5;">děkujeme za přihlášení do <strong>testovací studie</strong> na rezervace.neurea.cz. Váš zájem jsme zaznamenali.</p>
-<p style="margin:0 0 16px 0;font-size:16px;line-height:1.5;">Brzy vás budeme kontaktovat na tento e-mail s dalšími informacemi.</p>
-<p style="margin:0;font-size:14px;line-height:1.5;color:#555;">NEUREA · Brno · <a href="mailto:${escapeHtml(site.email)}">${escapeHtml(site.email)}</a></p>
-    `.trim();
-  }
-  return `
-<p style="margin:0 0 16px 0;font-size:16px;line-height:1.5;">Dobrý den, ${name},</p>
-<p style="margin:0 0 16px 0;font-size:16px;line-height:1.5;">děkujeme za zájem o <strong>rezervační seznam</strong> na rezervace.neurea.cz. Vaše údaje jsme uložili.</p>
-<p style="margin:0 0 16px 0;font-size:16px;line-height:1.5;">Až budeme připraveni, dáme vám vědět mezi prvními.</p>
-<p style="margin:0;font-size:14px;line-height:1.5;color:#555;">NEUREA · Brno · <a href="mailto:${escapeHtml(site.email)}">${escapeHtml(site.email)}</a></p>
-  `.trim();
-}
-
-function clientLeadPlain(interest: string, nameClean: string): string {
-  if (interest === "studie") {
-    return [
-      `Dobrý den, ${nameClean},`,
-      "",
-      "děkujeme za přihlášení do testovací studie na rezervace.neurea.cz. Váš zájem jsme zaznamenali.",
-      "",
-      "Brzy vás budeme kontaktovat na tento e-mail s dalšími informacemi.",
-      "",
-      `NEUREA · Brno · ${site.email}`,
-    ].join("\n");
-  }
-  return [
-    `Dobrý den, ${nameClean},`,
-    "",
-    "děkujeme za zájem o rezervační seznam na rezervace.neurea.cz. Vaše údaje jsme uložili.",
-    "",
-    "Až budeme připraveni, dáme vám vědět mezi prvními.",
-    "",
-    `NEUREA · Brno · ${site.email}`,
-  ].join("\n");
 }
 
 function adminLeadPlain(interestLabel: string, interest: string, nameClean: string, emailClean: string): string {
@@ -109,6 +60,7 @@ async function resendSend(
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+/** Jen interní notifikace na info@ — potvrzení klientovi je na stránce (modální okno). */
 export async function POST(request: Request) {
   let body: unknown;
   try {
@@ -133,7 +85,7 @@ export async function POST(request: Request) {
   const hp = typeof b.neurea_hp === "string" ? b.neurea_hp.trim() : "";
   const legacyWebsite = typeof b.website === "string" ? b.website.trim() : "";
   if (hp.length > 0 || legacyWebsite.length > 0) {
-    return NextResponse.json({ ok: true, clientEmailSent: true });
+    return NextResponse.json({ ok: true });
   }
 
   if (typeof name !== "string" || name.trim().length < 1) {
@@ -161,27 +113,6 @@ export async function POST(request: Request) {
 
   const from = resolveResendFrom();
 
-  /**
-   * 1) Klient: jen potvrzení, žádné BCC (některé schránky zprávu zahodí).
-   * 2) Interní: samostatný e-mail na info@ (v Resendu dva řádky).
-   */
-  const clientHtml = clientLeadHtml(interest, nameClean);
-  const clientPlain = clientLeadPlain(interest, nameClean);
-  const clientSubject = clientLeadSubject(interest);
-
-  const clientRes = await resendSend(apiKey, {
-    from,
-    to: [emailClean],
-    reply_to: TO_EMAIL,
-    subject: clientSubject,
-    html: clientHtml,
-    text: clientPlain,
-  });
-
-  if (!clientRes.ok) {
-    console.error("[rezervace/lead] Resend KLIENT:", clientRes.status, clientRes.body);
-  }
-
   const adminHtml = `
     <p style="font-size:18px;margin:0 0 16px 0;"><strong>${escapeHtml(interestLabel)}</strong></p>
     <p style="margin:0 0 12px 0;"><strong>Zdroj:</strong> rezervace.neurea.cz · interest=<code>${escapeHtml(interest)}</code></p>
@@ -200,19 +131,12 @@ export async function POST(request: Request) {
   });
 
   if (!adminRes.ok) {
-    console.error("[rezervace/lead] Resend ADMIN:", adminRes.status, adminRes.body);
-    if (!clientRes.ok) {
-      return NextResponse.json(
-        { ok: false, error: "Odeslání se nepovedlo. Zkuste to prosím znovu." },
-        { status: 502 },
-      );
-    }
-    return NextResponse.json({ ok: true, clientEmailSent: true });
+    console.error("[rezervace/lead] Resend:", adminRes.status, adminRes.body);
+    return NextResponse.json(
+      { ok: false, error: "Odeslání se nepovedlo. Zkuste to prosím znovu." },
+      { status: 502 },
+    );
   }
 
-  if (!clientRes.ok) {
-    return NextResponse.json({ ok: true, clientEmailSent: false });
-  }
-
-  return NextResponse.json({ ok: true, clientEmailSent: true });
+  return NextResponse.json({ ok: true });
 }

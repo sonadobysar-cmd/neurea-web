@@ -105,7 +105,7 @@ const HOW_ICONS = [IconDiagnostics, IconProtocol, IconMeasurable] as const;
 
 export function RezervaceLandingView() {
   return (
-    <div className="relative w-full overflow-hidden font-sans text-[#1A1A1A]">
+    <div className="relative w-full overflow-x-hidden font-sans text-[#1A1A1A]">
       <div className="rez-landing-noise pointer-events-none absolute inset-0 z-0" aria-hidden />
       <div className="relative z-10 mx-auto flex min-h-[100dvh] max-w-6xl flex-col px-4 pb-12 pt-10 sm:px-6 md:px-8 md:pb-16 md:pt-14">
         <header className="text-center">

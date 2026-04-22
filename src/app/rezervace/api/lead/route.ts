@@ -32,9 +32,9 @@ function resolveResendFrom(): string {
 }
 
 function clientLeadSubject(interest: string): string {
-  if (interest === "studie") return "Potvrzení přihlášky do studie — NEUREA Brno";
-  if (interest === "seznam") return "Potvrzení zájmu o rezervační seznam — NEUREA Brno";
-  return "Potvrzení — NEUREA Brno";
+  if (interest === "studie") return "Potvrzení přihlášky do studie - NEUREA Brno";
+  if (interest === "seznam") return "Potvrzení zájmu o rezervační seznam - NEUREA Brno";
+  return "Potvrzení - NEUREA Brno";
 }
 
 function clientLeadHtml(interest: string, nameClean: string): string {
@@ -122,6 +122,7 @@ async function resendSend(
 }
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
   let body: unknown;
@@ -141,9 +142,15 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "Chybí údaje." }, { status: 400 });
   }
 
-  const { name, email, interest, website } = body as Record<string, unknown>;
-
-  if (typeof website === "string" && website.length > 0) {
+  const b = body as Record<string, unknown>;
+  const { name, email, interest } = b;
+  /**
+   * Honeypot: dříve `website` — autofill často vyplnil URL → API vrátilo „úspěch“ bez e-mailu.
+   * Nové pole `neurea_hp`; `website` stále kontrolujeme kvůli staré cache formuláře.
+   */
+  const hp = typeof b.neurea_hp === "string" ? b.neurea_hp.trim() : "";
+  const legacyWebsite = typeof b.website === "string" ? b.website.trim() : "";
+  if (hp.length > 0 || legacyWebsite.length > 0) {
     return NextResponse.json({ ok: true, clientEmailSent: true });
   }
 
@@ -187,11 +194,12 @@ export async function POST(request: Request) {
 
   const payload: Record<string, unknown> = {
     from,
-    to: [emailClean],
+    to: emailClean,
     reply_to: TO_EMAIL,
     subject,
     html,
     text,
+    tags: [{ name: "source", value: "rezervace-lead" }],
   };
 
   if (emailClean !== TO_EMAIL) {

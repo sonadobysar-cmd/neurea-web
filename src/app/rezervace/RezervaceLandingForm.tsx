@@ -73,7 +73,8 @@ async function postLead(payload: {
   name: string;
   email: string;
   interest: Interest;
-  website: string;
+  /** Honeypot — musí zůstat prázdné (nepoužívat název „website“, vyplňuje ho autofill). */
+  neurea_hp: string;
 }): Promise<{ ok: boolean; error?: string; clientEmailSent?: boolean }> {
   const res = await fetch("/rezervace/api/lead", {
     method: "POST",
@@ -137,10 +138,10 @@ export function RezervaceLandingForm() {
     const fd = new FormData(form);
     const name = String(fd.get("name") ?? "").trim();
     const email = String(fd.get("email") ?? "").trim();
-    const website = String(fd.get("website") ?? "");
+    const neurea_hp = String(fd.get("neurea_hp") ?? "");
     setErrStudie(null);
     setStudie("submitting");
-    const r = await postLead({ name, email, interest: "studie", website });
+    const r = await postLead({ name, email, interest: "studie", neurea_hp });
     if (!r.ok) {
       setErrStudie(r.error ?? "Chyba");
       setStudie("error");
@@ -156,10 +157,10 @@ export function RezervaceLandingForm() {
     const fd = new FormData(form);
     const name = String(fd.get("name") ?? "").trim();
     const email = String(fd.get("email") ?? "").trim();
-    const website = String(fd.get("website") ?? "");
+    const neurea_hp = String(fd.get("neurea_hp") ?? "");
     setErrSeznam(null);
     setSeznam("submitting");
-    const r = await postLead({ name, email, interest: "seznam", website });
+    const r = await postLead({ name, email, interest: "seznam", neurea_hp });
     if (!r.ok) {
       setErrSeznam(r.error ?? "Chyba");
       setSeznam("error");
@@ -182,8 +183,17 @@ export function RezervaceLandingForm() {
       ) : (
         <form onSubmit={onSubmitStudie} className="rez-landing-card relative flex flex-col p-6 sm:p-7 md:p-8" noValidate>
           <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
-            <label htmlFor="rez-web-studie">Web</label>
-            <input id="rez-web-studie" name="website" type="text" tabIndex={-1} autoComplete="off" />
+            <label htmlFor="rez-hp-studie" className="sr-only">
+              Ponechte prázdné (ochrana proti robotům)
+            </label>
+            <input
+              id="rez-hp-studie"
+              name="neurea_hp"
+              type="text"
+              tabIndex={-1}
+              autoComplete="off"
+              defaultValue=""
+            />
           </div>
 
           <h2 className="font-heading text-xl font-normal tracking-tight text-gold sm:text-2xl">
@@ -255,8 +265,17 @@ export function RezervaceLandingForm() {
       ) : (
         <form onSubmit={onSubmitSeznam} className="rez-landing-card relative flex flex-col p-6 sm:p-7 md:p-8" noValidate>
           <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
-            <label htmlFor="rez-web-seznam">Web</label>
-            <input id="rez-web-seznam" name="website" type="text" tabIndex={-1} autoComplete="off" />
+            <label htmlFor="rez-hp-seznam" className="sr-only">
+              Ponechte prázdné (ochrana proti robotům)
+            </label>
+            <input
+              id="rez-hp-seznam"
+              name="neurea_hp"
+              type="text"
+              tabIndex={-1}
+              autoComplete="off"
+              defaultValue=""
+            />
           </div>
 
           <h2 className="font-heading text-xl font-normal tracking-tight text-gold sm:text-2xl">

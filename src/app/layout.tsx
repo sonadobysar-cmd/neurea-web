@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { headers } from "next/headers";
-import Script from "next/script";
 import { EB_Garamond, Oxygen } from "next/font/google";
 import "./globals.css";
 import "./rezervace/rezervace-landing.css";
@@ -56,9 +55,14 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
     return (
       <html lang="cs" className={`${ebGaramond.variable} ${oxygen.variable}`}>
         <head>
-          <Script
+          {/*
+            Meta Pixel musí být klasický synchronní &lt;script&gt; v HTML.
+            next/script strategy="beforeInteractive" se u Next 15 balí do self.__next_s
+            a Pixel se sice „najde“ v DOM, ale neposílá PageView/Lead (Pixel Helper: žádné události).
+          */}
+          <script
             id="neurea-rezervace-meta-pixel"
-            strategy="beforeInteractive"
+            // eslint-disable-next-line react/no-danger -- důvěryhodný snippet Meta, stejný jako v dokumentaci
             dangerouslySetInnerHTML={{ __html: metaPixelInline }}
           />
         </head>

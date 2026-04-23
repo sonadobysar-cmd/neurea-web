@@ -25,14 +25,29 @@ fbq('track', 'PageView');
 `.trim();
 }
 
+/** `fbq('track', 'Lead')` po úspěšném odeslání lead formuláře; krátký retry když se pixel ještě dobinduje. */
 export function trackRezervaceMetaLead(): void {
   if (typeof window === "undefined") return;
-  const fbq = (window as Window & { fbq?: (...args: unknown[]) => void }).fbq;
-  if (typeof fbq !== "function") return;
+
   const test = process.env.NEXT_PUBLIC_META_PIXEL_TEST_EVENT_CODE?.trim();
-  if (test) {
-    fbq("track", "Lead", {}, { test_event_code: test });
-  } else {
-    fbq("track", "Lead");
-  }
+
+  const fire = (): boolean => {
+    const fbq = (window as Window & { fbq?: (...args: unknown[]) => void }).fbq;
+    if (typeof fbq !== "function") return false;
+    if (test) {
+      fbq("track", "Lead", {}, { test_event_code: test });
+    } else {
+      fbq("track", "Lead");
+    }
+    return true;
+  };
+
+  if (fire()) return;
+
+  requestAnimationFrame(() => {
+    if (fire()) return;
+    window.setTimeout(() => {
+      fire();
+    }, 750);
+  });
 }

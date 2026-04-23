@@ -226,7 +226,7 @@ export function RezervaceLandingForm() {
       }
       setStudie("success");
       setThankYouInterest("studie");
-      trackRezervaceMetaLead();
+      trackRezervaceMetaLead(); /* Meta Pixel: fbq("track", "Lead") */
       document.getElementById("rezervace-registrace")?.scrollIntoView({ behavior: "smooth", block: "center" });
     } catch {
       setErrStudie("Něco se pokazilo. Zkuste to prosím znovu.");
@@ -252,7 +252,7 @@ export function RezervaceLandingForm() {
       }
       setSeznam("success");
       setThankYouInterest("seznam");
-      trackRezervaceMetaLead();
+      trackRezervaceMetaLead(); /* Meta Pixel: fbq("track", "Lead") */
       document.getElementById("rezervace-registrace")?.scrollIntoView({ behavior: "smooth", block: "center" });
     } catch {
       setErrSeznam("Něco se pokazilo. Zkuste to prosím znovu.");

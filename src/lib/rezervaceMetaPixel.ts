@@ -1,5 +1,5 @@
 /** Meta Pixel jen pro rezervace.neurea.cz (landing). */
-export const REZERVACE_META_PIXEL_ID = "1857806788241692";
+export const REZERVACE_META_PIXEL_ID = "1286461769591154";
 
 /** Inline bootstrap stejný jako Meta Pixel Code (init + PageView). */
 export const REZERVACE_META_PIXEL_BOOTSTRAP = `

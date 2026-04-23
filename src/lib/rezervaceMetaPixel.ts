@@ -1,13 +1,6 @@
 /** Meta Pixel jen pro rezervace.neurea.cz (landing). */
 export const REZERVACE_META_PIXEL_ID = "1286461769591154";
 
-declare global {
-  interface Window {
-    /** Zabrání dvojímu vložení snippetu (React Strict Mode remount). */
-    __NEUREA_META_PIXEL_BOOT?: boolean;
-  }
-}
-
 /** Volitelně: kód z Events Manager → Testovací události. */
 function metaPixelInitSuffix(): string {
   const code = process.env.NEXT_PUBLIC_META_PIXEL_TEST_EVENT_CODE?.trim();

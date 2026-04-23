@@ -8,7 +8,6 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CookieBanner } from "@/components/CookieBanner";
 import { FloatingCta } from "@/components/FloatingCta";
-import { MetaPixelRezervaceClient } from "@/components/MetaPixelRezervaceClient";
 import { isRezervaceLandingHost } from "@/lib/landingHost";
 import { REZERVACE_META_PIXEL_ID } from "@/lib/rezervaceMetaPixel";
 import { site } from "@/lib/site";
@@ -54,8 +53,14 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   if (landing) {
     return (
       <html lang="cs" className={`${ebGaramond.variable} ${oxygen.variable}`}>
+        <head>
+          {/*
+            Meta Pixel jako běžný externí skript z našeho API — spustí se mimo React,
+            Pixel Helper pak uvidí PageView (na rozdíl od vkládání přes useEffect).
+          */}
+          <script async src="/rezervace/api/meta-pixel" />
+        </head>
         <body className="font-sans rezervace-landing antialiased">
-          <MetaPixelRezervaceClient />
           <noscript>
             {/* Meta Pixel noscript — musí zůstat <img>, ne next/image */}
             {/* eslint-disable-next-line @next/next/no-img-element */}

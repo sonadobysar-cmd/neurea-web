@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { headers } from "next/headers";
-import Script from "next/script";
 import { EB_Garamond, Oxygen } from "next/font/google";
 import "./globals.css";
 import "./rezervace/rezervace-landing.css";
@@ -9,8 +8,9 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CookieBanner } from "@/components/CookieBanner";
 import { FloatingCta } from "@/components/FloatingCta";
+import { MetaPixelRezervaceLanding } from "@/components/MetaPixelRezervaceLanding";
 import { isRezervaceLandingHost } from "@/lib/landingHost";
-import { REZERVACE_META_PIXEL_BOOTSTRAP, REZERVACE_META_PIXEL_ID } from "@/lib/rezervaceMetaPixel";
+import { REZERVACE_META_PIXEL_ID } from "@/lib/rezervaceMetaPixel";
 import { site } from "@/lib/site";
 
 const ebGaramond = EB_Garamond({
@@ -55,11 +55,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
     return (
       <html lang="cs" className={`${ebGaramond.variable} ${oxygen.variable}`}>
         <body className="font-sans rezervace-landing antialiased">
-          <Script
-            id="meta-pixel-rezervace"
-            strategy="afterInteractive"
-            dangerouslySetInnerHTML={{ __html: REZERVACE_META_PIXEL_BOOTSTRAP }}
-          />
+          <MetaPixelRezervaceLanding />
           <noscript>
             {/* Meta Pixel noscript — musí zůstat <img>, ne next/image */}
             {/* eslint-disable-next-line @next/next/no-img-element */}

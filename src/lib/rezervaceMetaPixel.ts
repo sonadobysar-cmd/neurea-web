@@ -1,8 +1,17 @@
 /** Meta Pixel jen pro rezervace.neurea.cz (landing). */
 export const REZERVACE_META_PIXEL_ID = "1286461769591154";
 
-/** Inline bootstrap stejný jako Meta Pixel Code (init + PageView). */
-export const REZERVACE_META_PIXEL_BOOTSTRAP = `
+/** Volitelně: kód z Events Manager → Testovací události (NEXT_PUBLIC_ = viditelné v bundlu). */
+function metaPixelInitSuffix(): string {
+  const code = process.env.NEXT_PUBLIC_META_PIXEL_TEST_EVENT_CODE?.trim();
+  if (!code) return "";
+  return `, {}, { test_event_code: ${JSON.stringify(code)} }`;
+}
+
+/** Inline bootstrap jako Meta Pixel Code (init + PageView). */
+export function getRezervaceMetaPixelBootstrap(): string {
+  const initSuffix = metaPixelInitSuffix();
+  return `
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -11,14 +20,19 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '${REZERVACE_META_PIXEL_ID}');
+fbq('init', '${REZERVACE_META_PIXEL_ID}'${initSuffix});
 fbq('track', 'PageView');
 `.trim();
+}
 
 export function trackRezervaceMetaLead(): void {
   if (typeof window === "undefined") return;
   const fbq = (window as Window & { fbq?: (...args: unknown[]) => void }).fbq;
-  if (typeof fbq === "function") {
+  if (typeof fbq !== "function") return;
+  const test = process.env.NEXT_PUBLIC_META_PIXEL_TEST_EVENT_CODE?.trim();
+  if (test) {
+    fbq("track", "Lead", {}, { test_event_code: test });
+  } else {
     fbq("track", "Lead");
   }
 }

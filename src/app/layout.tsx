@@ -8,8 +8,9 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CookieBanner } from "@/components/CookieBanner";
 import { FloatingCta } from "@/components/FloatingCta";
+import { MetaPixelRezervaceClient } from "@/components/MetaPixelRezervaceClient";
 import { isRezervaceLandingHost } from "@/lib/landingHost";
-import { getRezervaceMetaPixelBootstrap, REZERVACE_META_PIXEL_ID } from "@/lib/rezervaceMetaPixel";
+import { REZERVACE_META_PIXEL_ID } from "@/lib/rezervaceMetaPixel";
 import { site } from "@/lib/site";
 
 const ebGaramond = EB_Garamond({
@@ -51,22 +52,10 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   const landing = isRezervaceLandingHost(h);
 
   if (landing) {
-    const metaPixelInline = getRezervaceMetaPixelBootstrap();
     return (
       <html lang="cs" className={`${ebGaramond.variable} ${oxygen.variable}`}>
-        <head>
-          {/*
-            Meta Pixel musí být klasický synchronní &lt;script&gt; v HTML.
-            next/script strategy="beforeInteractive" se u Next 15 balí do self.__next_s
-            a Pixel se sice „najde“ v DOM, ale neposílá PageView/Lead (Pixel Helper: žádné události).
-          */}
-          <script
-            id="neurea-rezervace-meta-pixel"
-            // eslint-disable-next-line react/no-danger -- důvěryhodný snippet Meta, stejný jako v dokumentaci
-            dangerouslySetInnerHTML={{ __html: metaPixelInline }}
-          />
-        </head>
         <body className="font-sans rezervace-landing antialiased">
+          <MetaPixelRezervaceClient />
           <noscript>
             {/* Meta Pixel noscript — musí zůstat <img>, ne next/image */}
             {/* eslint-disable-next-line @next/next/no-img-element */}

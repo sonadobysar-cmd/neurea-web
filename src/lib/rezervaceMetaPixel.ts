@@ -1,16 +1,22 @@
 /** Meta Pixel jen pro rezervace.neurea.cz (landing). */
 export const REZERVACE_META_PIXEL_ID = "1286461769591154";
 
+declare global {
+  interface Window {
+    /** Zabrání dvojímu vložení snippetu (React Strict Mode remount). */
+    __NEUREA_META_PIXEL_BOOT?: boolean;
+  }
+}
+
 /** Volitelně: kód z Events Manager → Testovací události. */
 function metaPixelInitSuffix(): string {
   const code = process.env.NEXT_PUBLIC_META_PIXEL_TEST_EVENT_CODE?.trim();
   if (!code) return "";
-  return `,{},${JSON.stringify({ test_event_code: code })}`; // fbq('init', id, {}, { test_event_code })
+  return `,{},${JSON.stringify({ test_event_code: code })}`;
 }
 
 /**
- * Jeden řádek jako v Meta Pixel Code — bez zalomení uvnitř ternárního operátoru
- * (React/SSR umí výstup jinak zformátovat a zhoršit parsování).
+ * Oficiální Meta Pixel bootstrap (jeden řádek jako v Meta Pixel Code).
  */
 export function getRezervaceMetaPixelBootstrap(): string {
   const initSuffix = metaPixelInitSuffix();
@@ -22,7 +28,26 @@ export function getRezervaceMetaPixelBootstrap(): string {
   );
 }
 
-/** Po úspěšném leadu: `fbq('track','Lead')` s opakovanými pokusy (pomalé načtení fbevents.js). */
+/** Záložní GET hit (bez JS API) — Meta často započítá aspoň základní událost. */
+export function metaPixelBeacon(ev: "PageView" | "Lead"): void {
+  if (typeof window === "undefined") return;
+  const id = REZERVACE_META_PIXEL_ID;
+  const test = process.env.NEXT_PUBLIC_META_PIXEL_TEST_EVENT_CODE?.trim();
+  const u = new URL("https://www.facebook.com/tr");
+  u.searchParams.set("id", id);
+  u.searchParams.set("ev", ev);
+  u.searchParams.set("dl", window.location.href);
+  if (document.referrer) u.searchParams.set("rl", document.referrer);
+  u.searchParams.set("if", "false");
+  u.searchParams.set("ts", String(Date.now()));
+  u.searchParams.set("rnd", String(Math.random()));
+  if (test) u.searchParams.set("test_event_code", test);
+  const img = new Image(1, 1);
+  img.referrerPolicy = "no-referrer-when-downgrade";
+  img.src = u.toString();
+}
+
+/** Po úspěšném leadu: `fbq('track','Lead')`, případně záložní beacon. */
 export function trackRezervaceMetaLead(): void {
   if (typeof window === "undefined") return;
   const test = process.env.NEXT_PUBLIC_META_PIXEL_TEST_EVENT_CODE?.trim();
@@ -45,7 +70,10 @@ export function trackRezervaceMetaLead(): void {
 
   const schedule = () => {
     if (fire()) return;
-    if (idx >= delaysMs.length) return;
+    if (idx >= delaysMs.length) {
+      metaPixelBeacon("Lead");
+      return;
+    }
     const wait = delaysMs[idx]!;
     idx += 1;
     window.setTimeout(() => {

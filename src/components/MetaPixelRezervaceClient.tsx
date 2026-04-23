@@ -1,24 +1,21 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { getRezervaceMetaPixelBootstrap } from "@/lib/rezervaceMetaPixel";
+import { useLayoutEffect } from "react";
+import { getRezervaceMetaPixelBootstrap, metaPixelBeacon } from "@/lib/rezervaceMetaPixel";
 
 const SCRIPT_ID = "neurea-rezervace-meta-pixel";
 
 /**
- * Načte Meta Pixel až na klientovi a vloží ho do document.head.
- * Inline <script> z RSC v <head> umí při hydrataci Next/React narušit — Pixel Helper pak nevidí události.
+ * Vloží Meta Pixel do &lt;head&gt; na klientovi.
+ * Nikdy nemažeme existující &lt;script&gt; — při React Strict Mode by druhý běh narazil na if(f.fbq)return a pixel by se nenačetl.
  */
 export function MetaPixelRezervaceClient() {
-  const ran = useRef(false);
-
-  useEffect(() => {
-    if (ran.current) return;
-    ran.current = true;
-
-    const existing = document.getElementById(SCRIPT_ID);
-    if (existing?.parentNode) {
-      existing.parentNode.removeChild(existing);
+  useLayoutEffect(() => {
+    if (typeof window === "undefined") return;
+    if (window.__NEUREA_META_PIXEL_BOOT) return;
+    if (document.getElementById(SCRIPT_ID)) {
+      window.__NEUREA_META_PIXEL_BOOT = true;
+      return;
     }
 
     const node = document.createElement("script");
@@ -26,6 +23,14 @@ export function MetaPixelRezervaceClient() {
     node.type = "text/javascript";
     node.textContent = getRezervaceMetaPixelBootstrap();
     document.head.appendChild(node);
+    window.__NEUREA_META_PIXEL_BOOT = true;
+
+    window.setTimeout(() => {
+      const fbq = (window as Window & { fbq?: unknown }).fbq;
+      if (typeof fbq !== "function") {
+        metaPixelBeacon("PageView");
+      }
+    }, 4000);
   }, []);
 
   return null;

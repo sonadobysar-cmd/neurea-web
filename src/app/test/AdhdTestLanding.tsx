@@ -126,7 +126,7 @@ export function AdhdTestLanding() {
   };
 
   return (
-    <div className={`${textFont.className} bg-[#0A0A0A] text-white`}>
+    <div className={`${textFont.className} funnel-page bg-[#0A0A0A] text-white`}>
       {GA_ID ? (
         <>
           <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
@@ -148,21 +148,21 @@ export function AdhdTestLanding() {
         </Script>
       ) : null}
 
-      <section className="relative flex min-h-screen flex-col justify-center overflow-hidden px-6 py-12">
-        <div className="pointer-events-none absolute right-[-20%] top-[-20%] h-[38rem] w-[38rem] rounded-full bg-[radial-gradient(circle,_rgba(184,150,62,0.28),_transparent_62%)] blur-3xl" />
+      <section className="relative flex min-h-screen flex-col justify-center overflow-hidden px-6 py-14">
+        <div className="gold-orb gold-orb-top" />
         <div className="relative mx-auto w-full max-w-6xl">
-          <p className="inline-block rounded-full border border-[#B8963E]/60 bg-[#B8963E]/15 px-4 py-2 text-xs tracking-[0.14em] text-[#E9DFC4]">
+          <p className="inline-block rounded-full border border-[#B8963E]/55 bg-[#b8963e1a] px-4 py-2 text-xs tracking-[0.15em] text-[#E9DFC4]">
             PRVNÍ NEURO-SOMATICKÉ PRACOVIŠTĚ V ČR
           </p>
-          <h1 className={`${headingFont.className} mt-7 text-5xl leading-[0.98] text-white md:text-7xl`}>
+          <h1 className={`${headingFont.className} mt-8 max-w-4xl text-5xl leading-[0.96] text-white md:text-7xl`}>
             Váš mozek vysílá signály.
             <br />
             Umíte je číst?
           </h1>
-          <p className="mt-5 text-xl text-[#B8963E]">2 minuty · 10 otázek · Výsledek ihned</p>
+          <p className="mt-6 text-xl text-[#B8963E]">2 minuty · 10 otázek · Výsledek ihned</p>
           <button
             onClick={startTest}
-            className="pulse mt-9 rounded-full bg-[#B8963E] px-10 py-4 text-sm font-bold tracking-[0.08em] text-[#0A0A0A] transition hover:-translate-y-0.5 hover:brightness-110"
+            className="funnel-btn-primary pulse mt-10 rounded-full px-10 py-4 text-sm font-bold tracking-[0.08em] text-[#0A0A0A] transition"
           >
             ZJISTIT VÝSLEDEK →
           </button>
@@ -170,23 +170,23 @@ export function AdhdTestLanding() {
             Bezplatný orientační test · Bez registrace · Okamžitý výsledek
           </p>
           <div className="mt-14 grid gap-3 md:grid-cols-3">
-            <div className="border-l-2 border-[#B8963E] pl-4">
-              <p className="text-2xl font-bold text-[#B8963E]">94,6 %</p>
-              <p className="text-sm text-white/70">Klinické zlepšení ADHD</p>
+            <div className="funnel-stat pl-4">
+              <p className="text-2xl font-bold text-[#B8963E] md:text-3xl">94,6 %</p>
+              <p className="text-sm text-white/72">Klinické zlepšení ADHD</p>
             </div>
-            <div className="border-l-2 border-[#B8963E] pl-4">
-              <p className="text-2xl font-bold text-[#B8963E]">462</p>
-              <p className="text-sm text-white/70">Pacientů ve studiích</p>
+            <div className="funnel-stat pl-4">
+              <p className="text-2xl font-bold text-[#B8963E] md:text-3xl">462</p>
+              <p className="text-sm text-white/72">Pacientů ve studiích</p>
             </div>
-            <div className="border-l-2 border-[#B8963E] pl-4">
-              <p className="text-2xl font-bold text-[#B8963E]">Harvard</p>
-              <p className="text-sm text-white/70">Nature Medicine</p>
+            <div className="funnel-stat pl-4">
+              <p className="text-2xl font-bold text-[#B8963E] md:text-3xl">Harvard</p>
+              <p className="text-sm text-white/72">Nature Medicine</p>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="test-flow" className="mx-auto min-h-screen w-full max-w-4xl px-6 py-14">
+      <section id="test-flow" className="mx-auto min-h-screen w-full max-w-4xl px-6 py-16">
         <div className="mb-6 h-2 w-full overflow-hidden rounded-full bg-[#1A1A1A]">
           <div
             className="h-full bg-gradient-to-r from-[#B8963E] to-[#E9DFC4] transition-all duration-500"
@@ -194,16 +194,16 @@ export function AdhdTestLanding() {
           />
         </div>
         {!started ? (
-          <div className="rounded-3xl border border-[#2A2A2A] bg-[#111111] p-8 text-center">
+          <div className="funnel-panel rounded-3xl p-9 text-center">
             <p className="text-white/75">Klikněte na tlačítko výše a začněte test.</p>
           </div>
         ) : loadingResult ? (
-          <div className="flex min-h-[55vh] flex-col items-center justify-center gap-6">
+          <div className="funnel-panel flex min-h-[55vh] flex-col items-center justify-center gap-6 rounded-3xl">
             <div className="loader h-16 w-16 rounded-full border-2 border-[#3A3A3A] border-t-[#B8963E]" />
             <p className="text-lg text-[#E9DFC4]">Analyzujeme váš výsledek...</p>
           </div>
         ) : !showResult ? (
-          <div className="animate-fade">
+          <div className="funnel-panel animate-fade rounded-3xl p-8 md:p-10">
             <p className="text-sm text-[#E9DFC4]/80">Otázka {step + 1} z 10</p>
             <h2 className={`${headingFont.className} mt-5 text-3xl leading-tight md:text-5xl`}>
               {QUESTIONS[step]}
@@ -213,7 +213,7 @@ export function AdhdTestLanding() {
                 <button
                   key={opt.label}
                   onClick={() => answer(opt.value)}
-                  className="rounded-2xl border border-transparent bg-[#1A1A1A] px-6 py-5 text-left text-lg text-white transition hover:border-[#B8963E] hover:text-[#E9DFC4]"
+                  className="answer-card rounded-2xl border px-6 py-5 text-left text-lg text-white transition"
                 >
                   {opt.label}
                 </button>
@@ -225,7 +225,7 @@ export function AdhdTestLanding() {
 
       {showResult ? (
         <section id="result" className="mx-auto w-full max-w-6xl px-6 py-14">
-          <div className="rounded-3xl border border-[#2C2C2C] bg-[#111111] p-8 md:p-10">
+          <div className="funnel-panel rounded-3xl p-8 md:p-10">
             {result === "A" ? (
               <>
                 <p className="text-center text-6xl font-bold text-[#B8963E]">{score}/30</p>
@@ -278,7 +278,7 @@ export function AdhdTestLanding() {
 
           {result !== "C" ? (
             <div className="mt-8 grid gap-6 md:grid-cols-2">
-              <article className="rounded-3xl border border-[#B8963E] bg-[#121212] p-7">
+              <article className="funnel-card-gold rounded-3xl p-7">
                 <p className="text-sm text-[#B8963E]">⚡ NEJPOPULÁRNĚJŠÍ</p>
                 <h4 className={`${headingFont.className} mt-3 text-3xl`}>ADHD Mozek</h4>
                 <p className="mt-1 text-[#E9DFC4]">Jak fungovat naplno bez léků</p>
@@ -295,13 +295,13 @@ export function AdhdTestLanding() {
                 <a
                   href={EBOOK_URL}
                   onClick={() => trackEvent("ebook_clicked")}
-                  className="mt-6 inline-block rounded-full bg-[#B8963E] px-7 py-3 text-sm font-bold tracking-[0.08em] text-[#0A0A0A] transition hover:brightness-110"
+                  className="funnel-btn-primary mt-6 inline-block rounded-full px-7 py-3 text-sm font-bold tracking-[0.08em] text-[#0A0A0A]"
                 >
                   CHCI E-BOOK →
                 </a>
               </article>
 
-              <article className="rounded-3xl border border-white/80 bg-[#0F0F0F] p-7">
+              <article className="funnel-card-dark rounded-3xl p-7">
                 <p className="text-sm text-[#B8963E]">🧠 NEJRYCHLEJŠÍ VÝSLEDEK</p>
                 <h4 className={`${headingFont.className} mt-3 text-3xl`}>Vstupní Diagnostika</h4>
                 <p className="mt-1 text-[#E9DFC4]">Změříme přesně co se děje ve vaší nervové soustavě</p>
@@ -317,7 +317,7 @@ export function AdhdTestLanding() {
                 <a
                   href={RESERVATION_URL}
                   onClick={() => trackEvent("reservation_clicked")}
-                  className="mt-6 inline-block rounded-full border border-white bg-[#0A0A0A] px-7 py-3 text-sm font-bold tracking-[0.08em] text-white transition hover:border-[#B8963E]"
+                  className="funnel-btn-secondary mt-6 inline-block rounded-full px-7 py-3 text-sm font-bold tracking-[0.08em] text-white"
                 >
                   REZERVOVAT DIAGNOSTIKU →
                 </a>
@@ -330,14 +330,14 @@ export function AdhdTestLanding() {
             <div className="mt-8 flex flex-wrap gap-4">
               <a
                 href={ANXIETY_TEST_URL}
-                className="rounded-full bg-[#B8963E] px-8 py-3 text-sm font-bold tracking-[0.08em] text-[#0A0A0A]"
+                className="funnel-btn-primary rounded-full px-8 py-3 text-sm font-bold tracking-[0.08em] text-[#0A0A0A]"
               >
                 ZKUSIT TEST ÚZKOSTI →
               </a>
               <a
                 href={RESERVATION_URL}
                 onClick={() => trackEvent("reservation_clicked")}
-                className="rounded-full border border-white px-8 py-3 text-sm font-bold tracking-[0.08em] text-white"
+                className="funnel-btn-secondary rounded-full px-8 py-3 text-sm font-bold tracking-[0.08em] text-white"
               >
                 REZERVOVAT DIAGNOSTIKU →
               </a>
@@ -354,7 +354,7 @@ export function AdhdTestLanding() {
             "Konečně jsem viděl data. Ne jen pocity. Změnilo to všechno. – Martin, 41 let",
             "Dcera má ADHD. Odmítala jsem léky. Neurea nám ukázala jinou cestu. – Petra, 38 let",
           ].map((quote) => (
-            <article key={quote} className="rounded-2xl border-t-2 border-[#B8963E] bg-[#1A1A1A] p-6 text-white/85">
+            <article key={quote} className="funnel-card-dark rounded-2xl border-t-2 border-[#B8963E] p-6 text-white/85">
               {quote}
             </article>
           ))}
@@ -380,7 +380,7 @@ export function AdhdTestLanding() {
               text: "Vidíte přesnou změnu v číslech. Garantujeme zlepšení nebo vracíme 50 % ceny.",
             },
           ].map((item, i) => (
-            <article key={item.title} className="relative rounded-2xl border border-[#2F2F2F] bg-[#121212] p-6">
+            <article key={item.title} className="funnel-card-dark relative rounded-2xl p-6">
               <span className="text-3xl text-[#B8963E]">{["①", "②", "③"][i]}</span>
               <h4 className={`${headingFont.className} mt-3 text-2xl text-white`}>{item.title}</h4>
               <p className="mt-3 text-white/75">{item.text}</p>
@@ -390,7 +390,7 @@ export function AdhdTestLanding() {
       </section>
 
       <section className="relative flex min-h-screen items-center overflow-hidden px-6 py-14">
-        <div className="pointer-events-none absolute left-[-20%] bottom-[-25%] h-[36rem] w-[36rem] rounded-full bg-[radial-gradient(circle,_rgba(184,150,62,0.26),_transparent_64%)] blur-3xl" />
+        <div className="gold-orb gold-orb-bottom" />
         <div className="relative mx-auto w-full max-w-5xl text-center">
           <h3 className={`${headingFont.className} text-5xl text-white md:text-7xl`}>Terapie mluví.</h3>
           <h3 className={`${headingFont.className} mt-2 text-5xl text-[#B8963E] md:text-7xl`}>Neurea měří.</h3>
@@ -401,14 +401,14 @@ export function AdhdTestLanding() {
             <a
               href={RESERVATION_URL}
               onClick={() => trackEvent("reservation_clicked", { city: "brno" })}
-              className="rounded-full bg-gradient-to-r from-[#B8963E] to-[#D3B66A] px-8 py-4 text-sm font-bold tracking-[0.08em] text-[#0A0A0A]"
+              className="funnel-btn-primary rounded-full px-8 py-4 text-sm font-bold tracking-[0.08em] text-[#0A0A0A]"
             >
               REZERVOVAT – BRNO →
             </a>
             <a
               href={RESERVATION_URL}
               onClick={() => trackEvent("reservation_clicked", { city: "praha" })}
-              className="rounded-full border border-white px-8 py-4 text-sm font-bold tracking-[0.08em] text-white"
+              className="funnel-btn-secondary rounded-full px-8 py-4 text-sm font-bold tracking-[0.08em] text-white"
             >
               REZERVOVAT – PRAHA →
             </a>
@@ -423,6 +423,76 @@ export function AdhdTestLanding() {
         }
         .pulse {
           animation: pulse 2s infinite;
+        }
+        .funnel-page {
+          background:
+            radial-gradient(circle at 85% 10%, rgba(184, 150, 62, 0.13), transparent 42%),
+            radial-gradient(circle at 12% 70%, rgba(184, 150, 62, 0.09), transparent 40%),
+            #0a0a0a;
+        }
+        .funnel-panel {
+          border: 1px solid #262626;
+          background: linear-gradient(180deg, rgba(20, 20, 20, 0.9), rgba(14, 14, 14, 0.94));
+          box-shadow: 0 20px 42px rgba(0, 0, 0, 0.35);
+        }
+        .funnel-card-gold {
+          border: 1px solid rgba(184, 150, 62, 0.66);
+          background: linear-gradient(180deg, rgba(24, 24, 24, 0.95), rgba(15, 15, 15, 0.95));
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        }
+        .funnel-card-dark {
+          border: 1px solid rgba(255, 255, 255, 0.22);
+          background: linear-gradient(180deg, rgba(20, 20, 20, 0.95), rgba(13, 13, 13, 0.95));
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+        }
+        .funnel-btn-primary {
+          background: linear-gradient(120deg, #b8963e, #ddc273);
+          box-shadow: 0 10px 28px rgba(184, 150, 62, 0.25);
+        }
+        .funnel-btn-primary:hover {
+          transform: translateY(-2px);
+          filter: brightness(1.05);
+        }
+        .funnel-btn-secondary {
+          border: 1px solid rgba(255, 255, 255, 0.75);
+          background: rgba(10, 10, 10, 0.9);
+        }
+        .funnel-btn-secondary:hover {
+          border-color: #b8963e;
+          color: #e9dfc4;
+          transform: translateY(-2px);
+        }
+        .funnel-stat {
+          border-left: 2px solid #b8963e;
+          background: linear-gradient(90deg, rgba(184, 150, 62, 0.08), rgba(184, 150, 62, 0));
+          padding-top: 0.35rem;
+          padding-bottom: 0.35rem;
+        }
+        .answer-card {
+          border-color: #2e2e2e;
+          background: linear-gradient(180deg, rgba(28, 28, 28, 0.95), rgba(20, 20, 20, 0.95));
+        }
+        .answer-card:hover {
+          border-color: #b8963e;
+          color: #e9dfc4;
+          transform: translateX(4px);
+        }
+        .gold-orb {
+          pointer-events: none;
+          position: absolute;
+          height: 36rem;
+          width: 36rem;
+          border-radius: 999px;
+          filter: blur(58px);
+          background: radial-gradient(circle, rgba(184, 150, 62, 0.25), transparent 62%);
+        }
+        .gold-orb-top {
+          right: -20%;
+          top: -20%;
+        }
+        .gold-orb-bottom {
+          left: -20%;
+          bottom: -25%;
         }
         .loader {
           animation: spin 1s linear infinite;

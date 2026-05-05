@@ -27,6 +27,16 @@ const nextConfig: NextConfig = {
           has: [{ type: "host", value: "www.rezervace.neurea.cz" }],
           destination: "/rezervace",
         },
+        {
+          source: "/",
+          has: [{ type: "host", value: "adhd.neurea.cz" }],
+          destination: "/test",
+        },
+        {
+          source: "/",
+          has: [{ type: "host", value: "www.adhd.neurea.cz" }],
+          destination: "/test",
+        },
       ],
     };
   },

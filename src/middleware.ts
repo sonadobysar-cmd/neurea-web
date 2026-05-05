@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const LANDING_HOSTS = new Set(["rezervace.neurea.cz", "www.rezervace.neurea.cz"]);
+const REZERVACE_LANDING_HOSTS = new Set(["rezervace.neurea.cz", "www.rezervace.neurea.cz"]);
+const TEST_LANDING_HOSTS = new Set(["adhd.neurea.cz", "www.adhd.neurea.cz"]);
 
 function getHost(request: NextRequest): string {
   const xf = request.headers.get("x-forwarded-host");
@@ -22,15 +23,31 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const requestHeaders = new Headers(request.headers);
-  if (LANDING_HOSTS.has(host)) {
-    requestHeaders.set("x-neurea-landing", "1");
+  if (REZERVACE_LANDING_HOSTS.has(host)) {
+    requestHeaders.set("x-neurea-landing", "rezervace");
+  } else if (TEST_LANDING_HOSTS.has(host)) {
+    requestHeaders.set("x-neurea-landing", "test");
   }
 
-  if (LANDING_HOSTS.has(host)) {
+  if (REZERVACE_LANDING_HOSTS.has(host)) {
     if (isStaticPath(pathname)) {
       return NextResponse.next({ request: { headers: requestHeaders } });
     }
     if (pathname.startsWith("/rezervace")) {
+      return NextResponse.next({ request: { headers: requestHeaders } });
+    }
+    if (pathname === "/" || pathname === "") {
+      return NextResponse.next({ request: { headers: requestHeaders } });
+    }
+    const main = new URL(`https://neurea.cz${pathname}${request.nextUrl.search}`);
+    return NextResponse.redirect(main, 301);
+  }
+
+  if (TEST_LANDING_HOSTS.has(host)) {
+    if (isStaticPath(pathname)) {
+      return NextResponse.next({ request: { headers: requestHeaders } });
+    }
+    if (pathname.startsWith("/test")) {
       return NextResponse.next({ request: { headers: requestHeaders } });
     }
     if (pathname === "/" || pathname === "") {

@@ -8,7 +8,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CookieBanner } from "@/components/CookieBanner";
 import { FloatingCta } from "@/components/FloatingCta";
-import { isRezervaceLandingHost } from "@/lib/landingHost";
+import { isRezervaceLandingHost, isTestLandingHost } from "@/lib/landingHost";
 import { REZERVACE_META_PIXEL_ID } from "@/lib/rezervaceMetaPixel";
 import { site } from "@/lib/site";
 
@@ -48,30 +48,38 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   const h = await headers();
-  const landing = isRezervaceLandingHost(h);
+  const rezervaceLanding = isRezervaceLandingHost(h);
+  const testLanding = isTestLandingHost(h);
+  const landing = rezervaceLanding || testLanding;
 
   if (landing) {
     return (
       <html lang="cs" className={`${ebGaramond.variable} ${oxygen.variable}`}>
         <head>
-          {/*
-            Meta Pixel jako běžný externí skript z našeho API — spustí se mimo React,
-            Pixel Helper pak uvidí PageView (na rozdíl od vkládání přes useEffect).
-          */}
-          <script async src="/rezervace/api/meta-pixel" />
+          {rezervaceLanding ? (
+            <>
+              {/*
+                Meta Pixel jako běžný externí skript z našeho API — spustí se mimo React,
+                Pixel Helper pak uvidí PageView (na rozdíl od vkládání přes useEffect).
+              */}
+              <script async src="/rezervace/api/meta-pixel" />
+            </>
+          ) : null}
         </head>
         <body className="font-sans rezervace-landing antialiased">
-          <noscript>
-            {/* Meta Pixel noscript — musí zůstat <img>, ne next/image */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              height="1"
-              width="1"
-              style={{ display: "none" }}
-              src={`https://www.facebook.com/tr?id=${REZERVACE_META_PIXEL_ID}&ev=PageView&noscript=1`}
-              alt=""
-            />
-          </noscript>
+          {rezervaceLanding ? (
+            <noscript>
+              {/* Meta Pixel noscript — musí zůstat <img>, ne next/image */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                height="1"
+                width="1"
+                style={{ display: "none" }}
+                src={`https://www.facebook.com/tr?id=${REZERVACE_META_PIXEL_ID}&ev=PageView&noscript=1`}
+                alt=""
+              />
+            </noscript>
+          ) : null}
           <main className="min-h-[100dvh] bg-white pb-0 text-ink">{children}</main>
         </body>
       </html>

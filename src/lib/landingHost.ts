@@ -1,14 +1,24 @@
+const REZERVACE_HOSTS = new Set(["rezervace.neurea.cz", "www.rezervace.neurea.cz"]);
+const TEST_HOSTS = new Set(["adhd.neurea.cz", "www.adhd.neurea.cz"]);
+
+function getHostFromHeaders(h: Headers): string {
+  const raw =
+    h.get("x-forwarded-host") || h.get("x-vercel-forwarded-host") || h.get("host") || "";
+  return raw.split(",")[0]?.trim().split(":")[0]?.toLowerCase() ?? "";
+}
+
 /**
- * Samostatná landing na subdoméně (Meta).
- * 1) Middleware na Vercelu nastaví `x-neurea-landing: 1` (spolehlivější než jen Host v RSC).
+ * Samostatné landingy na subdoménách.
+ * 1) Middleware na Vercelu nastaví `x-neurea-landing` (spolehlivější než jen Host v RSC).
  * 2) Fallback podle Host / x-forwarded-host.
  */
 export function isRezervaceLandingHost(h: Headers): boolean {
-  if (h.get("x-neurea-landing") === "1") {
-    return true;
-  }
-  const raw =
-    h.get("x-forwarded-host") || h.get("x-vercel-forwarded-host") || h.get("host") || "";
-  const host = raw.split(",")[0]?.trim().split(":")[0]?.toLowerCase() ?? "";
-  return host === "rezervace.neurea.cz" || host === "www.rezervace.neurea.cz";
+  const marker = h.get("x-neurea-landing");
+  if (marker === "rezervace" || marker === "1") return true;
+  return REZERVACE_HOSTS.has(getHostFromHeaders(h));
+}
+
+export function isTestLandingHost(h: Headers): boolean {
+  if (h.get("x-neurea-landing") === "test") return true;
+  return TEST_HOSTS.has(getHostFromHeaders(h));
 }

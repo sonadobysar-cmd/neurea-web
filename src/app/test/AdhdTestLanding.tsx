@@ -185,8 +185,6 @@ export function AdhdTestLanding() {
 
       <section className="section-hero relative flex min-h-screen flex-col justify-center overflow-hidden px-6 py-12 md:py-16">
         <div className="gold-orb gold-orb-top" />
-        <div className="neuro-orb neuro-orb-top" />
-        <div className="violet-orb violet-orb-top" />
         <div className="gold-grid" />
         <div className="relative mx-auto w-full max-w-6xl">
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#4c3b1b] bg-[#221a0d] px-4 py-2 text-xs text-[#f2deb0]">
@@ -534,38 +532,40 @@ export function AdhdTestLanding() {
         </div>
       </section>
 
-      <section className="section-action mx-auto w-full max-w-6xl px-6 py-6">
-        <div className="funnel-panel rounded-3xl p-7 text-center md:p-10">
-          <div className="mx-auto mb-4 inline-flex rounded-full border border-[#5d4a24] bg-[#1b160c] px-4 py-1.5 text-xs tracking-[0.14em] text-[#ddc273]">
-            KROK 3: AKCE
+      {showResult ? (
+        <section className="section-action mx-auto w-full max-w-6xl px-6 py-6">
+          <div className="funnel-panel rounded-3xl p-7 text-center md:p-10">
+            <div className="mx-auto mb-4 inline-flex rounded-full border border-[#6a4a1b] bg-[#261707] px-4 py-1.5 text-xs tracking-[0.14em] text-[#ffcc78]">
+              KROK 3: AKCE
+            </div>
+            <h3 className={`${headingFont.className} text-3xl md:text-5xl`}>
+              Nečekejte další měsíce.
+              <br />
+              Udělejte první krok dnes.
+            </h3>
+            <p className="mx-auto mt-4 max-w-3xl text-white/80">
+              Největší chyba je odkládání. Buď si vezměte e-book protokol, nebo si rovnou rezervujte
+              objektivní diagnostiku.
+            </p>
+            <div className="mt-7 flex flex-wrap justify-center gap-3">
+              <a
+                href={EBOOK_URL}
+                onClick={() => trackEvent("ebook_clicked")}
+                className="funnel-btn-primary rounded-full px-8 py-3 text-sm font-bold tracking-[0.08em] text-[#0A0A0A]"
+              >
+                CHCI E-BOOK →
+              </a>
+              <a
+                href={RESERVATION_URL}
+                onClick={() => trackEvent("reservation_clicked")}
+                className="funnel-btn-secondary rounded-full px-8 py-3 text-sm font-bold tracking-[0.08em] text-white"
+              >
+                REZERVOVAT DIAGNOSTIKU →
+              </a>
+            </div>
           </div>
-          <h3 className={`${headingFont.className} text-3xl md:text-5xl`}>
-            Nečekejte další měsíce.
-            <br />
-            Udělejte první krok dnes.
-          </h3>
-          <p className="mx-auto mt-4 max-w-3xl text-white/80">
-            Největší chyba je odkládání. Buď si vezměte e-book protokol, nebo si rovnou rezervujte
-            objektivní diagnostiku.
-          </p>
-          <div className="mt-7 flex flex-wrap justify-center gap-3">
-            <a
-              href={EBOOK_URL}
-              onClick={() => trackEvent("ebook_clicked")}
-              className="funnel-btn-primary rounded-full px-8 py-3 text-sm font-bold tracking-[0.08em] text-[#0A0A0A]"
-            >
-              CHCI E-BOOK →
-            </a>
-            <a
-              href={RESERVATION_URL}
-              onClick={() => trackEvent("reservation_clicked")}
-              className="funnel-btn-secondary rounded-full px-8 py-3 text-sm font-bold tracking-[0.08em] text-white"
-            >
-              REZERVOVAT DIAGNOSTIKU →
-            </a>
-          </div>
-        </div>
-      </section>
+        </section>
+      ) : null}
 
       <section className="section-faq mx-auto w-full max-w-5xl px-6 py-14">
         <h3 className={`${headingFont.className} text-center text-4xl text-[#FFB347]`}>
@@ -581,35 +581,35 @@ export function AdhdTestLanding() {
         </div>
       </section>
 
-      <section className="section-final relative flex min-h-screen items-center overflow-hidden px-6 py-14">
-        <div className="gold-orb gold-orb-bottom" />
-        <div className="neuro-orb neuro-orb-bottom" />
-        <div className="violet-orb violet-orb-bottom" />
-        <div className="relative mx-auto w-full max-w-5xl text-center">
-          <h3 className={`${headingFont.className} text-5xl text-white md:text-7xl`}>Terapie mluví.</h3>
-          <h3 className={`${headingFont.className} mt-2 text-5xl text-[#FFB347] md:text-7xl`}>Neurea měří.</h3>
-          <p className="mx-auto mt-5 max-w-2xl text-white/80">
-            První neuro-somatické pracoviště svého druhu v České republice.
-          </p>
-          <div className="mt-9 flex flex-wrap justify-center gap-4">
-            <a
-              href={RESERVATION_URL}
-              onClick={() => trackEvent("reservation_clicked", { city: "brno" })}
-              className="funnel-btn-primary rounded-full px-8 py-4 text-sm font-bold tracking-[0.08em] text-[#0A0A0A]"
-            >
-              REZERVOVAT – BRNO →
-            </a>
-            <a
-              href={RESERVATION_URL}
-              onClick={() => trackEvent("reservation_clicked", { city: "praha" })}
-              className="funnel-btn-secondary rounded-full px-8 py-4 text-sm font-bold tracking-[0.08em] text-white"
-            >
-              REZERVOVAT – PRAHA →
-            </a>
+      {showResult ? (
+        <section className="section-final relative flex min-h-screen items-center overflow-hidden px-6 py-14">
+          <div className="gold-orb gold-orb-bottom" />
+          <div className="relative mx-auto w-full max-w-5xl text-center">
+            <h3 className={`${headingFont.className} text-5xl text-white md:text-7xl`}>Terapie mluví.</h3>
+            <h3 className={`${headingFont.className} mt-2 text-5xl text-[#FFB347] md:text-7xl`}>Neurea měří.</h3>
+            <p className="mx-auto mt-5 max-w-2xl text-white/80">
+              První neuro-somatické pracoviště svého druhu v České republice.
+            </p>
+            <div className="mt-9 flex flex-wrap justify-center gap-4">
+              <a
+                href={RESERVATION_URL}
+                onClick={() => trackEvent("reservation_clicked", { city: "brno" })}
+                className="funnel-btn-primary rounded-full px-8 py-4 text-sm font-bold tracking-[0.08em] text-[#0A0A0A]"
+              >
+                REZERVOVAT – BRNO →
+              </a>
+              <a
+                href={RESERVATION_URL}
+                onClick={() => trackEvent("reservation_clicked", { city: "praha" })}
+                className="funnel-btn-secondary rounded-full px-8 py-4 text-sm font-bold tracking-[0.08em] text-white"
+              >
+                REZERVOVAT – PRAHA →
+              </a>
+            </div>
+            <p className="mt-6 text-sm text-[#FFB347]">neurea.cz · info@neurea.cz</p>
           </div>
-          <p className="mt-6 text-sm text-[#FFB347]">neurea.cz · info@neurea.cz</p>
-        </div>
-      </section>
+        </section>
+      ) : null}
 
       <div className="mobile-sticky-cta md:hidden">
         <button
@@ -638,13 +638,13 @@ export function AdhdTestLanding() {
           background: linear-gradient(180deg, rgba(6, 8, 12, 0.94), rgba(8, 10, 14, 0.98));
         }
         .section-problem {
-          background: linear-gradient(180deg, rgba(14, 16, 21, 0.82), rgba(10, 10, 10, 0));
+          background: linear-gradient(180deg, rgba(19, 15, 10, 0.82), rgba(10, 10, 10, 0));
         }
         .section-screening {
-          background: linear-gradient(180deg, rgba(10, 17, 24, 0.55), rgba(10, 10, 10, 0));
+          background: linear-gradient(180deg, rgba(20, 16, 10, 0.55), rgba(10, 10, 10, 0));
         }
         .section-test {
-          background: linear-gradient(180deg, rgba(10, 10, 10, 0), rgba(11, 17, 26, 0.5), rgba(10, 10, 10, 0));
+          background: linear-gradient(180deg, rgba(10, 10, 10, 0), rgba(19, 14, 9, 0.5), rgba(10, 10, 10, 0));
         }
         .section-result {
           background: linear-gradient(180deg, rgba(18, 13, 7, 0.72), rgba(10, 10, 10, 0));
@@ -652,23 +652,23 @@ export function AdhdTestLanding() {
         .section-proof,
         .section-steps,
         .section-faq {
-          background: rgba(8, 11, 16, 0.58);
+          background: rgba(15, 12, 9, 0.58);
         }
         .section-action {
           background: linear-gradient(180deg, rgba(24, 17, 8, 0.62), rgba(10, 10, 10, 0.25));
         }
         .section-final {
-          background: linear-gradient(180deg, rgba(10, 10, 10, 0.35), rgba(12, 16, 22, 0.78));
+          background: linear-gradient(180deg, rgba(10, 10, 10, 0.35), rgba(22, 15, 9, 0.78));
         }
         .hero-title {
-          text-shadow: 0 0 36px rgba(124, 226, 255, 0.2);
+          text-shadow: 0 0 36px rgba(255, 214, 137, 0.2);
         }
         .funnel-panel {
           border: 1px solid #2d2d2d;
-          background: linear-gradient(180deg, rgba(18, 21, 27, 0.94), rgba(10, 12, 17, 0.98));
+          background: linear-gradient(180deg, rgba(23, 20, 16, 0.94), rgba(13, 11, 9, 0.98));
           box-shadow:
             0 20px 42px rgba(0, 0, 0, 0.35),
-            0 0 0 1px rgba(151, 214, 255, 0.1) inset;
+            0 0 0 1px rgba(255, 210, 128, 0.08) inset;
           backdrop-filter: blur(8px);
         }
         .funnel-card-gold {
@@ -694,14 +694,14 @@ export function AdhdTestLanding() {
           position: absolute;
           inset: auto 0 0 0;
           padding: 0.85rem 1rem;
-          background: linear-gradient(180deg, transparent, rgba(8, 12, 18, 0.95));
+          background: linear-gradient(180deg, transparent, rgba(18, 13, 9, 0.95));
           color: #fff1d8;
           font-size: 0.86rem;
           letter-spacing: 0.02em;
         }
         .funnel-card-dark {
           border: 1px solid rgba(255, 255, 255, 0.26);
-          background: linear-gradient(180deg, rgba(16, 21, 29, 0.98), rgba(10, 12, 17, 0.98));
+          background: linear-gradient(180deg, rgba(22, 18, 13, 0.98), rgba(11, 10, 9, 0.98));
           box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
         }
         .funnel-btn-primary {
@@ -732,7 +732,7 @@ export function AdhdTestLanding() {
         }
         .funnel-btn-secondary {
           border: 1px solid rgba(255, 179, 71, 0.9);
-          background: rgba(11, 16, 23, 0.92);
+          background: rgba(18, 14, 10, 0.92);
           box-shadow: 0 8px 20px rgba(120, 70, 20, 0.24);
         }
         .funnel-btn-secondary:hover {
@@ -748,7 +748,7 @@ export function AdhdTestLanding() {
         }
         .answer-card {
           border-color: #343434;
-          background: linear-gradient(180deg, rgba(20, 25, 34, 0.95), rgba(14, 16, 22, 0.95));
+          background: linear-gradient(180deg, rgba(28, 22, 16, 0.95), rgba(18, 14, 10, 0.95));
         }
         .answer-card:hover {
           border-color: #ffb347;
@@ -798,40 +798,6 @@ export function AdhdTestLanding() {
             linear-gradient(90deg, rgba(255, 179, 71, 0.16) 1px, transparent 1px);
           background-size: 52px 52px;
           mask-image: radial-gradient(circle at 50% 45%, black 28%, transparent 82%);
-        }
-        .neuro-orb {
-          pointer-events: none;
-          position: absolute;
-          height: 30rem;
-          width: 30rem;
-          border-radius: 999px;
-          filter: blur(60px);
-          background: radial-gradient(circle, rgba(255, 122, 26, 0.24), transparent 62%);
-        }
-        .neuro-orb-top {
-          left: -14%;
-          top: -20%;
-        }
-        .neuro-orb-bottom {
-          right: -16%;
-          bottom: -26%;
-        }
-        .violet-orb {
-          pointer-events: none;
-          position: absolute;
-          height: 28rem;
-          width: 28rem;
-          border-radius: 999px;
-          filter: blur(62px);
-          background: radial-gradient(circle, rgba(255, 193, 92, 0.22), transparent 62%);
-        }
-        .violet-orb-top {
-          right: 12%;
-          top: -25%;
-        }
-        .violet-orb-bottom {
-          left: 8%;
-          bottom: -28%;
         }
         .gold-orb {
           pointer-events: none;

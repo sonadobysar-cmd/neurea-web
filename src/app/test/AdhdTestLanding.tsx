@@ -157,6 +157,8 @@ export function AdhdTestLanding() {
     }, 2000);
   };
 
+  const urgency = Math.max(1, Math.floor(secondsLeft / 60));
+
   return (
     <div className={`${textFont.className} funnel-page bg-[#0A0A0A] text-white`}>
       {GA_ID ? (
@@ -180,22 +182,23 @@ export function AdhdTestLanding() {
         </Script>
       ) : null}
 
-      <section className="relative flex min-h-screen flex-col justify-center overflow-hidden px-6 py-14">
+      <section className="relative flex min-h-screen flex-col justify-center overflow-hidden px-6 py-12 md:py-16">
         <div className="gold-orb gold-orb-top" />
+        <div className="gold-grid" />
         <div className="relative mx-auto w-full max-w-6xl">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#3c3220] bg-[#1a1610] px-4 py-2 text-xs text-[#f2deb0]">
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#4c3b1b] bg-[#221a0d] px-4 py-2 text-xs text-[#f2deb0]">
             <span className="h-2 w-2 animate-pulse rounded-full bg-[#d6b15c]" />
-            Dnes online: omezený počet diagnostik
+            Dnes volno už jen {urgency} slotů diagnostiky
           </div>
           <p className="inline-block rounded-full border border-[#B8963E]/55 bg-[#b8963e1a] px-4 py-2 text-xs tracking-[0.15em] text-[#E9DFC4]">
             PRVNÍ NEURO-SOMATICKÉ PRACOVIŠTĚ V ČR
           </p>
-          <h1 className={`${headingFont.className} mt-8 max-w-4xl text-5xl leading-[0.96] text-white md:text-7xl`}>
+          <h1 className={`${headingFont.className} hero-title mt-8 max-w-4xl text-5xl leading-[0.9] text-white md:text-7xl`}>
             Váš mozek vysílá signály.
             <br />
             Umíte je číst?
           </h1>
-          <p className="mt-6 text-xl text-[#B8963E]">2 minuty · 10 otázek · Výsledek ihned</p>
+          <p className="mt-5 max-w-2xl text-xl text-[#f1d48b]">2 minuty · 10 otázek · Výsledek ihned</p>
           <button
             onClick={startTest}
             className="funnel-btn-primary pulse mt-10 rounded-full px-10 py-4 text-sm font-bold tracking-[0.08em] text-[#0A0A0A] transition"
@@ -212,7 +215,7 @@ export function AdhdTestLanding() {
               </span>
             ))}
           </div>
-          <div className="mt-14 grid gap-3 md:grid-cols-3">
+          <div className="mt-12 grid gap-3 md:grid-cols-3">
             <div className="funnel-stat pl-4">
               <p className="text-2xl font-bold text-[#B8963E] md:text-3xl">94,6 %</p>
               <p className="text-sm text-white/72">Klinické zlepšení ADHD</p>
@@ -229,7 +232,7 @@ export function AdhdTestLanding() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl px-6 py-6">
+      <section className="mx-auto w-full max-w-6xl px-6 py-5">
         <div className="funnel-panel rounded-3xl p-7 md:p-10">
           <div className="mb-4 inline-flex rounded-full border border-[#5d4a24] bg-[#1b160c] px-4 py-1.5 text-xs tracking-[0.14em] text-[#ddc273]">
             KROK 1: POCHOPIT, CO SE DĚJE
@@ -242,14 +245,14 @@ export function AdhdTestLanding() {
           </h2>
           <div className="mt-7 grid gap-4 md:grid-cols-3">
             {PAIN_POINTS.map((item) => (
-              <article key={item} className="rounded-2xl border border-[#2b2b2b] bg-[#141414] p-5 text-white/80">
+              <article key={item} className="pain-card rounded-2xl p-5 text-white/85">
                 {item}
               </article>
             ))}
           </div>
           <div className="mt-8 grid gap-4 md:grid-cols-3">
             {BENEFITS.map((item) => (
-              <article key={item} className="rounded-2xl border border-[#b8963e55] bg-[#15130f] p-5 text-[#E9DFC4]">
+              <article key={item} className="benefit-card rounded-2xl p-5 text-[#E9DFC4]">
                 ✓ {item}
               </article>
             ))}
@@ -263,7 +266,7 @@ export function AdhdTestLanding() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl px-6 py-6">
+      <section className="mx-auto w-full max-w-6xl px-6 py-5">
         <div className="funnel-panel rounded-3xl p-7 md:p-10">
           <div className="mb-4 inline-flex rounded-full border border-[#5d4a24] bg-[#1b160c] px-4 py-1.5 text-xs tracking-[0.14em] text-[#ddc273]">
             KROK 2: RYCHLÝ SCREENING
@@ -286,7 +289,7 @@ export function AdhdTestLanding() {
         </div>
       </section>
 
-      <section id="test-flow" className="mx-auto min-h-screen w-full max-w-4xl px-6 py-16">
+      <section id="test-flow" className="mx-auto min-h-screen w-full max-w-4xl px-6 py-12 md:py-16">
         <div className="mb-6 h-2 w-full overflow-hidden rounded-full bg-[#1A1A1A]">
           <div
             className="h-full bg-gradient-to-r from-[#B8963E] to-[#E9DFC4] transition-all duration-500"
@@ -324,7 +327,7 @@ export function AdhdTestLanding() {
       </section>
 
       {showResult ? (
-        <section id="result" className="mx-auto w-full max-w-6xl px-6 py-14">
+        <section id="result" className="mx-auto w-full max-w-6xl px-6 py-12 md:py-14">
           <div className="funnel-panel rounded-3xl p-8 md:p-10">
             {result === "A" ? (
               <>
@@ -376,7 +379,7 @@ export function AdhdTestLanding() {
             )}
           </div>
 
-          <div className="mt-8 rounded-2xl border border-[#3a3427] bg-[#17130d] px-5 py-4 text-center">
+          <div className="next-step-bar mt-8 rounded-2xl px-5 py-4 text-center">
             <p className="text-xs tracking-[0.14em] text-[#ddc273]">DALŠÍ KROK</p>
             <p className="mt-1 text-sm text-white/85">
               Vyberte si cestu: okamžitý PDF protokol za 199 Kč nebo rezervace diagnostiky.
@@ -571,28 +574,35 @@ export function AdhdTestLanding() {
         }
         .funnel-page {
           background:
-            radial-gradient(circle at 85% 10%, rgba(184, 150, 62, 0.13), transparent 42%),
-            radial-gradient(circle at 12% 70%, rgba(184, 150, 62, 0.09), transparent 40%),
+            radial-gradient(circle at 85% 10%, rgba(184, 150, 62, 0.17), transparent 42%),
+            radial-gradient(circle at 12% 70%, rgba(184, 150, 62, 0.11), transparent 40%),
             #0a0a0a;
         }
+        .hero-title {
+          text-shadow: 0 0 32px rgba(255, 226, 160, 0.08);
+        }
         .funnel-panel {
-          border: 1px solid #262626;
-          background: linear-gradient(180deg, rgba(20, 20, 20, 0.9), rgba(14, 14, 14, 0.94));
-          box-shadow: 0 20px 42px rgba(0, 0, 0, 0.35);
+          border: 1px solid #2d2d2d;
+          background: linear-gradient(180deg, rgba(23, 23, 23, 0.94), rgba(12, 12, 12, 0.98));
+          box-shadow:
+            0 20px 42px rgba(0, 0, 0, 0.35),
+            0 0 0 1px rgba(255, 225, 166, 0.03) inset;
         }
         .funnel-card-gold {
-          border: 1px solid rgba(184, 150, 62, 0.66);
-          background: linear-gradient(180deg, rgba(24, 24, 24, 0.95), rgba(15, 15, 15, 0.95));
-          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(201, 163, 69, 0.76);
+          background: linear-gradient(180deg, rgba(31, 26, 17, 0.95), rgba(15, 13, 9, 0.97));
+          box-shadow:
+            inset 0 1px 0 rgba(255, 244, 216, 0.08),
+            0 14px 38px rgba(184, 150, 62, 0.16);
         }
         .funnel-card-dark {
-          border: 1px solid rgba(255, 255, 255, 0.22);
-          background: linear-gradient(180deg, rgba(20, 20, 20, 0.95), rgba(13, 13, 13, 0.95));
-          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+          border: 1px solid rgba(255, 255, 255, 0.26);
+          background: linear-gradient(180deg, rgba(22, 22, 22, 0.98), rgba(10, 10, 10, 0.98));
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
         }
         .funnel-btn-primary {
-          background: linear-gradient(120deg, #b8963e, #ddc273);
-          box-shadow: 0 10px 28px rgba(184, 150, 62, 0.25);
+          background: linear-gradient(120deg, #c49f45, #f2d892);
+          box-shadow: 0 12px 34px rgba(184, 150, 62, 0.36);
           position: relative;
           overflow: hidden;
         }
@@ -609,11 +619,12 @@ export function AdhdTestLanding() {
         }
         .funnel-btn-primary:hover {
           transform: translateY(-2px);
-          filter: brightness(1.05);
+          filter: brightness(1.08);
         }
         .funnel-btn-secondary {
-          border: 1px solid rgba(255, 255, 255, 0.75);
-          background: rgba(10, 10, 10, 0.9);
+          border: 1px solid rgba(255, 255, 255, 0.9);
+          background: rgba(10, 10, 10, 0.92);
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
         }
         .funnel-btn-secondary:hover {
           border-color: #b8963e;
@@ -622,18 +633,19 @@ export function AdhdTestLanding() {
         }
         .funnel-stat {
           border-left: 2px solid #b8963e;
-          background: linear-gradient(90deg, rgba(184, 150, 62, 0.08), rgba(184, 150, 62, 0));
+          background: linear-gradient(90deg, rgba(184, 150, 62, 0.14), rgba(184, 150, 62, 0));
           padding-top: 0.35rem;
           padding-bottom: 0.35rem;
         }
         .answer-card {
-          border-color: #2e2e2e;
-          background: linear-gradient(180deg, rgba(28, 28, 28, 0.95), rgba(20, 20, 20, 0.95));
+          border-color: #343434;
+          background: linear-gradient(180deg, rgba(33, 33, 33, 0.95), rgba(19, 19, 19, 0.95));
         }
         .answer-card:hover {
-          border-color: #b8963e;
+          border-color: #d4b15e;
           color: #e9dfc4;
           transform: translateX(4px);
+          box-shadow: 0 10px 26px rgba(184, 150, 62, 0.18);
         }
         .mobile-sticky-cta {
           position: fixed;
@@ -647,13 +659,36 @@ export function AdhdTestLanding() {
           backdrop-filter: blur(8px);
         }
         .proof-chip {
-          border: 1px solid rgba(184, 150, 62, 0.45);
+          border: 1px solid rgba(184, 150, 62, 0.64);
           border-radius: 999px;
           padding: 0.35rem 0.7rem;
           font-size: 0.72rem;
           letter-spacing: 0.04em;
-          color: #e9dfc4;
-          background: rgba(184, 150, 62, 0.1);
+          color: #f0dfb6;
+          background: rgba(184, 150, 62, 0.14);
+        }
+        .pain-card {
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          background: linear-gradient(180deg, rgba(26, 26, 26, 0.98), rgba(17, 17, 17, 0.98));
+        }
+        .benefit-card {
+          border: 1px solid rgba(184, 150, 62, 0.5);
+          background: linear-gradient(180deg, rgba(34, 28, 16, 0.95), rgba(23, 19, 10, 0.95));
+        }
+        .next-step-bar {
+          border: 1px solid rgba(184, 150, 62, 0.46);
+          background: linear-gradient(180deg, rgba(38, 31, 18, 0.9), rgba(22, 18, 11, 0.92));
+        }
+        .gold-grid {
+          pointer-events: none;
+          position: absolute;
+          inset: 0;
+          opacity: 0.13;
+          background-image:
+            linear-gradient(rgba(184, 150, 62, 0.12) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(184, 150, 62, 0.12) 1px, transparent 1px);
+          background-size: 52px 52px;
+          mask-image: radial-gradient(circle at 50% 45%, black 28%, transparent 82%);
         }
         .gold-orb {
           pointer-events: none;

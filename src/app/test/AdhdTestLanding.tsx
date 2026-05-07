@@ -71,7 +71,6 @@ const MICRO_PROOFS = ["Bez registrace", "Výsledek ihned", "2 minuty", "10 otáz
 
 const EBOOK_URL = process.env.NEXT_PUBLIC_ADHD_EBOOK_STRIPE_URL || "https://buy.stripe.com/";
 const RESERVATION_URL = "https://rezervace.neurea.cz";
-const ANXIETY_TEST_URL = "https://neurea.cz/testy/uzkost";
 const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim() || "";
 const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID?.trim() || "";
 const EBOOK_COUNTDOWN_SECONDS = 15 * 60;
@@ -377,73 +376,62 @@ export function AdhdTestLanding() {
             )}
           </div>
 
-          {result !== "C" ? (
-            <div className="mt-8 grid gap-6 md:grid-cols-2">
-              <article className="funnel-card-gold rounded-3xl p-7">
-                <p className="text-sm text-[#B8963E]">⚡ NEJPOPULÁRNĚJŠÍ</p>
-                <h4 className={`${headingFont.className} mt-3 text-3xl`}>ADHD Mozek</h4>
-                <p className="mt-1 text-[#E9DFC4]">Jak fungovat naplno bez léků</p>
-                <ul className="mt-5 space-y-2 text-sm text-white/85">
-                  <li>✓ 47 stran · okamžitý download</li>
-                  <li>✓ Proč Ritalin nefunguje pro každého</li>
-                  <li>✓ Jak regulovat dopamin přirozeně</li>
-                  <li>✓ Praktické protokoly pro každý den</li>
-                  <li>✓ Kdy a jak vyhledat profesionální pomoc</li>
-                </ul>
-                <p className="mt-5 text-sm text-white/50 line-through">499 Kč</p>
-                <p className="text-4xl font-bold text-[#B8963E]">199 Kč</p>
-                <p className="mt-2 text-sm text-red-400">⏰ Nabídka vyprší za {formatClock(secondsLeft)}</p>
-                <a
-                  href={EBOOK_URL}
-                  onClick={() => trackEvent("ebook_clicked")}
-                  className="funnel-btn-primary mt-6 inline-block rounded-full px-7 py-3 text-sm font-bold tracking-[0.08em] text-[#0A0A0A]"
-                >
-                  CHCI E-BOOK →
-                </a>
-              </article>
+          <div className="mt-8 rounded-2xl border border-[#3a3427] bg-[#17130d] px-5 py-4 text-center">
+            <p className="text-xs tracking-[0.14em] text-[#ddc273]">DALŠÍ KROK</p>
+            <p className="mt-1 text-sm text-white/85">
+              Vyberte si cestu: okamžitý PDF protokol za 199 Kč nebo rezervace diagnostiky.
+            </p>
+          </div>
 
-              <article className="funnel-card-dark rounded-3xl p-7">
-                <p className="text-sm text-[#B8963E]">🧠 NEJRYCHLEJŠÍ VÝSLEDEK</p>
-                <h4 className={`${headingFont.className} mt-3 text-3xl`}>Vstupní Diagnostika</h4>
-                <p className="mt-1 text-[#E9DFC4]">Změříme přesně co se děje ve vaší nervové soustavě</p>
-                <ul className="mt-5 space-y-2 text-sm text-white/85">
-                  <li>✓ 75 minut · HRV měření</li>
-                  <li>✓ Objektivní data nervové soustavy</li>
-                  <li>✓ Individuální protokol</li>
-                  <li>✓ Výsledky které vidíte v číslech</li>
-                </ul>
-                <p className="mt-5 text-sm text-white/50 line-through">3 500 Kč</p>
-                <p className="text-4xl font-bold text-white">2 900 Kč</p>
-                <p className="mt-2 text-sm text-[#B8963E]">Pro první klienty · Brno nebo Praha</p>
-                <a
-                  href={RESERVATION_URL}
-                  onClick={() => trackEvent("reservation_clicked")}
-                  className="funnel-btn-secondary mt-6 inline-block rounded-full px-7 py-3 text-sm font-bold tracking-[0.08em] text-white"
-                >
-                  REZERVOVAT DIAGNOSTIKU →
-                </a>
-                <p className="mt-3 text-xs text-[#B8963E]">
-                  Garance: měřitelné zlepšení nebo vracíme 50 % ceny
-                </p>
-              </article>
-            </div>
-          ) : (
-            <div className="mt-8 flex flex-wrap gap-4">
+          <div className="mt-6 grid gap-6 md:grid-cols-2">
+            <article className="funnel-card-gold rounded-3xl p-7">
+              <p className="text-sm text-[#B8963E]">⚡ NEJPOPULÁRNĚJŠÍ</p>
+              <h4 className={`${headingFont.className} mt-3 text-3xl`}>ADHD Mozek</h4>
+              <p className="mt-1 text-[#E9DFC4]">Jak fungovat naplno bez léků</p>
+              <ul className="mt-5 space-y-2 text-sm text-white/85">
+                <li>✓ 47 stran · okamžitý download</li>
+                <li>✓ Proč Ritalin nefunguje pro každého</li>
+                <li>✓ Jak regulovat dopamin přirozeně</li>
+                <li>✓ Praktické protokoly pro každý den</li>
+                <li>✓ Kdy a jak vyhledat profesionální pomoc</li>
+              </ul>
+              <p className="mt-5 text-sm text-white/50 line-through">499 Kč</p>
+              <p className="text-4xl font-bold text-[#B8963E]">199 Kč</p>
+              <p className="mt-2 text-sm text-red-400">⏰ Nabídka vyprší za {formatClock(secondsLeft)}</p>
               <a
-                href={ANXIETY_TEST_URL}
-                className="funnel-btn-primary rounded-full px-8 py-3 text-sm font-bold tracking-[0.08em] text-[#0A0A0A]"
+                href={EBOOK_URL}
+                onClick={() => trackEvent("ebook_clicked")}
+                className="funnel-btn-primary mt-6 inline-block rounded-full px-7 py-3 text-sm font-bold tracking-[0.08em] text-[#0A0A0A]"
               >
-                ZKUSIT TEST ÚZKOSTI →
+                CHCI E-BOOK →
               </a>
+            </article>
+
+            <article className="funnel-card-dark rounded-3xl p-7">
+              <p className="text-sm text-[#B8963E]">🧠 NEJRYCHLEJŠÍ VÝSLEDEK</p>
+              <h4 className={`${headingFont.className} mt-3 text-3xl`}>Vstupní Diagnostika</h4>
+              <p className="mt-1 text-[#E9DFC4]">Změříme přesně co se děje ve vaší nervové soustavě</p>
+              <ul className="mt-5 space-y-2 text-sm text-white/85">
+                <li>✓ 75 minut · HRV měření</li>
+                <li>✓ Objektivní data nervové soustavy</li>
+                <li>✓ Individuální protokol</li>
+                <li>✓ Výsledky které vidíte v číslech</li>
+              </ul>
+              <p className="mt-5 text-sm text-white/50 line-through">3 500 Kč</p>
+              <p className="text-4xl font-bold text-white">2 900 Kč</p>
+              <p className="mt-2 text-sm text-[#B8963E]">Pro první klienty · Brno nebo Praha</p>
               <a
                 href={RESERVATION_URL}
                 onClick={() => trackEvent("reservation_clicked")}
-                className="funnel-btn-secondary rounded-full px-8 py-3 text-sm font-bold tracking-[0.08em] text-white"
+                className="funnel-btn-secondary mt-6 inline-block rounded-full px-7 py-3 text-sm font-bold tracking-[0.08em] text-white"
               >
                 REZERVOVAT DIAGNOSTIKU →
               </a>
-            </div>
-          )}
+              <p className="mt-3 text-xs text-[#B8963E]">
+                Garance: měřitelné zlepšení nebo vracíme 50 % ceny
+              </p>
+            </article>
+          </div>
         </section>
       ) : null}
 

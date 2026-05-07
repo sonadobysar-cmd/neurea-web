@@ -2,6 +2,7 @@
 
 import Script from "next/script";
 import { DM_Sans, Sora } from "next/font/google";
+import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 
 const headingFont = Sora({
@@ -185,6 +186,7 @@ export function AdhdTestLanding() {
       <section className="section-hero relative flex min-h-screen flex-col justify-center overflow-hidden px-6 py-12 md:py-16">
         <div className="gold-orb gold-orb-top" />
         <div className="neuro-orb neuro-orb-top" />
+        <div className="violet-orb violet-orb-top" />
         <div className="gold-grid" />
         <div className="relative mx-auto w-full max-w-6xl">
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#4c3b1b] bg-[#221a0d] px-4 py-2 text-xs text-[#f2deb0]">
@@ -239,6 +241,47 @@ export function AdhdTestLanding() {
             <strong>Pozor:</strong> největší chyba je čekat, až se to „zlepší samo“. U většiny lidí se to bez
             cíleného postupu zhoršuje.
           </div>
+        </div>
+      </section>
+
+      <section className="mx-auto w-full max-w-6xl px-6 py-5">
+        <div className="grid gap-4 md:grid-cols-3">
+          <article className="image-card relative overflow-hidden rounded-2xl">
+            <Image
+              src="https://images.unsplash.com/photo-1576671081837-49000212a370?auto=format&fit=crop&w=1200&q=80"
+              alt="Modern neuro clinic environment"
+              width={1200}
+              height={800}
+              className="h-52 w-full object-cover md:h-64"
+            />
+            <div className="image-overlay">
+              <p>Moderní neuro-klinický přístup</p>
+            </div>
+          </article>
+          <article className="image-card relative overflow-hidden rounded-2xl">
+            <Image
+              src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?auto=format&fit=crop&w=1200&q=80"
+              alt="Brain scan and analysis visuals"
+              width={1200}
+              height={800}
+              className="h-52 w-full object-cover md:h-64"
+            />
+            <div className="image-overlay">
+              <p>Objektivní data místo odhadů</p>
+            </div>
+          </article>
+          <article className="image-card relative overflow-hidden rounded-2xl">
+            <Image
+              src="https://images.unsplash.com/photo-1584982751601-97dcc096659c?auto=format&fit=crop&w=1200&q=80"
+              alt="Focused patient and clinician consultation"
+              width={1200}
+              height={800}
+              className="h-52 w-full object-cover md:h-64"
+            />
+            <div className="image-overlay">
+              <p>Jasný plán dalšího postupu</p>
+            </div>
+          </article>
         </div>
       </section>
 
@@ -541,6 +584,7 @@ export function AdhdTestLanding() {
       <section className="section-final relative flex min-h-screen items-center overflow-hidden px-6 py-14">
         <div className="gold-orb gold-orb-bottom" />
         <div className="neuro-orb neuro-orb-bottom" />
+        <div className="violet-orb violet-orb-bottom" />
         <div className="relative mx-auto w-full max-w-5xl text-center">
           <h3 className={`${headingFont.className} text-5xl text-white md:text-7xl`}>Terapie mluví.</h3>
           <h3 className={`${headingFont.className} mt-2 text-5xl text-[#B8963E] md:text-7xl`}>Neurea měří.</h3>
@@ -586,6 +630,7 @@ export function AdhdTestLanding() {
         .funnel-page {
           background:
             radial-gradient(circle at 85% 10%, rgba(66, 209, 255, 0.2), transparent 42%),
+            radial-gradient(circle at 75% 80%, rgba(168, 85, 247, 0.16), transparent 40%),
             radial-gradient(circle at 12% 70%, rgba(72, 162, 255, 0.16), transparent 45%),
             linear-gradient(180deg, #06090e, #0b1118 45%, #090b10);
         }
@@ -632,6 +677,27 @@ export function AdhdTestLanding() {
           box-shadow:
             inset 0 1px 0 rgba(218, 248, 255, 0.12),
             0 14px 38px rgba(66, 209, 255, 0.16);
+        }
+        .image-card {
+          border: 1px solid rgba(96, 216, 255, 0.28);
+          box-shadow: 0 14px 28px rgba(0, 0, 0, 0.28);
+        }
+        .image-card::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          border: 1px solid rgba(168, 85, 247, 0.24);
+          border-radius: inherit;
+          pointer-events: none;
+        }
+        .image-overlay {
+          position: absolute;
+          inset: auto 0 0 0;
+          padding: 0.85rem 1rem;
+          background: linear-gradient(180deg, transparent, rgba(8, 12, 18, 0.95));
+          color: #e8f8ff;
+          font-size: 0.86rem;
+          letter-spacing: 0.02em;
         }
         .funnel-card-dark {
           border: 1px solid rgba(255, 255, 255, 0.26);
@@ -749,6 +815,23 @@ export function AdhdTestLanding() {
         .neuro-orb-bottom {
           right: -16%;
           bottom: -26%;
+        }
+        .violet-orb {
+          pointer-events: none;
+          position: absolute;
+          height: 28rem;
+          width: 28rem;
+          border-radius: 999px;
+          filter: blur(62px);
+          background: radial-gradient(circle, rgba(168, 85, 247, 0.24), transparent 62%);
+        }
+        .violet-orb-top {
+          right: 12%;
+          top: -25%;
+        }
+        .violet-orb-bottom {
+          left: 8%;
+          bottom: -28%;
         }
         .gold-orb {
           pointer-events: none;

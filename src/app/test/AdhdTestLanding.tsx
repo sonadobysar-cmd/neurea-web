@@ -184,6 +184,7 @@ export function AdhdTestLanding() {
 
       <section className="section-hero relative flex min-h-screen flex-col justify-center overflow-hidden px-6 py-12 md:py-16">
         <div className="gold-orb gold-orb-top" />
+        <div className="neuro-orb neuro-orb-top" />
         <div className="gold-grid" />
         <div className="relative mx-auto w-full max-w-6xl">
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#4c3b1b] bg-[#221a0d] px-4 py-2 text-xs text-[#f2deb0]">
@@ -539,6 +540,7 @@ export function AdhdTestLanding() {
 
       <section className="section-final relative flex min-h-screen items-center overflow-hidden px-6 py-14">
         <div className="gold-orb gold-orb-bottom" />
+        <div className="neuro-orb neuro-orb-bottom" />
         <div className="relative mx-auto w-full max-w-5xl text-center">
           <h3 className={`${headingFont.className} text-5xl text-white md:text-7xl`}>Terapie mluví.</h3>
           <h3 className={`${headingFont.className} mt-2 text-5xl text-[#B8963E] md:text-7xl`}>Neurea měří.</h3>
@@ -584,20 +586,20 @@ export function AdhdTestLanding() {
         .funnel-page {
           background:
             radial-gradient(circle at 85% 10%, rgba(184, 150, 62, 0.17), transparent 42%),
-            radial-gradient(circle at 12% 70%, rgba(184, 150, 62, 0.11), transparent 40%),
-            #0a0a0a;
+            radial-gradient(circle at 12% 70%, rgba(72, 162, 255, 0.12), transparent 45%),
+            linear-gradient(180deg, #07080a, #0a0d12 45%, #090909);
         }
         .section-hero {
-          background: linear-gradient(180deg, rgba(8, 8, 8, 0.9), rgba(10, 10, 10, 0.96));
+          background: linear-gradient(180deg, rgba(6, 8, 12, 0.94), rgba(8, 10, 14, 0.98));
         }
         .section-problem {
-          background: linear-gradient(180deg, rgba(14, 11, 8, 0.75), rgba(10, 10, 10, 0));
+          background: linear-gradient(180deg, rgba(14, 16, 21, 0.82), rgba(10, 10, 10, 0));
         }
         .section-screening {
-          background: linear-gradient(180deg, rgba(9, 11, 13, 0.5), rgba(10, 10, 10, 0));
+          background: linear-gradient(180deg, rgba(10, 17, 24, 0.55), rgba(10, 10, 10, 0));
         }
         .section-test {
-          background: linear-gradient(180deg, rgba(10, 10, 10, 0), rgba(15, 12, 7, 0.5), rgba(10, 10, 10, 0));
+          background: linear-gradient(180deg, rgba(10, 10, 10, 0), rgba(11, 17, 26, 0.5), rgba(10, 10, 10, 0));
         }
         .section-result {
           background: linear-gradient(180deg, rgba(18, 13, 7, 0.72), rgba(10, 10, 10, 0));
@@ -605,23 +607,24 @@ export function AdhdTestLanding() {
         .section-proof,
         .section-steps,
         .section-faq {
-          background: rgba(9, 9, 9, 0.55);
+          background: rgba(8, 11, 16, 0.58);
         }
         .section-action {
           background: linear-gradient(180deg, rgba(24, 17, 8, 0.62), rgba(10, 10, 10, 0.25));
         }
         .section-final {
-          background: linear-gradient(180deg, rgba(10, 10, 10, 0.4), rgba(22, 16, 8, 0.78));
+          background: linear-gradient(180deg, rgba(10, 10, 10, 0.35), rgba(12, 16, 22, 0.78));
         }
         .hero-title {
           text-shadow: 0 0 32px rgba(255, 226, 160, 0.08);
         }
         .funnel-panel {
           border: 1px solid #2d2d2d;
-          background: linear-gradient(180deg, rgba(23, 23, 23, 0.94), rgba(12, 12, 12, 0.98));
+          background: linear-gradient(180deg, rgba(18, 21, 27, 0.94), rgba(10, 12, 17, 0.98));
           box-shadow:
             0 20px 42px rgba(0, 0, 0, 0.35),
-            0 0 0 1px rgba(255, 225, 166, 0.03) inset;
+            0 0 0 1px rgba(151, 214, 255, 0.05) inset;
+          backdrop-filter: blur(8px);
         }
         .funnel-card-gold {
           border: 1px solid rgba(201, 163, 69, 0.76);
@@ -632,7 +635,7 @@ export function AdhdTestLanding() {
         }
         .funnel-card-dark {
           border: 1px solid rgba(255, 255, 255, 0.26);
-          background: linear-gradient(180deg, rgba(22, 22, 22, 0.98), rgba(10, 10, 10, 0.98));
+          background: linear-gradient(180deg, rgba(16, 21, 29, 0.98), rgba(10, 12, 17, 0.98));
           box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
         }
         .funnel-btn-primary {
@@ -642,9 +645,9 @@ export function AdhdTestLanding() {
           overflow: hidden;
         }
         .urgency-strip {
-          border: 1px solid rgba(255, 122, 122, 0.38);
-          background: linear-gradient(90deg, rgba(84, 25, 25, 0.45), rgba(34, 14, 14, 0.2));
-          color: #ffd3d3;
+          border: 1px solid rgba(108, 190, 255, 0.4);
+          background: linear-gradient(90deg, rgba(22, 48, 68, 0.45), rgba(12, 22, 34, 0.2));
+          color: #ccecff;
         }
         .funnel-btn-primary::after {
           content: "";
@@ -663,7 +666,7 @@ export function AdhdTestLanding() {
         }
         .funnel-btn-secondary {
           border: 1px solid rgba(255, 255, 255, 0.9);
-          background: rgba(10, 10, 10, 0.92);
+          background: rgba(11, 16, 23, 0.92);
           box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
         }
         .funnel-btn-secondary:hover {
@@ -679,7 +682,7 @@ export function AdhdTestLanding() {
         }
         .answer-card {
           border-color: #343434;
-          background: linear-gradient(180deg, rgba(33, 33, 33, 0.95), rgba(19, 19, 19, 0.95));
+          background: linear-gradient(180deg, rgba(20, 25, 34, 0.95), rgba(14, 16, 22, 0.95));
         }
         .answer-card:hover {
           border-color: #d4b15e;
@@ -729,6 +732,23 @@ export function AdhdTestLanding() {
             linear-gradient(90deg, rgba(184, 150, 62, 0.12) 1px, transparent 1px);
           background-size: 52px 52px;
           mask-image: radial-gradient(circle at 50% 45%, black 28%, transparent 82%);
+        }
+        .neuro-orb {
+          pointer-events: none;
+          position: absolute;
+          height: 30rem;
+          width: 30rem;
+          border-radius: 999px;
+          filter: blur(60px);
+          background: radial-gradient(circle, rgba(80, 170, 255, 0.22), transparent 62%);
+        }
+        .neuro-orb-top {
+          left: -14%;
+          top: -20%;
+        }
+        .neuro-orb-bottom {
+          right: -16%;
+          bottom: -26%;
         }
         .gold-orb {
           pointer-events: none;

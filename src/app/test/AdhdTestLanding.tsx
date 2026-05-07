@@ -193,7 +193,7 @@ export function AdhdTestLanding() {
             <span className="h-2 w-2 animate-pulse rounded-full bg-[#d6b15c]" />
             Dnes volno už jen {urgency} slotů diagnostiky
           </div>
-          <p className="inline-block rounded-full border border-[#B8963E]/55 bg-[#b8963e1a] px-4 py-2 text-xs tracking-[0.15em] text-[#E9DFC4]">
+          <p className="inline-block rounded-full border border-[#FFB347]/55 bg-[#ffb3471a] px-4 py-2 text-xs tracking-[0.15em] text-[#FFE7BE]">
             PRVNÍ NEURO-SOMATICKÉ PRACOVIŠTĚ V ČR
           </p>
           <h1 className={`${headingFont.className} hero-title mt-8 max-w-4xl text-5xl leading-[0.9] text-white md:text-7xl`}>
@@ -225,15 +225,15 @@ export function AdhdTestLanding() {
           </div>
           <div className="mt-12 grid gap-3 md:grid-cols-3">
             <div className="funnel-stat pl-4">
-              <p className="text-2xl font-bold text-[#B8963E] md:text-3xl">94,6 %</p>
+              <p className="text-2xl font-bold text-[#FFB347] md:text-3xl">94,6 %</p>
               <p className="text-sm text-white/72">Klinické zlepšení ADHD</p>
             </div>
             <div className="funnel-stat pl-4">
-              <p className="text-2xl font-bold text-[#B8963E] md:text-3xl">462</p>
+              <p className="text-2xl font-bold text-[#FFB347] md:text-3xl">462</p>
               <p className="text-sm text-white/72">Pacientů ve studiích</p>
             </div>
             <div className="funnel-stat pl-4">
-              <p className="text-2xl font-bold text-[#B8963E] md:text-3xl">Harvard</p>
+              <p className="text-2xl font-bold text-[#FFB347] md:text-3xl">Harvard</p>
               <p className="text-sm text-white/72">Nature Medicine</p>
             </div>
           </div>
@@ -248,7 +248,7 @@ export function AdhdTestLanding() {
         <div className="grid gap-4 md:grid-cols-3">
           <article className="image-card relative overflow-hidden rounded-2xl">
             <Image
-              src="https://images.unsplash.com/photo-1576671081837-49000212a370?auto=format&fit=crop&w=1200&q=80"
+              src="/visuals/neuro-1.svg"
               alt="Modern neuro clinic environment"
               width={1200}
               height={800}
@@ -260,7 +260,7 @@ export function AdhdTestLanding() {
           </article>
           <article className="image-card relative overflow-hidden rounded-2xl">
             <Image
-              src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?auto=format&fit=crop&w=1200&q=80"
+              src="/visuals/neuro-2.svg"
               alt="Brain scan and analysis visuals"
               width={1200}
               height={800}
@@ -272,7 +272,7 @@ export function AdhdTestLanding() {
           </article>
           <article className="image-card relative overflow-hidden rounded-2xl">
             <Image
-              src="https://images.unsplash.com/photo-1584982751601-97dcc096659c?auto=format&fit=crop&w=1200&q=80"
+              src="/visuals/neuro-3.svg"
               alt="Focused patient and clinician consultation"
               width={1200}
               height={800}
@@ -290,7 +290,7 @@ export function AdhdTestLanding() {
           <div className="mb-4 inline-flex rounded-full border border-[#5d4a24] bg-[#1b160c] px-4 py-1.5 text-xs tracking-[0.14em] text-[#ddc273]">
             KROK 1: POCHOPIT, CO SE DĚJE
           </div>
-          <p className="text-sm uppercase tracking-[0.14em] text-[#B8963E]">Proč tenhle test vznikl</p>
+          <p className="text-sm uppercase tracking-[0.14em] text-[#FFB347]">Proč tenhle test vznikl</p>
           <h2 className={`${headingFont.className} mt-3 text-3xl md:text-5xl`}>
             ADHD není nedostatek vůle.
             <br />
@@ -345,7 +345,7 @@ export function AdhdTestLanding() {
       <section id="test-flow" className="section-test mx-auto min-h-screen w-full max-w-4xl px-6 py-12 md:py-16">
         <div className="mb-6 h-2 w-full overflow-hidden rounded-full bg-[#1A1A1A]">
           <div
-            className="h-full bg-gradient-to-r from-[#B8963E] to-[#E9DFC4] transition-all duration-500"
+            className="h-full bg-gradient-to-r from-[#FF7A1A] to-[#FFD166] transition-all duration-500"
             style={{ width: `${progress}%` }}
           />
         </div>
@@ -355,7 +355,7 @@ export function AdhdTestLanding() {
           </div>
         ) : loadingResult ? (
           <div className="funnel-panel flex min-h-[55vh] flex-col items-center justify-center gap-6 rounded-3xl">
-            <div className="loader h-16 w-16 rounded-full border-2 border-[#3A3A3A] border-t-[#B8963E]" />
+            <div className="loader h-16 w-16 rounded-full border-2 border-[#3A3A3A] border-t-[#FFB347]" />
             <p className="text-lg text-[#E9DFC4]">Analyzujeme váš výsledek...</p>
           </div>
         ) : !showResult ? (
@@ -384,8 +384,8 @@ export function AdhdTestLanding() {
           <div className="funnel-panel rounded-3xl p-8 md:p-10">
             {result === "A" ? (
               <>
-                <p className="text-center text-6xl font-bold text-[#B8963E]">{score}/30</p>
-                <p className="mx-auto mt-5 w-fit rounded-full border border-[#B8963E]/60 px-4 py-2 text-xs tracking-[0.12em] text-[#E9DFC4]">
+                <p className="text-center text-6xl font-bold text-[#FFB347]">{score}/30</p>
+                <p className="mx-auto mt-5 w-fit rounded-full border border-[#FFB347]/60 px-4 py-2 text-xs tracking-[0.12em] text-[#FFE7BE]">
                   VYSOKÁ PRAVDĚPODOBNOST ADHD
                 </p>
                 <h3 className={`${headingFont.className} mt-6 text-center text-4xl`}>
@@ -395,17 +395,17 @@ export function AdhdTestLanding() {
                   Toto není diagnóza. Je to měřitelný biologický vzorec – narušené gama vlny a nižší
                   produkce dopaminu. Není to slabost. Je to neurologie.
                 </p>
-                <hr className="my-7 border-[#B8963E]/45" />
+                <hr className="my-7 border-[#FFB347]/45" />
                 <p className="font-bold text-white">
                   Tradiční cesta: psychiatr · 3-6 měsíců čekání · možná Ritalin · nejistý výsledek.
                 </p>
-                <p className="mt-3 text-[#B8963E]">
+                <p className="mt-3 text-[#FFB347]">
                   Naše cesta: změříme přesně co se děje. Do 75 minut víte víc než po roce u psychiatra.
                 </p>
               </>
             ) : result === "B" ? (
               <>
-                <p className="mx-auto w-fit rounded-full border border-[#B8963E]/60 px-4 py-2 text-xs tracking-[0.12em] text-[#E9DFC4]">
+                <p className="mx-auto w-fit rounded-full border border-[#FFB347]/60 px-4 py-2 text-xs tracking-[0.12em] text-[#FFE7BE]">
                   STŘEDNÍ PRAVDĚPODOBNOST ADHD
                 </p>
                 <h3 className={`${headingFont.className} mt-6 text-4xl`}>
@@ -418,7 +418,7 @@ export function AdhdTestLanding() {
               </>
             ) : (
               <>
-                <p className="mx-auto w-fit rounded-full border border-[#B8963E]/60 px-4 py-2 text-xs tracking-[0.12em] text-[#E9DFC4]">
+                <p className="mx-auto w-fit rounded-full border border-[#FFB347]/60 px-4 py-2 text-xs tracking-[0.12em] text-[#FFE7BE]">
                   NÍZKÁ PRAVDĚPODOBNOST ADHD
                 </p>
                 <h3 className={`${headingFont.className} mt-6 text-4xl`}>
@@ -441,9 +441,9 @@ export function AdhdTestLanding() {
 
           <div className="mt-6 grid gap-6 md:grid-cols-2">
             <article className="funnel-card-gold rounded-3xl p-7">
-              <p className="text-sm text-[#B8963E]">⚡ NEJPOPULÁRNĚJŠÍ</p>
+              <p className="text-sm text-[#FFB347]">⚡ NEJPOPULÁRNĚJŠÍ</p>
               <h4 className={`${headingFont.className} mt-3 text-3xl`}>ADHD Mozek</h4>
-              <p className="mt-1 text-[#E9DFC4]">Jak fungovat naplno bez léků</p>
+              <p className="mt-1 text-[#FFE7BE]">Jak fungovat naplno bez léků</p>
               <ul className="mt-5 space-y-2 text-sm text-white/85">
                 <li>✓ 47 stran · okamžitý download</li>
                 <li>✓ Proč Ritalin nefunguje pro každého</li>
@@ -452,7 +452,7 @@ export function AdhdTestLanding() {
                 <li>✓ Kdy a jak vyhledat profesionální pomoc</li>
               </ul>
               <p className="mt-5 text-sm text-white/50 line-through">499 Kč</p>
-              <p className="text-4xl font-bold text-[#B8963E]">199 Kč</p>
+              <p className="text-4xl font-bold text-[#FFB347]">199 Kč</p>
               <p className="mt-2 text-sm text-red-400">⏰ Nabídka vyprší za {formatClock(secondsLeft)}</p>
               <a
                 href={EBOOK_URL}
@@ -464,9 +464,9 @@ export function AdhdTestLanding() {
             </article>
 
             <article className="funnel-card-dark rounded-3xl p-7">
-              <p className="text-sm text-[#B8963E]">🧠 NEJRYCHLEJŠÍ VÝSLEDEK</p>
+              <p className="text-sm text-[#FFB347]">🧠 NEJRYCHLEJŠÍ VÝSLEDEK</p>
               <h4 className={`${headingFont.className} mt-3 text-3xl`}>Vstupní Diagnostika</h4>
-              <p className="mt-1 text-[#E9DFC4]">Změříme přesně co se děje ve vaší nervové soustavě</p>
+              <p className="mt-1 text-[#FFE7BE]">Změříme přesně co se děje ve vaší nervové soustavě</p>
               <ul className="mt-5 space-y-2 text-sm text-white/85">
                 <li>✓ 75 minut · HRV měření</li>
                 <li>✓ Objektivní data nervové soustavy</li>
@@ -475,7 +475,7 @@ export function AdhdTestLanding() {
               </ul>
               <p className="mt-5 text-sm text-white/50 line-through">3 500 Kč</p>
               <p className="text-4xl font-bold text-white">2 900 Kč</p>
-              <p className="mt-2 text-sm text-[#B8963E]">Pro první klienty · Brno nebo Praha</p>
+              <p className="mt-2 text-sm text-[#FFB347]">Pro první klienty · Brno nebo Praha</p>
               <a
                 href={RESERVATION_URL}
                 onClick={() => trackEvent("reservation_clicked")}
@@ -483,7 +483,7 @@ export function AdhdTestLanding() {
               >
                 REZERVOVAT DIAGNOSTIKU →
               </a>
-              <p className="mt-3 text-xs text-[#B8963E]">
+              <p className="mt-3 text-xs text-[#FFB347]">
                 Garance: měřitelné zlepšení nebo vracíme 50 % ceny
               </p>
             </article>
@@ -492,14 +492,14 @@ export function AdhdTestLanding() {
       ) : null}
 
       <section className="section-proof mx-auto w-full max-w-6xl px-6 py-14">
-        <h3 className={`${headingFont.className} text-center text-4xl text-[#B8963E]`}>Co říkají naši klienti</h3>
+        <h3 className={`${headingFont.className} text-center text-4xl text-[#FFB347]`}>Co říkají naši klienti</h3>
         <div className="mt-8 grid gap-5 md:grid-cols-3">
           {[
             "Čekala jsem 4 měsíce na psychiatra. U Neurea jsem měla výsledky do týdne. – Jana, 34 let",
             "Konečně jsem viděl data. Ne jen pocity. Změnilo to všechno. – Martin, 41 let",
             "Dcera má ADHD. Odmítala jsem léky. Neurea nám ukázala jinou cestu. – Petra, 38 let",
           ].map((quote) => (
-            <article key={quote} className="funnel-card-dark rounded-2xl border-t-2 border-[#B8963E] p-6 text-white/85">
+            <article key={quote} className="funnel-card-dark rounded-2xl border-t-2 border-[#FF7A1A] p-6 text-white/85">
               {quote}
             </article>
           ))}
@@ -507,7 +507,7 @@ export function AdhdTestLanding() {
       </section>
 
       <section className="section-steps mx-auto w-full max-w-6xl px-6 py-14">
-        <h3 className={`${headingFont.className} text-center text-4xl text-[#B8963E]`}>
+        <h3 className={`${headingFont.className} text-center text-4xl text-[#FFB347]`}>
           3 kroky k měřitelnému výsledku
         </h3>
         <div className="mt-8 grid gap-6 md:grid-cols-3">
@@ -526,7 +526,7 @@ export function AdhdTestLanding() {
             },
           ].map((item, i) => (
             <article key={item.title} className="funnel-card-dark relative rounded-2xl p-6">
-              <span className="text-3xl text-[#B8963E]">{["①", "②", "③"][i]}</span>
+              <span className="text-3xl text-[#FFB347]">{["①", "②", "③"][i]}</span>
               <h4 className={`${headingFont.className} mt-3 text-2xl text-white`}>{item.title}</h4>
               <p className="mt-3 text-white/75">{item.text}</p>
             </article>
@@ -568,7 +568,7 @@ export function AdhdTestLanding() {
       </section>
 
       <section className="section-faq mx-auto w-full max-w-5xl px-6 py-14">
-        <h3 className={`${headingFont.className} text-center text-4xl text-[#B8963E]`}>
+        <h3 className={`${headingFont.className} text-center text-4xl text-[#FFB347]`}>
           Často kladené otázky
         </h3>
         <div className="mt-8 space-y-4">
@@ -587,7 +587,7 @@ export function AdhdTestLanding() {
         <div className="violet-orb violet-orb-bottom" />
         <div className="relative mx-auto w-full max-w-5xl text-center">
           <h3 className={`${headingFont.className} text-5xl text-white md:text-7xl`}>Terapie mluví.</h3>
-          <h3 className={`${headingFont.className} mt-2 text-5xl text-[#B8963E] md:text-7xl`}>Neurea měří.</h3>
+          <h3 className={`${headingFont.className} mt-2 text-5xl text-[#FFB347] md:text-7xl`}>Neurea měří.</h3>
           <p className="mx-auto mt-5 max-w-2xl text-white/80">
             První neuro-somatické pracoviště svého druhu v České republice.
           </p>
@@ -607,7 +607,7 @@ export function AdhdTestLanding() {
               REZERVOVAT – PRAHA →
             </a>
           </div>
-          <p className="mt-6 text-sm text-[#B8963E]">neurea.cz · info@neurea.cz</p>
+          <p className="mt-6 text-sm text-[#FFB347]">neurea.cz · info@neurea.cz</p>
         </div>
       </section>
 
@@ -629,10 +629,10 @@ export function AdhdTestLanding() {
         }
         .funnel-page {
           background:
-            radial-gradient(circle at 85% 10%, rgba(66, 209, 255, 0.2), transparent 42%),
-            radial-gradient(circle at 75% 80%, rgba(168, 85, 247, 0.16), transparent 40%),
-            radial-gradient(circle at 12% 70%, rgba(72, 162, 255, 0.16), transparent 45%),
-            linear-gradient(180deg, #06090e, #0b1118 45%, #090b10);
+            radial-gradient(circle at 85% 10%, rgba(255, 179, 71, 0.22), transparent 42%),
+            radial-gradient(circle at 75% 80%, rgba(255, 122, 26, 0.14), transparent 40%),
+            radial-gradient(circle at 12% 70%, rgba(255, 210, 102, 0.14), transparent 45%),
+            linear-gradient(180deg, #0a0b0f, #10141a 45%, #0b0d12);
         }
         .section-hero {
           background: linear-gradient(180deg, rgba(6, 8, 12, 0.94), rgba(8, 10, 14, 0.98));
@@ -672,21 +672,21 @@ export function AdhdTestLanding() {
           backdrop-filter: blur(8px);
         }
         .funnel-card-gold {
-          border: 1px solid rgba(84, 211, 255, 0.66);
-          background: linear-gradient(180deg, rgba(14, 30, 39, 0.95), rgba(10, 18, 25, 0.97));
+          border: 1px solid rgba(255, 179, 71, 0.72);
+          background: linear-gradient(180deg, rgba(35, 25, 14, 0.95), rgba(22, 16, 10, 0.97));
           box-shadow:
-            inset 0 1px 0 rgba(218, 248, 255, 0.12),
-            0 14px 38px rgba(66, 209, 255, 0.16);
+            inset 0 1px 0 rgba(255, 242, 214, 0.12),
+            0 14px 38px rgba(255, 122, 26, 0.18);
         }
         .image-card {
-          border: 1px solid rgba(96, 216, 255, 0.28);
+          border: 1px solid rgba(255, 179, 71, 0.35);
           box-shadow: 0 14px 28px rgba(0, 0, 0, 0.28);
         }
         .image-card::after {
           content: "";
           position: absolute;
           inset: 0;
-          border: 1px solid rgba(168, 85, 247, 0.24);
+          border: 1px solid rgba(255, 122, 26, 0.28);
           border-radius: inherit;
           pointer-events: none;
         }
@@ -695,7 +695,7 @@ export function AdhdTestLanding() {
           inset: auto 0 0 0;
           padding: 0.85rem 1rem;
           background: linear-gradient(180deg, transparent, rgba(8, 12, 18, 0.95));
-          color: #e8f8ff;
+          color: #fff1d8;
           font-size: 0.86rem;
           letter-spacing: 0.02em;
         }
@@ -705,8 +705,8 @@ export function AdhdTestLanding() {
           box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
         }
         .funnel-btn-primary {
-          background: linear-gradient(120deg, #2fc8ff, #8cecff);
-          box-shadow: 0 12px 34px rgba(66, 209, 255, 0.36);
+          background: linear-gradient(120deg, #ff7a1a, #ffd166);
+          box-shadow: 0 12px 34px rgba(255, 122, 26, 0.34);
           position: relative;
           overflow: hidden;
         }
@@ -731,18 +731,18 @@ export function AdhdTestLanding() {
           filter: brightness(1.08);
         }
         .funnel-btn-secondary {
-          border: 1px solid rgba(96, 216, 255, 0.9);
+          border: 1px solid rgba(255, 179, 71, 0.9);
           background: rgba(11, 16, 23, 0.92);
-          box-shadow: 0 8px 20px rgba(20, 90, 120, 0.22);
+          box-shadow: 0 8px 20px rgba(120, 70, 20, 0.24);
         }
         .funnel-btn-secondary:hover {
-          border-color: #ffffff;
-          color: #d7f5ff;
+          border-color: #ffd166;
+          color: #ffe9c1;
           transform: translateY(-2px);
         }
         .funnel-stat {
-          border-left: 2px solid #42d1ff;
-          background: linear-gradient(90deg, rgba(66, 209, 255, 0.2), rgba(66, 209, 255, 0));
+          border-left: 2px solid #ffb347;
+          background: linear-gradient(90deg, rgba(255, 179, 71, 0.2), rgba(255, 179, 71, 0));
           padding-top: 0.35rem;
           padding-bottom: 0.35rem;
         }
@@ -751,10 +751,10 @@ export function AdhdTestLanding() {
           background: linear-gradient(180deg, rgba(20, 25, 34, 0.95), rgba(14, 16, 22, 0.95));
         }
         .answer-card:hover {
-          border-color: #73ddff;
-          color: #dbf6ff;
+          border-color: #ffb347;
+          color: #ffe7be;
           transform: translateX(4px);
-          box-shadow: 0 10px 26px rgba(66, 209, 255, 0.2);
+          box-shadow: 0 10px 26px rgba(255, 122, 26, 0.2);
         }
         .mobile-sticky-cta {
           position: fixed;
@@ -768,21 +768,21 @@ export function AdhdTestLanding() {
           backdrop-filter: blur(8px);
         }
         .proof-chip {
-          border: 1px solid rgba(76, 213, 255, 0.6);
+          border: 1px solid rgba(255, 179, 71, 0.64);
           border-radius: 999px;
           padding: 0.35rem 0.7rem;
           font-size: 0.72rem;
           letter-spacing: 0.04em;
-          color: #d7f5ff;
-          background: rgba(66, 209, 255, 0.14);
+          color: #ffe7be;
+          background: rgba(255, 179, 71, 0.14);
         }
         .pain-card {
           border: 1px solid rgba(255, 255, 255, 0.15);
           background: linear-gradient(180deg, rgba(26, 26, 26, 0.98), rgba(17, 17, 17, 0.98));
         }
         .benefit-card {
-          border: 1px solid rgba(66, 209, 255, 0.48);
-          background: linear-gradient(180deg, rgba(13, 30, 40, 0.95), rgba(10, 20, 30, 0.95));
+          border: 1px solid rgba(255, 179, 71, 0.48);
+          background: linear-gradient(180deg, rgba(39, 27, 13, 0.95), rgba(28, 20, 10, 0.95));
         }
         .next-step-bar {
           border: 1px solid rgba(255, 184, 79, 0.5);
@@ -792,10 +792,10 @@ export function AdhdTestLanding() {
           pointer-events: none;
           position: absolute;
           inset: 0;
-          opacity: 0.18;
+          opacity: 0.16;
           background-image:
-            linear-gradient(rgba(66, 209, 255, 0.16) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(66, 209, 255, 0.16) 1px, transparent 1px);
+            linear-gradient(rgba(255, 179, 71, 0.16) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 179, 71, 0.16) 1px, transparent 1px);
           background-size: 52px 52px;
           mask-image: radial-gradient(circle at 50% 45%, black 28%, transparent 82%);
         }
@@ -806,7 +806,7 @@ export function AdhdTestLanding() {
           width: 30rem;
           border-radius: 999px;
           filter: blur(60px);
-          background: radial-gradient(circle, rgba(77, 211, 255, 0.28), transparent 62%);
+          background: radial-gradient(circle, rgba(255, 122, 26, 0.24), transparent 62%);
         }
         .neuro-orb-top {
           left: -14%;
@@ -823,7 +823,7 @@ export function AdhdTestLanding() {
           width: 28rem;
           border-radius: 999px;
           filter: blur(62px);
-          background: radial-gradient(circle, rgba(168, 85, 247, 0.24), transparent 62%);
+          background: radial-gradient(circle, rgba(255, 193, 92, 0.22), transparent 62%);
         }
         .violet-orb-top {
           right: 12%;

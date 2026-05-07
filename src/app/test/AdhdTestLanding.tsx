@@ -36,6 +36,37 @@ const ANSWERS = [
   { label: "Téměř vždy", value: 3 },
 ] as const;
 
+const PAIN_POINTS = [
+  "Začnete s energií, ale během dne ji ztratíte a úkoly zůstanou nedokončené.",
+  "V hlavě je chaos, který okolí nevidí - jen výsledky, které nepřichází.",
+  "Dostáváte rady typu \"víc disciplíny\", ale problém je biologický, ne charakterový.",
+] as const;
+
+const BENEFITS = [
+  "10 otázek, výsledek ihned - bez čekání týdny až měsíce.",
+  "Objektivní směr: ADHD / úzkost / dysregulace nervové soustavy.",
+  "Následný jasný krok: e-book protokol nebo měřená diagnostika.",
+] as const;
+
+const FAQS = [
+  {
+    q: "Je test opravdu zdarma?",
+    a: "Ano. Test je orientační, bez registrace a bez platební karty.",
+  },
+  {
+    q: "Nahradí test lékařskou diagnózu?",
+    a: "Ne. Výsledek není diagnóza. Je to rychlý screening, který pomůže rozhodnout další postup.",
+  },
+  {
+    q: "Co když mi vyjde nízká pravděpodobnost ADHD?",
+    a: "Často jde o úzkost, vyhoření nebo dysregulaci nervové soustavy. I to umíme objektivně změřit.",
+  },
+  {
+    q: "Jak rychle se dostanu na diagnostiku?",
+    a: "Typicky v řádu dnů podle kapacity v Brně nebo Praze. Rezervace je online během pár minut.",
+  },
+] as const;
+
 const EBOOK_URL = process.env.NEXT_PUBLIC_ADHD_EBOOK_STRIPE_URL || "https://buy.stripe.com/";
 const RESERVATION_URL = "https://rezervace.neurea.cz";
 const ANXIETY_TEST_URL = "https://neurea.cz/testy/uzkost";
@@ -183,6 +214,37 @@ export function AdhdTestLanding() {
               <p className="text-sm text-white/72">Nature Medicine</p>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="mx-auto w-full max-w-6xl px-6 py-6">
+        <div className="funnel-panel rounded-3xl p-7 md:p-10">
+          <p className="text-sm uppercase tracking-[0.14em] text-[#B8963E]">Proč tenhle test vznikl</p>
+          <h2 className={`${headingFont.className} mt-3 text-3xl md:text-5xl`}>
+            ADHD není nedostatek vůle.
+            <br />
+            Je to jiná neurobiologie.
+          </h2>
+          <div className="mt-7 grid gap-4 md:grid-cols-3">
+            {PAIN_POINTS.map((item) => (
+              <article key={item} className="rounded-2xl border border-[#2b2b2b] bg-[#141414] p-5 text-white/80">
+                {item}
+              </article>
+            ))}
+          </div>
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
+            {BENEFITS.map((item) => (
+              <article key={item} className="rounded-2xl border border-[#b8963e55] bg-[#15130f] p-5 text-[#E9DFC4]">
+                ✓ {item}
+              </article>
+            ))}
+          </div>
+          <button
+            onClick={startTest}
+            className="funnel-btn-primary mt-9 rounded-full px-8 py-3 text-sm font-bold tracking-[0.08em] text-[#0A0A0A]"
+          >
+            CHCI PROJÍT TEST TEĎ →
+          </button>
         </div>
       </section>
 
@@ -389,6 +451,20 @@ export function AdhdTestLanding() {
         </div>
       </section>
 
+      <section className="mx-auto w-full max-w-5xl px-6 py-14">
+        <h3 className={`${headingFont.className} text-center text-4xl text-[#B8963E]`}>
+          Často kladené otázky
+        </h3>
+        <div className="mt-8 space-y-4">
+          {FAQS.map((item) => (
+            <article key={item.q} className="funnel-panel rounded-2xl p-6">
+              <h4 className="text-lg font-semibold text-white">{item.q}</h4>
+              <p className="mt-2 text-white/75">{item.a}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section className="relative flex min-h-screen items-center overflow-hidden px-6 py-14">
         <div className="gold-orb gold-orb-bottom" />
         <div className="relative mx-auto w-full max-w-5xl text-center">
@@ -416,6 +492,15 @@ export function AdhdTestLanding() {
           <p className="mt-6 text-sm text-[#B8963E]">neurea.cz · info@neurea.cz</p>
         </div>
       </section>
+
+      <div className="mobile-sticky-cta md:hidden">
+        <button
+          onClick={startTest}
+          className="funnel-btn-primary w-full rounded-full px-7 py-3 text-sm font-bold tracking-[0.08em] text-[#0A0A0A]"
+        >
+          ZJISTIT VÝSLEDEK →
+        </button>
+      </div>
 
       <style jsx global>{`
         html {
@@ -476,6 +561,17 @@ export function AdhdTestLanding() {
           border-color: #b8963e;
           color: #e9dfc4;
           transform: translateX(4px);
+        }
+        .mobile-sticky-cta {
+          position: fixed;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          z-index: 50;
+          padding: 0.85rem 1rem max(0.85rem, env(safe-area-inset-bottom));
+          border-top: 1px solid #2a2a2a;
+          background: rgba(10, 10, 10, 0.95);
+          backdrop-filter: blur(8px);
         }
         .gold-orb {
           pointer-events: none;

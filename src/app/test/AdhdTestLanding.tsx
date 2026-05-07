@@ -182,7 +182,7 @@ export function AdhdTestLanding() {
         </Script>
       ) : null}
 
-      <section className="relative flex min-h-screen flex-col justify-center overflow-hidden px-6 py-12 md:py-16">
+      <section className="section-hero relative flex min-h-screen flex-col justify-center overflow-hidden px-6 py-12 md:py-16">
         <div className="gold-orb gold-orb-top" />
         <div className="gold-grid" />
         <div className="relative mx-auto w-full max-w-6xl">
@@ -198,7 +198,12 @@ export function AdhdTestLanding() {
             <br />
             Umíte je číst?
           </h1>
-          <p className="mt-5 max-w-2xl text-xl text-[#f1d48b]">2 minuty · 10 otázek · Výsledek ihned</p>
+          <p className="mt-5 max-w-2xl text-xl text-[#f1d48b]">
+            2 minuty · 10 otázek · Výsledek ihned
+          </p>
+          <p className="mt-3 max-w-3xl text-base text-white/82 md:text-lg">
+            Každý měsíc odkládání znamená víc stresu, víc chaosu a horší výkon. Udělejte první krok teď.
+          </p>
           <button
             onClick={startTest}
             className="funnel-btn-primary pulse mt-10 rounded-full px-10 py-4 text-sm font-bold tracking-[0.08em] text-[#0A0A0A] transition"
@@ -229,10 +234,14 @@ export function AdhdTestLanding() {
               <p className="text-sm text-white/72">Nature Medicine</p>
             </div>
           </div>
+          <div className="urgency-strip mt-6 rounded-xl px-4 py-3 text-sm md:text-base">
+            <strong>Pozor:</strong> největší chyba je čekat, až se to „zlepší samo“. U většiny lidí se to bez
+            cíleného postupu zhoršuje.
+          </div>
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl px-6 py-5">
+      <section className="section-problem mx-auto w-full max-w-6xl px-6 py-5">
         <div className="funnel-panel rounded-3xl p-7 md:p-10">
           <div className="mb-4 inline-flex rounded-full border border-[#5d4a24] bg-[#1b160c] px-4 py-1.5 text-xs tracking-[0.14em] text-[#ddc273]">
             KROK 1: POCHOPIT, CO SE DĚJE
@@ -266,7 +275,7 @@ export function AdhdTestLanding() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl px-6 py-5">
+      <section className="section-screening mx-auto w-full max-w-6xl px-6 py-5">
         <div className="funnel-panel rounded-3xl p-7 md:p-10">
           <div className="mb-4 inline-flex rounded-full border border-[#5d4a24] bg-[#1b160c] px-4 py-1.5 text-xs tracking-[0.14em] text-[#ddc273]">
             KROK 2: RYCHLÝ SCREENING
@@ -289,7 +298,7 @@ export function AdhdTestLanding() {
         </div>
       </section>
 
-      <section id="test-flow" className="mx-auto min-h-screen w-full max-w-4xl px-6 py-12 md:py-16">
+      <section id="test-flow" className="section-test mx-auto min-h-screen w-full max-w-4xl px-6 py-12 md:py-16">
         <div className="mb-6 h-2 w-full overflow-hidden rounded-full bg-[#1A1A1A]">
           <div
             className="h-full bg-gradient-to-r from-[#B8963E] to-[#E9DFC4] transition-all duration-500"
@@ -327,7 +336,7 @@ export function AdhdTestLanding() {
       </section>
 
       {showResult ? (
-        <section id="result" className="mx-auto w-full max-w-6xl px-6 py-12 md:py-14">
+        <section id="result" className="section-result mx-auto w-full max-w-6xl px-6 py-12 md:py-14">
           <div className="funnel-panel rounded-3xl p-8 md:p-10">
             {result === "A" ? (
               <>
@@ -438,7 +447,7 @@ export function AdhdTestLanding() {
         </section>
       ) : null}
 
-      <section className="mx-auto w-full max-w-6xl px-6 py-14">
+      <section className="section-proof mx-auto w-full max-w-6xl px-6 py-14">
         <h3 className={`${headingFont.className} text-center text-4xl text-[#B8963E]`}>Co říkají naši klienti</h3>
         <div className="mt-8 grid gap-5 md:grid-cols-3">
           {[
@@ -453,7 +462,7 @@ export function AdhdTestLanding() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl px-6 py-14">
+      <section className="section-steps mx-auto w-full max-w-6xl px-6 py-14">
         <h3 className={`${headingFont.className} text-center text-4xl text-[#B8963E]`}>
           3 kroky k měřitelnému výsledku
         </h3>
@@ -481,7 +490,7 @@ export function AdhdTestLanding() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl px-6 py-6">
+      <section className="section-action mx-auto w-full max-w-6xl px-6 py-6">
         <div className="funnel-panel rounded-3xl p-7 text-center md:p-10">
           <div className="mx-auto mb-4 inline-flex rounded-full border border-[#5d4a24] bg-[#1b160c] px-4 py-1.5 text-xs tracking-[0.14em] text-[#ddc273]">
             KROK 3: AKCE
@@ -514,7 +523,7 @@ export function AdhdTestLanding() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-5xl px-6 py-14">
+      <section className="section-faq mx-auto w-full max-w-5xl px-6 py-14">
         <h3 className={`${headingFont.className} text-center text-4xl text-[#B8963E]`}>
           Často kladené otázky
         </h3>
@@ -528,7 +537,7 @@ export function AdhdTestLanding() {
         </div>
       </section>
 
-      <section className="relative flex min-h-screen items-center overflow-hidden px-6 py-14">
+      <section className="section-final relative flex min-h-screen items-center overflow-hidden px-6 py-14">
         <div className="gold-orb gold-orb-bottom" />
         <div className="relative mx-auto w-full max-w-5xl text-center">
           <h3 className={`${headingFont.className} text-5xl text-white md:text-7xl`}>Terapie mluví.</h3>
@@ -578,6 +587,32 @@ export function AdhdTestLanding() {
             radial-gradient(circle at 12% 70%, rgba(184, 150, 62, 0.11), transparent 40%),
             #0a0a0a;
         }
+        .section-hero {
+          background: linear-gradient(180deg, rgba(8, 8, 8, 0.9), rgba(10, 10, 10, 0.96));
+        }
+        .section-problem {
+          background: linear-gradient(180deg, rgba(14, 11, 8, 0.75), rgba(10, 10, 10, 0));
+        }
+        .section-screening {
+          background: linear-gradient(180deg, rgba(9, 11, 13, 0.5), rgba(10, 10, 10, 0));
+        }
+        .section-test {
+          background: linear-gradient(180deg, rgba(10, 10, 10, 0), rgba(15, 12, 7, 0.5), rgba(10, 10, 10, 0));
+        }
+        .section-result {
+          background: linear-gradient(180deg, rgba(18, 13, 7, 0.72), rgba(10, 10, 10, 0));
+        }
+        .section-proof,
+        .section-steps,
+        .section-faq {
+          background: rgba(9, 9, 9, 0.55);
+        }
+        .section-action {
+          background: linear-gradient(180deg, rgba(24, 17, 8, 0.62), rgba(10, 10, 10, 0.25));
+        }
+        .section-final {
+          background: linear-gradient(180deg, rgba(10, 10, 10, 0.4), rgba(22, 16, 8, 0.78));
+        }
         .hero-title {
           text-shadow: 0 0 32px rgba(255, 226, 160, 0.08);
         }
@@ -605,6 +640,11 @@ export function AdhdTestLanding() {
           box-shadow: 0 12px 34px rgba(184, 150, 62, 0.36);
           position: relative;
           overflow: hidden;
+        }
+        .urgency-strip {
+          border: 1px solid rgba(255, 122, 122, 0.38);
+          background: linear-gradient(90deg, rgba(84, 25, 25, 0.45), rgba(34, 14, 14, 0.2));
+          color: #ffd3d3;
         }
         .funnel-btn-primary::after {
           content: "";

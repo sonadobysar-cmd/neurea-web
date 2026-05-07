@@ -1,12 +1,12 @@
 "use client";
 
 import Script from "next/script";
-import { Cormorant_Garamond, DM_Sans } from "next/font/google";
+import { DM_Sans, Sora } from "next/font/google";
 import { useEffect, useMemo, useState } from "react";
 
-const headingFont = Cormorant_Garamond({
+const headingFont = Sora({
   subsets: ["latin", "latin-ext"],
-  weight: ["500", "600", "700"],
+  weight: ["600", "700"],
   display: "swap",
 });
 
@@ -585,9 +585,9 @@ export function AdhdTestLanding() {
         }
         .funnel-page {
           background:
-            radial-gradient(circle at 85% 10%, rgba(184, 150, 62, 0.17), transparent 42%),
-            radial-gradient(circle at 12% 70%, rgba(72, 162, 255, 0.12), transparent 45%),
-            linear-gradient(180deg, #07080a, #0a0d12 45%, #090909);
+            radial-gradient(circle at 85% 10%, rgba(66, 209, 255, 0.2), transparent 42%),
+            radial-gradient(circle at 12% 70%, rgba(72, 162, 255, 0.16), transparent 45%),
+            linear-gradient(180deg, #06090e, #0b1118 45%, #090b10);
         }
         .section-hero {
           background: linear-gradient(180deg, rgba(6, 8, 12, 0.94), rgba(8, 10, 14, 0.98));
@@ -616,22 +616,22 @@ export function AdhdTestLanding() {
           background: linear-gradient(180deg, rgba(10, 10, 10, 0.35), rgba(12, 16, 22, 0.78));
         }
         .hero-title {
-          text-shadow: 0 0 32px rgba(255, 226, 160, 0.08);
+          text-shadow: 0 0 36px rgba(124, 226, 255, 0.2);
         }
         .funnel-panel {
           border: 1px solid #2d2d2d;
           background: linear-gradient(180deg, rgba(18, 21, 27, 0.94), rgba(10, 12, 17, 0.98));
           box-shadow:
             0 20px 42px rgba(0, 0, 0, 0.35),
-            0 0 0 1px rgba(151, 214, 255, 0.05) inset;
+            0 0 0 1px rgba(151, 214, 255, 0.1) inset;
           backdrop-filter: blur(8px);
         }
         .funnel-card-gold {
-          border: 1px solid rgba(201, 163, 69, 0.76);
-          background: linear-gradient(180deg, rgba(31, 26, 17, 0.95), rgba(15, 13, 9, 0.97));
+          border: 1px solid rgba(84, 211, 255, 0.66);
+          background: linear-gradient(180deg, rgba(14, 30, 39, 0.95), rgba(10, 18, 25, 0.97));
           box-shadow:
-            inset 0 1px 0 rgba(255, 244, 216, 0.08),
-            0 14px 38px rgba(184, 150, 62, 0.16);
+            inset 0 1px 0 rgba(218, 248, 255, 0.12),
+            0 14px 38px rgba(66, 209, 255, 0.16);
         }
         .funnel-card-dark {
           border: 1px solid rgba(255, 255, 255, 0.26);
@@ -639,15 +639,15 @@ export function AdhdTestLanding() {
           box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
         }
         .funnel-btn-primary {
-          background: linear-gradient(120deg, #c49f45, #f2d892);
-          box-shadow: 0 12px 34px rgba(184, 150, 62, 0.36);
+          background: linear-gradient(120deg, #2fc8ff, #8cecff);
+          box-shadow: 0 12px 34px rgba(66, 209, 255, 0.36);
           position: relative;
           overflow: hidden;
         }
         .urgency-strip {
-          border: 1px solid rgba(108, 190, 255, 0.4);
-          background: linear-gradient(90deg, rgba(22, 48, 68, 0.45), rgba(12, 22, 34, 0.2));
-          color: #ccecff;
+          border: 1px solid rgba(255, 182, 80, 0.52);
+          background: linear-gradient(90deg, rgba(84, 54, 18, 0.52), rgba(34, 20, 8, 0.28));
+          color: #ffe1b3;
         }
         .funnel-btn-primary::after {
           content: "";
@@ -665,18 +665,18 @@ export function AdhdTestLanding() {
           filter: brightness(1.08);
         }
         .funnel-btn-secondary {
-          border: 1px solid rgba(255, 255, 255, 0.9);
+          border: 1px solid rgba(96, 216, 255, 0.9);
           background: rgba(11, 16, 23, 0.92);
-          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+          box-shadow: 0 8px 20px rgba(20, 90, 120, 0.22);
         }
         .funnel-btn-secondary:hover {
-          border-color: #b8963e;
-          color: #e9dfc4;
+          border-color: #ffffff;
+          color: #d7f5ff;
           transform: translateY(-2px);
         }
         .funnel-stat {
-          border-left: 2px solid #b8963e;
-          background: linear-gradient(90deg, rgba(184, 150, 62, 0.14), rgba(184, 150, 62, 0));
+          border-left: 2px solid #42d1ff;
+          background: linear-gradient(90deg, rgba(66, 209, 255, 0.2), rgba(66, 209, 255, 0));
           padding-top: 0.35rem;
           padding-bottom: 0.35rem;
         }
@@ -685,10 +685,10 @@ export function AdhdTestLanding() {
           background: linear-gradient(180deg, rgba(20, 25, 34, 0.95), rgba(14, 16, 22, 0.95));
         }
         .answer-card:hover {
-          border-color: #d4b15e;
-          color: #e9dfc4;
+          border-color: #73ddff;
+          color: #dbf6ff;
           transform: translateX(4px);
-          box-shadow: 0 10px 26px rgba(184, 150, 62, 0.18);
+          box-shadow: 0 10px 26px rgba(66, 209, 255, 0.2);
         }
         .mobile-sticky-cta {
           position: fixed;
@@ -702,34 +702,34 @@ export function AdhdTestLanding() {
           backdrop-filter: blur(8px);
         }
         .proof-chip {
-          border: 1px solid rgba(184, 150, 62, 0.64);
+          border: 1px solid rgba(76, 213, 255, 0.6);
           border-radius: 999px;
           padding: 0.35rem 0.7rem;
           font-size: 0.72rem;
           letter-spacing: 0.04em;
-          color: #f0dfb6;
-          background: rgba(184, 150, 62, 0.14);
+          color: #d7f5ff;
+          background: rgba(66, 209, 255, 0.14);
         }
         .pain-card {
           border: 1px solid rgba(255, 255, 255, 0.15);
           background: linear-gradient(180deg, rgba(26, 26, 26, 0.98), rgba(17, 17, 17, 0.98));
         }
         .benefit-card {
-          border: 1px solid rgba(184, 150, 62, 0.5);
-          background: linear-gradient(180deg, rgba(34, 28, 16, 0.95), rgba(23, 19, 10, 0.95));
+          border: 1px solid rgba(66, 209, 255, 0.48);
+          background: linear-gradient(180deg, rgba(13, 30, 40, 0.95), rgba(10, 20, 30, 0.95));
         }
         .next-step-bar {
-          border: 1px solid rgba(184, 150, 62, 0.46);
-          background: linear-gradient(180deg, rgba(38, 31, 18, 0.9), rgba(22, 18, 11, 0.92));
+          border: 1px solid rgba(255, 184, 79, 0.5);
+          background: linear-gradient(180deg, rgba(54, 36, 14, 0.9), rgba(28, 20, 9, 0.92));
         }
         .gold-grid {
           pointer-events: none;
           position: absolute;
           inset: 0;
-          opacity: 0.13;
+          opacity: 0.18;
           background-image:
-            linear-gradient(rgba(184, 150, 62, 0.12) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(184, 150, 62, 0.12) 1px, transparent 1px);
+            linear-gradient(rgba(66, 209, 255, 0.16) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(66, 209, 255, 0.16) 1px, transparent 1px);
           background-size: 52px 52px;
           mask-image: radial-gradient(circle at 50% 45%, black 28%, transparent 82%);
         }
@@ -740,7 +740,7 @@ export function AdhdTestLanding() {
           width: 30rem;
           border-radius: 999px;
           filter: blur(60px);
-          background: radial-gradient(circle, rgba(80, 170, 255, 0.22), transparent 62%);
+          background: radial-gradient(circle, rgba(77, 211, 255, 0.28), transparent 62%);
         }
         .neuro-orb-top {
           left: -14%;

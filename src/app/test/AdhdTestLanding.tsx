@@ -67,6 +67,8 @@ const FAQS = [
   },
 ] as const;
 
+const MICRO_PROOFS = ["Bez registrace", "Výsledek ihned", "2 minuty", "10 otázek"] as const;
+
 const EBOOK_URL = process.env.NEXT_PUBLIC_ADHD_EBOOK_STRIPE_URL || "https://buy.stripe.com/";
 const RESERVATION_URL = "https://rezervace.neurea.cz";
 const ANXIETY_TEST_URL = "https://neurea.cz/testy/uzkost";
@@ -182,6 +184,10 @@ export function AdhdTestLanding() {
       <section className="relative flex min-h-screen flex-col justify-center overflow-hidden px-6 py-14">
         <div className="gold-orb gold-orb-top" />
         <div className="relative mx-auto w-full max-w-6xl">
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#3c3220] bg-[#1a1610] px-4 py-2 text-xs text-[#f2deb0]">
+            <span className="h-2 w-2 animate-pulse rounded-full bg-[#d6b15c]" />
+            Dnes online: omezený počet diagnostik
+          </div>
           <p className="inline-block rounded-full border border-[#B8963E]/55 bg-[#b8963e1a] px-4 py-2 text-xs tracking-[0.15em] text-[#E9DFC4]">
             PRVNÍ NEURO-SOMATICKÉ PRACOVIŠTĚ V ČR
           </p>
@@ -200,6 +206,13 @@ export function AdhdTestLanding() {
           <p className="mt-4 text-sm text-white/75">
             Bezplatný orientační test · Bez registrace · Okamžitý výsledek
           </p>
+          <div className="mt-6 flex flex-wrap gap-2">
+            {MICRO_PROOFS.map((proof) => (
+              <span key={proof} className="proof-chip">
+                {proof}
+              </span>
+            ))}
+          </div>
           <div className="mt-14 grid gap-3 md:grid-cols-3">
             <div className="funnel-stat pl-4">
               <p className="text-2xl font-bold text-[#B8963E] md:text-3xl">94,6 %</p>
@@ -219,6 +232,9 @@ export function AdhdTestLanding() {
 
       <section className="mx-auto w-full max-w-6xl px-6 py-6">
         <div className="funnel-panel rounded-3xl p-7 md:p-10">
+          <div className="mb-4 inline-flex rounded-full border border-[#5d4a24] bg-[#1b160c] px-4 py-1.5 text-xs tracking-[0.14em] text-[#ddc273]">
+            KROK 1: POCHOPIT, CO SE DĚJE
+          </div>
           <p className="text-sm uppercase tracking-[0.14em] text-[#B8963E]">Proč tenhle test vznikl</p>
           <h2 className={`${headingFont.className} mt-3 text-3xl md:text-5xl`}>
             ADHD není nedostatek vůle.
@@ -244,6 +260,29 @@ export function AdhdTestLanding() {
             className="funnel-btn-primary mt-9 rounded-full px-8 py-3 text-sm font-bold tracking-[0.08em] text-[#0A0A0A]"
           >
             CHCI PROJÍT TEST TEĎ →
+          </button>
+        </div>
+      </section>
+
+      <section className="mx-auto w-full max-w-6xl px-6 py-6">
+        <div className="funnel-panel rounded-3xl p-7 md:p-10">
+          <div className="mb-4 inline-flex rounded-full border border-[#5d4a24] bg-[#1b160c] px-4 py-1.5 text-xs tracking-[0.14em] text-[#ddc273]">
+            KROK 2: RYCHLÝ SCREENING
+          </div>
+          <h3 className={`${headingFont.className} text-3xl md:text-5xl`}>
+            Za 2 minuty víte,
+            <br />
+            jestli je čas řešit ADHD do hloubky.
+          </h3>
+          <p className="mt-4 max-w-3xl text-white/80">
+            Tohle není „další blogový kvíz“. Je to krátký orientační filtr, který vám okamžitě ukáže
+            pravděpodobnost a navrhne další praktický krok.
+          </p>
+          <button
+            onClick={startTest}
+            className="funnel-btn-primary mt-7 rounded-full px-8 py-3 text-sm font-bold tracking-[0.08em] text-[#0A0A0A]"
+          >
+            SPOUSTÍM TEST →
           </button>
         </div>
       </section>
@@ -451,6 +490,39 @@ export function AdhdTestLanding() {
         </div>
       </section>
 
+      <section className="mx-auto w-full max-w-6xl px-6 py-6">
+        <div className="funnel-panel rounded-3xl p-7 text-center md:p-10">
+          <div className="mx-auto mb-4 inline-flex rounded-full border border-[#5d4a24] bg-[#1b160c] px-4 py-1.5 text-xs tracking-[0.14em] text-[#ddc273]">
+            KROK 3: AKCE
+          </div>
+          <h3 className={`${headingFont.className} text-3xl md:text-5xl`}>
+            Nečekejte další měsíce.
+            <br />
+            Udělejte první krok dnes.
+          </h3>
+          <p className="mx-auto mt-4 max-w-3xl text-white/80">
+            Největší chyba je odkládání. Buď si vezměte e-book protokol, nebo si rovnou rezervujte
+            objektivní diagnostiku.
+          </p>
+          <div className="mt-7 flex flex-wrap justify-center gap-3">
+            <a
+              href={EBOOK_URL}
+              onClick={() => trackEvent("ebook_clicked")}
+              className="funnel-btn-primary rounded-full px-8 py-3 text-sm font-bold tracking-[0.08em] text-[#0A0A0A]"
+            >
+              CHCI E-BOOK →
+            </a>
+            <a
+              href={RESERVATION_URL}
+              onClick={() => trackEvent("reservation_clicked")}
+              className="funnel-btn-secondary rounded-full px-8 py-3 text-sm font-bold tracking-[0.08em] text-white"
+            >
+              REZERVOVAT DIAGNOSTIKU →
+            </a>
+          </div>
+        </div>
+      </section>
+
       <section className="mx-auto w-full max-w-5xl px-6 py-14">
         <h3 className={`${headingFont.className} text-center text-4xl text-[#B8963E]`}>
           Často kladené otázky
@@ -533,6 +605,19 @@ export function AdhdTestLanding() {
         .funnel-btn-primary {
           background: linear-gradient(120deg, #b8963e, #ddc273);
           box-shadow: 0 10px 28px rgba(184, 150, 62, 0.25);
+          position: relative;
+          overflow: hidden;
+        }
+        .funnel-btn-primary::after {
+          content: "";
+          position: absolute;
+          top: -120%;
+          left: -30%;
+          width: 22%;
+          height: 320%;
+          transform: rotate(25deg);
+          background: rgba(255, 255, 255, 0.32);
+          animation: shine 3.2s ease-in-out infinite;
         }
         .funnel-btn-primary:hover {
           transform: translateY(-2px);
@@ -572,6 +657,15 @@ export function AdhdTestLanding() {
           border-top: 1px solid #2a2a2a;
           background: rgba(10, 10, 10, 0.95);
           backdrop-filter: blur(8px);
+        }
+        .proof-chip {
+          border: 1px solid rgba(184, 150, 62, 0.45);
+          border-radius: 999px;
+          padding: 0.35rem 0.7rem;
+          font-size: 0.72rem;
+          letter-spacing: 0.04em;
+          color: #e9dfc4;
+          background: rgba(184, 150, 62, 0.1);
         }
         .gold-orb {
           pointer-events: none;
@@ -618,6 +712,15 @@ export function AdhdTestLanding() {
           to {
             opacity: 1;
             transform: translateY(0);
+          }
+        }
+        @keyframes shine {
+          0% {
+            left: -35%;
+          }
+          40%,
+          100% {
+            left: 120%;
           }
         }
       `}</style>

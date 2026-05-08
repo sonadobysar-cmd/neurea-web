@@ -102,14 +102,14 @@ export default function ONasPage() {
               <div className="flex justify-center md:justify-start">
                 <div className="rounded-[1.25rem] border border-gold/25 bg-white/70 p-3 shadow-glow-gold">
                   <div
-                    className="relative overflow-hidden rounded-[1.1rem] h-[420px] w-[320px] md:h-[520px] md:w-[380px]"
+                    className="relative aspect-[4/5] w-full max-w-[320px] overflow-hidden rounded-[1.1rem] md:h-[520px] md:w-[380px] md:max-w-none md:aspect-auto"
                     aria-hidden
                   >
                     <Image
                       src="/portraits/o-nas-nia.png"
                       alt="Nia Dobyšar"
                       fill
-                      sizes="(max-width: 768px) 320px, 380px"
+                      sizes="(max-width: 768px) 90vw, 380px"
                       className="object-cover"
                       priority
                     />

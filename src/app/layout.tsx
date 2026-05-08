@@ -7,7 +7,6 @@ import "./rezervace/rezervace-landing.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CookieBanner } from "@/components/CookieBanner";
-import { FloatingCta } from "@/components/FloatingCta";
 import { isRezervaceLandingHost, isTestLandingHost } from "@/lib/landingHost";
 import { REZERVACE_META_PIXEL_ID } from "@/lib/rezervaceMetaPixel";
 import { site } from "@/lib/site";
@@ -92,7 +91,6 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         <Header />
         <main className="min-h-[60vh] bg-white pb-28 text-ink md:pb-0">{children}</main>
         <Footer />
-        <FloatingCta />
         <CookieBanner />
       </body>
     </html>

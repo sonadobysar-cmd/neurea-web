@@ -543,7 +543,7 @@ export function AdhdTestLanding() {
       </section>
 
       {showResult ? (
-        <section className="section-final relative flex min-h-screen items-center overflow-hidden px-6 py-14">
+        <section className="section-final relative flex min-h-[72vh] items-start overflow-hidden px-6 pb-14 pt-20 md:pt-24">
           <div className="gold-orb gold-orb-bottom" />
           <div className="relative mx-auto w-full max-w-5xl text-center">
             <h3 className={`${headingFont.className} text-5xl text-white md:text-7xl`}>Terapie mluví.</h3>
@@ -619,7 +619,12 @@ export function AdhdTestLanding() {
           background: linear-gradient(180deg, rgba(24, 17, 8, 0.62), rgba(10, 10, 10, 0.25));
         }
         .section-final {
-          background: linear-gradient(180deg, rgba(10, 10, 10, 0.35), rgba(22, 15, 9, 0.78));
+          background: linear-gradient(
+            180deg,
+            rgba(15, 12, 9, 0.58) 0%,
+            rgba(18, 14, 10, 0.72) 32%,
+            rgba(22, 15, 9, 0.82) 100%
+          );
         }
         .hero-title {
           text-shadow: 0 0 36px rgba(255, 214, 137, 0.2);

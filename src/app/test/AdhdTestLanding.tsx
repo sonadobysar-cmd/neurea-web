@@ -528,41 +528,6 @@ export function AdhdTestLanding() {
         </div>
       </section>
 
-      {showResult ? (
-        <section className="section-action mx-auto w-full max-w-6xl px-6 py-6">
-          <div className="funnel-panel rounded-3xl p-7 text-center md:p-10">
-            <div className="mx-auto mb-4 inline-flex rounded-full border border-[#6a4a1b] bg-[#261707] px-4 py-1.5 text-xs tracking-[0.14em] text-[#ffcc78]">
-              KROK 3: AKCE
-            </div>
-            <h3 className={`${headingFont.className} text-3xl md:text-5xl`}>
-              Nečekejte další měsíce.
-              <br />
-              Udělejte první krok dnes.
-            </h3>
-            <p className="mx-auto mt-4 max-w-3xl text-white/80">
-              Největší chyba je odkládání. Buď si vezměte e-book protokol, nebo si rovnou rezervujte
-              objektivní diagnostiku.
-            </p>
-            <div className="mt-7 flex flex-wrap justify-center gap-3">
-              <a
-                href={EBOOK_URL}
-                onClick={() => trackEvent("ebook_clicked")}
-                className="funnel-btn-primary rounded-full px-8 py-3 text-sm font-bold tracking-[0.08em] text-[#0A0A0A]"
-              >
-                CHCI E-BOOK →
-              </a>
-              <a
-                href={RESERVATION_URL}
-                onClick={() => trackEvent("reservation_clicked")}
-                className="funnel-btn-secondary rounded-full px-8 py-3 text-sm font-bold tracking-[0.08em] text-white"
-              >
-                REZERVOVAT DIAGNOSTIKU →
-              </a>
-            </div>
-          </div>
-        </section>
-      ) : null}
-
       <section className="section-faq mx-auto w-full max-w-5xl px-6 py-14">
         <h3 className={`${headingFont.className} text-center text-4xl text-[#FFB347]`}>
           Často kladené otázky

@@ -347,11 +347,7 @@ export function AdhdTestLanding() {
             style={{ width: `${progress}%` }}
           />
         </div>
-        {!started ? (
-          <div className="funnel-panel rounded-3xl p-9 text-center">
-            <p className="text-white/75">Klikněte na tlačítko výše a začněte test.</p>
-          </div>
-        ) : loadingResult ? (
+        {!started ? null : loadingResult ? (
           <div className="funnel-panel flex min-h-[55vh] flex-col items-center justify-center gap-6 rounded-3xl">
             <div className="loader h-16 w-16 rounded-full border-2 border-[#3A3A3A] border-t-[#FFB347]" />
             <p className="text-lg text-[#E9DFC4]">Analyzujeme váš výsledek...</p>

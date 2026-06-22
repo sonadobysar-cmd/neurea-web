@@ -33,13 +33,24 @@ enum UpominkySchemaV2: VersionedSchema {
     }
 }
 
+enum UpominkySchemaV3: VersionedSchema {
+    static var versionIdentifier = Schema.Version(3, 0, 0)
+
+    static var models: [any PersistentModel.Type] {
+        [EventItem.self, CategoryTag.self]
+    }
+}
+
 enum UpominkyMigrationPlan: SchemaMigrationPlan {
     static var schemas: [any VersionedSchema.Type] {
-        [UpominkySchemaV1.self, UpominkySchemaV2.self]
+        [UpominkySchemaV1.self, UpominkySchemaV2.self, UpominkySchemaV3.self]
     }
 
     static var stages: [MigrationStage] {
-        [MigrationStage.lightweight(fromVersion: UpominkySchemaV1.self, toVersion: UpominkySchemaV2.self)]
+        [
+            MigrationStage.lightweight(fromVersion: UpominkySchemaV1.self, toVersion: UpominkySchemaV2.self),
+            MigrationStage.lightweight(fromVersion: UpominkySchemaV2.self, toVersion: UpominkySchemaV3.self),
+        ]
     }
 }
 
@@ -53,7 +64,7 @@ enum UpominkyStore {
 
         try? FileManager.default.createDirectory(at: appDir, withIntermediateDirectories: true)
 
-        let schema = Schema(versionedSchema: UpominkySchemaV2.self)
+        let schema = Schema(versionedSchema: UpominkySchemaV3.self)
         let configuration = ModelConfiguration(
             schema: schema,
             url: storeURL,
@@ -64,14 +75,14 @@ enum UpominkyStore {
             return try ModelContainer(
                 for: schema,
                 migrationPlan: UpominkyMigrationPlan.self,
-                configurations: [configuration]
+                configurations: configuration
             )
         } catch {
             assertionFailure("UpominkyStore primary load failed: \(error.localizedDescription)")
             do {
                 return try ModelContainer(
                     for: EventItem.self, CategoryTag.self,
-                    configurations: [configuration]
+                    configurations: configuration
                 )
             } catch {
                 fatalError("Upomínky: nelze načíst uložená data. Nemaž appku — napiš podporu. \(error.localizedDescription)")

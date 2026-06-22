@@ -59,7 +59,26 @@ Ve Finderu: **Neurea → upominky** → dvakrát klikni **`OTEVRI-APKU.command`*
 | Přidat plán | **+** → co, kdy, štítek → Uložit |
 | Vlastní štítek | Ikona **štítku** vlevo nahoře |
 | Filtrovat | Klepni na pastelovou stuhu nahoře |
+| Upravit plán | Klepni na kartu nebo tužku |
 | Smazat | Ikona koše na kartě |
+
+---
+
+## Rezervace z niadobysar.com (automaticky)
+
+Když někdo rezervuje konzultaci na webu, může se ti **sama objevit v appce** s připomínkami.
+
+### Jednorázové nastavení
+
+1. **Vercel** (projekt atelier-showcase) → **Settings → Environment Variables**
+   - `UPOMINKY_SYNC_SECRET` = dlouhý náhodný text (např. z 1Password)
+   - **Blob store** — Storage → Create → Blob (pro trvalé uložení rezervací)
+2. **Deploy** — push na `main` (nebo Redeploy v Vercelu)
+3. **V Xcode** otevři `Upominky/Services/NiaSyncConfig.swift`
+   - Do `syncToken` vlož **stejný** text jako `UPOMINKY_SYNC_SECRET`
+4. **▶ Play** na iPhone — appka při startu stáhne schůzky z webu
+
+Rezervace se ukládají do kategorie **Práce**. Obsazené časy na webu se automaticky skrývají.
 
 ---
 

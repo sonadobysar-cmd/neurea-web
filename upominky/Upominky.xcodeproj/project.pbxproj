@@ -21,6 +21,8 @@
 		B10000000000000000000014 /* UpominkyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000014 /* UpominkyStore.swift */; };
 		B10000000000000000000012 /* CategoryRibbonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000012 /* CategoryRibbonView.swift */; };
 		B10000000000000000000015 /* RainbowBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000015 /* RainbowBorder.swift */; };
+		B10000000000000000000016 /* NiaSyncConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000016 /* NiaSyncConfig.swift */; };
+		B10000000000000000000017 /* NiaKonzultaceSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000017 /* NiaKonzultaceSync.swift */; };
 		B10000000000000000000013 /* ManageCategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000013 /* ManageCategoriesView.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +41,8 @@
 		B20000000000000000000014 /* UpominkyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpominkyStore.swift; sourceTree = "<group>"; };
 		B20000000000000000000012 /* CategoryRibbonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRibbonView.swift; sourceTree = "<group>"; };
 		B20000000000000000000015 /* RainbowBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RainbowBorder.swift; sourceTree = "<group>"; };
+		B20000000000000000000016 /* NiaSyncConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NiaSyncConfig.swift; sourceTree = "<group>"; };
+		B20000000000000000000017 /* NiaKonzultaceSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NiaKonzultaceSync.swift; sourceTree = "<group>"; };
 		B20000000000000000000013 /* ManageCategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageCategoriesView.swift; sourceTree = "<group>"; };
 		B30000000000000000000001 /* Upominky.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Upominky.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -107,6 +111,8 @@
 				B20000000000000000000004 /* ReminderScheduler.swift */,
 				B20000000000000000000011 /* CategorySeed.swift */,
 				B20000000000000000000014 /* UpominkyStore.swift */,
+				B20000000000000000000016 /* NiaSyncConfig.swift */,
+				B20000000000000000000017 /* NiaKonzultaceSync.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -214,6 +220,8 @@
 				B10000000000000000000014 /* UpominkyStore.swift in Sources */,
 				B10000000000000000000012 /* CategoryRibbonView.swift in Sources */,
 				B10000000000000000000015 /* RainbowBorder.swift in Sources */,
+				B10000000000000000000016 /* NiaSyncConfig.swift in Sources */,
+				B10000000000000000000017 /* NiaKonzultaceSync.swift in Sources */,
 				B10000000000000000000013 /* ManageCategoriesView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

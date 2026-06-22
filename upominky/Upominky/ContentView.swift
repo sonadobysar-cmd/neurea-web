@@ -18,6 +18,7 @@ struct ContentView: View {
             CategorySeed.seedIfNeeded(context: modelContext)
             if hasCompletedWelcome {
                 _ = await ReminderScheduler.requestPermission()
+                await NiaKonzultaceSync.syncIfConfigured(context: modelContext)
             }
         }
     }

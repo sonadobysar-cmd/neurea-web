@@ -15,7 +15,9 @@ struct AddEventView: View {
             Form {
                 Section {
                     TextField("Co máš v plánu?", text: $title)
+                        #if os(iOS)
                         .textInputAutocapitalization(.sentences)
+                        #endif
 
                     DatePicker(
                         "Kdy",

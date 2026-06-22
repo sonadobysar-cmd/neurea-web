@@ -9,9 +9,7 @@ struct UpominkyApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .background(AppTheme.background.ignoresSafeArea())
+            StoreBootstrapView()
         }
-        .modelContainer(UpominkyStore.container)
     }
 }

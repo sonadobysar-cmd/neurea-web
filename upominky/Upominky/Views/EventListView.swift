@@ -283,6 +283,7 @@ struct EventListView: View {
 
     private func deleteEvent(_ event: EventItem) {
         ReminderScheduler.cancel(for: event)
+        QuickReminderStore.remove(event)
         modelContext.delete(event)
     }
 

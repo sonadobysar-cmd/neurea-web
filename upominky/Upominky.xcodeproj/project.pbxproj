@@ -26,6 +26,8 @@
 		B10000000000000000000018 /* AppAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000018 /* AppAppearance.swift */; };
 		B10000000000000000000019 /* EventScheduleConflict.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000019 /* EventScheduleConflict.swift */; };
 		B10000000000000000000020 /* DataRepair.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000020 /* DataRepair.swift */; };
+		B10000000000000000000021 /* QuickReminderStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000021 /* QuickReminderStore.swift */; };
+		B10000000000000000000022 /* StoreBootstrapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000022 /* StoreBootstrapView.swift */; };
 		B10000000000000000000013 /* ManageCategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000013 /* ManageCategoriesView.swift */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +51,8 @@
 		B20000000000000000000018 /* AppAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAppearance.swift; sourceTree = "<group>"; };
 		B20000000000000000000019 /* EventScheduleConflict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventScheduleConflict.swift; sourceTree = "<group>"; };
 		B20000000000000000000020 /* DataRepair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRepair.swift; sourceTree = "<group>"; };
+		B20000000000000000000021 /* QuickReminderStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickReminderStore.swift; sourceTree = "<group>"; };
+		B20000000000000000000022 /* StoreBootstrapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreBootstrapView.swift; sourceTree = "<group>"; };
 		B20000000000000000000013 /* ManageCategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageCategoriesView.swift; sourceTree = "<group>"; };
 		B30000000000000000000001 /* Upominky.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Upominky.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -122,6 +126,7 @@
 				B20000000000000000000017 /* NiaKonzultaceSync.swift */,
 				B20000000000000000000019 /* EventScheduleConflict.swift */,
 				B20000000000000000000020 /* DataRepair.swift */,
+				B20000000000000000000021 /* QuickReminderStore.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -140,6 +145,7 @@
 			children = (
 				B20000000000000000000005 /* EventFormView.swift */,
 				B20000000000000000000006 /* EventListView.swift */,
+				B20000000000000000000022 /* StoreBootstrapView.swift */,
 				B20000000000000000000008 /* WelcomeView.swift */,
 				B20000000000000000000013 /* ManageCategoriesView.swift */,
 				B50000000000000000000008 /* Components */,
@@ -234,6 +240,8 @@
 				B10000000000000000000017 /* NiaKonzultaceSync.swift in Sources */,
 				B10000000000000000000019 /* EventScheduleConflict.swift in Sources */,
 				B10000000000000000000020 /* DataRepair.swift in Sources */,
+				B10000000000000000000021 /* QuickReminderStore.swift in Sources */,
+				B10000000000000000000022 /* StoreBootstrapView.swift in Sources */,
 				B10000000000000000000013 /* ManageCategoriesView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

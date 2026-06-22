@@ -188,7 +188,7 @@ struct EventFormView: View {
             date = event.date
             durationMinutes = event.durationMinutes > 0 ? event.durationMinutes : EventScheduleConflict.defaultDurationMinutes
             selectedCategoryId = event.categoryId ?? categories.first?.id
-            showCustomTime = !event.usesQuickReminders
+            showCustomTime = !QuickReminderStore.isQuick(event)
         } else if selectedCategoryId == nil {
             selectedCategoryId = categories.first?.id
         }
@@ -234,17 +234,17 @@ struct EventFormView: View {
                 event.date = eventDate
                 event.durationMinutes = durationMinutes
                 event.categoryId = selectedCategoryId
-                event.usesQuickReminders = usesQuickReminders
+                QuickReminderStore.setQuick(event, enabled: usesQuickReminders)
                 await ReminderScheduler.reschedule(for: event)
             } else {
                 let event = EventItem(
                     title: trimmed,
                     date: eventDate,
                     categoryId: selectedCategoryId,
-                    durationMinutes: durationMinutes,
-                    usesQuickReminders: usesQuickReminders
+                    durationMinutes: durationMinutes
                 )
                 modelContext.insert(event)
+                QuickReminderStore.setQuick(event, enabled: usesQuickReminders)
                 await ReminderScheduler.schedule(for: event)
             }
 

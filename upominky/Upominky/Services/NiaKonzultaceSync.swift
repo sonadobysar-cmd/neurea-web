@@ -184,6 +184,7 @@ enum NiaKonzultaceSync {
             guard let ref = event.externalRef, ref.hasPrefix("nia:") else { continue }
             if !activeRefs.contains(ref) {
                 ReminderScheduler.cancel(for: event)
+                QuickReminderStore.remove(event)
                 context.delete(event)
             }
         }

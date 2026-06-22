@@ -12,16 +12,13 @@ final class EventItem {
     var externalRef: String?
     /// Délka plánu v minutách (výchozí 60)
     var durationMinutes: Int = 60
-    /// Rychlý plán bez vlastního času — termín za hodinu, připomínky 30 a 10 min před
-    var usesQuickReminders: Bool = false
 
     init(
         title: String,
         date: Date,
         categoryId: UUID? = nil,
         externalRef: String? = nil,
-        durationMinutes: Int = EventScheduleConflict.defaultDurationMinutes,
-        usesQuickReminders: Bool = false
+        durationMinutes: Int = EventScheduleConflict.defaultDurationMinutes
     ) {
         self.id = UUID()
         self.title = title.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -30,6 +27,5 @@ final class EventItem {
         self.createdAt = Date()
         self.externalRef = externalRef
         self.durationMinutes = max(durationMinutes, 15)
-        self.usesQuickReminders = usesQuickReminders
     }
 }

@@ -78,7 +78,7 @@ enum ReminderScheduler {
     }
 
     static func reminderDates(for event: EventItem) -> [(ReminderKind, Date)] {
-        if event.usesQuickReminders {
+        if QuickReminderStore.isQuick(event) {
             return quickReminderDates(for: event.date)
         }
         return standardReminderDates(for: event.date)

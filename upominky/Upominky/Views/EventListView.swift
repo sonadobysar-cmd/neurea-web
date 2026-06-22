@@ -36,7 +36,12 @@ struct EventListView: View {
 
     var body: some View {
         NavigationStack {
-            Group {
+            VStack(spacing: 0) {
+                if WeeklyUpdateReminder.isSunday {
+                    WeeklyUpdateBannerView()
+                }
+
+                Group {
                 if events.isEmpty {
                     emptyState
                 } else {
@@ -71,6 +76,7 @@ struct EventListView: View {
                         }
                         .padding()
                     }
+                }
                 }
             }
             .pinkScreen()

@@ -26,6 +26,7 @@ struct RootView: View {
             DataRepair.normalize(context: modelContext)
             if UserDefaults.standard.bool(forKey: "hasCompletedWelcome") {
                 _ = await ReminderScheduler.requestPermission()
+                await WeeklyUpdateReminder.scheduleIfNeeded()
             }
             isReady = true
         }

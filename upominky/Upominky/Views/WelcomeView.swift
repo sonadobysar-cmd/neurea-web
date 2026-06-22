@@ -41,6 +41,10 @@ struct WelcomeView: View {
                     Task { _ = await ReminderScheduler.requestPermission() }
                 } else {
                     hasCompletedWelcome = true
+                    Task {
+                        _ = await ReminderScheduler.requestPermission()
+                        await WeeklyUpdateReminder.scheduleIfNeeded()
+                    }
                 }
             } label: {
                 Text(step == 0 ? "Pokračovat" : "Začít používat")

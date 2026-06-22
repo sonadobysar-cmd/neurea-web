@@ -23,6 +23,7 @@
 		B10000000000000000000015 /* RainbowBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000015 /* RainbowBorder.swift */; };
 		B10000000000000000000016 /* NiaSyncConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000016 /* NiaSyncConfig.swift */; };
 		B10000000000000000000017 /* NiaKonzultaceSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000017 /* NiaKonzultaceSync.swift */; };
+		B10000000000000000000018 /* AppAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000018 /* AppAppearance.swift */; };
 		B10000000000000000000013 /* ManageCategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000013 /* ManageCategoriesView.swift */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +44,7 @@
 		B20000000000000000000015 /* RainbowBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RainbowBorder.swift; sourceTree = "<group>"; };
 		B20000000000000000000016 /* NiaSyncConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NiaSyncConfig.swift; sourceTree = "<group>"; };
 		B20000000000000000000017 /* NiaKonzultaceSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NiaKonzultaceSync.swift; sourceTree = "<group>"; };
+		B20000000000000000000018 /* AppAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAppearance.swift; sourceTree = "<group>"; };
 		B20000000000000000000013 /* ManageCategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageCategoriesView.swift; sourceTree = "<group>"; };
 		B30000000000000000000001 /* Upominky.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Upominky.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -101,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				B20000000000000000000010 /* AppTheme.swift */,
+				B20000000000000000000018 /* AppAppearance.swift */,
 			);
 			path = Theme;
 			sourceTree = "<group>";
@@ -216,6 +219,7 @@
 				B10000000000000000000008 /* WelcomeView.swift in Sources */,
 				B10000000000000000000009 /* CategoryTag.swift in Sources */,
 				B10000000000000000000010 /* AppTheme.swift in Sources */,
+				B10000000000000000000018 /* AppAppearance.swift in Sources */,
 				B10000000000000000000011 /* CategorySeed.swift in Sources */,
 				B10000000000000000000014 /* UpominkyStore.swift in Sources */,
 				B10000000000000000000012 /* CategoryRibbonView.swift in Sources */,
@@ -359,7 +363,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = cz.sonadobysar.upominky;
+				PRODUCT_BUNDLE_IDENTIFIER = cz.neurea.upominky;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -391,7 +395,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = cz.sonadobysar.upominky;
+				PRODUCT_BUNDLE_IDENTIFIER = cz.neurea.upominky;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

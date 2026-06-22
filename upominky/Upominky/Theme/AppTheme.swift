@@ -3,10 +3,8 @@ import SwiftUI
 enum AppTheme {
     static let background = Color(red: 1.0, green: 0.96, blue: 0.97)
     static let card = Color.white.opacity(0.92)
-    static let accent = Color(red: 0.88, green: 0.38, blue: 0.58)
+    static let accent = Color(red: 0.93, green: 0.45, blue: 0.65)
     static let accentSoft = Color(red: 1.0, green: 0.88, blue: 0.93)
-    /// Tmavší růžová lišta nahoře — nápis zůstane černý a čitelný.
-    static let navBar = Color(red: 0.82, green: 0.42, blue: 0.60)
     static let text = Color.black
     static let textMuted = Color.black.opacity(0.55)
 
@@ -37,25 +35,13 @@ enum AppTheme {
 struct PinkScreenBackground: ViewModifier {
     func body(content: Content) -> some View {
         content
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(AppTheme.background.ignoresSafeArea())
-    }
-}
-
-struct PinkNavigationBar: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .toolbarBackground(AppTheme.navBar, for: .navigationBar)
-            .toolbarBackground(.visible, for: .navigationBar)
-            .toolbarColorScheme(.light, for: .navigationBar)
     }
 }
 
 extension View {
     func pinkScreen() -> some View {
         modifier(PinkScreenBackground())
-    }
-
-    func pinkNavigationBar() -> some View {
-        modifier(PinkNavigationBar())
     }
 }

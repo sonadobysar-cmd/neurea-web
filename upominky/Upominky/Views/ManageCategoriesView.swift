@@ -66,7 +66,6 @@ struct ManageCategoriesView: View {
             }
             .scrollContentBackground(.hidden)
             .pinkScreen()
-            .pinkNavigationBar()
             .navigationTitle("Štítky")
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)

@@ -68,8 +68,8 @@ struct EventListView: View {
                 }
             }
             .pinkScreen()
-            .pinkNavigationBar()
             .navigationTitle("Upomínky")
+            .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     tagToolbarButton
@@ -107,7 +107,7 @@ struct EventListView: View {
         } label: {
             Image(systemName: "tag")
         }
-        .foregroundStyle(AppTheme.text)
+        .foregroundStyle(AppTheme.accent)
         .accessibilityLabel("Spravovat štítky")
     }
 

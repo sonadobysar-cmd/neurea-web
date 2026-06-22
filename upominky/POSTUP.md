@@ -75,8 +75,18 @@ Rezervace se ukládají do kategorie **Práce**. Obsazené časy na webu se auto
 ## Důležité
 
 - **Xcode na Macu** = jen „dílna“ na instalaci, appku používáš na **iPhonu**
-- Po **~7 dnech** appka může přestat otevírat → připoj k Macu, znovu **▶ Play**
+- **Kabel potřebuješ jen na instalaci a update** — appka pak běží sama, telefon může být odpojený
+- Po **~7 dnech** appka může přestat otevírat → připoj k Macu, znovu **▶ Play** (bez mazání appky)
 - Plány jsou **jen v telefonu** (bez syncu mezi zařízeními)
+- Drž telefon **na výšku** (portrait) — appka není na šířku
+
+### ⚠️ Máš dvě ikony Upomínky?
+
+To vzniklo změnou identifikátoru appky — každá ikona = jiná appka = **jiná data**.
+
+1. Na iPhonu **podrž prst** na ikoně → zjisti, která má tvoje plány (ta starší)
+2. **Tu prázdnou / novou smaž** (Odstranit appku)
+3. V Xcode **▶ Play** — aktualizuje se ta správná, data zůstanou
 
 ### ⚠️ Nikdy nemazej appku při updatu!
 

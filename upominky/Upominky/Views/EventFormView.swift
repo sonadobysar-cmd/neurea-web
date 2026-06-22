@@ -91,7 +91,6 @@ struct EventFormView: View {
                 .padding()
             }
             .pinkScreen()
-            .pinkNavigationBar()
             .navigationTitle(isEditing ? "Upravit plán" : "Nový plán")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

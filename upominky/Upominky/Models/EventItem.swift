@@ -12,6 +12,8 @@ final class EventItem {
     var externalRef: String?
     /// Délka plánu v minutách (výchozí 60)
     var durationMinutes: Int = 60
+    /// Pouze pro migraci schématu V5 — rychlé připomínky jsou v QuickReminderStore
+    var usesQuickReminders: Bool = false
 
     init(
         title: String,
@@ -27,5 +29,6 @@ final class EventItem {
         self.createdAt = Date()
         self.externalRef = externalRef
         self.durationMinutes = max(durationMinutes, 15)
+        self.usesQuickReminders = false
     }
 }

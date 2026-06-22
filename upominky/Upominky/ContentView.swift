@@ -15,16 +15,10 @@ struct ContentView: View {
             }
         }
         .tint(AppTheme.accent)
-        .task {
-            CategorySeed.seedIfNeeded(context: modelContext)
-            DataRepair.normalize(context: modelContext)
-            if hasCompletedWelcome {
-                _ = await ReminderScheduler.requestPermission()
-            }
-        }
         .onChange(of: scenePhase) { _, phase in
             guard phase == .active, hasCompletedWelcome else { return }
             Task(priority: .utility) {
+                try? await Task.sleep(for: .seconds(2))
                 await NiaKonzultaceSync.syncIfConfigured(context: modelContext)
             }
         }

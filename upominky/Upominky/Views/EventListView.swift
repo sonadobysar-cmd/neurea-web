@@ -40,6 +40,10 @@ struct EventListView: View {
                 } else {
                     ScrollView {
                         VStack(alignment: .leading, spacing: 16) {
+                            if UpominkyStore.didRecoverFromCorruption {
+                                RecoveryNoticeView()
+                            }
+
                             filterBar
 
                             if !upcoming.isEmpty {
@@ -100,7 +104,7 @@ struct EventListView: View {
                 await NiaKonzultaceSync.syncIfConfigured(context: modelContext, force: true)
             }
             .task(priority: .utility) {
-                try? await Task.sleep(for: .seconds(1))
+                try? await Task.sleep(for: .seconds(3))
                 await NiaKonzultaceSync.syncIfConfigured(context: modelContext)
             }
             .alert("Opravdu smazat tento plán?", isPresented: $showDeleteConfirm) {

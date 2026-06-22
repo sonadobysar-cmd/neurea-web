@@ -5,11 +5,13 @@ import SwiftData
 struct UpominkyApp: App {
     init() {
         AppAppearance.configure()
+        _ = UpominkyStore.sharedContainer
     }
 
     var body: some Scene {
         WindowGroup {
-            StoreBootstrapView()
+            RootView()
         }
+        .modelContainer(UpominkyStore.sharedContainer)
     }
 }

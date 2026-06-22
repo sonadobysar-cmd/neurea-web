@@ -21,5 +21,7 @@ enum AppAppearance {
 
         UITableView.appearance().backgroundColor = .clear
         UIScrollView.appearance().backgroundColor = .clear
+
+        UIWindow.appearance().backgroundColor = background
     }
 }

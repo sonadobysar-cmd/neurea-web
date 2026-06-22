@@ -5,7 +5,7 @@ enum QuickReminderStore {
     private static let key = "upominky.quickReminderEventIDs"
 
     static func isQuick(_ event: EventItem) -> Bool {
-        ids.contains(event.id.uuidString)
+        ids.contains(event.id.uuidString) || event.usesQuickReminders
     }
 
     static func setQuick(_ event: EventItem, enabled: Bool) {

@@ -1,7 +1,8 @@
 import Foundation
 import SwiftData
 
-// Starší verze schématu — data zůstávají při upgradu appky.
+// MARK: - Schéma V1 (původní appka bez kategorií)
+
 enum UpominkySchemaV1: VersionedSchema {
     static var versionIdentifier = Schema.Version(1, 0, 0)
 
@@ -25,6 +26,8 @@ enum UpominkySchemaV1: VersionedSchema {
     }
 }
 
+// MARK: - Aktuální schéma (V2) — jen jedna verze s dnešními modely
+
 enum UpominkySchemaV2: VersionedSchema {
     static var versionIdentifier = Schema.Version(2, 0, 0)
 
@@ -33,55 +36,21 @@ enum UpominkySchemaV2: VersionedSchema {
     }
 }
 
-enum UpominkySchemaV3: VersionedSchema {
-    static var versionIdentifier = Schema.Version(3, 0, 0)
-
-    static var models: [any PersistentModel.Type] {
-        [EventItem.self, CategoryTag.self]
-    }
-}
-
-enum UpominkySchemaV4: VersionedSchema {
-    static var versionIdentifier = Schema.Version(4, 0, 0)
-
-    static var models: [any PersistentModel.Type] {
-        [EventItem.self, CategoryTag.self]
-    }
-}
-
-enum UpominkySchemaV5: VersionedSchema {
-    static var versionIdentifier = Schema.Version(5, 0, 0)
-
-    static var models: [any PersistentModel.Type] {
-        [EventItem.self, CategoryTag.self]
-    }
-}
-
 enum UpominkyMigrationPlan: SchemaMigrationPlan {
     static var schemas: [any VersionedSchema.Type] {
-        [
-            UpominkySchemaV1.self,
-            UpominkySchemaV2.self,
-            UpominkySchemaV3.self,
-            UpominkySchemaV4.self,
-            UpominkySchemaV5.self,
-        ]
+        [UpominkySchemaV1.self, UpominkySchemaV2.self]
     }
 
     static var stages: [MigrationStage] {
-        [
-            MigrationStage.lightweight(fromVersion: UpominkySchemaV1.self, toVersion: UpominkySchemaV2.self),
-            MigrationStage.lightweight(fromVersion: UpominkySchemaV2.self, toVersion: UpominkySchemaV3.self),
-            MigrationStage.lightweight(fromVersion: UpominkySchemaV3.self, toVersion: UpominkySchemaV4.self),
-            MigrationStage.lightweight(fromVersion: UpominkySchemaV4.self, toVersion: UpominkySchemaV5.self),
-        ]
+        [MigrationStage.lightweight(fromVersion: UpominkySchemaV1.self, toVersion: UpominkySchemaV2.self)]
     }
 }
+
+// MARK: - Otevření databáze
 
 enum UpominkyStore {
     private static let storeFileName = "Upominky.store"
 
-    /// Načte databázi při startu — vždy vrátí funkční kontejner (záloha + nový soubor jen když jinak nejde).
     static let sharedContainer: ModelContainer = openWithRecovery()
 
     static var storeURL: URL {
@@ -101,25 +70,27 @@ enum UpominkyStore {
             withIntermediateDirectories: true
         )
 
-        let schema = Schema(versionedSchema: UpominkySchemaV5.self)
-        let configuration = ModelConfiguration(schema: schema, url: url, allowsSave: true)
+        let configuration = ModelConfiguration(url: url, allowsSave: true)
 
-        if let container = tryOpen(schema: schema, configuration: configuration, withMigration: true) {
+        // 1. Bez migračního plánu — nejbezpečnější, nehází NSException
+        if let container = tryOpen(configuration: configuration, withMigration: false) {
             UserDefaults.standard.set(false, forKey: "upominky.storeRecovered")
             return container
         }
 
-        if let container = tryOpen(schema: schema, configuration: configuration, withMigration: false) {
+        // 2. Migrace jen V1 → V2 (staré instalace bez kategorií)
+        if let container = tryOpen(configuration: configuration, withMigration: true) {
             UserDefaults.standard.set(false, forKey: "upominky.storeRecovered")
             return container
         }
 
+        // 3. Záloha poškozeného souboru a nový start
         backupExistingStoreFiles(at: url)
         removeStoreFiles(at: url)
 
-        if let container = tryOpen(schema: schema, configuration: configuration, withMigration: true) {
+        if let container = tryOpen(configuration: configuration, withMigration: false) {
             UserDefaults.standard.set(true, forKey: "upominky.storeRecovered")
-            NSLog("UpominkyStore: obnoveno z poškozené databáze — záloha uložena")
+            NSLog("UpominkyStore: databáze obnovena ze zálohy")
             return container
         }
 
@@ -128,14 +99,13 @@ enum UpominkyStore {
     }
 
     private static func tryOpen(
-        schema: Schema,
         configuration: ModelConfiguration,
         withMigration: Bool
     ) -> ModelContainer? {
         do {
             if withMigration {
                 return try ModelContainer(
-                    for: schema,
+                    for: EventItem.self, CategoryTag.self,
                     migrationPlan: UpominkyMigrationPlan.self,
                     configurations: configuration
                 )

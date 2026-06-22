@@ -13,6 +13,7 @@
 		B10000000000000000000004 /* ReminderScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000004 /* ReminderScheduler.swift */; };
 		B10000000000000000000005 /* AddEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000005 /* AddEventView.swift */; };
 		B10000000000000000000006 /* EventListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000006 /* EventListView.swift */; };
+		B10000000000000000000008 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000008 /* WelcomeView.swift */; };
 		B10000000000000000000007 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000007 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +24,7 @@
 		B20000000000000000000004 /* ReminderScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderScheduler.swift; sourceTree = "<group>"; };
 		B20000000000000000000005 /* AddEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventView.swift; sourceTree = "<group>"; };
 		B20000000000000000000006 /* EventListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListView.swift; sourceTree = "<group>"; };
+		B20000000000000000000008 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		B20000000000000000000007 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B30000000000000000000001 /* Upominky.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Upominky.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -88,6 +90,7 @@
 			children = (
 				B20000000000000000000005 /* AddEventView.swift */,
 				B20000000000000000000006 /* EventListView.swift */,
+				B20000000000000000000008 /* WelcomeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -167,6 +170,7 @@
 				B10000000000000000000004 /* ReminderScheduler.swift in Sources */,
 				B10000000000000000000005 /* AddEventView.swift in Sources */,
 				B10000000000000000000006 /* EventListView.swift in Sources */,
+				B10000000000000000000008 /* WelcomeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

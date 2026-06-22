@@ -1,11 +1,21 @@
 import SwiftUI
 
 struct ContentView: View {
+    @AppStorage("hasCompletedWelcome") private var hasCompletedWelcome = false
+
     var body: some View {
-        EventListView()
-            .task {
+        Group {
+            if hasCompletedWelcome {
+                EventListView()
+            } else {
+                WelcomeView()
+            }
+        }
+        .task {
+            if hasCompletedWelcome {
                 _ = await ReminderScheduler.requestPermission()
             }
+        }
     }
 }
 

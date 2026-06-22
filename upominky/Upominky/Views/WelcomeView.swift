@@ -10,15 +10,16 @@ struct WelcomeView: View {
 
             Image(systemName: "bell.badge.fill")
                 .font(.system(size: 56))
-                .foregroundStyle(.tint)
+                .foregroundStyle(AppTheme.accent)
 
             VStack(spacing: 12) {
                 Text("Upomínky")
                     .font(.largeTitle.bold())
+                    .foregroundStyle(AppTheme.text)
 
                 Text("Zadáš co a kdy — připomínky přijdou samy.\nJako SMS po rezervaci, jen jako notifikace.")
                     .multilineTextAlignment(.center)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(AppTheme.textMuted)
                     .padding(.horizontal)
             }
 
@@ -28,7 +29,7 @@ struct WelcomeView: View {
                 welcomeRow(icon: "bell", text: "1 hodinu před termínem")
             }
             .padding()
-            .background(.quaternary.opacity(0.5), in: RoundedRectangle(cornerRadius: 12))
+            .background(AppTheme.card, in: RoundedRectangle(cornerRadius: 16))
             .padding(.horizontal)
 
             Spacer()
@@ -42,17 +43,20 @@ struct WelcomeView: View {
                 }
             } label: {
                 Text(step == 0 ? "Pokračovat" : "Začít používat")
+                    .fontWeight(.semibold)
                     .frame(maxWidth: .infinity)
             }
             .buttonStyle(.borderedProminent)
+            .tint(AppTheme.accent)
             .padding(.horizontal)
             .padding(.bottom, 32)
         }
+        .pinkScreen()
         .overlay(alignment: .top) {
             if step == 1 {
                 Text("Když se systém zeptá na notifikace, klepni Povolit.")
                     .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(AppTheme.textMuted)
                     .padding(.top, 16)
             }
         }
@@ -61,5 +65,6 @@ struct WelcomeView: View {
     private func welcomeRow(icon: String, text: String) -> some View {
         Label(text, systemImage: icon)
             .font(.subheadline)
+            .foregroundStyle(AppTheme.text)
     }
 }

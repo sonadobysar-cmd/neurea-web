@@ -4,62 +4,68 @@ import SwiftData
 struct EventListView: View {
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \EventItem.date) private var events: [EventItem]
+    @Query(sort: [SortDescriptor(\CategoryTag.sortOrder), SortDescriptor(\CategoryTag.name)])
+    private var categories: [CategoryTag]
 
     @State private var showAddSheet = false
+    @State private var showManageCategories = false
+    @State private var filterCategoryId: UUID?
 
     private var upcoming: [EventItem] {
-        events.filter { $0.date >= Date() }
+        filtered(events.filter { $0.date >= Date() })
     }
 
     private var past: [EventItem] {
-        Array(events.filter { $0.date < Date() }.reversed())
+        Array(filtered(events.filter { $0.date < Date() }).reversed())
     }
 
     var body: some View {
         NavigationStack {
             Group {
                 if events.isEmpty {
-                    ContentUnavailableView {
-                        Label("Zatím nic v plánu", systemImage: "calendar.badge.plus")
-                    } description: {
-                        Text("Přidej termín — připomínky nastavíme za tebe.")
-                    } actions: {
-                        Button("Přidat plán") { showAddSheet = true }
-                            .buttonStyle(.borderedProminent)
-                    }
+                    emptyState
                 } else {
-                    List {
-                        if !upcoming.isEmpty {
-                            Section("Nadcházející") {
-                                ForEach(upcoming) { event in
-                                    EventRow(event: event)
-                                }
-                                .onDelete { indexSet in
-                                    deleteEvents(at: indexSet, from: upcoming)
-                                }
-                            }
-                        }
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 16) {
+                            filterBar
 
-                        if !past.isEmpty {
-                            Section("Proběhlé") {
-                                ForEach(past) { event in
-                                    EventRow(event: event, isPast: true)
+                            if !upcoming.isEmpty {
+                                sectionHeader("Nadcházející")
+                                ForEach(upcoming) { event in
+                                    eventCard(event)
                                 }
-                                .onDelete { indexSet in
-                                    deleteEvents(at: indexSet, from: past)
+                            }
+
+                            if !past.isEmpty {
+                                sectionHeader("Proběhlé")
+                                ForEach(past) { event in
+                                    eventCard(event, isPast: true)
                                 }
                             }
                         }
+                        .padding()
                     }
                 }
             }
+            .pinkScreen()
             .navigationTitle("Upomínky")
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        showManageCategories = true
+                    } label: {
+                        Image(systemName: "tag")
+                    }
+                    .foregroundStyle(AppTheme.text)
+                    .accessibilityLabel("Spravovat štítky")
+                }
                 ToolbarItem(placement: .primaryAction) {
                     Button {
                         showAddSheet = true
                     } label: {
-                        Image(systemName: "plus")
+                        Image(systemName: "plus.circle.fill")
+                            .font(.title2)
+                            .foregroundStyle(AppTheme.accent)
                     }
                     .accessibilityLabel("Přidat plán")
                 }
@@ -67,31 +73,106 @@ struct EventListView: View {
             .sheet(isPresented: $showAddSheet) {
                 AddEventView()
             }
+            .sheet(isPresented: $showManageCategories) {
+                ManageCategoriesView()
+            }
         }
     }
 
-    private func deleteEvents(at offsets: IndexSet, from list: [EventItem]) {
-        for index in offsets {
-            let event = list[index]
-            ReminderScheduler.cancel(for: event)
-            modelContext.delete(event)
+    private var emptyState: some View {
+        VStack(spacing: 20) {
+            Spacer()
+            Image(systemName: "calendar.badge.plus")
+                .font(.system(size: 48))
+                .foregroundStyle(AppTheme.accent)
+            Text("Zatím nic v plánu")
+                .font(.title2.bold())
+                .foregroundStyle(AppTheme.text)
+            Text("Přidej termín — připomínky nastavíme za tebe.")
+                .multilineTextAlignment(.center)
+                .foregroundStyle(AppTheme.textMuted)
+                .padding(.horizontal)
+            Button("Přidat plán") { showAddSheet = true }
+                .buttonStyle(.borderedProminent)
+                .tint(AppTheme.accent)
+            Spacer()
+        }
+        .padding()
+    }
+
+    private var filterBar: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 8) {
+                filterChip(name: "Vše", colorHex: "#FFE4EE", isActive: filterCategoryId == nil) {
+                    filterCategoryId = nil
+                }
+                ForEach(categories, id: \.id) { category in
+                    filterChip(
+                        name: category.name,
+                        colorHex: category.colorHex,
+                        isActive: filterCategoryId == category.id
+                    ) {
+                        filterCategoryId = category.id
+                    }
+                }
+            }
         }
     }
-}
 
-private struct EventRow: View {
-    let event: EventItem
-    var isPast: Bool = false
+    private func filterChip(
+        name: String,
+        colorHex: String,
+        isActive: Bool,
+        action: @escaping () -> Void
+    ) -> some View {
+        Button(action: action) {
+            CategoryRibbonView(
+                name: name,
+                colorHex: colorHex,
+                isSelected: isActive,
+                compact: true
+            )
+        }
+        .buttonStyle(.plain)
+    }
 
-    var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
+    private func sectionHeader(_ title: String) -> some View {
+        Text(title)
+            .font(.headline)
+            .foregroundStyle(AppTheme.text)
+            .padding(.top, 4)
+    }
+
+    private func eventCard(_ event: EventItem, isPast: Bool = false) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                if let category = category(for: event) {
+                    CategoryRibbonView(
+                        name: category.name,
+                        colorHex: category.colorHex,
+                        compact: true
+                    )
+                }
+                Spacer()
+                if !isPast {
+                    Button(role: .destructive) {
+                        deleteEvent(event)
+                    } label: {
+                        Image(systemName: "trash")
+                            .font(.caption)
+                            .foregroundStyle(AppTheme.textMuted)
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+
             Text(event.title)
                 .font(.headline)
-                .foregroundStyle(isPast ? .secondary : .primary)
+                .foregroundStyle(isPast ? AppTheme.textMuted : AppTheme.text)
 
             Text(formattedDate(event.date))
                 .font(.subheadline)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(AppTheme.textMuted)
 
             if !isPast {
                 let labels = ReminderScheduler.plannedReminderLabels(for: event)
@@ -102,12 +183,29 @@ private struct EventRow: View {
                 } else {
                     Text("Připomínky: " + labels.joined(separator: " · "))
                         .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(AppTheme.textMuted)
                         .lineLimit(2)
                 }
             }
         }
-        .padding(.vertical, 4)
+        .padding(14)
+        .background(AppTheme.card, in: RoundedRectangle(cornerRadius: 14))
+        .shadow(color: .black.opacity(0.04), radius: 4, y: 2)
+    }
+
+    private func filtered(_ list: [EventItem]) -> [EventItem] {
+        guard let filterCategoryId else { return list }
+        return list.filter { $0.categoryId == filterCategoryId }
+    }
+
+    private func category(for event: EventItem) -> CategoryTag? {
+        guard let id = event.categoryId else { return nil }
+        return categories.first { $0.id == id }
+    }
+
+    private func deleteEvent(_ event: EventItem) {
+        ReminderScheduler.cancel(for: event)
+        modelContext.delete(event)
     }
 
     private func formattedDate(_ date: Date) -> String {

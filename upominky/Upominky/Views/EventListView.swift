@@ -11,6 +11,7 @@ struct EventListView: View {
     @State private var showManageCategories = false
     @State private var eventToEdit: EventItem?
     @State private var eventPendingDeletion: EventItem?
+    @State private var showDeleteConfirm = false
     @State private var filterCategoryId: UUID?
 
     private var calendar: Calendar { Calendar.current }
@@ -96,19 +97,13 @@ struct EventListView: View {
                 ManageCategoriesView()
             }
             .refreshable {
+                await NiaKonzultaceSync.syncIfConfigured(context: modelContext, force: true)
+            }
+            .task(priority: .utility) {
+                try? await Task.sleep(for: .seconds(1))
                 await NiaKonzultaceSync.syncIfConfigured(context: modelContext)
             }
-            .task {
-                await NiaKonzultaceSync.syncIfConfigured(context: modelContext)
-            }
-            .confirmationDialog(
-                "Opravdu smazat tento plán?",
-                isPresented: Binding(
-                    get: { eventPendingDeletion != nil },
-                    set: { if !$0 { eventPendingDeletion = nil } }
-                ),
-                titleVisibility: .visible
-            ) {
+            .alert("Opravdu smazat tento plán?", isPresented: $showDeleteConfirm) {
                 Button("Smazat", role: .destructive) {
                     if let event = eventPendingDeletion {
                         deleteEvent(event)
@@ -230,6 +225,7 @@ struct EventListView: View {
 
                         Button(role: .destructive) {
                             eventPendingDeletion = event
+                            showDeleteConfirm = true
                         } label: {
                             Image(systemName: "trash")
                                 .font(.caption)

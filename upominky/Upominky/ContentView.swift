@@ -17,14 +17,14 @@ struct ContentView: View {
         .tint(AppTheme.accent)
         .task {
             CategorySeed.seedIfNeeded(context: modelContext)
+            DataRepair.normalize(context: modelContext)
             if hasCompletedWelcome {
                 _ = await ReminderScheduler.requestPermission()
-                await NiaKonzultaceSync.syncIfConfigured(context: modelContext)
             }
         }
         .onChange(of: scenePhase) { _, phase in
             guard phase == .active, hasCompletedWelcome else { return }
-            Task {
+            Task(priority: .utility) {
                 await NiaKonzultaceSync.syncIfConfigured(context: modelContext)
             }
         }

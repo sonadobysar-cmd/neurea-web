@@ -11,7 +11,7 @@ final class EventItem {
     /// Externí reference (např. nia:NIA-20260623-1234) pro sync z webu
     var externalRef: String?
     /// Délka plánu v minutách (výchozí 60)
-    var durationMinutes: Int
+    var durationMinutes: Int = 60
 
     init(
         title: String,

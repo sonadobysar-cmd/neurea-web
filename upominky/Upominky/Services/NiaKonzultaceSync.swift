@@ -15,46 +15,89 @@ private struct NiaSyncResponse: Decodable {
     let bookings: [NiaSyncBooking]
 }
 
+/// Zabrání souběžnému syncu — ten mohl zamrznout appku.
+private actor NiaSyncCoordinator {
+    static let shared = NiaSyncCoordinator()
+
+    private var isRunning = false
+    private var lastFinished: Date?
+
+    func begin(minInterval: TimeInterval = 15) -> Bool {
+        if isRunning { return false }
+        if let lastFinished, Date().timeIntervalSince(lastFinished) < minInterval {
+            return false
+        }
+        isRunning = true
+        return true
+    }
+
+    func finish() {
+        isRunning = false
+        lastFinished = Date()
+    }
+
+    func forceBegin() -> Bool {
+        if isRunning { return false }
+        isRunning = true
+        return true
+    }
+}
+
 enum NiaKonzultaceSync {
     private static let prague = TimeZone(identifier: "Europe/Prague")!
     private static let workCategoryName = "Práce"
     private static let konzultaceDurationMin = 30
 
+    /// `force` = tažení seznamu dolů (ignoruje časový interval)
     @MainActor
     @discardableResult
-    static func syncIfConfigured(context: ModelContext) async -> Int {
+    static func syncIfConfigured(context: ModelContext, force: Bool = false) async -> Int {
         guard NiaSyncConfig.isConfigured else { return 0 }
 
+        let allowed = force
+            ? await NiaSyncCoordinator.shared.forceBegin()
+            : await NiaSyncCoordinator.shared.begin()
+        guard allowed else { return 0 }
+
+        defer {
+            Task { await NiaSyncCoordinator.shared.finish() }
+        }
+
+        guard let bookings = await fetchRemoteBookings() else { return 0 }
+        return await apply(bookings, context: context)
+    }
+
+    // MARK: - Remote (síť mimo UI vlákno)
+
+    private static func fetchRemoteBookings() async -> [NiaSyncBooking]? {
         guard let url = URL(string: "/api/nia/konzultace/sync", relativeTo: NiaSyncConfig.apiBaseURL) else {
-            return 0
+            return nil
         }
 
         var request = URLRequest(url: url)
         request.setValue("Bearer \(NiaSyncConfig.syncToken)", forHTTPHeaderField: "Authorization")
-        request.timeoutInterval = 20
+        request.timeoutInterval = 12
 
-        let data: Data
         do {
-            let (responseData, response) = try await URLSession.shared.data(for: request)
-            guard let http = response as? HTTPURLResponse, http.statusCode == 200 else { return 0 }
-            data = responseData
+            let (data, response) = try await URLSession.shared.data(for: request)
+            guard let http = response as? HTTPURLResponse, http.statusCode == 200 else { return nil }
+            let decoded = try JSONDecoder().decode(NiaSyncResponse.self, from: data)
+            guard decoded.ok else { return nil }
+            return decoded.bookings
         } catch {
-            return 0
+            return nil
         }
+    }
 
-        let decoded: NiaSyncResponse
-        do {
-            decoded = try JSONDecoder().decode(NiaSyncResponse.self, from: data)
-        } catch {
-            return 0
-        }
-        guard decoded.ok else { return 0 }
+    // MARK: - Apply
 
+    @MainActor
+    private static func apply(_ bookings: [NiaSyncBooking], context: ModelContext) async -> Int {
         let workCategoryId = categoryId(named: workCategoryName, context: context)
-        let activeRefs = Set(decoded.bookings.map { externalRef(for: $0.ref) })
+        let activeRefs = Set(bookings.map { externalRef(for: $0.ref) })
         var imported = 0
 
-        for booking in decoded.bookings {
+        for booking in bookings {
             guard let eventDate = combineDate(dateIso: booking.dateIso, time: booking.time) else { continue }
             let ref = externalRef(for: booking.ref)
             let title = booking.title.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -91,8 +134,6 @@ enum NiaKonzultaceSync {
         try? context.save()
         return imported
     }
-
-    // MARK: - Private
 
     private static func externalRef(for ref: String) -> String {
         "nia:\(ref)"

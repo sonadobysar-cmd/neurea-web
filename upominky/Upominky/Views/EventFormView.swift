@@ -1,17 +1,22 @@
 import SwiftUI
 import SwiftData
 
-struct AddEventView: View {
+struct EventFormView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
     @Query(sort: [SortDescriptor(\CategoryTag.sortOrder), SortDescriptor(\CategoryTag.name)])
     private var categories: [CategoryTag]
+
+    var eventToEdit: EventItem?
 
     @State private var title = ""
     @State private var date = defaultEventDate()
     @State private var selectedCategoryId: UUID?
     @State private var notificationsDenied = false
     @State private var isSaving = false
+    @State private var didLoadExisting = false
+
+    private var isEditing: Bool { eventToEdit != nil }
 
     var body: some View {
         NavigationStack {
@@ -22,9 +27,7 @@ struct AddEventView: View {
                             .font(.subheadline.weight(.semibold))
                             .foregroundStyle(AppTheme.text)
                         TextField("Např. kontrola u zubaře", text: $title)
-                            #if os(iOS)
                             .textInputAutocapitalization(.sentences)
-                            #endif
                             .padding(14)
                             .background(AppTheme.card, in: RoundedRectangle(cornerRadius: 12))
                             .foregroundStyle(AppTheme.text)
@@ -68,6 +71,7 @@ struct AddEventView: View {
                             .foregroundStyle(AppTheme.text)
                         VStack(alignment: .leading, spacing: 8) {
                             reminderRow(icon: "moon.stars", text: "Večer předem v 18:00")
+                            reminderRow(icon: "moon.fill", text: "Večer předem v 21:00")
                             reminderRow(icon: "sunrise", text: "Ráno v den D v 8:00")
                             reminderRow(icon: "bell", text: "1 hodinu před termínem")
                         }
@@ -87,10 +91,8 @@ struct AddEventView: View {
                 .padding()
             }
             .pinkScreen()
-            .navigationTitle("Nový plán")
-            #if os(iOS)
+            .navigationTitle(isEditing ? "Upravit plán" : "Nový plán")
             .navigationBarTitleDisplayMode(.inline)
-            #endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Zrušit") { dismiss() }
@@ -103,16 +105,25 @@ struct AddEventView: View {
                         .disabled(title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || isSaving)
                 }
             }
-            .onAppear {
-                if selectedCategoryId == nil {
-                    selectedCategoryId = categories.first?.id
-                }
-            }
+            .onAppear { loadExistingIfNeeded() }
             .onChange(of: categories.count) { _, _ in
                 if selectedCategoryId == nil {
                     selectedCategoryId = categories.first?.id
                 }
             }
+        }
+    }
+
+    private func loadExistingIfNeeded() {
+        guard !didLoadExisting else { return }
+        didLoadExisting = true
+
+        if let event = eventToEdit {
+            title = event.title
+            date = event.date
+            selectedCategoryId = event.categoryId ?? categories.first?.id
+        } else if selectedCategoryId == nil {
+            selectedCategoryId = categories.first?.id
         }
     }
 
@@ -124,18 +135,28 @@ struct AddEventView: View {
 
     private func save() {
         isSaving = true
-        let event = EventItem(title: title, date: date, categoryId: selectedCategoryId)
-        modelContext.insert(event)
+        let trimmed = title.trimmingCharacters(in: .whitespacesAndNewlines)
 
         Task {
             let allowed = await ReminderScheduler.requestPermission()
-            if allowed {
-                await ReminderScheduler.schedule(for: event)
-            } else {
+            guard allowed else {
                 notificationsDenied = true
                 isSaving = false
                 return
             }
+
+            if let event = eventToEdit {
+                event.title = trimmed
+                event.date = date
+                event.categoryId = selectedCategoryId
+                await ReminderScheduler.reschedule(for: event)
+            } else {
+                let event = EventItem(title: trimmed, date: date, categoryId: selectedCategoryId)
+                modelContext.insert(event)
+                await ReminderScheduler.schedule(for: event)
+            }
+
+            try? modelContext.save()
             await MainActor.run { dismiss() }
         }
     }
@@ -146,3 +167,6 @@ struct AddEventView: View {
         return calendar.date(bySettingHour: 10, minute: 0, second: 0, of: tomorrow) ?? tomorrow
     }
 }
+
+// Zachováno pro starší odkazy v projektu
+typealias AddEventView = EventFormView

@@ -25,6 +25,7 @@ struct WelcomeView: View {
 
             VStack(alignment: .leading, spacing: 14) {
                 welcomeRow(icon: "moon.stars", text: "Večer předem v 18:00")
+                welcomeRow(icon: "moon.fill", text: "Večer předem v 21:00")
                 welcomeRow(icon: "sunrise", text: "Ráno v den D v 8:00")
                 welcomeRow(icon: "bell", text: "1 hodinu před termínem")
             }

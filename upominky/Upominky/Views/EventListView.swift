@@ -9,6 +9,7 @@ struct EventListView: View {
 
     @State private var showAddSheet = false
     @State private var showManageCategories = false
+    @State private var eventToEdit: EventItem?
     @State private var filterCategoryId: UUID?
 
     private var upcoming: [EventItem] {
@@ -65,7 +66,10 @@ struct EventListView: View {
                 }
             }
             .sheet(isPresented: $showAddSheet) {
-                AddEventView()
+                EventFormView()
+            }
+            .sheet(item: $eventToEdit) { event in
+                EventFormView(eventToEdit: event)
             }
             .sheet(isPresented: $showManageCategories) {
                 ManageCategoriesView()
@@ -159,14 +163,26 @@ struct EventListView: View {
                 }
                 Spacer()
                 if !isPast {
-                    Button(role: .destructive) {
-                        deleteEvent(event)
-                    } label: {
-                        Image(systemName: "trash")
-                            .font(.caption)
-                            .foregroundStyle(AppTheme.textMuted)
+                    HStack(spacing: 16) {
+                        Button {
+                            eventToEdit = event
+                        } label: {
+                            Image(systemName: "pencil")
+                                .font(.caption)
+                                .foregroundStyle(AppTheme.accent)
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityLabel("Upravit plán")
+
+                        Button(role: .destructive) {
+                            deleteEvent(event)
+                        } label: {
+                            Image(systemName: "trash")
+                                .font(.caption)
+                                .foregroundStyle(AppTheme.textMuted)
+                        }
+                        .buttonStyle(.plain)
                     }
-                    .buttonStyle(.plain)
                 }
             }
 
@@ -195,6 +211,12 @@ struct EventListView: View {
         .padding(14)
         .background(AppTheme.card, in: RoundedRectangle(cornerRadius: 14))
         .shadow(color: .black.opacity(0.04), radius: 4, y: 2)
+        .contentShape(RoundedRectangle(cornerRadius: 14))
+        .onTapGesture {
+            if !isPast {
+                eventToEdit = event
+            }
+        }
     }
 
     private func filtered(_ list: [EventItem]) -> [EventItem] {

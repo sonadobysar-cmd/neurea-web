@@ -2,14 +2,16 @@ import Foundation
 import UserNotifications
 
 enum ReminderKind: String, CaseIterable {
-    case eveningBefore = "evening"
+    case eveningBefore18 = "evening18"
+    case eveningBefore21 = "evening21"
     case morningOf = "morning"
     case oneHourBefore = "hour"
 
     var label: String {
         switch self {
-        case .eveningBefore: return "večer předem"
-        case .morningOf: return "ráno v den D"
+        case .eveningBefore18: return "večer předem v 18:00"
+        case .eveningBefore21: return "večer předem v 21:00"
+        case .morningOf: return "ráno v den D v 8:00"
         case .oneHourBefore: return "1 hodinu předem"
         }
     }
@@ -17,6 +19,7 @@ enum ReminderKind: String, CaseIterable {
 
 enum ReminderScheduler {
     private static let calendar = Calendar.current
+    private static let legacyKinds = ["evening"]
 
     static func requestPermission() async -> Bool {
         let center = UNUserNotificationCenter.current()
@@ -51,8 +54,14 @@ enum ReminderScheduler {
         }
     }
 
+    static func reschedule(for event: EventItem) async {
+        cancel(for: event)
+        await schedule(for: event)
+    }
+
     static func cancel(for event: EventItem) {
-        let ids = ReminderKind.allCases.map { notificationID(eventID: event.id, kind: $0) }
+        var ids = ReminderKind.allCases.map { notificationID(eventID: event.id, kind: $0) }
+        ids += legacyKinds.map { "event-\(event.id.uuidString)-\($0)" }
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ids)
     }
 
@@ -60,8 +69,11 @@ enum ReminderScheduler {
         let now = Date()
         var result: [(ReminderKind, Date)] = []
 
-        if let evening = eveningBeforeDate(for: event.date), evening > now {
-            result.append((.eveningBefore, evening))
+        if let evening18 = dayBeforeDate(for: event.date, hour: 18), evening18 > now {
+            result.append((.eveningBefore18, evening18))
+        }
+        if let evening21 = dayBeforeDate(for: event.date, hour: 21), evening21 > now {
+            result.append((.eveningBefore21, evening21))
         }
         if let morning = morningOfDate(for: event.date), morning > now, morning < event.date {
             result.append((.morningOf, morning))
@@ -86,11 +98,11 @@ enum ReminderScheduler {
         "event-\(eventID.uuidString)-\(kind.rawValue)"
     }
 
-    private static func eveningBeforeDate(for eventDate: Date) -> Date? {
+    private static func dayBeforeDate(for eventDate: Date, hour: Int) -> Date? {
         guard let dayBefore = calendar.date(byAdding: .day, value: -1, to: startOfDay(for: eventDate)) else {
             return nil
         }
-        return calendar.date(bySettingHour: 18, minute: 0, second: 0, of: dayBefore)
+        return calendar.date(bySettingHour: hour, minute: 0, second: 0, of: dayBefore)
     }
 
     private static func morningOfDate(for eventDate: Date) -> Date? {
@@ -104,7 +116,7 @@ enum ReminderScheduler {
     private static func notificationBody(for event: EventItem, kind: ReminderKind) -> String {
         let when = formattedEventTime(event.date)
         switch kind {
-        case .eveningBefore:
+        case .eveningBefore18, .eveningBefore21:
             return "Zítra \(when) · \(event.title)"
         case .morningOf:
             return "Dnes \(when) · \(event.title)"

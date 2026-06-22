@@ -38,27 +38,25 @@ struct ManageCategoriesView: View {
                         .textInputAutocapitalization(.sentences)
                         #endif
 
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 10) {
-                            ForEach(AppTheme.pastelOptions, id: \.self) { hex in
-                                Button {
-                                    selectedColorHex = hex
-                                } label: {
-                                    Circle()
-                                        .fill(AppTheme.color(from: hex))
-                                        .frame(width: 32, height: 32)
-                                        .overlay {
-                                            if selectedColorHex == hex {
-                                                Circle()
-                                                    .strokeBorder(AppTheme.text, lineWidth: 2)
-                                            }
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 36), spacing: 10)], spacing: 10) {
+                        ForEach(AppTheme.pastelOptions, id: \.self) { hex in
+                            Button {
+                                selectedColorHex = hex
+                            } label: {
+                                Circle()
+                                    .fill(AppTheme.color(from: hex))
+                                    .frame(width: 34, height: 34)
+                                    .overlay {
+                                        if selectedColorHex == hex {
+                                            Circle()
+                                                .strokeBorder(AppTheme.text, lineWidth: 2.5)
                                         }
-                                }
-                                .buttonStyle(.plain)
+                                    }
                             }
+                            .buttonStyle(.plain)
                         }
-                        .padding(.vertical, 4)
                     }
+                    .padding(.vertical, 4)
 
                     Button("Přidat štítek") {
                         addCategory()
@@ -68,6 +66,7 @@ struct ManageCategoriesView: View {
             }
             .scrollContentBackground(.hidden)
             .pinkScreen()
+            .pinkNavigationBar()
             .navigationTitle("Štítky")
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)

@@ -68,6 +68,7 @@ struct EventListView: View {
                 }
             }
             .pinkScreen()
+            .pinkNavigationBar()
             .navigationTitle("Upomínky")
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {

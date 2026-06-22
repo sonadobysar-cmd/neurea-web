@@ -3,11 +3,11 @@ import SwiftData
 
 enum CategorySeed {
     private static let defaults: [(String, String)] = [
-        ("Práce", "#C5CAF9"),
-        ("Lékaři já", "#B8E8D8"),
-        ("Lékaři děti", "#FFD4B8"),
-        ("Rodinné akce", "#FFF0B3"),
-        ("Superdůležité", "#FFB8C8"),
+        ("Práce", "#A8B8F5"),
+        ("Lékaři já", "#9DDFC4"),
+        ("Lékaři děti", "#FFCBA4"),
+        ("Rodinné akce", "#FFE08A"),
+        ("Superdůležité", "#FF9EB8"),
     ]
 
     @MainActor

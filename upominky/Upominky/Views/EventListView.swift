@@ -12,8 +12,18 @@ struct EventListView: View {
     @State private var eventToEdit: EventItem?
     @State private var filterCategoryId: UUID?
 
+    private var calendar: Calendar { Calendar.current }
+
     private var upcoming: [EventItem] {
         filtered(events.filter { $0.date >= Date() })
+    }
+
+    private var tomorrowEvents: [EventItem] {
+        upcoming.filter { calendar.isDateInTomorrow($0.date) }
+    }
+
+    private var laterUpcoming: [EventItem] {
+        upcoming.filter { !calendar.isDateInTomorrow($0.date) }
     }
 
     private var past: [EventItem] {
@@ -31,9 +41,18 @@ struct EventListView: View {
                             filterBar
 
                             if !upcoming.isEmpty {
-                                sectionHeader("Nadcházející")
-                                ForEach(upcoming) { event in
-                                    eventCard(event)
+                                if !tomorrowEvents.isEmpty {
+                                    RainbowSectionHeader(title: "Zítra — \(formattedDayLabel(for: tomorrowDate))")
+                                    ForEach(tomorrowEvents) { event in
+                                        eventCard(event, isTomorrow: true)
+                                    }
+                                }
+
+                                if !laterUpcoming.isEmpty {
+                                    sectionHeader(tomorrowEvents.isEmpty ? "Nadcházející" : "Později")
+                                    ForEach(laterUpcoming) { event in
+                                        eventCard(event)
+                                    }
                                 }
                             }
 
@@ -75,6 +94,10 @@ struct EventListView: View {
                 ManageCategoriesView()
             }
         }
+    }
+
+    private var tomorrowDate: Date {
+        calendar.date(byAdding: .day, value: 1, to: calendar.startOfDay(for: Date())) ?? Date()
     }
 
     private var tagToolbarButton: some View {
@@ -151,8 +174,8 @@ struct EventListView: View {
             .padding(.top, 4)
     }
 
-    private func eventCard(_ event: EventItem, isPast: Bool = false) -> some View {
-        VStack(alignment: .leading, spacing: 8) {
+    private func eventCard(_ event: EventItem, isPast: Bool = false, isTomorrow: Bool = false) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
             HStack {
                 if let category = category(for: event) {
                     CategoryRibbonView(
@@ -191,8 +214,8 @@ struct EventListView: View {
                 .foregroundStyle(isPast ? AppTheme.textMuted : AppTheme.text)
 
             Text(formattedDate(event.date))
-                .font(.subheadline)
-                .foregroundStyle(AppTheme.textMuted)
+                .font(.body.weight(.bold))
+                .foregroundStyle(isPast ? AppTheme.textMuted : AppTheme.text)
 
             if !isPast {
                 let labels = ReminderScheduler.plannedReminderLabels(for: event)
@@ -204,13 +227,14 @@ struct EventListView: View {
                     Text("Připomínky: " + labels.joined(separator: " · "))
                         .font(.caption)
                         .foregroundStyle(AppTheme.textMuted)
-                        .lineLimit(2)
+                        .lineLimit(3)
                 }
             }
         }
         .padding(14)
-        .background(AppTheme.card, in: RoundedRectangle(cornerRadius: 14))
+        .background(AppTheme.card, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
         .shadow(color: .black.opacity(0.04), radius: 4, y: 2)
+        .modifier(TomorrowRainbowBorder(isActive: isTomorrow))
         .contentShape(RoundedRectangle(cornerRadius: 14))
         .onTapGesture {
             if !isPast {
@@ -232,6 +256,13 @@ struct EventListView: View {
     private func deleteEvent(_ event: EventItem) {
         ReminderScheduler.cancel(for: event)
         modelContext.delete(event)
+    }
+
+    private func formattedDayLabel(for date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "cs_CZ")
+        formatter.dateFormat = "EEEE d. MMMM"
+        return formatter.string(from: date)
     }
 
     private func formattedDate(_ date: Date) -> String {

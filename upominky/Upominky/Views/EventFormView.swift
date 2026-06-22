@@ -10,9 +10,10 @@ struct EventFormView: View {
     var eventToEdit: EventItem?
 
     @State private var title = ""
-    @State private var date = defaultEventDate()
+    @State private var date = Self.defaultCustomEventDate()
     @State private var durationMinutes = EventScheduleConflict.defaultDurationMinutes
     @State private var selectedCategoryId: UUID?
+    @State private var showCustomTime = false
     @State private var notificationsDenied = false
     @State private var scheduleConflictMessage: String?
     @State private var isSaving = false
@@ -39,17 +40,44 @@ struct EventFormView: View {
                         Text("Kdy")
                             .font(.subheadline.weight(.semibold))
                             .foregroundStyle(AppTheme.text)
-                        DatePicker(
-                            "",
-                            selection: $date,
-                            in: Date()...,
-                            displayedComponents: [.date, .hourAndMinute]
-                        )
-                        .datePickerStyle(.graphical)
-                        .environment(\.locale, Locale(identifier: "cs_CZ"))
-                        .padding(12)
-                        .background(AppTheme.card, in: RoundedRectangle(cornerRadius: 12))
-                        .colorScheme(.light)
+
+                        if showCustomTime {
+                            DatePicker(
+                                "",
+                                selection: $date,
+                                in: Date()...,
+                                displayedComponents: [.date, .hourAndMinute]
+                            )
+                            .datePickerStyle(.graphical)
+                            .environment(\.locale, Locale(identifier: "cs_CZ"))
+                            .padding(12)
+                            .background(AppTheme.card, in: RoundedRectangle(cornerRadius: 12))
+                            .colorScheme(.light)
+
+                            Button("Zpět na automaticky za hodinu") {
+                                showCustomTime = false
+                            }
+                            .font(.subheadline)
+                            .foregroundStyle(AppTheme.accent)
+                        } else {
+                            VStack(alignment: .leading, spacing: 6) {
+                                Label("Za hodinu od uložení", systemImage: "clock")
+                                    .font(.subheadline.weight(.medium))
+                                    .foregroundStyle(AppTheme.text)
+                                Text("Nemusíš nic vybírat — termín se nastaví sám.")
+                                    .font(.caption)
+                                    .foregroundStyle(AppTheme.textMuted)
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(14)
+                            .background(AppTheme.card, in: RoundedRectangle(cornerRadius: 12))
+
+                            Button("Nastavit konkrétní čas") {
+                                showCustomTime = true
+                            }
+                            .font(.subheadline)
+                            .foregroundStyle(AppTheme.accent)
+                        }
                     }
 
                     VStack(alignment: .leading, spacing: 8) {
@@ -86,10 +114,15 @@ struct EventFormView: View {
                             .font(.subheadline.weight(.semibold))
                             .foregroundStyle(AppTheme.text)
                         VStack(alignment: .leading, spacing: 8) {
-                            reminderRow(icon: "moon.stars", text: "Večer předem v 18:00")
-                            reminderRow(icon: "moon.fill", text: "Večer předem v 21:00")
-                            reminderRow(icon: "sunrise", text: "Ráno v den D v 8:00")
-                            reminderRow(icon: "bell", text: "1 hodinu před termínem")
+                            if showCustomTime {
+                                reminderRow(icon: "moon.stars", text: "Večer předem v 18:00")
+                                reminderRow(icon: "moon.fill", text: "Večer předem v 21:00")
+                                reminderRow(icon: "sunrise", text: "Ráno v den D v 8:00")
+                                reminderRow(icon: "bell", text: "1 hodinu před termínem")
+                            } else {
+                                reminderRow(icon: "bell.badge", text: "30 minut před termínem")
+                                reminderRow(icon: "bell.fill", text: "10 minut před termínem")
+                            }
                         }
                         .padding(14)
                         .background(AppTheme.accentSoft, in: RoundedRectangle(cornerRadius: 12))
@@ -155,6 +188,7 @@ struct EventFormView: View {
             date = event.date
             durationMinutes = event.durationMinutes > 0 ? event.durationMinutes : EventScheduleConflict.defaultDurationMinutes
             selectedCategoryId = event.categoryId ?? categories.first?.id
+            showCustomTime = !event.usesQuickReminders
         } else if selectedCategoryId == nil {
             selectedCategoryId = categories.first?.id
         }
@@ -172,8 +206,13 @@ struct EventFormView: View {
         let trimmed = title.trimmingCharacters(in: .whitespacesAndNewlines)
 
         Task { @MainActor in
+            let usesQuickReminders = !showCustomTime
+            let eventDate = usesQuickReminders
+                ? (Calendar.current.date(byAdding: .hour, value: 1, to: Date()) ?? Date())
+                : date
+
             if let conflict = EventScheduleConflict.conflictingEvent(
-                start: date,
+                start: eventDate,
                 durationMinutes: durationMinutes,
                 excluding: eventToEdit?.id,
                 context: modelContext
@@ -192,16 +231,18 @@ struct EventFormView: View {
 
             if let event = eventToEdit {
                 event.title = trimmed
-                event.date = date
+                event.date = eventDate
                 event.durationMinutes = durationMinutes
                 event.categoryId = selectedCategoryId
+                event.usesQuickReminders = usesQuickReminders
                 await ReminderScheduler.reschedule(for: event)
             } else {
                 let event = EventItem(
                     title: trimmed,
-                    date: date,
+                    date: eventDate,
                     categoryId: selectedCategoryId,
-                    durationMinutes: durationMinutes
+                    durationMinutes: durationMinutes,
+                    usesQuickReminders: usesQuickReminders
                 )
                 modelContext.insert(event)
                 await ReminderScheduler.schedule(for: event)
@@ -212,7 +253,7 @@ struct EventFormView: View {
         }
     }
 
-    private static func defaultEventDate() -> Date {
+    private static func defaultCustomEventDate() -> Date {
         let calendar = Calendar.current
         let tomorrow = calendar.date(byAdding: .day, value: 1, to: Date()) ?? Date()
         return calendar.date(bySettingHour: 10, minute: 0, second: 0, of: tomorrow) ?? tomorrow

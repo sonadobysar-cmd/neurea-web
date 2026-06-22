@@ -49,9 +49,17 @@ enum UpominkySchemaV4: VersionedSchema {
     }
 }
 
+enum UpominkySchemaV5: VersionedSchema {
+    static var versionIdentifier = Schema.Version(5, 0, 0)
+
+    static var models: [any PersistentModel.Type] {
+        [EventItem.self, CategoryTag.self]
+    }
+}
+
 enum UpominkyMigrationPlan: SchemaMigrationPlan {
     static var schemas: [any VersionedSchema.Type] {
-        [UpominkySchemaV1.self, UpominkySchemaV2.self, UpominkySchemaV3.self, UpominkySchemaV4.self]
+        [UpominkySchemaV1.self, UpominkySchemaV2.self, UpominkySchemaV3.self, UpominkySchemaV4.self, UpominkySchemaV5.self]
     }
 
     static var stages: [MigrationStage] {
@@ -59,6 +67,7 @@ enum UpominkyMigrationPlan: SchemaMigrationPlan {
             MigrationStage.lightweight(fromVersion: UpominkySchemaV1.self, toVersion: UpominkySchemaV2.self),
             MigrationStage.lightweight(fromVersion: UpominkySchemaV2.self, toVersion: UpominkySchemaV3.self),
             MigrationStage.lightweight(fromVersion: UpominkySchemaV3.self, toVersion: UpominkySchemaV4.self),
+            MigrationStage.lightweight(fromVersion: UpominkySchemaV4.self, toVersion: UpominkySchemaV5.self),
         ]
     }
 }
@@ -73,7 +82,7 @@ enum UpominkyStore {
 
         try? FileManager.default.createDirectory(at: appDir, withIntermediateDirectories: true)
 
-        let schema = Schema(versionedSchema: UpominkySchemaV4.self)
+        let schema = Schema(versionedSchema: UpominkySchemaV5.self)
         let configuration = ModelConfiguration(
             schema: schema,
             url: storeURL,

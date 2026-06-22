@@ -6,6 +6,8 @@ enum ReminderKind: String, CaseIterable {
     case eveningBefore21 = "evening21"
     case morningOf = "morning"
     case oneHourBefore = "hour"
+    case thirtyMinBefore = "min30"
+    case tenMinBefore = "min10"
 
     var label: String {
         switch self {
@@ -13,7 +15,17 @@ enum ReminderKind: String, CaseIterable {
         case .eveningBefore21: return "večer předem v 21:00"
         case .morningOf: return "ráno v den D v 8:00"
         case .oneHourBefore: return "1 hodinu předem"
+        case .thirtyMinBefore: return "30 minut předem"
+        case .tenMinBefore: return "10 minut předem"
         }
+    }
+
+    static var standardCases: [ReminderKind] {
+        [.eveningBefore18, .eveningBefore21, .morningOf, .oneHourBefore]
+    }
+
+    static var quickCases: [ReminderKind] {
+        [.thirtyMinBefore, .tenMinBefore]
     }
 }
 
@@ -66,21 +78,44 @@ enum ReminderScheduler {
     }
 
     static func reminderDates(for event: EventItem) -> [(ReminderKind, Date)] {
+        if event.usesQuickReminders {
+            return quickReminderDates(for: event.date)
+        }
+        return standardReminderDates(for: event.date)
+    }
+
+    private static func standardReminderDates(for eventDate: Date) -> [(ReminderKind, Date)] {
         let now = Date()
         var result: [(ReminderKind, Date)] = []
 
-        if let evening18 = dayBeforeDate(for: event.date, hour: 18), evening18 > now {
+        if let evening18 = dayBeforeDate(for: eventDate, hour: 18), evening18 > now {
             result.append((.eveningBefore18, evening18))
         }
-        if let evening21 = dayBeforeDate(for: event.date, hour: 21), evening21 > now {
+        if let evening21 = dayBeforeDate(for: eventDate, hour: 21), evening21 > now {
             result.append((.eveningBefore21, evening21))
         }
-        if let morning = morningOfDate(for: event.date), morning > now, morning < event.date {
+        if let morning = morningOfDate(for: eventDate), morning > now, morning < eventDate {
             result.append((.morningOf, morning))
         }
-        if let hourBefore = calendar.date(byAdding: .hour, value: -1, to: event.date),
+        if let hourBefore = calendar.date(byAdding: .hour, value: -1, to: eventDate),
            hourBefore > now {
             result.append((.oneHourBefore, hourBefore))
+        }
+
+        return result.sorted { $0.1 < $1.1 }
+    }
+
+    private static func quickReminderDates(for eventDate: Date) -> [(ReminderKind, Date)] {
+        let now = Date()
+        var result: [(ReminderKind, Date)] = []
+
+        if let thirtyBefore = calendar.date(byAdding: .minute, value: -30, to: eventDate),
+           thirtyBefore > now {
+            result.append((.thirtyMinBefore, thirtyBefore))
+        }
+        if let tenBefore = calendar.date(byAdding: .minute, value: -10, to: eventDate),
+           tenBefore > now {
+            result.append((.tenMinBefore, tenBefore))
         }
 
         return result.sorted { $0.1 < $1.1 }
@@ -122,6 +157,10 @@ enum ReminderScheduler {
             return "Dnes \(when) · \(event.title)"
         case .oneHourBefore:
             return "Za hodinu · \(event.title)"
+        case .thirtyMinBefore:
+            return "Za 30 minut · \(event.title)"
+        case .tenMinBefore:
+            return "Za 10 minut · \(event.title)"
         }
     }
 

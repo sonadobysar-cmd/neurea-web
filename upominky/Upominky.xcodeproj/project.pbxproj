@@ -18,6 +18,7 @@
 		B10000000000000000000009 /* CategoryTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000009 /* CategoryTag.swift */; };
 		B10000000000000000000010 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000010 /* AppTheme.swift */; };
 		B10000000000000000000011 /* CategorySeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000011 /* CategorySeed.swift */; };
+		B10000000000000000000014 /* UpominkyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000014 /* UpominkyStore.swift */; };
 		B10000000000000000000012 /* CategoryRibbonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000012 /* CategoryRibbonView.swift */; };
 		B10000000000000000000013 /* ManageCategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000013 /* ManageCategoriesView.swift */; };
 /* End PBXBuildFile section */
@@ -34,6 +35,7 @@
 		B20000000000000000000009 /* CategoryTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTag.swift; sourceTree = "<group>"; };
 		B20000000000000000000010 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
 		B20000000000000000000011 /* CategorySeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySeed.swift; sourceTree = "<group>"; };
+		B20000000000000000000014 /* UpominkyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpominkyStore.swift; sourceTree = "<group>"; };
 		B20000000000000000000012 /* CategoryRibbonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRibbonView.swift; sourceTree = "<group>"; };
 		B20000000000000000000013 /* ManageCategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageCategoriesView.swift; sourceTree = "<group>"; };
 		B30000000000000000000001 /* Upominky.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Upominky.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,6 +104,7 @@
 			children = (
 				B20000000000000000000004 /* ReminderScheduler.swift */,
 				B20000000000000000000011 /* CategorySeed.swift */,
+				B20000000000000000000014 /* UpominkyStore.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -205,6 +208,7 @@
 				B10000000000000000000009 /* CategoryTag.swift in Sources */,
 				B10000000000000000000010 /* AppTheme.swift in Sources */,
 				B10000000000000000000011 /* CategorySeed.swift in Sources */,
+				B10000000000000000000014 /* UpominkyStore.swift in Sources */,
 				B10000000000000000000012 /* CategoryRibbonView.swift in Sources */,
 				B10000000000000000000013 /* ManageCategoriesView.swift in Sources */,
 			);

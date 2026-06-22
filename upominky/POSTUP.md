@@ -69,6 +69,12 @@ Ve Finderu: **Neurea → upominky** → dvakrát klikni **`OTEVRI-APKU.command`*
 - Po **~7 dnech** appka může přestat otevírat → připoj k Macu, znovu **▶ Play**
 - Plány jsou **jen v telefonu** (bez syncu mezi zařízeními)
 
+### ⚠️ Nikdy nemazej appku při updatu!
+
+- Novou verzi nainstaluješ jen **▶ Play** v Xcode — **data zůstanou**
+- Když appku z plochy **smažeš** (Odstranit appku), **zmizí všechny plány**
+- Ikona se neaktualizuje? Pořád jen **▶ Play**, **nemazat**
+
 ---
 
 ## Když něco nejde

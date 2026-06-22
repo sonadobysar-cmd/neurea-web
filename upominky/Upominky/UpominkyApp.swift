@@ -7,6 +7,6 @@ struct UpominkyApp: App {
         WindowGroup {
             ContentView()
         }
-        .modelContainer(for: [EventItem.self, CategoryTag.self])
+        .modelContainer(UpominkyStore.container)
     }
 }

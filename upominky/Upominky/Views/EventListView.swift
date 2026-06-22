@@ -20,12 +20,14 @@ struct EventListView: View {
         filtered(events.filter { EventScheduleConflict.endDate(for: $0) >= Date() })
     }
 
-    private var tomorrowEvents: [EventItem] {
-        upcoming.filter { calendar.isDateInTomorrow($0.date) }
+    /// Nejbližší budoucí plán — vždy s duhovým rámečkem
+    private var nearestUpcoming: EventItem? {
+        upcoming.first
     }
 
-    private var laterUpcoming: [EventItem] {
-        upcoming.filter { !calendar.isDateInTomorrow($0.date) }
+    private var otherUpcoming: [EventItem] {
+        guard let nearestUpcoming else { return upcoming }
+        return Array(upcoming.dropFirst())
     }
 
     private var past: [EventItem] {
@@ -47,16 +49,14 @@ struct EventListView: View {
                             filterBar
 
                             if !upcoming.isEmpty {
-                                if !tomorrowEvents.isEmpty {
-                                    RainbowSectionHeader(title: "Zítra — \(formattedDayLabel(for: tomorrowDate))")
-                                    ForEach(tomorrowEvents) { event in
-                                        eventCard(event, isTomorrow: true)
-                                    }
+                                if let nearest = nearestUpcoming {
+                                    RainbowSectionHeader(title: nearestSectionTitle(for: nearest))
+                                    eventCard(nearest, isHighlighted: true)
                                 }
 
-                                if !laterUpcoming.isEmpty {
-                                    sectionHeader(tomorrowEvents.isEmpty ? "Nadcházející" : "Později")
-                                    ForEach(laterUpcoming) { event in
+                                if !otherUpcoming.isEmpty {
+                                    sectionHeader("Nadcházející")
+                                    ForEach(otherUpcoming) { event in
                                         eventCard(event)
                                     }
                                 }
@@ -126,8 +126,14 @@ struct EventListView: View {
         }
     }
 
-    private var tomorrowDate: Date {
-        calendar.date(byAdding: .day, value: 1, to: calendar.startOfDay(for: Date())) ?? Date()
+    private func nearestSectionTitle(for event: EventItem) -> String {
+        if calendar.isDateInToday(event.date) {
+            return "Nejbližší — dnes"
+        }
+        if calendar.isDateInTomorrow(event.date) {
+            return "Nejbližší — zítra, \(formattedDayLabel(for: event.date))"
+        }
+        return "Nejbližší — \(formattedDayLabel(for: event.date))"
     }
 
     private var tagToolbarButton: some View {
@@ -204,7 +210,7 @@ struct EventListView: View {
             .padding(.top, 4)
     }
 
-    private func eventCard(_ event: EventItem, isPast: Bool = false, isTomorrow: Bool = false) -> some View {
+    private func eventCard(_ event: EventItem, isPast: Bool = false, isHighlighted: Bool = false) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack {
                 if let category = category(for: event) {
@@ -266,7 +272,7 @@ struct EventListView: View {
         .padding(14)
         .background(AppTheme.card, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
         .shadow(color: .black.opacity(0.04), radius: 4, y: 2)
-        .modifier(TomorrowRainbowBorder(isActive: isTomorrow))
+        .modifier(TomorrowRainbowBorder(isActive: isHighlighted))
         .contentShape(RoundedRectangle(cornerRadius: 14))
         .onTapGesture {
             if !isPast {

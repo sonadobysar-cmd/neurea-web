@@ -10,6 +10,7 @@ struct EventListView: View {
     @State private var showAddSheet = false
     @State private var showManageCategories = false
     @State private var eventToEdit: EventItem?
+    @State private var eventPendingDeletion: EventItem?
     @State private var filterCategoryId: UUID?
 
     private var calendar: Calendar { Calendar.current }
@@ -99,6 +100,29 @@ struct EventListView: View {
             }
             .task {
                 await NiaKonzultaceSync.syncIfConfigured(context: modelContext)
+            }
+            .confirmationDialog(
+                "Opravdu smazat tento plán?",
+                isPresented: Binding(
+                    get: { eventPendingDeletion != nil },
+                    set: { if !$0 { eventPendingDeletion = nil } }
+                ),
+                titleVisibility: .visible
+            ) {
+                Button("Smazat", role: .destructive) {
+                    if let event = eventPendingDeletion {
+                        deleteEvent(event)
+                        try? modelContext.save()
+                    }
+                    eventPendingDeletion = nil
+                }
+                Button("Zrušit", role: .cancel) {
+                    eventPendingDeletion = nil
+                }
+            } message: {
+                if let event = eventPendingDeletion {
+                    Text("\(event.title)\n\(formattedDateRange(event))")
+                }
             }
         }
     }
@@ -205,13 +229,14 @@ struct EventListView: View {
                         .accessibilityLabel("Upravit plán")
 
                         Button(role: .destructive) {
-                            deleteEvent(event)
+                            eventPendingDeletion = event
                         } label: {
                             Image(systemName: "trash")
                                 .font(.caption)
                                 .foregroundStyle(AppTheme.textMuted)
                         }
                         .buttonStyle(.plain)
+                        .accessibilityLabel("Smazat plán")
                     }
                 }
             }

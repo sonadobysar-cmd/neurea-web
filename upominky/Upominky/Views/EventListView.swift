@@ -50,15 +50,9 @@ struct EventListView: View {
             .pinkScreen()
             .navigationTitle("Upomínky")
             .toolbar {
-                #if os(iOS)
                 ToolbarItem(placement: .topBarLeading) {
                     tagToolbarButton
                 }
-                #else
-                ToolbarItem(placement: .navigation) {
-                    tagToolbarButton
-                }
-                #endif
                 ToolbarItem(placement: .primaryAction) {
                     Button {
                         showAddSheet = true

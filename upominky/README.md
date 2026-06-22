@@ -1,15 +1,12 @@
 # Upomínky
 
-Osobní appka — zadáš plán, připomínky přijdou samy (večer 18:00, ráno 8:00, 1 h předem).
+Osobní **iPhone** appka — zadáš plán, připomínky přijdou samy (večer 18:00, ráno 8:00, 1 h předem).
 
-## Pro tebe (bez zkušeností s vývojem)
-
-**Otevři soubor [`POSTUP.md`](POSTUP.md)** — je tam vše krok za krokem.
-
-Rychlý start po instalaci Xcode:
+## Rychlý start
 
 1. Dvakrát klikni **`OTEVRI-APKU.command`**
-2. V Xcode nahoře zvol **My Mac** → stiskni **▶ Play**
-3. V appce povol notifikace a přidej první plán
+2. Připoj **iPhone** kabelem
+3. V Xcode nahoře vyber **svůj iPhone** → **▶ Play**
+4. Povol notifikace a přidej první plán
 
-Vše ostatní (kód, připomínky, vzhled) je už hotové.
+Podrobný návod: [`POSTUP.md`](POSTUP.md)

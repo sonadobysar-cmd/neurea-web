@@ -15,8 +15,10 @@ enum AppTheme {
 
     static func color(from hex: String) -> Color {
         var hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
-        if hex.count == 6 { hex = "FF" + hex }
-        guard let value = UInt64(hex, radix: 16) else { return accentSoft }
+        if hex.count == 8 {
+            hex = String(hex.suffix(6))
+        }
+        guard hex.count == 6, let value = UInt64(hex, radix: 16) else { return accentSoft }
         return Color(
             red: Double((value >> 16) & 0xFF) / 255,
             green: Double((value >> 8) & 0xFF) / 255,

@@ -50,15 +50,15 @@ struct EventListView: View {
             .pinkScreen()
             .navigationTitle("Upomínky")
             .toolbar {
+                #if os(iOS)
                 ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        showManageCategories = true
-                    } label: {
-                        Image(systemName: "tag")
-                    }
-                    .foregroundStyle(AppTheme.text)
-                    .accessibilityLabel("Spravovat štítky")
+                    tagToolbarButton
                 }
+                #else
+                ToolbarItem(placement: .navigation) {
+                    tagToolbarButton
+                }
+                #endif
                 ToolbarItem(placement: .primaryAction) {
                     Button {
                         showAddSheet = true
@@ -77,6 +77,16 @@ struct EventListView: View {
                 ManageCategoriesView()
             }
         }
+    }
+
+    private var tagToolbarButton: some View {
+        Button {
+            showManageCategories = true
+        } label: {
+            Image(systemName: "tag")
+        }
+        .foregroundStyle(AppTheme.text)
+        .accessibilityLabel("Spravovat štítky")
     }
 
     private var emptyState: some View {

@@ -13,9 +13,10 @@ enum CategorySeed {
     @MainActor
     static func seedIfNeeded(context: ModelContext) {
         let descriptor = FetchDescriptor<CategoryTag>()
-        guard let existing = try? context.fetch(descriptor), existing.isEmpty else { return }
+        let existing = (try? context.fetch(descriptor)) ?? []
+        let existingNames = Set(existing.map(\.name))
 
-        for (index, item) in defaults.enumerated() {
+        for (index, item) in defaults.enumerated() where !existingNames.contains(item.0) {
             let tag = CategoryTag(
                 name: item.0,
                 colorHex: item.1,

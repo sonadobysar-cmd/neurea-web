@@ -70,6 +70,8 @@ Když někdo rezervuje konzultaci na webu, **sama se objeví v appce** s připom
 
 Rezervace se ukládají do kategorie **Práce**. Obsazené časy na webu se automaticky skrývají.
 
+**Stáhni rezervace do appky:** otevři Upomínky, nebo **táhni seznam dolů** (obnovení) — konzultace z webu se synchronizují automaticky.
+
 ---
 
 ## Důležité

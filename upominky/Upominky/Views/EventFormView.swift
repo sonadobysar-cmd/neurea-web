@@ -11,8 +11,10 @@ struct EventFormView: View {
 
     @State private var title = ""
     @State private var date = defaultEventDate()
+    @State private var durationMinutes = EventScheduleConflict.defaultDurationMinutes
     @State private var selectedCategoryId: UUID?
     @State private var notificationsDenied = false
+    @State private var scheduleConflictMessage: String?
     @State private var isSaving = false
     @State private var didLoadExisting = false
 
@@ -48,6 +50,20 @@ struct EventFormView: View {
                         .padding(12)
                         .background(AppTheme.card, in: RoundedRectangle(cornerRadius: 12))
                         .colorScheme(.light)
+                    }
+
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Délka")
+                            .font(.subheadline.weight(.semibold))
+                            .foregroundStyle(AppTheme.text)
+                        Picker("Délka", selection: $durationMinutes) {
+                            ForEach(durationOptions, id: \.minutes) { option in
+                                Text(option.label).tag(option.minutes)
+                            }
+                        }
+                        .pickerStyle(.menu)
+                        .padding(12)
+                        .background(AppTheme.card, in: RoundedRectangle(cornerRadius: 12))
                     }
 
                     VStack(alignment: .leading, spacing: 10) {
@@ -87,6 +103,12 @@ struct EventFormView: View {
                             .font(.caption)
                             .foregroundStyle(.orange)
                     }
+
+                    if let scheduleConflictMessage {
+                        Text(scheduleConflictMessage)
+                            .font(.caption)
+                            .foregroundStyle(.orange)
+                    }
                 }
                 .padding()
             }
@@ -114,6 +136,16 @@ struct EventFormView: View {
         }
     }
 
+    private var durationOptions: [(label: String, minutes: Int)] {
+        [
+            ("30 min", 30),
+            ("45 min", 45),
+            ("1 h", 60),
+            ("1,5 h", 90),
+            ("2 h", 120),
+        ]
+    }
+
     private func loadExistingIfNeeded() {
         guard !didLoadExisting else { return }
         didLoadExisting = true
@@ -121,6 +153,7 @@ struct EventFormView: View {
         if let event = eventToEdit {
             title = event.title
             date = event.date
+            durationMinutes = event.durationMinutes > 0 ? event.durationMinutes : EventScheduleConflict.defaultDurationMinutes
             selectedCategoryId = event.categoryId ?? categories.first?.id
         } else if selectedCategoryId == nil {
             selectedCategoryId = categories.first?.id
@@ -135,9 +168,21 @@ struct EventFormView: View {
 
     private func save() {
         isSaving = true
+        scheduleConflictMessage = nil
         let trimmed = title.trimmingCharacters(in: .whitespacesAndNewlines)
 
-        Task {
+        Task { @MainActor in
+            if let conflict = EventScheduleConflict.conflictingEvent(
+                start: date,
+                durationMinutes: durationMinutes,
+                excluding: eventToEdit?.id,
+                context: modelContext
+            ) {
+                scheduleConflictMessage = "V tomto čase už máš: \(EventScheduleConflict.formattedConflict(conflict)). Zvol jiný termín nebo kratší délku."
+                isSaving = false
+                return
+            }
+
             let allowed = await ReminderScheduler.requestPermission()
             guard allowed else {
                 notificationsDenied = true
@@ -148,16 +193,22 @@ struct EventFormView: View {
             if let event = eventToEdit {
                 event.title = trimmed
                 event.date = date
+                event.durationMinutes = durationMinutes
                 event.categoryId = selectedCategoryId
                 await ReminderScheduler.reschedule(for: event)
             } else {
-                let event = EventItem(title: trimmed, date: date, categoryId: selectedCategoryId)
+                let event = EventItem(
+                    title: trimmed,
+                    date: date,
+                    categoryId: selectedCategoryId,
+                    durationMinutes: durationMinutes
+                )
                 modelContext.insert(event)
                 await ReminderScheduler.schedule(for: event)
             }
 
             try? modelContext.save()
-            await MainActor.run { dismiss() }
+            dismiss()
         }
     }
 

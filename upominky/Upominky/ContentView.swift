@@ -4,6 +4,7 @@ import SwiftData
 struct ContentView: View {
     @AppStorage("hasCompletedWelcome") private var hasCompletedWelcome = false
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
         Group {
@@ -18,6 +19,12 @@ struct ContentView: View {
             CategorySeed.seedIfNeeded(context: modelContext)
             if hasCompletedWelcome {
                 _ = await ReminderScheduler.requestPermission()
+                await NiaKonzultaceSync.syncIfConfigured(context: modelContext)
+            }
+        }
+        .onChange(of: scenePhase) { _, phase in
+            guard phase == .active, hasCompletedWelcome else { return }
+            Task {
                 await NiaKonzultaceSync.syncIfConfigured(context: modelContext)
             }
         }

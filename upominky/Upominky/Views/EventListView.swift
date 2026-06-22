@@ -15,7 +15,7 @@ struct EventListView: View {
     private var calendar: Calendar { Calendar.current }
 
     private var upcoming: [EventItem] {
-        filtered(events.filter { $0.date >= Date() })
+        filtered(events.filter { EventScheduleConflict.endDate(for: $0) >= Date() })
     }
 
     private var tomorrowEvents: [EventItem] {
@@ -93,6 +93,12 @@ struct EventListView: View {
             }
             .sheet(isPresented: $showManageCategories) {
                 ManageCategoriesView()
+            }
+            .refreshable {
+                await NiaKonzultaceSync.syncIfConfigured(context: modelContext)
+            }
+            .task {
+                await NiaKonzultaceSync.syncIfConfigured(context: modelContext)
             }
         }
     }
@@ -214,7 +220,7 @@ struct EventListView: View {
                 .font(.headline)
                 .foregroundStyle(isPast ? AppTheme.textMuted : AppTheme.text)
 
-            Text(formattedDate(event.date))
+            Text(formattedDateRange(event))
                 .font(.body.weight(.bold))
                 .foregroundStyle(isPast ? AppTheme.textMuted : AppTheme.text)
 
@@ -264,6 +270,23 @@ struct EventListView: View {
         formatter.locale = Locale(identifier: "cs_CZ")
         formatter.dateFormat = "EEEE d. MMMM"
         return formatter.string(from: date)
+    }
+
+    private func formattedDateRange(_ event: EventItem) -> String {
+        let start = event.date
+        let end = EventScheduleConflict.endDate(for: event)
+        let dayFormatter = DateFormatter()
+        dayFormatter.locale = Locale(identifier: "cs_CZ")
+        dayFormatter.dateStyle = .full
+        dayFormatter.timeStyle = .none
+        let timeFormatter = DateFormatter()
+        timeFormatter.locale = Locale(identifier: "cs_CZ")
+        timeFormatter.dateStyle = .none
+        timeFormatter.timeStyle = .short
+        let day = dayFormatter.string(from: start)
+        let from = timeFormatter.string(from: start)
+        let to = timeFormatter.string(from: end)
+        return "\(day) · \(from)–\(to)"
     }
 
     private func formattedDate(_ date: Date) -> String {

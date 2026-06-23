@@ -15,7 +15,8 @@ struct EventFormView: View {
     @State private var selectedCategoryId: UUID?
     @State private var showCustomTime = false
     @State private var notificationsDenied = false
-    @State private var scheduleConflictMessage: String?
+    @State private var showOverlapAlert = false
+    @State private var overlapConflictText = ""
     @State private var isSaving = false
     @State private var didLoadExisting = false
 
@@ -136,18 +137,22 @@ struct EventFormView: View {
                             .font(.caption)
                             .foregroundStyle(.orange)
                     }
-
-                    if let scheduleConflictMessage {
-                        Text(scheduleConflictMessage)
-                            .font(.caption)
-                            .foregroundStyle(.orange)
-                    }
                 }
                 .padding()
             }
             .pinkScreen()
             .navigationTitle(isEditing ? "Upravit plán" : "Nový plán")
             .navigationBarTitleDisplayMode(.inline)
+            .alert("Překrývá se s jiným plánem", isPresented: $showOverlapAlert) {
+                Button("Přesto uložit") {
+                    Task { await performSave(ignoreOverlap: true) }
+                }
+                Button("Neukládat", role: .cancel) {
+                    isSaving = false
+                }
+            } message: {
+                Text("Překrývá se s:\n\(overlapConflictText)")
+            }
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Zrušit") { dismiss() }
@@ -202,55 +207,60 @@ struct EventFormView: View {
 
     private func save() {
         isSaving = true
-        scheduleConflictMessage = nil
+        Task { await performSave(ignoreOverlap: false) }
+    }
+
+    @MainActor
+    private func performSave(ignoreOverlap: Bool) async {
         let trimmed = title.trimmingCharacters(in: .whitespacesAndNewlines)
+        let usesQuickReminders = !showCustomTime
+        let eventDate = usesQuickReminders
+            ? (Calendar.current.date(byAdding: .hour, value: 1, to: Date()) ?? Date())
+            : date
 
-        Task { @MainActor in
-            let usesQuickReminders = !showCustomTime
-            let eventDate = usesQuickReminders
-                ? (Calendar.current.date(byAdding: .hour, value: 1, to: Date()) ?? Date())
-                : date
-
-            if let conflict = EventScheduleConflict.conflictingEvent(
+        if !ignoreOverlap {
+            let conflicts = EventScheduleConflict.conflictingEvents(
                 start: eventDate,
                 durationMinutes: durationMinutes,
                 excluding: eventToEdit?.id,
                 context: modelContext
-            ) {
-                scheduleConflictMessage = "V tomto čase už máš: \(EventScheduleConflict.formattedConflict(conflict)). Zvol jiný termín nebo kratší délku."
+            )
+            if !conflicts.isEmpty {
+                overlapConflictText = EventScheduleConflict.formattedConflictsList(conflicts)
+                showOverlapAlert = true
                 isSaving = false
                 return
             }
-
-            let allowed = await ReminderScheduler.requestPermission()
-            guard allowed else {
-                notificationsDenied = true
-                isSaving = false
-                return
-            }
-
-            if let event = eventToEdit {
-                event.title = trimmed
-                event.date = eventDate
-                event.durationMinutes = durationMinutes
-                event.categoryId = selectedCategoryId
-                QuickReminderStore.setQuick(event, enabled: usesQuickReminders)
-                await ReminderScheduler.reschedule(for: event)
-            } else {
-                let event = EventItem(
-                    title: trimmed,
-                    date: eventDate,
-                    categoryId: selectedCategoryId,
-                    durationMinutes: durationMinutes
-                )
-                modelContext.insert(event)
-                QuickReminderStore.setQuick(event, enabled: usesQuickReminders)
-                await ReminderScheduler.schedule(for: event)
-            }
-
-            try? modelContext.save()
-            dismiss()
         }
+
+        let allowed = await ReminderScheduler.requestPermission()
+        guard allowed else {
+            notificationsDenied = true
+            isSaving = false
+            return
+        }
+
+        if let event = eventToEdit {
+            event.title = trimmed
+            event.date = eventDate
+            event.durationMinutes = durationMinutes
+            event.categoryId = selectedCategoryId
+            QuickReminderStore.setQuick(event, enabled: usesQuickReminders)
+            await ReminderScheduler.reschedule(for: event)
+        } else {
+            let event = EventItem(
+                title: trimmed,
+                date: eventDate,
+                categoryId: selectedCategoryId,
+                durationMinutes: durationMinutes
+            )
+            modelContext.insert(event)
+            QuickReminderStore.setQuick(event, enabled: usesQuickReminders)
+            await ReminderScheduler.schedule(for: event)
+        }
+
+        try? modelContext.save()
+        dismiss()
     }
 
     private static func defaultCustomEventDate() -> Date {

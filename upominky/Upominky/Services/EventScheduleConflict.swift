@@ -23,16 +23,16 @@ enum EventScheduleConflict {
     }
 
     @MainActor
-    static func conflictingEvent(
+    static func conflictingEvents(
         start: Date,
         durationMinutes: Int,
         excluding eventID: UUID? = nil,
         context: ModelContext
-    ) -> EventItem? {
+    ) -> [EventItem] {
         let descriptor = FetchDescriptor<EventItem>()
-        guard let all = try? context.fetch(descriptor) else { return nil }
+        guard let all = try? context.fetch(descriptor) else { return [] }
 
-        return all.first { event in
+        return all.filter { event in
             if let eventID, event.id == eventID { return false }
             return overlaps(
                 startA: start,
@@ -41,6 +41,26 @@ enum EventScheduleConflict {
                 durationB: effectiveDuration(for: event)
             )
         }
+        .sorted { $0.date < $1.date }
+    }
+
+    @MainActor
+    static func conflictingEvent(
+        start: Date,
+        durationMinutes: Int,
+        excluding eventID: UUID? = nil,
+        context: ModelContext
+    ) -> EventItem? {
+        conflictingEvents(
+            start: start,
+            durationMinutes: durationMinutes,
+            excluding: eventID,
+            context: context
+        ).first
+    }
+
+    static func formattedConflictsList(_ events: [EventItem]) -> String {
+        events.map { formattedConflict($0) }.joined(separator: "\n")
     }
 
     static func formattedConflict(_ event: EventItem) -> String {

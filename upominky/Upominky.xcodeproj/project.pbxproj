@@ -28,6 +28,7 @@
 		B10000000000000000000020 /* DataRepair.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000020 /* DataRepair.swift */; };
 		B10000000000000000000021 /* QuickReminderStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000021 /* QuickReminderStore.swift */; };
 		B10000000000000000000026 /* NiaSyncDismissedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000026 /* NiaSyncDismissedStore.swift */; };
+		B10000000000000000000027 /* EventCompletionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000027 /* EventCompletionStore.swift */; };
 		B10000000000000000000024 /* WeeklyUpdateReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000024 /* WeeklyUpdateReminder.swift */; };
 		B10000000000000000000025 /* WeeklyUpdateBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000025 /* WeeklyUpdateBannerView.swift */; };
 		B10000000000000000000023 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000023 /* RootView.swift */; };
@@ -56,6 +57,7 @@
 		B20000000000000000000020 /* DataRepair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRepair.swift; sourceTree = "<group>"; };
 		B20000000000000000000021 /* QuickReminderStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickReminderStore.swift; sourceTree = "<group>"; };
 		B20000000000000000000026 /* NiaSyncDismissedStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NiaSyncDismissedStore.swift; sourceTree = "<group>"; };
+		B20000000000000000000027 /* EventCompletionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCompletionStore.swift; sourceTree = "<group>"; };
 		B20000000000000000000024 /* WeeklyUpdateReminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyUpdateReminder.swift; sourceTree = "<group>"; };
 		B20000000000000000000025 /* WeeklyUpdateBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyUpdateBannerView.swift; sourceTree = "<group>"; };
 		B20000000000000000000023 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				B20000000000000000000020 /* DataRepair.swift */,
 				B20000000000000000000021 /* QuickReminderStore.swift */,
 				B20000000000000000000026 /* NiaSyncDismissedStore.swift */,
+				B20000000000000000000027 /* EventCompletionStore.swift */,
 				B20000000000000000000024 /* WeeklyUpdateReminder.swift */,
 			);
 			path = Services;
@@ -251,6 +254,7 @@
 				B10000000000000000000020 /* DataRepair.swift in Sources */,
 				B10000000000000000000021 /* QuickReminderStore.swift in Sources */,
 				B10000000000000000000026 /* NiaSyncDismissedStore.swift in Sources */,
+				B10000000000000000000027 /* EventCompletionStore.swift in Sources */,
 				B10000000000000000000024 /* WeeklyUpdateReminder.swift in Sources */,
 				B10000000000000000000025 /* WeeklyUpdateBannerView.swift in Sources */,
 				B10000000000000000000023 /* RootView.swift in Sources */,

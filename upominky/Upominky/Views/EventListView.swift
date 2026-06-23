@@ -13,6 +13,7 @@ struct EventListView: View {
     @State private var eventPendingDeletion: EventItem?
     @State private var showDeleteConfirm = false
     @State private var filterCategoryId: UUID?
+    @State private var completionTick = 0
 
     private var calendar: Calendar { Calendar.current }
 
@@ -71,6 +72,7 @@ struct EventListView: View {
                                 sectionHeader("Proběhlé")
                                 ForEach(past) { event in
                                     eventCard(event, isPast: true)
+                                        .id("\(event.id.uuidString)-\(completionTick)")
                                 }
                             }
                         }
@@ -273,6 +275,8 @@ struct EventListView: View {
                         .foregroundStyle(AppTheme.textMuted)
                         .lineLimit(3)
                 }
+            } else {
+                pastCompletionSection(for: event)
             }
         }
         .padding(14)
@@ -285,6 +289,60 @@ struct EventListView: View {
                 eventToEdit = event
             }
         }
+    }
+
+    @ViewBuilder
+    private func pastCompletionSection(for event: EventItem) -> some View {
+        switch EventCompletionStore.status(for: event) {
+        case .completed:
+            HStack {
+                Label("Absolvováno", systemImage: "checkmark.circle.fill")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(.green)
+                Spacer()
+                completionChangeButton(for: event)
+            }
+        case .missed:
+            HStack {
+                Label("Neabsolvováno", systemImage: "xmark.circle.fill")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(.orange)
+                Spacer()
+                completionChangeButton(for: event)
+            }
+        case nil:
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Absolvovala jsi to?")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(AppTheme.text)
+                HStack(spacing: 10) {
+                    Button("Ano") {
+                        EventCompletionStore.setStatus(.completed, for: event)
+                        completionTick += 1
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(.green)
+                    .controlSize(.small)
+
+                    Button("Ne") {
+                        EventCompletionStore.setStatus(.missed, for: event)
+                        completionTick += 1
+                    }
+                    .buttonStyle(.bordered)
+                    .tint(.orange)
+                    .controlSize(.small)
+                }
+            }
+        }
+    }
+
+    private func completionChangeButton(for event: EventItem) -> some View {
+        Button("Změnit") {
+            EventCompletionStore.remove(event)
+            completionTick += 1
+        }
+        .font(.caption)
+        .foregroundStyle(AppTheme.accent)
     }
 
     private func filtered(_ list: [EventItem]) -> [EventItem] {
@@ -301,6 +359,7 @@ struct EventListView: View {
         ReminderScheduler.cancel(for: event)
         QuickReminderStore.remove(event)
         NiaSyncDismissedStore.dismiss(event)
+        EventCompletionStore.remove(event)
         modelContext.delete(event)
     }
 

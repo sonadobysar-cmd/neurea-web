@@ -300,6 +300,7 @@ struct EventListView: View {
     private func deleteEvent(_ event: EventItem) {
         ReminderScheduler.cancel(for: event)
         QuickReminderStore.remove(event)
+        NiaSyncDismissedStore.dismiss(event)
         modelContext.delete(event)
     }
 

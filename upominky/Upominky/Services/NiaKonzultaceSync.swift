@@ -100,6 +100,7 @@ enum NiaKonzultaceSync {
         for booking in bookings {
             guard let eventDate = combineDate(dateIso: booking.dateIso, time: booking.time) else { continue }
             let ref = externalRef(for: booking.ref)
+            if NiaSyncDismissedStore.isDismissed(ref: ref) { continue }
             let title = booking.title.trimmingCharacters(in: .whitespacesAndNewlines)
             let duration = booking.durationMin ?? konzultaceDurationMin
 

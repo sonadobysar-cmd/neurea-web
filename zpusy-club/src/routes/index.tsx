@@ -132,6 +132,9 @@ function Index() {
                 background: "radial-gradient(closest-side, rgba(255,45,135,0.4), transparent 70%)",
                 filter: "blur(50px)",
               }} />
+              <div className="absolute top-0 left-2 md:left-0 z-30 rotate-[-6deg] bg-[var(--pink)] text-white font-display font-black uppercase text-[8px] sm:text-[9px] tracking-wide px-2.5 py-1 rounded-md shadow-[0_6px_20px_rgba(255,45,135,0.35)]">
+                Mámy · Kamarádky · Holky
+              </div>
               <div
                 className="hero-illus-wrap relative mx-auto w-full max-w-[min(100%,32rem)] sm:max-w-[36rem] md:max-w-[40rem] lg:max-w-[44rem] mb-[-2.5rem] sm:mb-[-3.5rem] md:mb-[-5.5rem] lg:mb-[-7rem]"
                 style={{ transform: `translateY(${12 + heroParallax * 0.05}px)` }}
@@ -148,9 +151,6 @@ function Index() {
 
             {/* Obsah — posunutý víc doprava */}
             <div className="md:col-span-8 lg:col-span-8 md:col-start-5 order-1 md:order-2 text-center md:text-left pb-6 md:pb-16 md:pl-4 lg:pl-10 xl:pl-16">
-              <div className="inline-block rotate-[-4deg] bg-[var(--pink)] text-white font-display font-black uppercase text-[8px] sm:text-[9px] tracking-wide px-2.5 py-1 rounded-md shadow-[0_6px_20px_rgba(255,45,135,0.35)] mb-4 md:mb-5">
-                Mámy · Kamarádky · Holky
-              </div>
               <div className="inline-flex items-center gap-2 sm:gap-3 bg-white/[0.07] backdrop-blur-xl border border-white/15 rounded-xl pl-2 pr-4 sm:pr-5 py-1.5 text-[10px] sm:text-[11px] font-semibold mb-6 md:mb-8">
                 <span className="bg-[var(--pink)] text-white px-2 py-0.5 rounded-xl font-black tracking-wider">LIVE</span>
                 <span className="opacity-85">{HERO.pill}</span>
@@ -185,11 +185,11 @@ function Index() {
                 </Link>
               </div>
 
-              <div className="mt-8 md:mt-10 grid grid-cols-3 gap-3 sm:gap-4 max-w-md mx-auto md:mx-0 border-t border-white/10 pt-5 md:pt-6">
-                {[["každý", "TÝDEN"], ["opravdové", "PŘÍBĚHY"], ["nejsi", "SAMA"]].map(([n, l]) => (
-                  <div key={l}>
-                    <div className="font-display font-black text-lg sm:text-2xl md:text-3xl leading-tight">{n}</div>
-                    <div className="text-[8px] sm:text-[9px] tracking-[0.18em] text-white/50 mt-1">{l}</div>
+              <div className="mt-8 md:mt-10 grid grid-cols-3 gap-2 sm:gap-3 max-w-xl mx-auto md:mx-0 border-t border-white/10 pt-5 md:pt-6">
+                {HERO.stats.map(([n, l]) => (
+                  <div key={l} className="bg-white/[0.05] backdrop-blur border border-white/10 rounded-xl px-2 sm:px-3 py-3 sm:py-4 text-center min-w-0">
+                    <div className="font-display font-black text-sm sm:text-base md:text-lg leading-tight">{n}</div>
+                    <div className="text-[7px] sm:text-[8px] tracking-[0.15em] text-white/50 mt-1">{l}</div>
                   </div>
                 ))}
               </div>

@@ -14,12 +14,17 @@ export const HERO = {
     "ZpusyClub — mámy, kamarádky, holky. Bez servítek, bez pózy: smích, bolístky, občas průšvih — a péče, která drží.",
   ctaPlay: "Pustit nejnovější",
   ctaClub: "Vstup do klubu",
+  stats: [
+    ["každý", "TÝDEN"],
+    ["opravdové", "PŘÍBĚHY"],
+    ["nejsi", "SAMA"],
+  ] as const,
 } as const;
 
 export const MARQUEE = [
   "sharing is caring",
   "♥",
-  "v tom nejste samy",
+  "nejste v tom samy",
   "✦",
   "bez filtru",
   "♥",

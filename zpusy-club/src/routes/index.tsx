@@ -372,10 +372,10 @@ function Index() {
       <section id="guest-tip" className="relative py-16 md:py-32 bg-[var(--ink)] text-white overflow-hidden">
         <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-[var(--pink)]/25 blur-[120px] rounded-full pointer-events-none" />
         <div className="relative max-w-[1400px] mx-auto px-4 md:px-8">
-          <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-            <div className="lg:col-span-5">
+          <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 xl:gap-16 items-start">
+            <div className="lg:col-span-6 xl:col-span-5 min-w-0">
               <div className="text-[10px] uppercase tracking-[0.3em] font-bold text-[var(--teal)] mb-4 md:mb-5">{CONTACT.label}</div>
-              <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[0.92] md:leading-[0.88] tracking-tighter">
+              <h2 className="font-display font-black text-4xl sm:text-5xl md:text-5xl lg:text-[2.75rem] xl:text-6xl 2xl:text-7xl leading-[0.95] md:leading-[0.92] tracking-tighter break-words">
                 {CONTACT.title.map((line, i) => (
                   <span key={line} className="block">
                     {i === 0 || i === 2 ? (
@@ -392,7 +392,7 @@ function Index() {
               </a>
             </div>
 
-            <div className="lg:col-span-7">
+            <div className="lg:col-span-6 xl:col-span-7 min-w-0">
               {submitted ? (
                 <div className="bg-white text-[var(--ink)] rounded-[1.5rem] md:rounded-[2rem] p-8 md:p-12 text-center shadow-[0_30px_80px_-20px_rgba(255,45,135,0.5)]">
                   <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-[var(--pink)] text-white mx-auto grid place-items-center text-2xl md:text-3xl mb-5 md:mb-6">♥</div>

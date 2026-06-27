@@ -125,16 +125,17 @@ function Index() {
         </div>
 
         <div className="relative z-10 max-w-[1400px] mx-auto px-4 md:px-8 w-full pt-24 pb-0 md:pt-28">
-          <div className="grid md:grid-cols-12 gap-6 md:gap-8 lg:gap-6 items-start md:items-center">
+          <div className="grid md:grid-cols-12 gap-6 md:gap-8 lg:gap-6 items-start md:items-center relative">
+            {/* Růžové heslo — mezi ilustrací a textem, výška obličeje */}
+            <div className="absolute z-40 rotate-[-8deg] bg-[var(--pink)] text-white font-display font-black uppercase text-[10px] sm:text-xs md:text-sm lg:text-base tracking-wide px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 md:py-2.5 rounded-md shadow-[0_10px_30px_rgba(255,45,135,0.45)] whitespace-nowrap pointer-events-none top-4 left-3 sm:top-5 sm:left-4 md:top-10 md:left-[40%] lg:top-11 lg:left-[42%]">
+              {HERO.badge}
+            </div>
             {/* Ilustrace — větší, stažená dolů na marquee */}
             <div className="md:col-span-4 lg:col-span-4 relative order-2 md:order-1 -mx-6 sm:-mx-4 md:mx-0 md:self-end z-20">
               <div aria-hidden className="absolute inset-0 -m-8 md:-m-10 opacity-50 md:opacity-70" style={{
                 background: "radial-gradient(closest-side, rgba(255,45,135,0.4), transparent 70%)",
                 filter: "blur(50px)",
               }} />
-              <div className="absolute top-0 left-2 md:left-0 z-30 rotate-[-6deg] bg-[var(--pink)] text-white font-display font-black uppercase text-[8px] sm:text-[9px] tracking-wide px-2.5 py-1 rounded-md shadow-[0_6px_20px_rgba(255,45,135,0.35)]">
-                Mámy · Kamarádky · Holky
-              </div>
               <div
                 className="hero-illus-wrap relative mx-auto w-full max-w-[min(100%,32rem)] sm:max-w-[36rem] md:max-w-[40rem] lg:max-w-[44rem] mb-[-2.5rem] sm:mb-[-3.5rem] md:mb-[-5.5rem] lg:mb-[-7rem]"
                 style={{ transform: `translateY(${12 + heroParallax * 0.05}px)` }}

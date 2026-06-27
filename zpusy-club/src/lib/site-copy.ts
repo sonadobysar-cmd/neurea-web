@@ -14,6 +14,7 @@ export const HERO = {
     "ZpusyClub — mámy, kamarádky, holky. Bez servítek, bez pózy: smích, bolístky, občas průšvih — a péče, která drží.",
   ctaPlay: "Pustit nejnovější",
   ctaClub: "Vstup do klubu",
+  badge: "Mámy · Kamarádky · Holky",
   stats: [
     ["každý", "TÝDEN"],
     ["opravdové", "PŘÍBĚHY"],

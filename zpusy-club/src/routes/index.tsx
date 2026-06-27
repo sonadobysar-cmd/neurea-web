@@ -5,7 +5,7 @@ import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import ivanaImg from "../assets/zpusy/ivana-solo.jpg";
 import kundosakiImg from "../assets/zpusy/kundosaki.jpg";
-import duoIllustration from "../assets/zpusy/duo-illustration-cutout.png";
+import duoIllustration from "../assets/zpusy/duo-illustration.png";
 
 import heroDuo from "../assets/zpusy/merch/hero-duo.jpg.asset.json";
 import { SiteHeader, SiteFooter } from "../components/SiteChrome";
@@ -31,8 +31,8 @@ const recentEpisodesQuery = queryOptions({
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "ZpusyClub — podcast dvou maminek" },
-      { name: "description", content: "Místo, kde dvě maminky sdílí všechno, co je v životě skutečně důležité. S námi v tom nejste samy." },
+      { title: "ZpusyClub — podcast Ivi & Káťy" },
+      { name: "description", content: "Humor, péče a žádná póza. S námi v tom nejste samy." },
       { property: "og:title", content: "ZpusyClub" },
       { property: "og:description", content: BRAND.tagline },
       { property: "og:image", content: heroDuo.url },
@@ -126,23 +126,22 @@ function Index() {
         <div className="relative z-10 max-w-[1400px] mx-auto px-4 md:px-8 w-full pt-24 pb-12 md:pt-28 md:pb-20">
           <div className="grid md:grid-cols-12 gap-6 md:gap-12 items-center">
             {/* Ilustrace */}
-            <div className="md:col-span-5 lg:col-span-5 relative order-2 md:order-1 -mx-2 sm:mx-0">
-              <div aria-hidden className="absolute inset-0 -m-6 md:-m-10 rounded-[3rem] animate-pulse opacity-70 md:opacity-100" style={{
-                background: "radial-gradient(closest-side, rgba(255,45,135,0.45), rgba(168,85,247,0.2) 45%, transparent 75%)",
-                filter: "blur(40px)",
+            <div className="md:col-span-5 lg:col-span-5 relative order-2 md:order-1 -mx-4 sm:-mx-2 md:mx-0">
+              <div aria-hidden className="absolute inset-0 -m-8 md:-m-12 rounded-[3rem] opacity-60 md:opacity-80" style={{
+                background: "radial-gradient(closest-side, rgba(255,45,135,0.35), transparent 70%)",
+                filter: "blur(50px)",
               }} />
               <div className="absolute -top-2 left-2 md:-top-4 md:-left-4 z-20 rotate-[-8deg] bg-[var(--pink)] text-white font-display font-black uppercase text-[10px] sm:text-xs md:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-md shadow-[0_10px_30px_rgba(255,45,135,0.45)]">
                 Ivana × Kundosaki
               </div>
-              <div className="hero-illus-wrap relative z-10 mx-auto max-w-[min(100%,22rem)] sm:max-w-[26rem] md:max-w-[32rem]">
+              <div className="hero-illus-wrap relative z-10 mx-auto w-full max-w-[min(100%,26rem)] sm:max-w-[30rem] md:max-w-[38rem] lg:max-w-[42rem]">
                 <img
                   src={duoIllustration}
                   alt="Ivana a Kateřina — ZpusyClub"
                   className="hero-illus-img"
-                  style={{ transform: `translateY(${heroParallax * 0.15}px)` }}
+                  style={{ transform: `translateY(${heroParallax * 0.12}px) scale(1.08)` }}
                 />
-                <div aria-hidden className="hero-illus-fade-bottom absolute inset-x-0 bottom-0 h-[50%] z-20 pointer-events-none" />
-                <div aria-hidden className="hero-illus-fade-sides absolute inset-0 z-20 pointer-events-none" />
+                <div aria-hidden className="hero-illus-fade-bottom absolute inset-x-0 bottom-0 h-[42%] z-20 pointer-events-none" />
               </div>
             </div>
 

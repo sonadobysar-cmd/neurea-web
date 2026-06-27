@@ -11,7 +11,7 @@ export const HERO = {
   pill: "Nový díl každý týden",
   headline: ["Místo,", "kde můžeš", "být opravdová."],
   sub:
-    "ZpusyClub — podcast dvou maminek, které si neberou servítky. Smějeme se chybám, přiznáváme bolístky a hledáme sílu v tom, že v tom nejsme samy.",
+    "ZpusyClub — podcast Ivi s Káťou. Bez servítek, bez pózy: smích, bolístky, občas průšvih — a mezi tím péče, která drží.",
   ctaPlay: "Pustit nejnovější",
   ctaClub: "Vstup do klubu",
 } as const;
@@ -30,14 +30,14 @@ export const MARQUEE = [
 
 export const ABOUT = {
   label: "/ o klubíku",
-  title: ["Bezpečný kruh", "pro maminky,", "které chtějí", "být sebou."],
+  title: ["Bezpečný kruh", "kde můžeš", "být", "opravdová."],
   body: [
-    "ZpusyClub je místo, kde dvě maminky sdílí všechno, co je v životě skutečně důležité — a taky to, co nás někdy pěkně štve.",
-    "Smějeme se, zpovídáme svoje chyby, odhalujeme bolístky a vyplavujeme emoce, které by jinak zůstaly skryté. Nemusíme být dokonalé. Můžeme být opravdové.",
+    "ZpusyClub je místo, kde sdílíme všechno, co je v životě skutečně důležité — a taky to, co nás někdy pěkně štve.",
+    "Smějeme se, zpovídáme chyby, odhalujeme bolístky. Někdy jsme v ráži, někdy v objetí. Nemusíme být dokonalé — stačí být opravdové.",
   ],
   pillars: [
-    { k: "Opravdovost", v: "Svět nepotřebuje další perfektní mamky z Instagramu." },
-    { k: "Smích i pláč", v: "Záchvaty smíchu i husí kůže u smutnýho songu — obojí patří sem." },
+    { k: "Humor", v: "Stupidní vtipy, kterými občas zakrýváme bolístky — a pak je stejně vybalíme." },
+    { k: "Péče", v: "Když je těžko, držíme se. Žádná levná rada, žádná póza." },
     { k: "Sdílení", v: "Sdílená zkušenost = poloviční trápení a dvojnásobná radost." },
     { k: "Komunita", v: "Přidej se, směj se s námi, plač s námi — nejsi na svoje emoce sama." },
   ],
@@ -45,7 +45,7 @@ export const ABOUT = {
 
 export const HOSTS = {
   label: "/ kdo jsme",
-  title: ["Dvě maminky,", "jeden", "ZpusyClub."],
+  title: ["Dvě holky,", "jeden", "ZpusyClub."],
   ivana: {
     name: "Ivana",
     surname: "Heroutová",

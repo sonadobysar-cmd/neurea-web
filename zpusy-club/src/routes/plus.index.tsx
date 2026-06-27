@@ -88,16 +88,16 @@ function PlusPage() {
           </div>
 
           {/* Inline stats */}
-          <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-3xl mx-auto">
+          <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 max-w-4xl lg:max-w-5xl mx-auto">
             {[
-              { k: "0 %", v: "provize platformě" },
+              { k: "0%", v: "provize platformě" },
               { k: "24/7", v: "přístup ke všemu" },
-              { k: "100 %", v: "interní komunita" },
+              { k: "100%", v: "interní komunita" },
               { k: "1×", v: "měsíčně live AMA" },
             ].map((s) => (
-              <div key={s.v} className="bg-white/[0.05] backdrop-blur border border-white/10 rounded-2xl p-5 text-left">
-                <div className="font-display font-black text-3xl md:text-4xl text-[var(--teal)]">{s.k}</div>
-                <div className="mt-1 text-xs text-white/65">{s.v}</div>
+              <div key={s.v} className="bg-white/[0.05] backdrop-blur border border-white/10 rounded-2xl px-4 py-4 md:px-5 md:py-5 text-left min-w-[8.5rem]">
+                <div className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-[var(--teal)] whitespace-nowrap tabular-nums leading-none">{s.k}</div>
+                <div className="mt-1.5 text-[11px] sm:text-xs text-white/65 leading-snug">{s.v}</div>
               </div>
             ))}
           </div>

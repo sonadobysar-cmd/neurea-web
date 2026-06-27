@@ -11,21 +11,21 @@ export const HERO = {
   pill: "Nový díl každý týden",
   headline: ["Místo,", "kde můžeš", "být opravdová."],
   sub:
-    "ZpusyClub — podcast Ivi s Káťou. Bez servítek, bez pózy: smích, bolístky, občas průšvih — a mezi tím péče, která drží.",
+    "ZpusyClub — mámy, kamarádky, holky. Bez servítek, bez pózy: smích, bolístky, občas průšvih — a péče, která drží.",
   ctaPlay: "Pustit nejnovější",
   ctaClub: "Vstup do klubu",
 } as const;
 
 export const MARQUEE = [
+  "mámy",
+  "♥",
+  "kamarádky",
+  "✦",
+  "holky",
+  "♥",
   "sharing is caring",
-  "♥",
+  "✦",
   "kněžničky",
-  "✦",
-  "v tom nejste samy",
-  "♥",
-  "bez dokonalosti",
-  "✦",
-  "naše digitální svatyně",
 ] as const;
 
 export const ABOUT = {
@@ -45,7 +45,7 @@ export const ABOUT = {
 
 export const HOSTS = {
   label: "/ kdo jsme",
-  title: ["Dvě holky,", "jeden", "ZpusyClub."],
+  title: ["Mámy,", "kamarádky,", "holky."],
   ivana: {
     name: "Ivana",
     surname: "Heroutová",

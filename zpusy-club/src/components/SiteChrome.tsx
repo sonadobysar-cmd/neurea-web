@@ -141,7 +141,7 @@ export function SiteFooter() {
           <div>
             <img src={logo} alt="ZpusyClub" className="h-14 md:h-16 w-auto mb-4 drop-shadow-[0_4px_20px_rgba(255,45,135,0.5)]" />
             <p className="text-sm text-white/70 max-w-xs leading-relaxed">
-              Podcast Ivi &amp; Káťy — humor, péče, žádná póza. Věříme, že sdílená zkušenost dokáže léčit.
+              Mámy, kamarádky, holky — humor, péče, žádná póza. Sdílená zkušenost dokáže léčit.
             </p>
             <p className="mt-3 text-xs text-white/45">Crumlin s.r.o.</p>
           </div>

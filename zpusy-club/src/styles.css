@@ -190,28 +190,39 @@
   background-size: 200px 200px;
 }
 
-/* Hero ilustrace — měkké rozplynutí do pozadí, žádný tvrdý ořez */
+/* Hero ilustrace — průhledný cutout, větší scale, měkký přechod dole */
 .hero-illus-wrap {
   position: relative;
-  isolation: isolate;
+}
+
+.hero-illus-scale {
+  transform: scale(1.12);
+  transform-origin: center bottom;
+}
+
+@media (min-width: 768px) {
+  .hero-illus-scale {
+    transform: scale(1.2);
+  }
 }
 
 .hero-illus-img {
   display: block;
   width: 100%;
   height: auto;
-  max-height: min(78vh, 720px);
+  max-height: min(80vh, 760px);
   object-fit: contain;
   object-position: center bottom;
-  transform-origin: center bottom;
-  filter: drop-shadow(0 0 48px rgba(255, 45, 135, 0.4)) drop-shadow(0 28px 56px rgba(0, 0, 0, 0.4));
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 68%, rgba(0, 0, 0, 0.85) 82%, rgba(0, 0, 0, 0.35) 94%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 0%, #000 68%, rgba(0, 0, 0, 0.85) 82%, rgba(0, 0, 0, 0.35) 94%, transparent 100%);
+  filter: drop-shadow(0 0 50px rgba(255, 45, 135, 0.45)) drop-shadow(0 30px 60px rgba(0, 0, 0, 0.5));
 }
 
 @media (max-width: 767px) {
+  .hero-illus-scale {
+    transform: scale(1.06);
+  }
+
   .hero-illus-img {
-    max-height: min(58vh, 480px);
+    max-height: min(56vh, 460px);
   }
 }
 
@@ -219,8 +230,8 @@
   background: linear-gradient(
     to top,
     var(--ink) 0%,
-    rgba(14, 10, 26, 0.88) 22%,
-    rgba(14, 10, 26, 0.35) 55%,
+    rgba(14, 10, 26, 0.92) 20%,
+    rgba(14, 10, 26, 0.4) 50%,
     transparent 100%
   );
 }

@@ -5,7 +5,7 @@ import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import ivanaImg from "../assets/zpusy/ivana-solo.jpg";
 import kundosakiImg from "../assets/zpusy/kundosaki.jpg";
-import duoIllustration from "../assets/zpusy/duo-illustration.png";
+import duoIllustration from "../assets/zpusy/duo-illustration-cutout.png";
 
 import heroDuo from "../assets/zpusy/merch/hero-duo.jpg.asset.json";
 import { SiteHeader, SiteFooter } from "../components/SiteChrome";
@@ -31,8 +31,8 @@ const recentEpisodesQuery = queryOptions({
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "ZpusyClub — podcast Ivi & Káťy" },
-      { name: "description", content: "Humor, péče a žádná póza. S námi v tom nejste samy." },
+      { title: "ZpusyClub — mámy, kamarádky, holky" },
+      { name: "description", content: "Podcast pro holky, co si neberou servítky. Humor, péče, žádná póza." },
       { property: "og:title", content: "ZpusyClub" },
       { property: "og:description", content: BRAND.tagline },
       { property: "og:image", content: heroDuo.url },
@@ -132,16 +132,20 @@ function Index() {
                 filter: "blur(50px)",
               }} />
               <div className="absolute -top-2 left-2 md:-top-4 md:-left-4 z-20 rotate-[-8deg] bg-[var(--pink)] text-white font-display font-black uppercase text-[10px] sm:text-xs md:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-md shadow-[0_10px_30px_rgba(255,45,135,0.45)]">
-                Ivana × Kundosaki
+                Mámy · Kamarádky · Holky
               </div>
-              <div className="hero-illus-wrap relative z-10 mx-auto w-full max-w-[min(100%,26rem)] sm:max-w-[30rem] md:max-w-[38rem] lg:max-w-[42rem]">
-                <img
-                  src={duoIllustration}
-                  alt="Ivana a Kateřina — ZpusyClub"
-                  className="hero-illus-img"
-                  style={{ transform: `translateY(${heroParallax * 0.12}px) scale(1.08)` }}
-                />
-                <div aria-hidden className="hero-illus-fade-bottom absolute inset-x-0 bottom-0 h-[42%] z-20 pointer-events-none" />
+              <div
+                className="hero-illus-wrap relative z-10 mx-auto w-full max-w-[min(100%,28rem)] sm:max-w-[32rem] md:max-w-[40rem] lg:max-w-[44rem]"
+                style={{ transform: `translateY(${heroParallax * 0.1}px)` }}
+              >
+                <div className="hero-illus-scale">
+                  <img
+                    src={duoIllustration}
+                    alt="ZpusyClub — mámy, kamarádky, holky"
+                    className="hero-illus-img"
+                  />
+                </div>
+                <div aria-hidden className="hero-illus-fade-bottom absolute inset-x-0 bottom-0 h-[38%] z-20 pointer-events-none" />
               </div>
             </div>
 

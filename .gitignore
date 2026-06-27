@@ -35,6 +35,13 @@ next-env.d.ts
 # vercel
 .vercel
 
+# Zpussy Club (Lovable / TanStack Start)
+/zpusy-club/node_modules
+/zpusy-club/dist
+/zpusy-club/.output
+/zpusy-club/.vinxi
+/zpusy-club/.nitro
+
 # Xcode
 *.xcuserstate
 xcuserdata/

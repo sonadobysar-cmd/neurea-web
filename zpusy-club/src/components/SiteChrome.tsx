@@ -178,8 +178,9 @@ export function SiteFooter() {
             </div>
           </div>
         </div>
-        <div className="pt-6 border-t border-white/15 flex flex-wrap gap-3 justify-between text-xs text-white/50 font-mono">
+        <div className="pt-6 border-t border-white/15 flex flex-wrap gap-x-4 gap-y-2 justify-between items-center text-xs text-white/50 font-mono">
           <span>© {new Date().getFullYear()} ZpusyClub</span>
+          <span className="text-white/40">Webdesign Nia Dobyšar</span>
           <span>S námi v tom nejste samy. ♥</span>
         </div>
       </div>

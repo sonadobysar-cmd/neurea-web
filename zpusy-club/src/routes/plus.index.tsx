@@ -70,8 +70,8 @@ function PlusPage() {
           </h1>
 
           <p className="max-w-xl mx-auto text-base md:text-lg text-white/80 leading-relaxed">
-            <strong className="text-white">Delší a necenzurované verze</strong> všech podcastů z YouTube. Plus bonusy, zápisky, hlasovky a komunita.
-            Žádné Herohero, žádné provize — co zaplatíš, jde k holkám.
+            <strong className="text-white">Delší verze epizod</strong>, bonusy, zápisky, hlasovky a komunita jen pro členky.
+            Naše digitální svatyně — bez Herohero, bez provizí. Co zaplatíš, jde k holkám.
           </p>
 
           <div className="mt-10 flex flex-wrap gap-3 justify-center">

@@ -110,9 +110,10 @@ function Index() {
       <div className="pointer-events-none fixed inset-0 z-[100] opacity-[0.05] mix-blend-overlay grain" />
       <SiteHeader />
 
-      {/* ============= HERO ============= */}
-      <section ref={heroRef} className="relative min-h-[auto] md:min-h-[100svh] overflow-hidden bg-[var(--ink)] flex items-center">
-        <div className="absolute inset-0">
+      {/* Hero + marquee — ilustrace sedí na růžovém pásu */}
+      <div className="relative">
+      <section ref={heroRef} className="relative overflow-visible bg-[var(--ink)]">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute inset-0 bg-gradient-to-br from-[#1a0f2a] via-[var(--ink)] to-[#0a0612]" />
           <div className="absolute inset-0 opacity-80" style={{
             background: "radial-gradient(55% 60% at 20% 70%, rgba(255,45,135,0.35), transparent 65%), radial-gradient(45% 55% at 85% 25%, rgba(45,212,207,0.18), transparent 70%)",
@@ -123,20 +124,20 @@ function Index() {
           }} />
         </div>
 
-        <div className="relative z-10 max-w-[1400px] mx-auto px-4 md:px-8 w-full pt-24 pb-12 md:pt-28 md:pb-20">
-          <div className="grid md:grid-cols-12 gap-6 md:gap-12 items-center">
-            {/* Ilustrace */}
-            <div className="md:col-span-5 lg:col-span-5 relative order-2 md:order-1 -mx-4 sm:-mx-2 md:mx-0">
-              <div aria-hidden className="absolute inset-0 -m-8 md:-m-12 rounded-[3rem] opacity-60 md:opacity-80" style={{
-                background: "radial-gradient(closest-side, rgba(255,45,135,0.35), transparent 70%)",
+        <div className="relative z-10 max-w-[1400px] mx-auto px-4 md:px-8 w-full pt-24 pb-0 md:pt-28">
+          <div className="grid md:grid-cols-12 gap-6 md:gap-10 items-start md:items-center">
+            {/* Ilustrace — větší, stažená dolů na marquee */}
+            <div className="md:col-span-5 lg:col-span-5 relative order-2 md:order-1 -mx-6 sm:-mx-4 md:mx-0 md:self-end z-20">
+              <div aria-hidden className="absolute inset-0 -m-8 md:-m-10 opacity-50 md:opacity-70" style={{
+                background: "radial-gradient(closest-side, rgba(255,45,135,0.4), transparent 70%)",
                 filter: "blur(50px)",
               }} />
-              <div className="absolute -top-2 left-2 md:-top-4 md:-left-4 z-20 rotate-[-8deg] bg-[var(--pink)] text-white font-display font-black uppercase text-[10px] sm:text-xs md:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-md shadow-[0_10px_30px_rgba(255,45,135,0.45)]">
+              <div className="absolute top-0 left-2 md:left-0 z-30 rotate-[-8deg] bg-[var(--pink)] text-white font-display font-black uppercase text-[10px] sm:text-xs md:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-md shadow-[0_10px_30px_rgba(255,45,135,0.45)]">
                 Mámy · Kamarádky · Holky
               </div>
               <div
-                className="hero-illus-wrap relative z-10 mx-auto w-full max-w-[min(100%,28rem)] sm:max-w-[32rem] md:max-w-[40rem] lg:max-w-[44rem]"
-                style={{ transform: `translateY(${heroParallax * 0.1}px)` }}
+                className="hero-illus-wrap relative mx-auto w-full max-w-[min(100%,32rem)] sm:max-w-[36rem] md:max-w-[44rem] lg:max-w-[48rem] mb-[-2.5rem] sm:mb-[-3.5rem] md:mb-[-5.5rem] lg:mb-[-7rem]"
+                style={{ transform: `translateY(${12 + heroParallax * 0.05}px)` }}
               >
                 <div className="hero-illus-scale">
                   <img
@@ -145,12 +146,11 @@ function Index() {
                     className="hero-illus-img"
                   />
                 </div>
-                <div aria-hidden className="hero-illus-fade-bottom absolute inset-x-0 bottom-0 h-[38%] z-20 pointer-events-none" />
               </div>
             </div>
 
             {/* Obsah */}
-            <div className="md:col-span-7 lg:col-span-7 order-1 md:order-2 text-center md:text-left">
+            <div className="md:col-span-7 lg:col-span-7 order-1 md:order-2 text-center md:text-left pb-6 md:pb-16">
               <div className="inline-flex items-center gap-2 sm:gap-3 bg-white/[0.07] backdrop-blur-xl border border-white/15 rounded-xl pl-2 pr-4 sm:pr-5 py-1.5 text-[10px] sm:text-[11px] font-semibold mb-6 md:mb-8">
                 <span className="bg-[var(--pink)] text-white px-2 py-0.5 rounded-xl font-black tracking-wider">LIVE</span>
                 <span className="opacity-85">{HERO.pill}</span>
@@ -196,17 +196,10 @@ function Index() {
             </div>
           </div>
         </div>
-
-        <div className="hidden md:flex absolute bottom-6 inset-x-0 justify-center">
-          <div className="flex items-center gap-2 text-white/50 text-[10px] tracking-[0.3em] font-bold">
-            <span className="w-8 h-px bg-white/30" /> SCROLL <span className="w-8 h-px bg-white/30" />
-          </div>
-        </div>
       </section>
 
-
-      {/* MARQUEE — viditelný pás */}
-      <div className="relative bg-[var(--pink)] text-white py-4 md:py-6 overflow-hidden border-y-2 border-white/10 shadow-[0_10px_40px_-10px_rgba(255,45,135,0.6)]">
+      {/* MARQUEE — pod nohama ilustrace */}
+      <div className="relative z-10 bg-[var(--pink)] text-white py-4 md:py-6 overflow-hidden border-y-2 border-white/10 shadow-[0_10px_40px_-10px_rgba(255,45,135,0.6)]">
         <div className="flex gap-8 md:gap-12 animate-marquee whitespace-nowrap font-display font-black text-xl sm:text-2xl md:text-4xl uppercase tracking-tight">
           {Array.from({ length: 3 }).flatMap((_, i) =>
             MARQUEE.map((t, j) => (
@@ -214,6 +207,7 @@ function Index() {
             )),
           )}
         </div>
+      </div>
       </div>
 
 

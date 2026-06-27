@@ -17,15 +17,19 @@ export const HERO = {
 } as const;
 
 export const MARQUEE = [
-  "mámy",
-  "♥",
-  "kamarádky",
-  "✦",
-  "holky",
-  "♥",
   "sharing is caring",
+  "♥",
+  "v tom nejste samy",
+  "✦",
+  "bez filtru",
+  "♥",
+  "bez pózy",
   "✦",
   "kněžničky",
+  "♥",
+  "opravdovost",
+  "✦",
+  "naše digitální svatyně",
 ] as const;
 
 export const ABOUT = {

@@ -125,18 +125,15 @@ function Index() {
         </div>
 
         <div className="relative z-10 max-w-[1400px] mx-auto px-4 md:px-8 w-full pt-24 pb-0 md:pt-28">
-          <div className="grid md:grid-cols-12 gap-6 md:gap-10 items-start md:items-center">
+          <div className="grid md:grid-cols-12 gap-6 md:gap-8 lg:gap-6 items-start md:items-center">
             {/* Ilustrace — větší, stažená dolů na marquee */}
-            <div className="md:col-span-5 lg:col-span-5 relative order-2 md:order-1 -mx-6 sm:-mx-4 md:mx-0 md:self-end z-20">
+            <div className="md:col-span-4 lg:col-span-4 relative order-2 md:order-1 -mx-6 sm:-mx-4 md:mx-0 md:self-end z-20">
               <div aria-hidden className="absolute inset-0 -m-8 md:-m-10 opacity-50 md:opacity-70" style={{
                 background: "radial-gradient(closest-side, rgba(255,45,135,0.4), transparent 70%)",
                 filter: "blur(50px)",
               }} />
-              <div className="absolute top-0 left-2 md:left-0 z-30 rotate-[-8deg] bg-[var(--pink)] text-white font-display font-black uppercase text-[10px] sm:text-xs md:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-md shadow-[0_10px_30px_rgba(255,45,135,0.45)]">
-                Mámy · Kamarádky · Holky
-              </div>
               <div
-                className="hero-illus-wrap relative mx-auto w-full max-w-[min(100%,32rem)] sm:max-w-[36rem] md:max-w-[44rem] lg:max-w-[48rem] mb-[-2.5rem] sm:mb-[-3.5rem] md:mb-[-5.5rem] lg:mb-[-7rem]"
+                className="hero-illus-wrap relative mx-auto w-full max-w-[min(100%,32rem)] sm:max-w-[36rem] md:max-w-[40rem] lg:max-w-[44rem] mb-[-2.5rem] sm:mb-[-3.5rem] md:mb-[-5.5rem] lg:mb-[-7rem]"
                 style={{ transform: `translateY(${12 + heroParallax * 0.05}px)` }}
               >
                 <div className="hero-illus-scale">
@@ -149,8 +146,11 @@ function Index() {
               </div>
             </div>
 
-            {/* Obsah */}
-            <div className="md:col-span-7 lg:col-span-7 order-1 md:order-2 text-center md:text-left pb-6 md:pb-16">
+            {/* Obsah — posunutý víc doprava */}
+            <div className="md:col-span-8 lg:col-span-8 md:col-start-5 order-1 md:order-2 text-center md:text-left pb-6 md:pb-16 md:pl-4 lg:pl-10 xl:pl-16">
+              <div className="inline-block rotate-[-4deg] bg-[var(--pink)] text-white font-display font-black uppercase text-[8px] sm:text-[9px] tracking-wide px-2.5 py-1 rounded-md shadow-[0_6px_20px_rgba(255,45,135,0.35)] mb-4 md:mb-5">
+                Mámy · Kamarádky · Holky
+              </div>
               <div className="inline-flex items-center gap-2 sm:gap-3 bg-white/[0.07] backdrop-blur-xl border border-white/15 rounded-xl pl-2 pr-4 sm:pr-5 py-1.5 text-[10px] sm:text-[11px] font-semibold mb-6 md:mb-8">
                 <span className="bg-[var(--pink)] text-white px-2 py-0.5 rounded-xl font-black tracking-wider">LIVE</span>
                 <span className="opacity-85">{HERO.pill}</span>

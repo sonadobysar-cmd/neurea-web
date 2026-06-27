@@ -180,23 +180,23 @@ function ShopPage() {
                       </div>
                     </Link>
 
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="min-w-0 flex-1">
-                        <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-black/50 mb-1.5">
-                          {node.productType || "—"}
-                        </div>
-                        <h3 className="font-display font-bold text-xl md:text-2xl leading-tight tracking-tight">
-                          {node.title}
+                    <div>
+                      <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-black/50 mb-1.5">
+                        {node.productType || "—"}
+                      </div>
+                      <div className="flex items-baseline justify-between gap-4">
+                        <h3 className="font-display font-bold text-xl md:text-2xl leading-tight tracking-tight min-w-0">
+                          <Link to="/product/$handle" params={{ handle: node.handle }} className="hover:text-[var(--pink)] transition">
+                            {node.title}
+                          </Link>
                         </h3>
-                        {node.description && (
-                          <p className="text-sm text-black/60 mt-1 line-clamp-2">{node.description}</p>
-                        )}
-                      </div>
-                      <div className="text-right shrink-0">
-                        <div className="font-display font-black text-xl md:text-2xl tabular-nums">
-                          {parseFloat(price.amount).toFixed(0)} {price.currencyCode}
+                        <div className="font-display font-black text-xl md:text-2xl tabular-nums shrink-0 leading-none">
+                          {parseFloat(price.amount).toFixed(0)}&nbsp;{price.currencyCode}
                         </div>
                       </div>
+                      {node.description && (
+                        <p className="text-sm text-black/60 mt-2 line-clamp-2">{node.description}</p>
+                      )}
                     </div>
                     <button
                       onClick={() => handleAdd(p)}

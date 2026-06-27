@@ -24,16 +24,17 @@ function NavLinks({
     <>
       {NAV.map((n) => {
         const active = n.to === pathname && !n.hash;
-        if (n.hash && pathname === "/") {
+        if (n.hash) {
           return (
-            <a
+            <Link
               key={n.l}
-              href={`#${n.hash}`}
+              to="/"
+              hash={n.hash}
               onClick={onNavigate}
-              className={`px-4 py-2.5 rounded-xl hover:bg-[var(--pink)] hover:text-white transition ${className}`}
+              className={`px-4 py-2.5 rounded-xl text-white/85 hover:bg-[var(--pink)] hover:text-white transition ${className}`}
             >
               {n.l}
-            </a>
+            </Link>
           );
         }
         return (
@@ -42,7 +43,7 @@ function NavLinks({
             to={n.to}
             hash={n.hash}
             onClick={onNavigate}
-            className={`px-4 py-2.5 rounded-xl transition ${active ? "bg-[var(--pink)] text-white" : `hover:bg-[var(--pink)] hover:text-white ${className}`}`}
+            className={`px-4 py-2.5 rounded-xl transition ${active ? "bg-[var(--pink)] text-white" : `text-white/85 hover:bg-[var(--pink)] hover:text-white ${className}`}`}
           >
             {n.l}
           </Link>
@@ -80,11 +81,11 @@ export function SiteHeader() {
 
   return (
     <>
-      <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${scroll > 40 || menuOpen ? "backdrop-blur-xl bg-black/55 border-b border-white/10" : "bg-transparent"}`}>
+      <header className={`fixed top-0 inset-x-0 z-50 text-white transition-all duration-500 ${scroll > 40 || menuOpen ? "backdrop-blur-xl bg-black/55 border-b border-white/10" : "bg-transparent"}`}>
         <div className="max-w-[1500px] mx-auto px-4 md:px-8 h-16 md:h-20 flex items-center justify-between gap-3">
           <Link to="/" className="flex items-center gap-3 group shrink-0 min-w-0">
             <img src={logo} alt="ZpusyClub" className="h-9 sm:h-10 md:h-11 w-auto drop-shadow-[0_4px_20px_rgba(255,45,135,0.6)] group-hover:rotate-12 transition duration-500" />
-            <span className="hidden sm:inline font-display font-black text-sm tracking-tight truncate">ZPUSY<span className="text-[var(--pink)]">CLUB</span></span>
+            <span className="hidden sm:inline font-display font-black text-sm tracking-tight truncate text-white">ZPUSY<span className="text-[var(--pink)]">CLUB</span></span>
           </Link>
 
           <nav className="hidden md:flex gap-1 text-[13px] font-semibold bg-white/[0.04] backdrop-blur rounded-xl p-1 border border-white/10">

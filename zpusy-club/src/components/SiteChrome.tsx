@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import logo from "../assets/zpusy/logo-transparent.png";
 
 const NAV = [
-  { l: "O klubíku", to: "/" as const, hash: "about" },
+  { l: "ZPUSYCLUB", to: "/" as const, hash: "about" },
   { l: "Kdo jsme", to: "/" as const, hash: "hosts" },
   { l: "Epizody", to: "/" as const, hash: "episodes" },
   { l: "Shop", to: "/shop" as const, hash: undefined },
@@ -144,7 +144,6 @@ export function SiteFooter() {
             <p className="text-sm text-white/70 max-w-xs leading-relaxed">
               Mámy, kamarádky, holky — humor, péče, žádná póza. Sdílená zkušenost dokáže léčit.
             </p>
-            <p className="mt-3 text-xs text-white/45">Crumlin s.r.o.</p>
           </div>
           <div>
             <div className="text-[10px] uppercase tracking-[0.3em] text-white/50 mb-4">Napiš nám</div>

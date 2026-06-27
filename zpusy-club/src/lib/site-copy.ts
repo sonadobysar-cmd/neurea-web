@@ -100,7 +100,6 @@ export const CONTACT = {
   title: ["Máš tip,", "otázku", "nebo chceš", "spolupracovat?"],
   body: "Máš tip na zajímavé téma, chceš navázat spolupráci nebo se jen na něco zeptat? Napiš nám — rády si přečteme.",
   email: "info@zpusyclub.cz",
-  company: "Crumlin s.r.o.",
 } as const;
 
 export const CTA_PLUS = {

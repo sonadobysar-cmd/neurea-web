@@ -125,6 +125,10 @@ function Index() {
         </div>
 
         <div className="relative z-10 max-w-[1400px] mx-auto px-4 md:px-8 w-full pt-24 pb-0 md:pt-28">
+          {/* Růžové heslo — vlevo nad ilustrací (červená značka) */}
+          <div className="absolute top-[5.25rem] sm:top-[5.5rem] md:top-[6rem] left-4 sm:left-6 md:left-8 z-40 rotate-[-8deg] bg-[var(--pink)] text-white font-display font-black uppercase text-xs sm:text-sm md:text-sm lg:text-base px-4 py-2 rounded-md shadow-[0_10px_30px_rgba(255,45,135,0.45)] whitespace-nowrap pointer-events-none">
+            {HERO.badge}
+          </div>
           <div className="grid md:grid-cols-12 gap-6 md:gap-8 lg:gap-6 items-start md:items-center">
             {/* Ilustrace — větší, stažená dolů na marquee */}
             <div className="md:col-span-4 lg:col-span-4 relative order-2 md:order-1 -mx-6 sm:-mx-4 md:mx-0 md:self-end z-20">
@@ -132,10 +136,6 @@ function Index() {
                 background: "radial-gradient(closest-side, rgba(255,45,135,0.4), transparent 70%)",
                 filter: "blur(50px)",
               }} />
-              {/* Růžové heslo — Lovable text, mezi ilustrací a headline (výška kurzoru) */}
-              <div className="absolute top-[18%] sm:top-[19%] md:top-[20%] right-[-0.25rem] sm:right-[-1rem] md:right-[-2rem] lg:right-[-3rem] xl:right-[-4rem] z-40 rotate-[-8deg] bg-[var(--pink)] text-white font-display font-black uppercase text-xs sm:text-sm md:text-sm lg:text-base px-4 py-2 rounded-md shadow-[0_10px_30px_rgba(255,45,135,0.45)] whitespace-nowrap pointer-events-none">
-                {HERO.badge}
-              </div>
               <div
                 className="hero-illus-wrap relative mx-auto w-full max-w-[min(100%,32rem)] sm:max-w-[36rem] md:max-w-[40rem] lg:max-w-[44rem] mb-[-2.5rem] sm:mb-[-3.5rem] md:mb-[-5.5rem] lg:mb-[-7rem]"
                 style={{ transform: `translateY(${12 + heroParallax * 0.05}px)` }}

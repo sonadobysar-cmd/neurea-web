@@ -14,7 +14,10 @@ const config: Config = {
           amber: "#FFA500",
           gold: "#FFD700",
           cream: "#FFF8E7",
-          dark: "#08080C",
+          red: "#E63946",
+          blue: "#3B82F6",
+          purple: "#A855F7",
+          dark: "#0C0618",
         },
         /** Sekundární pozadí sekcí */
         cream: "#F9F6F0",

@@ -7,10 +7,10 @@ import { useEffect, useState } from "react";
 import { MagneticButton } from "./MagneticButton";
 
 const LINKS = [
+  { href: "#hra", label: "Hra" },
   { href: "#sluzby", label: "Služby" },
   { href: "#predstaveni", label: "Představení" },
   { href: "#galerie", label: "Galerie" },
-  { href: "#cenik", label: "Ceník" },
   { href: "#kontakt", label: "Kontakt" },
 ] as const;
 
@@ -19,7 +19,7 @@ export function RobinNav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { scrollY } = useScroll();
   const navBg = useTransform(scrollY, [0, 80], [0, 1]);
-  const backgroundColor = useTransform(navBg, (v) => `rgba(8, 8, 12, ${v * 0.92})`);
+  const backgroundColor = useTransform(navBg, (v) => `rgba(12, 6, 24, ${v * 0.95})`);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -31,7 +31,7 @@ export function RobinNav() {
     <motion.header
       style={{ backgroundColor }}
       className={`fixed inset-x-0 top-0 z-50 transition-[backdrop-filter] duration-300 ${
-        scrolled ? "backdrop-blur-xl border-b border-white/5" : ""
+        scrolled ? "border-b-4 border-robin-gold/40 backdrop-blur-xl" : ""
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-8">

@@ -8,87 +8,77 @@ const SERVICES = [
     icon: "🎩",
     title: "Kouzelník",
     slug: "kouzelnik",
-    desc: "Klasická i moderní kouzla — karty, míče, hedvábné šátky a interaktivní triky, kde jsou diváci součástí představení.",
-    features: ["Interaktivní triky", "Humor pro každý věk", "Profesionální rekvizity"],
-    gradient: "from-violet-600/20 to-robin-orange/20",
+    desc: "Karty, míče, šátky — diváci jsou součástí triku, ne jen publikum.",
+    color: "#FF6B00",
+    shadow: "#cc5500",
+    span: "lg:col-span-2 lg:row-span-2",
+    big: true,
   },
   {
     icon: "🎈",
     title: "Balonkář",
     slug: "balonkar",
-    desc: "Tvoření balonkových zvířátek, klobouků a postav. Děti odcházejí s vlastním kouzelným výtvorem v ruce.",
-    features: ["Balloon twisting", "Pro děti i dospělé", "Tematické tvary"],
-    gradient: "from-blue-600/20 to-cyan-400/20",
+    desc: "Zvířátka, klobouky, meče — každé dítě dostane výtvor.",
+    color: "#3B82F6",
+    shadow: "#1d4ed8",
+    span: "lg:col-span-1",
+    big: false,
   },
   {
     icon: "🧠",
     title: "Mentalista",
     slug: "mentalista",
-    desc: "Čtení myšlenek, predikce a psychologické iluze. Ideální pro firemní večírky a dospělé publikum.",
-    features: ["Mind reading", "Firemní akce", "Elegantní show"],
-    gradient: "from-purple-600/20 to-pink-500/20",
+    desc: "Čtení myšlenek a predikce — wow efekt pro dospělé.",
+    color: "#A855F7",
+    shadow: "#7e22ce",
+    span: "lg:col-span-1",
+    big: false,
   },
 ] as const;
 
-function TiltCard({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <motion.div
-      whileHover={{ scale: 1.02, rotateY: 4, rotateX: -4 }}
-      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      style={{ transformStyle: "preserve-3d", perspective: 1000 }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
 export function RobinServices() {
   return (
-    <section id="sluzby" className="relative py-24 md:py-32">
+    <section id="sluzby" className="relative py-20 md:py-28">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <ScrollReveal>
-          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-robin-gold">Co nabízím</p>
-          <h2 className="mt-3 font-robin-display text-4xl font-black uppercase text-white md:text-5xl">
-            Tři světy magie
+          <h2 className="font-robin-display text-5xl font-black uppercase text-white md:text-7xl">
+            Co umím
+            <span className="text-robin-gold">?</span>
           </h2>
-          <p className="mt-4 max-w-2xl text-lg text-white/60">
-            Jsem kouzelník, balonkář a mentalista v jednom. Program přizpůsobím typu akce, věku
-            diváků i vašim přáním.
-          </p>
         </ScrollReveal>
 
-        <div className="mt-16 grid gap-6 md:grid-cols-3">
+        <div className="mt-12 grid grid-cols-1 gap-4 lg:grid-cols-3 lg:grid-rows-2">
           {SERVICES.map((s, i) => (
-            <ScrollReveal key={s.slug} delay={i * 0.12}>
-              <TiltCard>
-                <article
-                  className={`group relative h-full overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br ${s.gradient} p-8 backdrop-blur-sm transition hover:border-robin-gold/30`}
+            <ScrollReveal key={s.slug} delay={i * 0.1} className={s.span}>
+              <motion.article
+                whileHover={{ y: -6, boxShadow: `10px 10px 0 ${s.shadow}` }}
+                className={`relative h-full overflow-hidden rounded-3xl border-4 border-black p-6 md:p-8 ${s.big ? "min-h-[320px]" : "min-h-[180px]"}`}
+                style={{
+                  background: s.color,
+                  boxShadow: `6px 6px 0 ${s.shadow}`,
+                }}
+              >
+                <span className={`absolute -right-4 -top-4 opacity-20 ${s.big ? "text-[10rem]" : "text-7xl"}`}>
+                  {s.icon}
+                </span>
+                <span className="text-4xl">{s.icon}</span>
+                <h3
+                  className={`mt-4 font-robin-display font-black uppercase text-black ${s.big ? "text-4xl md:text-5xl" : "text-2xl"}`}
                 >
-                  <div className="absolute -right-8 -top-8 text-8xl opacity-10 transition group-hover:opacity-20">
-                    {s.icon}
-                  </div>
-                  <span className="text-4xl">{s.icon}</span>
-                  <h3 className="mt-6 font-robin-display text-2xl font-bold uppercase text-white">
-                    {s.title}
-                  </h3>
-                  <p className="mt-3 leading-relaxed text-white/65">{s.desc}</p>
-                  <ul className="mt-6 space-y-2">
-                    {s.features.map((f) => (
-                      <li key={f} className="flex items-center gap-2 text-sm text-white/50">
-                        <span className="text-robin-gold">✦</span>
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                </article>
-              </TiltCard>
+                  {s.title}
+                </h3>
+                <p className={`mt-3 font-medium text-black/80 ${s.big ? "max-w-md text-lg" : "text-sm"}`}>
+                  {s.desc}
+                </p>
+                {s.big && (
+                  <a
+                    href="#hra"
+                    className="mt-6 inline-flex items-center gap-2 rounded-xl border-4 border-black bg-black px-5 py-2.5 text-sm font-black uppercase text-robin-gold"
+                  >
+                    Vyzkoušej hru →
+                  </a>
+                )}
+              </motion.article>
             </ScrollReveal>
           ))}
         </div>

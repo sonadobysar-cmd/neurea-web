@@ -43,30 +43,29 @@ export function RobinPerformances() {
   const tab = TABS.find((t) => t.id === active)!;
 
   return (
-    <section id="predstaveni" className="relative py-24 md:py-32">
+    <section id="predstaveni" className="robin-section-blue relative py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <ScrollReveal>
-          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-robin-gold">Programy</p>
-          <h2 className="mt-3 font-robin-display text-4xl font-black uppercase text-white md:text-5xl">
-            Představení na míru
+          <h2 className="font-robin-display text-5xl font-black uppercase text-white md:text-7xl">
+            Představení
           </h2>
         </ScrollReveal>
 
         <ScrollReveal delay={0.1}>
-          <div className="mt-10 inline-flex rounded-full border border-white/10 bg-white/5 p-1 backdrop-blur-sm">
+          <div className="mt-10 inline-flex rounded-2xl border-4 border-black bg-black/30 p-1.5">
             {TABS.map((t) => (
               <button
                 key={t.id}
                 type="button"
                 onClick={() => setActive(t.id)}
-                className={`relative rounded-full px-6 py-3 text-sm font-bold uppercase tracking-wider transition ${
-                  active === t.id ? "text-black" : "text-white/60 hover:text-white"
+                className={`relative rounded-xl px-6 py-3 text-sm font-black uppercase tracking-wider transition ${
+                  active === t.id ? "text-black" : "text-white/70 hover:text-white"
                 }`}
               >
                 {active === t.id && (
                   <motion.span
                     layoutId="tab-pill"
-                    className="absolute inset-0 rounded-full bg-gradient-to-r from-robin-orange to-robin-gold"
+                    className="absolute inset-0 rounded-xl bg-robin-gold"
                     transition={{ type: "spring", stiffness: 400, damping: 30 }}
                   />
                 )}
@@ -85,7 +84,7 @@ export function RobinPerformances() {
             transition={{ duration: 0.4 }}
             className="mt-12 grid items-center gap-10 lg:grid-cols-2"
           >
-            <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/10">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border-4 border-black shadow-[8px_8px_0_#000]">
               <Image
                 src={tab.image}
                 alt={tab.imageAlt}

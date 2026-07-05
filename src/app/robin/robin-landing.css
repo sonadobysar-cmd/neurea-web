@@ -5,24 +5,83 @@
   --robin-amber: #ffa500;
   --robin-gold: #ffd700;
   --robin-cream: #fff8e7;
-  --robin-dark: #08080c;
-  background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(255, 107, 0, 0.15), transparent),
-    radial-gradient(ellipse 60% 40% at 80% 60%, rgba(255, 215, 0, 0.06), transparent),
-    var(--robin-dark);
+  --robin-red: #e63946;
+  --robin-blue: #3b82f6;
+  --robin-dark: #0c0618;
+  background: var(--robin-dark);
+}
+
+.robin-hero {
+  background:
+    radial-gradient(ellipse 90% 70% at 20% 0%, rgba(255, 107, 0, 0.45), transparent 55%),
+    radial-gradient(ellipse 70% 60% at 90% 20%, rgba(59, 130, 246, 0.25), transparent 50%),
+    radial-gradient(ellipse 80% 50% at 50% 100%, rgba(255, 215, 0, 0.2), transparent 55%),
+    linear-gradient(165deg, #1a0533 0%, #0c0618 40%, #1a0a00 100%);
+}
+
+.robin-game-bg {
+  background:
+    radial-gradient(circle at 30% 50%, rgba(255, 107, 0, 0.35), transparent 50%),
+    radial-gradient(circle at 70% 50%, rgba(168, 85, 247, 0.3), transparent 50%),
+    linear-gradient(180deg, #1a0533, #0c0618);
+}
+
+.robin-marquee {
+  background: linear-gradient(90deg, #ffd700, #ffa500, #ff6b00, #ffd700);
+  background-size: 300% 100%;
+  animation: robinMarqueeBg 8s linear infinite;
+}
+
+.robin-marquee-track {
+  animation: robinMarqueeScroll 25s linear infinite;
+}
+
+@keyframes robinMarqueeScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes robinMarqueeBg {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.robin-sticker {
+  box-shadow: 4px 4px 0 #000;
+}
+
+.robin-tag {
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.5);
+}
+
+.robin-section-orange {
+  background: linear-gradient(135deg, #ff6b00 0%, #ffa500 50%, #ffd700 100%);
+}
+
+.robin-section-blue {
+  background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
 }
 
 .robin-landing ::selection {
-  background: rgba(255, 215, 0, 0.35);
-  color: #fff;
+  background: rgba(255, 215, 0, 0.45);
+  color: #000;
 }
 
 .robin-landing a:focus-visible,
 .robin-landing button:focus-visible {
-  outline: 2px solid var(--robin-gold);
+  outline: 3px solid var(--robin-gold);
   outline-offset: 3px;
 }
 
-/* Smooth scroll for anchor links */
 .robin-landing {
   scroll-behavior: smooth;
 }
@@ -30,5 +89,9 @@
 @media (prefers-reduced-motion: reduce) {
   .robin-landing {
     scroll-behavior: auto;
+  }
+  .robin-marquee-track,
+  .robin-marquee {
+    animation: none;
   }
 }

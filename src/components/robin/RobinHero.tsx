@@ -2,147 +2,116 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
+import { FloatingCards } from "./FloatingCards";
 import { MagneticButton } from "./MagneticButton";
 
 export function RobinHero() {
   const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 600], [0, 120]);
-  const opacity = useTransform(scrollY, [0, 400], [1, 0]);
-  const scale = useTransform(scrollY, [0, 500], [1, 0.92]);
+  const y = useTransform(scrollY, [0, 600], [0, 100]);
+  const rotate = useTransform(scrollY, [0, 600], [0, 8]);
 
   return (
-    <section className="relative flex min-h-[100dvh] items-center overflow-hidden pt-24">
-      {/* Spotlight cones */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
-        <div className="absolute -top-20 left-[15%] h-[500px] w-32 rotate-[-12deg] bg-gradient-to-b from-white/8 to-transparent blur-2xl" />
-        <div className="absolute -top-20 left-[45%] h-[600px] w-40 rotate-[-2deg] bg-gradient-to-b from-robin-gold/15 to-transparent blur-2xl" />
-        <div className="absolute -top-20 right-[15%] h-[500px] w-32 rotate-[12deg] bg-gradient-to-b from-white/8 to-transparent blur-2xl" />
-      </div>
+    <section className="robin-hero relative flex min-h-[100dvh] items-center overflow-hidden pt-20">
+      <FloatingCards />
 
-      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-12 px-5 py-16 md:grid-cols-2 md:px-8 md:py-24">
-        <motion.div style={{ opacity }} className="order-2 md:order-1">
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="mb-4 inline-flex items-center gap-2 rounded-full border border-robin-gold/30 bg-robin-gold/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-robin-gold"
-          >
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-robin-gold" />
-            Kouzelník · Balonkář · Mentalista
-          </motion.p>
+      {/* Color blobs */}
+      <div className="pointer-events-none absolute -left-32 top-20 h-96 w-96 rounded-full bg-robin-orange/40 blur-[100px]" aria-hidden />
+      <div className="pointer-events-none absolute -right-20 top-40 h-80 w-80 rounded-full bg-robin-blue/30 blur-[90px]" aria-hidden />
+      <div className="pointer-events-none absolute bottom-20 left-1/3 h-72 w-72 rounded-full bg-robin-gold/25 blur-[80px]" aria-hidden />
 
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35, duration: 0.8 }}
-            className="font-robin-display text-5xl font-black uppercase leading-[0.95] tracking-tight text-white sm:text-6xl lg:text-7xl"
-          >
-            <span className="bg-gradient-to-r from-white via-robin-cream to-robin-gold bg-clip-text text-transparent">
-              Kouzlíme
-            </span>
-            <br />
-            <span className="text-white">s Robinem</span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="mt-6 max-w-lg text-lg leading-relaxed text-white/65 md:text-xl"
-          >
-            Interaktivní kouzelnické představení, které okouzlí malé i velké diváky. Praha a
-            okolí — narozeniny, školy, firemní večírky i svatby.
-          </motion.p>
-
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 py-12 md:px-8 md:py-20">
+        <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.65 }}
-            className="mt-10 flex flex-wrap gap-4"
+            initial={{ opacity: 0, x: -40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
-            <MagneticButton>
-              <a
-                href="#kontakt"
-                className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-robin-orange via-robin-amber to-robin-gold px-8 py-4 text-base font-bold uppercase tracking-wider text-black shadow-xl shadow-robin-orange/30 transition hover:shadow-robin-gold/50"
-              >
-                <span className="relative z-10">Objednat představení</span>
-                <span className="relative z-10 transition group-hover:translate-x-1">→</span>
-                <span className="absolute inset-0 -translate-x-full bg-white/30 transition group-hover:translate-x-full duration-500" />
-              </a>
-            </MagneticButton>
-            <a
-              href="#predstaveni"
-              className="inline-flex items-center gap-2 rounded-full border border-white/20 px-8 py-4 text-base font-semibold uppercase tracking-wider text-white/80 transition hover:border-robin-gold/50 hover:text-robin-gold"
-            >
-              Prohlédnout program
-            </a>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.9 }}
-            className="mt-12 flex flex-wrap gap-8 border-t border-white/10 pt-8"
-          >
-            {[
-              { n: "500+", l: "Vystoupení" },
-              { n: "3", l: "Programy" },
-              { n: "100%", l: "Zábava" },
-            ].map((s) => (
-              <div key={s.l}>
-                <p className="font-robin-display text-3xl font-bold text-robin-gold">{s.n}</p>
-                <p className="text-sm uppercase tracking-wider text-white/50">{s.l}</p>
-              </div>
-            ))}
-          </motion.div>
-        </motion.div>
-
-        <motion.div style={{ y, scale }} className="relative order-1 md:order-2">
-          <div className="relative mx-auto aspect-[3/4] max-w-md md:max-w-none">
-            <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-robin-orange/40 via-robin-gold/20 to-transparent blur-3xl" />
-            <div className="relative overflow-hidden rounded-3xl border border-white/10 shadow-2xl shadow-black/50">
-              <Image
-                src="/robin/IMG_0872.jpg"
-                alt="Kouzelník Robin Panuš — profesionální kouzelnické představení"
-                width={800}
-                height={1067}
-                priority
-                className="h-full w-full object-cover object-top"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+            <div className="mb-6 flex flex-wrap gap-2">
+              {["Kouzelník", "Balonkář", "Mentalista"].map((tag, i) => (
+                <span
+                  key={tag}
+                  className="robin-tag rounded-full px-4 py-1.5 text-xs font-black uppercase tracking-wider text-black"
+                  style={{
+                    background: ["#FFD700", "#FF6B00", "#3B82F6"][i],
+                    transform: `rotate(${[-2, 1, -1][i]}deg)`,
+                  }}
+                >
+                  {tag}
+                </span>
+              ))}
             </div>
 
-            {/* Floating magic cards */}
-            <motion.div
-              animate={{ y: [0, -12, 0], rotate: [-2, 2, -2] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -left-4 top-1/4 rounded-2xl border border-white/10 bg-black/80 p-4 backdrop-blur-xl md:-left-8"
-            >
-              <span className="text-2xl">🎩</span>
-              <p className="mt-1 text-xs font-bold uppercase text-robin-gold">Kouzla</p>
-            </motion.div>
-            <motion.div
-              animate={{ y: [0, 10, 0], rotate: [2, -2, 2] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-              className="absolute -right-2 bottom-1/3 rounded-2xl border border-white/10 bg-black/80 p-4 backdrop-blur-xl md:-right-6"
-            >
-              <span className="text-2xl">🎈</span>
-              <p className="mt-1 text-xs font-bold uppercase text-robin-gold">Balonky</p>
-            </motion.div>
-          </div>
-        </motion.div>
+            <h1 className="font-robin-display text-[clamp(2.8rem,8vw,5.5rem)] font-black uppercase leading-[0.9] tracking-tight">
+              <span className="block text-white drop-shadow-[0_4px_20px_rgba(255,107,0,0.5)]">
+                Kouzlíme
+              </span>
+              <span className="block bg-gradient-to-r from-robin-gold via-yellow-200 to-robin-orange bg-clip-text text-transparent">
+                s Robinem
+              </span>
+            </h1>
+
+            <p className="mt-6 max-w-lg text-lg font-medium leading-relaxed text-white/90 md:text-xl">
+              Magie, která tě vtáhne do děje. Interaktivní show pro děti i dospělé — a rovnou si
+              můžeš zahrát kouzelnickou hru.
+            </p>
+
+            <div className="mt-10 flex flex-wrap gap-4">
+              <MagneticButton>
+                <a
+                  href="#hra"
+                  className="group relative inline-flex items-center gap-3 overflow-hidden rounded-2xl bg-gradient-to-r from-robin-gold via-yellow-300 to-robin-orange px-8 py-5 font-robin-display text-lg font-black uppercase text-black shadow-[0_10px_40px_rgba(255,107,0,0.45)]"
+                >
+                  <span className="text-2xl transition group-hover:rotate-12">🎴</span>
+                  Zahraj si kouzlo
+                </a>
+              </MagneticButton>
+              <MagneticButton>
+                <a
+                  href="#kontakt"
+                  className="inline-flex items-center gap-2 rounded-2xl border-4 border-white bg-white/10 px-8 py-5 font-bold uppercase tracking-wider text-white backdrop-blur-sm transition hover:bg-white/20"
+                >
+                  Objednat show
+                </a>
+              </MagneticButton>
+            </div>
+          </motion.div>
+
+          <motion.div style={{ y, rotate }} className="relative">
+            <div className="relative mx-auto max-w-md lg:max-w-none">
+              <div className="absolute -inset-6 rounded-[2.5rem] bg-gradient-to-br from-robin-orange via-robin-gold to-robin-blue opacity-60 blur-2xl" />
+              <div className="relative rotate-2 overflow-hidden rounded-[2rem] border-4 border-black shadow-[12px_12px_0_#000]">
+                <Image
+                  src="/robin/IMG_0890.jpg"
+                  alt="Kouzelník Robin Panuš — interaktivní představení"
+                  width={800}
+                  height={1000}
+                  priority
+                  className="aspect-[4/5] w-full object-cover"
+                />
+              </div>
+              <motion.a
+                href="#hra"
+                animate={{ y: [0, -6, 0] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="absolute -bottom-4 -left-4 rotate-[-6deg] rounded-2xl border-4 border-black bg-robin-red px-5 py-3 font-robin-display text-sm font-black uppercase text-white shadow-[6px_6px_0_#000] md:-left-8"
+              >
+                🎩 Vyzkoušej hru!
+              </motion.a>
+            </div>
+          </motion.div>
+        </div>
       </div>
 
-      <motion.div
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+      <motion.a
+        href="#hra"
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 1.5, repeat: Infinity }}
+        className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center gap-1"
       >
-        <a href="#sluzby" className="flex flex-col items-center gap-2 text-white/40 transition hover:text-robin-gold">
-          <span className="text-xs uppercase tracking-widest">Scroll</span>
-          <span className="text-xl">↓</span>
-        </a>
-      </motion.div>
+        <span className="rounded-full bg-robin-gold px-3 py-1 text-xs font-black uppercase text-black">
+          Hra ↓
+        </span>
+      </motion.a>
     </section>
   );
 }

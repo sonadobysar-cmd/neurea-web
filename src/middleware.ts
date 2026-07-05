@@ -3,6 +3,10 @@ import type { NextRequest } from "next/server";
 
 const REZERVACE_LANDING_HOSTS = new Set(["rezervace.neurea.cz", "www.rezervace.neurea.cz"]);
 const TEST_LANDING_HOSTS = new Set(["adhd.neurea.cz", "www.adhd.neurea.cz"]);
+const ROBIN_LANDING_HOSTS = new Set([
+  "kouzlimesrobinem.cz",
+  "www.kouzlimesrobinem.cz",
+]);
 
 function getHost(request: NextRequest): string {
   const xf = request.headers.get("x-forwarded-host");
@@ -23,10 +27,14 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const requestHeaders = new Headers(request.headers);
-  if (REZERVACE_LANDING_HOSTS.has(host)) {
+  if (pathname.startsWith("/robin")) {
+    requestHeaders.set("x-neurea-landing", "robin");
+  } else if (REZERVACE_LANDING_HOSTS.has(host)) {
     requestHeaders.set("x-neurea-landing", "rezervace");
   } else if (TEST_LANDING_HOSTS.has(host)) {
     requestHeaders.set("x-neurea-landing", "test");
+  } else if (ROBIN_LANDING_HOSTS.has(host)) {
+    requestHeaders.set("x-neurea-landing", "robin");
   }
 
   if (REZERVACE_LANDING_HOSTS.has(host)) {
@@ -54,6 +62,20 @@ export function middleware(request: NextRequest) {
       return NextResponse.next({ request: { headers: requestHeaders } });
     }
     const main = new URL(`https://neurea.cz${pathname}${request.nextUrl.search}`);
+    return NextResponse.redirect(main, 301);
+  }
+
+  if (ROBIN_LANDING_HOSTS.has(host)) {
+    if (isStaticPath(pathname)) {
+      return NextResponse.next({ request: { headers: requestHeaders } });
+    }
+    if (pathname.startsWith("/robin")) {
+      return NextResponse.next({ request: { headers: requestHeaders } });
+    }
+    if (pathname === "/" || pathname === "") {
+      return NextResponse.next({ request: { headers: requestHeaders } });
+    }
+    const main = new URL(`https://kouzlimesrobinem.cz${pathname}${request.nextUrl.search}`);
     return NextResponse.redirect(main, 301);
   }
 

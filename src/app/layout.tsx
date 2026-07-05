@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { headers } from "next/headers";
-import { EB_Garamond, Oxygen } from "next/font/google";
+import { EB_Garamond, Nunito, Outfit, Oxygen } from "next/font/google";
 import "./globals.css";
 import "./rezervace/rezervace-landing.css";
+import "./robin/robin-landing.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CookieBanner } from "@/components/CookieBanner";
-import { isRezervaceLandingHost, isTestLandingHost } from "@/lib/landingHost";
+import { isRezervaceLandingHost, isRobinLandingHost, isTestLandingHost } from "@/lib/landingHost";
 import { REZERVACE_META_PIXEL_ID } from "@/lib/rezervaceMetaPixel";
 import { site } from "@/lib/site";
 
@@ -23,6 +24,20 @@ const oxygen = Oxygen({
   subsets: ["latin", "latin-ext"],
   weight: ["300", "400", "700"],
   variable: "--font-sans",
+  display: "swap",
+});
+
+const outfit = Outfit({
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "600", "700", "800", "900"],
+  variable: "--font-robin-display",
+  display: "swap",
+});
+
+const nunito = Nunito({
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "600", "700"],
+  variable: "--font-robin-sans",
   display: "swap",
 });
 
@@ -49,7 +64,18 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   const h = await headers();
   const rezervaceLanding = isRezervaceLandingHost(h);
   const testLanding = isTestLandingHost(h);
-  const landing = rezervaceLanding || testLanding;
+  const robinLanding = isRobinLandingHost(h);
+  const landing = rezervaceLanding || testLanding || robinLanding;
+
+  if (robinLanding) {
+    return (
+      <html lang="cs" className={`${outfit.variable} ${nunito.variable}`}>
+        <body className="font-robin-sans antialiased">
+          <main className="min-h-[100dvh]">{children}</main>
+        </body>
+      </html>
+    );
+  }
 
   if (landing) {
     return (

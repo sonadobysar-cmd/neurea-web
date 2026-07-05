@@ -1,5 +1,9 @@
 const REZERVACE_HOSTS = new Set(["rezervace.neurea.cz", "www.rezervace.neurea.cz"]);
 const TEST_HOSTS = new Set(["adhd.neurea.cz", "www.adhd.neurea.cz"]);
+const ROBIN_HOSTS = new Set([
+  "kouzlimesrobinem.cz",
+  "www.kouzlimesrobinem.cz",
+]);
 
 function getHostFromHeaders(h: Headers): string {
   const raw =
@@ -21,4 +25,10 @@ export function isRezervaceLandingHost(h: Headers): boolean {
 export function isTestLandingHost(h: Headers): boolean {
   if (h.get("x-neurea-landing") === "test") return true;
   return TEST_HOSTS.has(getHostFromHeaders(h));
+}
+
+export function isRobinLandingHost(h: Headers): boolean {
+  const marker = h.get("x-neurea-landing");
+  if (marker === "robin") return true;
+  return ROBIN_HOSTS.has(getHostFromHeaders(h));
 }

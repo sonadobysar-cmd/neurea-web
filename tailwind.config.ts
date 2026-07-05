@@ -9,6 +9,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        robin: {
+          orange: "#FF6B00",
+          amber: "#FFA500",
+          gold: "#FFD700",
+          cream: "#FFF8E7",
+          dark: "#08080C",
+        },
         /** Sekundární pozadí sekcí */
         cream: "#F9F6F0",
         pearl: "#FFFFFF",
@@ -33,6 +40,8 @@ const config: Config = {
         "glow-gold": "0 0 60px rgba(212, 181, 92, 0.25), 0 0 120px rgba(184, 150, 62, 0.08)",
       },
       fontFamily: {
+        "robin-display": ["var(--font-robin-display)", "system-ui", "sans-serif"],
+        "robin-sans": ["var(--font-robin-sans)", "system-ui", "sans-serif"],
         display: ["var(--font-display)", "Georgia", "serif"],
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
         heading: ["var(--font-sans)", "system-ui", "sans-serif"],

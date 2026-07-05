@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { BoothTicker } from "./BoothTicker";
 import { BubbleField, StageSpotlights, StageStars } from "./BubbleField";
 import { HatShuffleGame } from "./HatShuffleGame";
 import { robinSite } from "@/lib/robinSite";
@@ -11,6 +12,7 @@ const NAV = [
   { href: "#sluzby", label: "Služby" },
   { href: "#predstaveni", label: "Program" },
   { href: "#galerie", label: "Foto" },
+  { href: "#cenik", label: "Ceník" },
   { href: "#kontakt", label: "Kontakt" },
 ];
 
@@ -109,27 +111,33 @@ export function RobinStage() {
               </div>
             </div>
 
-            <div className="relative mx-auto w-full max-w-sm md:max-w-md">
-              <div className="robin-photo-op aspect-square w-full">
+            <div className="relative mx-auto w-full max-w-sm md:max-w-lg">
+              <span className="robin-float-icon -left-4 top-8 md:-left-8" style={{ animationDelay: "0s" }} aria-hidden>
+                🎩
+              </span>
+              <span className="robin-float-icon -right-2 top-1/4 md:-right-6" style={{ animationDelay: "0.8s" }} aria-hidden>
+                ✨
+              </span>
+              <span className="robin-float-icon right-0 bottom-1/4" style={{ animationDelay: "1.4s" }} aria-hidden>
+                🪄
+              </span>
+              <div className="robin-hero-frame">
+                <div className="robin-shimmer" aria-hidden />
                 <Image
-                  src="/robin/IMG_0872.jpg"
-                  alt="Kouzelník Robin Panuš"
+                  src="/robin/IMG_0890.jpg"
+                  alt="Kouzelník Robin Panuš — interaktivní představení"
                   fill
                   priority
-                  className="object-cover object-top"
-                  sizes="(max-width:768px) 80vw, 400px"
+                  className="object-cover"
+                  sizes="(max-width:768px) 90vw, 480px"
                 />
-              </div>
-              <div
-                className="absolute -bottom-4 -right-2 rotate-6 rounded-xl border-4 border-black bg-white px-4 py-2 shadow-[5px_5px_0_#000] md:-right-6"
-                aria-hidden
-              >
-                <span className="text-2xl">🎩</span>
-                <span className="text-2xl">🪄</span>
+                <span className="robin-hero-badge">Kouzelník Robin</span>
               </div>
             </div>
           </div>
         </section>
+
+        <BoothTicker />
 
         <HatShuffleGame />
 
@@ -164,7 +172,7 @@ export function RobinStage() {
         </section>
 
         {/* ── O ROBINOVI ── */}
-        <section className="robin-panel--dark py-20 md:py-28">
+        <section className="robin-section-dark py-20 md:py-28">
           <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 md:grid-cols-2 md:px-8">
             <div className="relative mx-auto max-w-md">
               <Image
@@ -176,15 +184,13 @@ export function RobinStage() {
               />
             </div>
             <div className="text-[var(--robin-white)]">
-              <h2 className="robin-booth-title text-4xl text-[var(--robin-gold)] md:text-5xl">
-                Robin Panuš
-              </h2>
-              <p className="mt-6 text-lg leading-relaxed opacity-90">
+              <h2 className="robin-booth-title text-4xl md:text-5xl">Robin Panuš</h2>
+              <p className="mt-6 text-lg leading-relaxed">
                 Profesionální kouzelník, balonkář a mentalista. Vystupuji na narozeninových oslavách,
                 ve školách, na firemních akcích i svatbách. Moje představení jsou interaktivní — diváci
                 nejsou pozorovatelé, ale spolutvůrci kouzel.
               </p>
-              <p className="mt-4 text-lg leading-relaxed opacity-90">
+              <p className="mt-4 text-lg leading-relaxed">
                 Program vždy přizpůsobím věku publika, prostoru i charakteru akce.
               </p>
             </div>
@@ -263,25 +269,85 @@ export function RobinStage() {
         </section>
 
         {/* ── CENÍK ── */}
-        <section id="cenik" className="robin-panel--dark py-20 md:py-28">
-          <div className="mx-auto max-w-3xl px-5 text-center md:px-8">
-            <h2 className="robin-booth-title text-4xl text-[var(--robin-gold)] md:text-5xl">Ceník</h2>
-            <p className="mt-6 text-lg opacity-90">
-              Cenu řešíme individuálně podle typu akce, počtu diváků a místa. Dopravné dle vzdálenosti
-              z Prahy — férově, bez skrytých poplatků.
+        <section id="cenik" className="robin-section-dark py-20 md:py-28">
+          <div className="mx-auto max-w-4xl px-5 md:px-8">
+            <h2 className="robin-booth-title text-center text-4xl md:text-5xl">Ceník</h2>
+            <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-relaxed">
+              Cenu řešíme se zákazníkem <strong>individuálně</strong> podle typu akce a místa — počtu
+              osob, doby trvání představení a dalších požadavků.
             </p>
-            <div className="robin-panel mt-10 p-8 text-left text-[var(--robin-ink)]">
-              <p className="text-xs font-bold uppercase tracking-widest opacity-50">Příklad</p>
-              <p className="mt-3 font-semibold">Narozeninová oslava v Praze · 45 min · 15–20 dětí</p>
-              <div className="mt-4 space-y-2 border-t-2 border-black/10 pt-4 font-bold">
-                <div className="flex justify-between">
-                  <span>Vystoupení</span> <span>3 500 Kč</span>
+            <p className="mx-auto mt-4 max-w-2xl text-center text-lg leading-relaxed">
+              <strong>Dopravné</strong> účtujeme dle aktuálních cen pohonných hmot a vzdálenosti z Prahy
+              do místa konání. Jsme fér — účtujeme si pouze tolik, kolik opravdu projedeme.
+            </p>
+            <p className="mx-auto mt-4 max-w-2xl text-center font-semibold">
+              Pro konkrétní cenu nás neváhejte kontaktovat — nezávazná poptávka níže.
+            </p>
+
+            <div className="mt-12 grid gap-8 md:grid-cols-2">
+              <div className="robin-panel p-6 text-[var(--robin-ink)] md:p-8">
+                <p className="text-xs font-bold uppercase tracking-widest text-[var(--robin-red)]">
+                  Co ovlivňuje cenu
+                </p>
+                <ul className="mt-4 space-y-3 font-semibold">
+                  <li className="flex gap-2">
+                    <span className="text-[var(--robin-red)]">★</span>
+                    Typ akce (narozeniny, škola, firemní večírek, svatba…)
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-[var(--robin-red)]">★</span>
+                    Počet diváků a délka vystoupení
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-[var(--robin-red)]">★</span>
+                    Věk publika a rozsah programu
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-[var(--robin-red)]">★</span>
+                    Vzdálenost místa konání od Prahy
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-[var(--robin-red)]">★</span>
+                    Kombinace kouzel, balonkování nebo mentalismu
+                  </li>
+                </ul>
+                <a href="#kontakt" className="robin-btn robin-btn--red mt-8 w-full">
+                  Nezávazná poptávka
+                </a>
+              </div>
+
+              <div className="robin-panel p-6 text-[var(--robin-ink)] md:p-8">
+                <p className="text-xs font-bold uppercase tracking-widest text-[var(--robin-red)]">
+                  Příklad nacenění vystoupení
+                </p>
+
+                <div className="mt-4 rounded-xl border-2 border-black/10 bg-[#fff9e6] p-4">
+                  <p className="text-xs font-bold uppercase tracking-wider opacity-50">Poptávka</p>
+                  <p className="mt-2 text-sm leading-relaxed">
+                    {`„Dobrý den, poptávám kouzelníka na narozeninovou oslavu pro dceru. Bydlíme v Praze, bude tam 15–20 kamarádů ve věku 11–14 let. Vystoupení cca 30 min až 1 hod."`}
+                  </p>
                 </div>
-                <div className="flex justify-between">
-                  <span>Doprava</span> <span>200 Kč</span>
-                </div>
-                <div className="flex justify-between border-t-2 border-black pt-2 text-xl">
-                  <span>Celkem</span> <span className="text-[var(--robin-red)]">3 700 Kč</span>
+
+                <div className="mt-4 rounded-xl border-2 border-black/10 bg-white p-4">
+                  <p className="text-xs font-bold uppercase tracking-wider opacity-50">Naše odpověď</p>
+                  <p className="mt-2 text-sm leading-relaxed">
+                    Na akci rád přijedu! Vystoupení navrhuji na pevných <strong>45 min</strong> — pokud
+                    se bude líbit, necháme si prostor i na přídavek.
+                  </p>
+                  <div className="mt-4 space-y-2 border-t border-black/10 pt-3 text-sm font-bold">
+                    <div className="flex justify-between">
+                      <span>Vystoupení 45 min (15–20 dětí)</span>
+                      <span>3 500 Kč</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Doprava v Praze</span>
+                      <span>200 Kč</span>
+                    </div>
+                    <div className="flex justify-between border-t-2 border-black pt-2 text-lg">
+                      <span>Celkem</span>
+                      <span className="text-[var(--robin-red)]">3 700 Kč</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -321,10 +387,10 @@ export function RobinStage() {
           </div>
         </section>
 
-        <footer className="border-t-4 border-black bg-black py-10 text-center text-[var(--robin-gold)]">
+        <footer className="robin-footer border-t-4 border-[var(--robin-gold)] bg-black py-10 text-center">
           <p className="robin-booth-title text-lg">Kouzlíme s Robinem</p>
-          <p className="robin-booth-sub mt-2 opacity-70">Kouzelník · Balonkář · Mentalista</p>
-          <p className="mt-4 text-sm opacity-50">© {new Date().getFullYear()} {robinSite.magician}</p>
+          <p className="robin-booth-sub mt-2">Kouzelník · Balonkář · Mentalista</p>
+          <p className="mt-4 text-sm text-white/50">© {new Date().getFullYear()} {robinSite.magician}</p>
         </footer>
       </div>
     </div>
@@ -381,7 +447,7 @@ function ContactForm() {
         required
         rows={4}
         placeholder="Typ akce, datum, počet diváků…"
-        className="w-full resize-none rounded-xl border-3 border-black px-4 py-3 font-medium outline-none focus:ring-2 focus:ring-[var(--robin-gold)]"
+        className="w-full resize-none rounded-xl border-4 border-black px-4 py-3 font-medium outline-none focus:ring-2 focus:ring-[var(--robin-gold)]"
       />
       <button type="submit" className="robin-btn robin-btn--dark w-full">
         Odeslat poptávku

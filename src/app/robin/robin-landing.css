@@ -114,6 +114,42 @@
   text-shadow: 2px 2px 0 rgba(255, 255, 255, 0.25);
 }
 
+/* Na tmavém pozadí vždy světlý text — oprava nečitelnosti */
+.robin-panel--dark,
+.robin-section-dark {
+  color: var(--robin-white);
+}
+
+.robin-panel--dark .robin-booth-title,
+.robin-section-dark .robin-booth-title,
+.robin-footer .robin-booth-title {
+  color: var(--robin-gold);
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4);
+}
+
+.robin-panel--dark .robin-booth-sub,
+.robin-section-dark .robin-booth-sub,
+.robin-footer .robin-booth-sub {
+  color: var(--robin-gold);
+  opacity: 0.85;
+}
+
+.robin-panel--dark p,
+.robin-section-dark p,
+.robin-panel--dark li,
+.robin-section-dark > div > p,
+.robin-section-dark > div > h2 + p {
+  color: rgba(255, 254, 248, 0.92);
+}
+
+/* Bílé panely uvnitř tmavé sekce — černý text */
+.robin-section-dark .robin-panel,
+.robin-section-dark .robin-panel p,
+.robin-section-dark .robin-panel li,
+.robin-section-dark .robin-panel span {
+  color: var(--robin-ink);
+}
+
 .robin-booth-sub {
   font-weight: 800;
   text-transform: uppercase;
@@ -172,11 +208,114 @@
 }
 
 .robin-photo-op {
+  display: none;
+}
+
+/* Hero foto — ořez portrétu, ne kruh */
+.robin-hero-frame {
   position: relative;
-  border: 5px solid var(--robin-ink);
-  border-radius: 50%;
+  aspect-ratio: 4 / 5;
   overflow: hidden;
-  box-shadow: 0 0 0 8px var(--robin-gold), 0 0 0 13px var(--robin-ink), 12px 12px 0 var(--robin-ink);
+  border: 5px solid var(--robin-ink);
+  border-radius: 1.25rem;
+  box-shadow: 12px 12px 0 var(--robin-ink);
+  transform: rotate(2deg);
+  transition: transform 0.3s ease;
+}
+
+.robin-hero-frame:hover {
+  transform: rotate(0deg) scale(1.02);
+}
+
+.robin-hero-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.35) 0%, transparent 45%);
+}
+
+.robin-hero-frame img {
+  object-position: 50% 18%;
+}
+
+.robin-hero-badge {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 3;
+  border-radius: 0.75rem;
+  border: 3px solid var(--robin-ink);
+  background: var(--robin-gold);
+  padding: 0.5rem 1rem;
+  font-weight: 800;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  box-shadow: 4px 4px 0 var(--robin-ink);
+  color: var(--robin-ink);
+}
+
+/* Běžící páska ze stánku */
+.robin-ticker {
+  overflow: hidden;
+  border-top: 4px solid var(--robin-ink);
+  border-bottom: 4px solid var(--robin-ink);
+  background: var(--robin-ink);
+  color: var(--robin-gold);
+  padding: 0.75rem 0;
+}
+
+.robin-ticker-track {
+  display: flex;
+  width: max-content;
+  gap: 2.5rem;
+  animation: robinTicker 22s linear infinite;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.9rem;
+}
+
+@keyframes robinTicker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Floating wow dekorace */
+.robin-float-icon {
+  position: absolute;
+  font-size: 2rem;
+  animation: robinFloat 3s ease-in-out infinite;
+  pointer-events: none;
+  filter: drop-shadow(2px 2px 0 rgba(0, 0, 0, 0.3));
+}
+
+@keyframes robinFloat {
+  0%, 100% { transform: translateY(0) rotate(-5deg); }
+  50% { transform: translateY(-12px) rotate(5deg); }
+}
+
+.robin-shimmer {
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.5) 50%,
+    transparent 60%
+  );
+  background-size: 200% 100%;
+  animation: robinShimmer 3s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 4;
+}
+
+@keyframes robinShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
 .robin-tablecloth {

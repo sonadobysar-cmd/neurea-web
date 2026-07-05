@@ -79,7 +79,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(main, 301);
   }
 
-  return NextResponse.next();
+  return NextResponse.next({ request: { headers: requestHeaders } });
 }
 
 export const config = {

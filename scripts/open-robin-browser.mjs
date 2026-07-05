@@ -43,7 +43,7 @@ function checkRobin(hostname, port) {
 }
 
 async function findServer() {
-  for (let i = 0; i < 120; i++) {
+  for (let i = 0; i < 180; i++) {
     for (const port of ports) {
       for (const host of hosts) {
         if (await portOpen(host, port)) {
@@ -65,13 +65,18 @@ async function findServer() {
 async function main() {
   const url = await findServer();
   if (!url) {
-    console.error("\n❌ Server se nespustil do 60 s.");
+    console.error("\n❌ Server se nespustil do 90 s.");
     console.error("   Zkus v terminálu:  cd ~/Neurea && npm run dev");
     console.error("   Pak otevři:        http://127.0.0.1:3000/robin\n");
     process.exit(1);
   }
-  execSync(`open "${url}"`, { stdio: "inherit" });
-  console.log(`\n  ✓ Otevřeno: ${url}\n`);
+  try {
+    execSync(`open "${url}"`, { stdio: "inherit" });
+    console.log(`\n  ✓ Otevřeno: ${url}\n`);
+  } catch {
+    console.log(`\n  ⚠ Nepodařilo se otevřít prohlížeč automaticky.`);
+    console.log(`  Zkopíruj do prohlížeče: ${url}\n`);
+  }
 }
 
 main();

@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     siteName: robinSite.name,
     title: "Kouzelník Robin Panuš — Kouzlíme s Robinem",
     description: robinSite.description,
-    images: [{ url: "/robin/robin-hero.png", width: 1538, height: 2091, alt: "Kouzelník Robin Panuš" }],
+    images: [{ url: "/robin/IMG_0722.jpg", width: 1066, height: 1600, alt: "Kouzelník Robin Panuš" }],
   },
   robots: { index: true, follow: true },
 };

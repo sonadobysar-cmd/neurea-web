@@ -111,28 +111,53 @@ export function RobinStage() {
               </div>
             </div>
 
-            <div className="robin-hero-scene">
-              <div className="robin-hero-glow" aria-hidden />
-              <div className="robin-hero-shadow" aria-hidden />
-              <span className="robin-float-icon -left-2 top-6 md:-left-6" style={{ animationDelay: "0s" }} aria-hidden>
+            <div className="robin-booth-window" aria-label="Photo-op stánek — Kouzelník Robin">
+              <div className="robin-booth-window__sign">
+                <span className="robin-booth-window__sign-stars" aria-hidden>
+                  ✦ ✦ ✦
+                </span>
+                <p className="robin-booth-window__sign-url">www.kouzlimesrobinem.cz</p>
+                <p className="robin-booth-window__sign-title">Kouzlíme s Robinem</p>
+              </div>
+
+              <div className="robin-booth-window__bulbs" aria-hidden>
+                {Array.from({ length: 11 }).map((_, i) => (
+                  <span key={i} className="robin-booth-window__bulb" style={{ animationDelay: `${i * 0.18}s` }} />
+                ))}
+              </div>
+
+              <div className="robin-booth-window__frame">
+                <div className="robin-booth-window__curtain robin-booth-window__curtain--left" aria-hidden />
+                <div className="robin-booth-window__viewport">
+                  <div className="robin-booth-window__spot" aria-hidden />
+                  <Image
+                    src="/robin/IMG_0722.jpg"
+                    alt="Kouzelník Robin Panuš — balonkové tvoření"
+                    width={1066}
+                    height={1600}
+                    priority
+                    className="robin-booth-window__photo"
+                    sizes="(max-width:768px) 88vw, 420px"
+                  />
+                  <div className="robin-booth-window__flash" aria-hidden />
+                  <span className="robin-booth-window__sticker" aria-hidden>
+                    🐕
+                  </span>
+                </div>
+                <div className="robin-booth-window__curtain robin-booth-window__curtain--right" aria-hidden />
+              </div>
+
+              <div className="robin-booth-window__footer">
+                <span className="robin-booth-window__footer-tag">Photo-op</span>
+                <span>Kouzelník · Balonkář</span>
+              </div>
+
+              <span className="robin-float-icon robin-booth-window__icon robin-booth-window__icon--hat" aria-hidden>
                 🎩
               </span>
-              <span className="robin-float-icon -right-1 top-1/4 md:-right-4" style={{ animationDelay: "0.8s" }} aria-hidden>
+              <span className="robin-float-icon robin-booth-window__icon robin-booth-window__icon--spark" aria-hidden>
                 ✨
               </span>
-              <span className="robin-float-icon right-2 bottom-1/3" style={{ animationDelay: "1.4s" }} aria-hidden>
-                🪄
-              </span>
-              <Image
-                src="/robin/robin-hero.png"
-                alt="Kouzelník Robin Panuš — balonkové tvoření"
-                width={1538}
-                height={2091}
-                priority
-                className="robin-hero-cutout"
-                sizes="(max-width:768px) 92vw, 480px"
-              />
-              <span className="robin-hero-badge">Kouzelník Robin</span>
             </div>
           </div>
         </section>

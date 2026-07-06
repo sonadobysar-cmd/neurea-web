@@ -281,7 +281,255 @@
   display: none;
 }
 
-/* Hero — Robin bez pozadí, volně v scéně */
+/* Hero — photo-op stánek (celá fotka v rámu, bez výřezu) */
+.robin-booth-window {
+  position: relative;
+  width: min(100%, 420px);
+  margin: 0 auto;
+  transform: perspective(900px) rotateY(-4deg) rotateZ(1.5deg);
+  transform-origin: center bottom;
+  transition: transform 0.4s ease;
+}
+
+.robin-booth-window:hover {
+  transform: perspective(900px) rotateY(-1deg) rotateZ(0.5deg) translateY(-4px);
+}
+
+.robin-booth-window__sign {
+  position: relative;
+  z-index: 2;
+  margin: 0 1.25rem -0.65rem;
+  border: 4px solid var(--robin-ink);
+  border-radius: 0.85rem;
+  background: linear-gradient(180deg, #ffb347 0%, #ffd700 55%, #ffae00 100%);
+  padding: 0.55rem 0.85rem 0.65rem;
+  text-align: center;
+  box-shadow: 5px 5px 0 var(--robin-ink);
+}
+
+.robin-booth-window__sign-stars {
+  display: block;
+  font-size: 0.55rem;
+  letter-spacing: 0.35em;
+  color: rgba(0, 0, 0, 0.45);
+  margin-bottom: 0.15rem;
+}
+
+.robin-booth-window__sign-url {
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.robin-booth-window__sign-title {
+  font-family: var(--font-robin-display), system-ui, sans-serif;
+  font-size: clamp(0.85rem, 3.2vw, 1rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: 1.05;
+  color: var(--robin-ink);
+}
+
+.robin-booth-window__bulbs {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  gap: 0.45rem;
+  margin: 0.35rem 2rem 0.15rem;
+}
+
+.robin-booth-window__bulb {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  border: 2px solid var(--robin-ink);
+  background: radial-gradient(circle at 35% 30%, #fffef0, #ffd700 55%, #ff9500);
+  box-shadow: 0 0 6px rgba(255, 215, 0, 0.75);
+  animation: robinBulbBlink 1.6s ease-in-out infinite;
+}
+
+@keyframes robinBulbBlink {
+  0%,
+  100% {
+    opacity: 1;
+    filter: brightness(1);
+  }
+  50% {
+    opacity: 0.45;
+    filter: brightness(0.75);
+  }
+}
+
+.robin-booth-window__frame {
+  position: relative;
+  display: grid;
+  grid-template-columns: 0.85rem 1fr 0.85rem;
+  border: 5px solid var(--robin-ink);
+  border-radius: 1.1rem;
+  background: linear-gradient(165deg, #ffc966 0%, #ffd700 40%, #ffb347 100%);
+  padding: 0.65rem 0.35rem;
+  box-shadow: 10px 12px 0 var(--robin-ink);
+}
+
+.robin-booth-window__curtain {
+  align-self: stretch;
+  border-radius: 0.35rem;
+  background: repeating-linear-gradient(
+    90deg,
+    #8b0000 0,
+    #8b0000 6px,
+    #a01010 6px,
+    #a01010 12px
+  );
+  box-shadow: inset -2px 0 6px rgba(0, 0, 0, 0.35);
+}
+
+.robin-booth-window__curtain--right {
+  box-shadow: inset 2px 0 6px rgba(0, 0, 0, 0.35);
+}
+
+.robin-booth-window__viewport {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.55rem;
+  border: 3px solid var(--robin-ink);
+  background: #060606;
+  aspect-ratio: 2 / 3;
+  max-height: min(68vh, 540px);
+}
+
+.robin-booth-window__spot {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 55% at 50% -5%, rgba(255, 252, 230, 0.22) 0%, transparent 55%),
+    radial-gradient(ellipse 90% 70% at 50% 100%, rgba(0, 0, 0, 0.55) 0%, transparent 65%);
+}
+
+.robin-booth-window__photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 8%;
+}
+
+.robin-booth-window__flash {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: #fff;
+  opacity: 0;
+  mix-blend-mode: overlay;
+  animation: robinBoothFlash 7s ease-in-out infinite;
+}
+
+@keyframes robinBoothFlash {
+  0%,
+  92%,
+  100% {
+    opacity: 0;
+  }
+  93% {
+    opacity: 0.55;
+  }
+  94.5% {
+    opacity: 0;
+  }
+}
+
+.robin-booth-window__sticker {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  border: 3px solid var(--robin-ink);
+  background: var(--robin-blue);
+  font-size: 1.15rem;
+  box-shadow: 3px 3px 0 var(--robin-ink);
+}
+
+.robin-booth-window__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.65rem;
+  padding: 0.45rem 0.85rem;
+  border: 3px solid var(--robin-ink);
+  border-radius: 0.65rem;
+  background: var(--robin-ink);
+  color: var(--robin-gold);
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.robin-booth-window__footer-tag {
+  padding: 0.2rem 0.45rem;
+  border-radius: 0.35rem;
+  background: var(--robin-gold);
+  color: var(--robin-ink);
+}
+
+.robin-booth-window__icon {
+  position: absolute;
+  z-index: 5;
+  font-size: 1.75rem;
+  filter: drop-shadow(2px 2px 0 rgba(0, 0, 0, 0.35));
+}
+
+.robin-booth-window__icon--hat {
+  top: 18%;
+  left: -0.75rem;
+  animation: robinHeroFloat 5s ease-in-out infinite;
+}
+
+.robin-booth-window__icon--spark {
+  top: 42%;
+  right: -0.65rem;
+  animation: robinHeroFloat 5.8s ease-in-out infinite 0.6s;
+}
+
+@media (max-width: 767px) {
+  .robin-booth-window {
+    transform: none;
+  }
+
+  .robin-booth-window:hover {
+    transform: translateY(-3px);
+  }
+
+  .robin-booth-window__viewport {
+    max-height: min(62vh, 480px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .robin-booth-window__bulb,
+  .robin-booth-window__flash,
+  .robin-booth-window__icon--hat,
+  .robin-booth-window__icon--spark {
+    animation: none;
+  }
+}
+
+/* Legacy cutout hero (unused) */
 .robin-hero-scene {
   position: relative;
   display: flex;

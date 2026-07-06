@@ -1,0 +1,55 @@
+/** Lovable design — ilustrační fotky pro hero a karty služeb */
+export const robinModernAssets = {
+  hero: "/robin/modern/hero-magician.jpg",
+  kids: "/robin/modern/kids.jpg",
+  cards: "/robin/modern/cards.jpg",
+  balloons: "/robin/modern/balloons.jpg",
+  mentalism: "/robin/modern/mentalism.jpg",
+} as const;
+
+/** Robinův stánek — reálná fotka */
+export const robinStanekImage = "/robin/brand-booth.jpg";
+
+/** Galerie — optimalizované fotky z vystoupení */
+export const robinGalleryImages = [
+  "/robin/gallery/IMG_0532.jpg",
+  "/robin/gallery/IMG_0558.jpg",
+  "/robin/gallery/IMG_0565.jpg",
+  "/robin/gallery/IMG_0570.jpg",
+  "/robin/gallery/IMG_0584.jpg",
+  "/robin/gallery/IMG_0595.jpg",
+  "/robin/gallery/IMG_0598.jpg",
+  "/robin/gallery/IMG_0601.jpg",
+  "/robin/gallery/IMG_0618.jpg",
+  "/robin/gallery/IMG_0622.jpg",
+  "/robin/gallery/IMG_0624.jpg",
+  "/robin/gallery/IMG_0628.jpg",
+  "/robin/gallery/IMG_0648.jpg",
+  "/robin/gallery/IMG_0660.jpg",
+  "/robin/gallery/IMG_0681.jpg",
+  "/robin/gallery/IMG_0700.jpg",
+  "/robin/gallery/IMG_0721.jpg",
+  "/robin/gallery/IMG_0722.jpg",
+  "/robin/gallery/IMG_0733.jpg",
+  "/robin/gallery/IMG_0748.jpg",
+  "/robin/gallery/IMG_0750.jpg",
+  "/robin/gallery/IMG_0770.jpg",
+  "/robin/gallery/IMG_0779.jpg",
+  "/robin/gallery/IMG_0788.jpg",
+  "/robin/gallery/IMG_0803.jpg",
+  "/robin/gallery/IMG_0804.jpg",
+  "/robin/gallery/IMG_0825.jpg",
+  "/robin/gallery/IMG_0837.jpg",
+  "/robin/gallery/IMG_0864.jpg",
+  "/robin/gallery/IMG_0872.jpg",
+  "/robin/gallery/IMG_0872a.jpg",
+  "/robin/gallery/IMG_0888.jpg",
+  "/robin/gallery/IMG_0890.jpg",
+  "/robin/gallery/IMG_0932.jpg",
+  "/robin/gallery/IMG_0943.jpg",
+  "/robin/gallery/IMG_0946.jpg",
+  "/robin/gallery/IMG_0952.jpg",
+  "/robin/gallery/IMG_0955.jpg",
+  "/robin/gallery/IMG_0955a.jpg",
+  "/robin/gallery/IMG_0960.jpg",
+] as const;

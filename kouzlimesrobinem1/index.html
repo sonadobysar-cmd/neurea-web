@@ -56,6 +56,7 @@ a{color:inherit;text-decoration:none}
   border-radius:0!important;width:auto!important;object-fit:contain;overflow:visible;
   filter:drop-shadow(4px 10px 14px rgba(120,60,10,.16));
   opacity:.94;will-change:transform;backface-visibility:hidden;transform:translateZ(0)}
+.bubble.balloon-float.hero-dog{opacity:.98;filter:drop-shadow(6px 16px 22px rgba(80,40,10,.18));pointer-events:none}
 .bubble.balloon-float::after{display:none}
 .pop{position:fixed;pointer-events:none;z-index:40;transform:translate(-50%,-50%)}
 .pop span{position:absolute;left:0;top:0;width:9px;height:9px;border-radius:50%;background:var(--star);
@@ -221,19 +222,14 @@ section{position:relative}
 .trick .panel{overflow:hidden;padding:clamp(40px,6vw,72px);text-align:center;position:relative}
 .trick h2{margin-top:16px}
 .trick .lead{margin:18px auto 0;text-align:center}
-.popstage{position:relative;width:min(460px,92vw);height:430px;margin:24px auto 0;display:grid;place-items:center;overflow:visible}
+.popstage{position:relative;width:min(420px,90vw);height:380px;margin:28px auto 0;display:grid;place-items:center;overflow:visible}
 .cluster{position:absolute;inset:0;display:grid;place-items:center;cursor:pointer;
-  animation:clusterSway 4.2s ease-in-out infinite;transition:opacity .35s, transform .45s cubic-bezier(.34,1.2,.48,1)}
-@keyframes clusterSway{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-14px) rotate(1deg)}}
+  animation:clusterSway 4.5s ease-in-out infinite;transition:opacity .35s, transform .45s cubic-bezier(.34,1.2,.48,1)}
+@keyframes clusterSway{0%,100%{transform:translateY(0) rotate(-.8deg)}50%{transform:translateY(-12px) rotate(.8deg)}}
 .cluster.popping{animation:clusterPop .55s cubic-bezier(.4,0,.2,1) forwards;pointer-events:none}
-@keyframes clusterPop{0%{transform:scale(1)}35%{transform:scale(1.06)}100%{transform:scale(.55);opacity:0}}
+@keyframes clusterPop{0%{transform:scale(1)}35%{transform:scale(1.05)}100%{transform:scale(.5);opacity:0}}
 .cluster.gone{opacity:0;pointer-events:none;animation:none}
-.cluster-svg{width:min(340px,86vw);height:auto;overflow:visible}
-.cluster-balloon{transform-origin:center bottom;animation:balloonBob 3.6s ease-in-out infinite}
-.cluster-balloon.cb-v{animation-delay:0s}.cluster-balloon.cb-y{animation-delay:.4s}
-.cluster-balloon.cb-b{animation-delay:.8s}.cluster-balloon.cb-o{animation-delay:.2s}
-.cluster-balloon.cb-p{animation-delay:1.1s}
-@keyframes balloonBob{0%,100%{transform:translateY(0) rotate(var(--r,0deg))}50%{transform:translateY(-6px) rotate(calc(var(--r,0deg) + 2deg))}}
+.cluster-svg{width:min(300px,78vw);height:auto;overflow:visible;filter:drop-shadow(0 14px 28px rgba(26,18,6,.14))}
 .cluster-hint{position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);white-space:nowrap;
   font:800 12px var(--sans);text-transform:uppercase;letter-spacing:.1em;color:var(--ink);
   background:var(--cream);border:2px solid var(--ink);border-radius:99px;padding:6px 16px;box-shadow:3px 3px 0 var(--ink)}
@@ -458,44 +454,45 @@ footer{padding:26px 0;border-top:2px solid rgba(26,18,6,.2);margin-top:10px}
       <p class="lead reveal d2">Klikni na balónky a nech se překvapit, jaké zvířátko ti Robin vykouzlí. Pokaždé něco jiného!</p>
       <div class="popstage reveal d2" id="popstage">
         <div class="cluster" id="cluster" role="button" tabindex="0" aria-label="Prasknout balónky">
-          <svg viewBox="0 0 320 340" aria-hidden="true" class="cluster-svg">
+          <svg viewBox="0 0 300 320" aria-hidden="true" class="cluster-svg">
             <defs>
-              <radialGradient id="gO" cx="34%" cy="26%" r="72%"><stop offset="0%" stop-color="#FFC878"/><stop offset="55%" stop-color="#F68544"/><stop offset="100%" stop-color="#C94E12"/></radialGradient>
-              <radialGradient id="gV" cx="34%" cy="26%" r="72%"><stop offset="0%" stop-color="#C9A8EE"/><stop offset="55%" stop-color="#7B56B8"/><stop offset="100%" stop-color="#4A2E7A"/></radialGradient>
-              <radialGradient id="gY" cx="34%" cy="26%" r="72%"><stop offset="0%" stop-color="#FAF078"/><stop offset="55%" stop-color="#E4D040"/><stop offset="100%" stop-color="#A89218"/></radialGradient>
-              <radialGradient id="gB" cx="34%" cy="26%" r="72%"><stop offset="0%" stop-color="#A8E0FF"/><stop offset="55%" stop-color="#4FA9E0"/><stop offset="100%" stop-color="#256A9E"/></radialGradient>
-              <radialGradient id="gP" cx="34%" cy="26%" r="72%"><stop offset="0%" stop-color="#FFB0D0"/><stop offset="55%" stop-color="#E06090"/><stop offset="100%" stop-color="#A83058"/></radialGradient>
-              <filter id="clusterGlow" x="-15%" y="-10%" width="130%" height="130%">
-                <feDropShadow dx="0" dy="10" stdDeviation="8" flood-color="rgba(26,18,6,0.16)"/>
-              </filter>
+              <radialGradient id="gO" cx="32%" cy="24%" r="78%"><stop offset="0%" stop-color="#FFD090"/><stop offset="45%" stop-color="#F68544"/><stop offset="100%" stop-color="#C94E12"/></radialGradient>
+              <radialGradient id="gV" cx="32%" cy="24%" r="78%"><stop offset="0%" stop-color="#D4B8F5"/><stop offset="45%" stop-color="#8B62C4"/><stop offset="100%" stop-color="#4A2E7A"/></radialGradient>
+              <radialGradient id="gY" cx="32%" cy="24%" r="78%"><stop offset="0%" stop-color="#FFF090"/><stop offset="45%" stop-color="#E8D040"/><stop offset="100%" stop-color="#A89218"/></radialGradient>
+              <radialGradient id="gB" cx="32%" cy="24%" r="78%"><stop offset="0%" stop-color="#B8E8FF"/><stop offset="45%" stop-color="#4FA9E0"/><stop offset="100%" stop-color="#256A9E"/></radialGradient>
+              <radialGradient id="gP" cx="32%" cy="24%" r="78%"><stop offset="0%" stop-color="#FFB8D8"/><stop offset="45%" stop-color="#E06090"/><stop offset="100%" stop-color="#A83058"/></radialGradient>
             </defs>
-            <g filter="url(#clusterGlow)">
-              <path d="M160 262 Q138 292 128 318" stroke="#C4A062" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-              <path d="M160 262 Q168 295 178 318" stroke="#C4A062" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-              <path d="M160 262 Q160 298 160 318" stroke="#C4A062" stroke-width="2" fill="none" stroke-linecap="round"/>
-              <path d="M160 262 Q148 278 142 292" stroke="#C4A062" stroke-width="2" fill="none" stroke-linecap="round" opacity=".7"/>
-              <path d="M160 262 Q172 278 178 292" stroke="#C4A062" stroke-width="2" fill="none" stroke-linecap="round" opacity=".7"/>
-              <ellipse cx="160" cy="276" rx="34" ry="14" fill="#D62828" stroke="#1A1206" stroke-width="2"/>
-              <ellipse cx="160" cy="272" rx="22" ry="9" fill="#FF4757" opacity=".85"/>
-              <g class="cluster-balloon cb-v" style="--r:-18deg" transform="translate(82 118) rotate(-18)">
-                <path d="M0 -58 C32 -58 38 -18 38 4 C38 34 20 54 0 54 C-20 54 -38 34 -38 4 C-38 -18 -32 -58 0 -58 Z" fill="url(#gV)" stroke="#4A2E7A" stroke-width="2.5"/>
-                <path d="M-5 54 L0 68 L5 54 Z" fill="#4A2E7A"/><ellipse cx="-11" cy="-22" rx="11" ry="18" fill="#fff" opacity=".5"/>
+            <g stroke-linecap="round">
+              <path d="M150 248 Q128 278 118 308" stroke="#C4A062" stroke-width="2.2" fill="none" opacity=".85"/>
+              <path d="M150 248 Q162 282 172 308" stroke="#C4A062" stroke-width="2.2" fill="none" opacity=".85"/>
+              <path d="M150 248 Q142 285 138 308" stroke="#C4A062" stroke-width="2" fill="none" opacity=".7"/>
+              <path d="M150 248 Q158 285 162 308" stroke="#C4A062" stroke-width="2" fill="none" opacity=".7"/>
+              <ellipse cx="150" cy="262" rx="30" ry="12" fill="#D62828" stroke="#1A1206" stroke-width="2"/>
+              <ellipse cx="150" cy="259" rx="20" ry="8" fill="#FF4757" opacity=".9"/>
+              <g transform="translate(88 118) rotate(-18)" stroke-width="2.5">
+                <path d="M0 -58 C32 -58 38 -18 38 4 C38 34 20 54 0 54 C-20 54 -38 34 -38 4 C-38 -18 -32 -58 0 -58 Z" fill="url(#gV)" stroke="#4A2E7A"/>
+                <path d="M-5 54 L0 68 L5 54 Z" fill="#4A2E7A"/>
+                <ellipse cx="-11" cy="-22" rx="11" ry="18" fill="#fff" opacity=".52"/>
               </g>
-              <g class="cluster-balloon cb-y" style="--r:18deg" transform="translate(238 118) rotate(18)">
-                <path d="M0 -58 C32 -58 38 -18 38 4 C38 34 20 54 0 54 C-20 54 -38 34 -38 4 C-38 -18 -32 -58 0 -58 Z" fill="url(#gY)" stroke="#A89218" stroke-width="2.5"/>
-                <path d="M-5 54 L0 68 L5 54 Z" fill="#A89218"/><ellipse cx="-11" cy="-22" rx="11" ry="18" fill="#fff" opacity=".5"/>
+              <g transform="translate(212 118) rotate(18)" stroke-width="2.5">
+                <path d="M0 -58 C32 -58 38 -18 38 4 C38 34 20 54 0 54 C-20 54 -38 34 -38 4 C-38 -18 -32 -58 0 -58 Z" fill="url(#gY)" stroke="#A89218"/>
+                <path d="M-5 54 L0 68 L5 54 Z" fill="#A89218"/>
+                <ellipse cx="-11" cy="-22" rx="11" ry="18" fill="#fff" opacity=".52"/>
               </g>
-              <g class="cluster-balloon cb-b" style="--r:-8deg" transform="translate(108 152) rotate(-8)">
-                <path d="M0 -62 C36 -62 42 -20 42 6 C42 38 22 58 0 58 C-22 58 -42 38 -42 6 C-42 -20 -36 -62 0 -62 Z" fill="url(#gB)" stroke="#256A9E" stroke-width="2.5"/>
-                <path d="M-5 58 L0 72 L5 58 Z" fill="#256A9E"/><ellipse cx="-12" cy="-24" rx="12" ry="20" fill="#fff" opacity=".52"/>
+              <g transform="translate(112 152) rotate(-8)" stroke-width="2.5">
+                <path d="M0 -62 C36 -62 42 -20 42 6 C42 38 22 58 0 58 C-22 58 -42 38 -42 6 C-42 -20 -36 -62 0 -62 Z" fill="url(#gB)" stroke="#256A9E"/>
+                <path d="M-5 58 L0 72 L5 58 Z" fill="#256A9E"/>
+                <ellipse cx="-12" cy="-24" rx="12" ry="20" fill="#fff" opacity=".55"/>
               </g>
-              <g class="cluster-balloon cb-o" style="--r:0deg" transform="translate(160 138)">
-                <path d="M0 -72 C44 -72 52 -24 52 8 C52 44 28 66 0 66 C-28 66 -52 44 -52 8 C-52 -24 -44 -72 0 -72 Z" fill="url(#gO)" stroke="#C94E12" stroke-width="2.5"/>
-                <path d="M-6 66 L0 82 L6 66 Z" fill="#C94E12"/><ellipse cx="-15" cy="-30" rx="15" ry="24" fill="#fff" opacity=".55"/>
+              <g transform="translate(188 152) rotate(10)" stroke-width="2.5">
+                <path d="M0 -62 C36 -62 42 -20 42 6 C42 38 22 58 0 58 C-22 58 -42 38 -42 6 C-42 -20 -36 -62 0 -62 Z" fill="url(#gP)" stroke="#A83058"/>
+                <path d="M-5 58 L0 72 L5 58 Z" fill="#A83058"/>
+                <ellipse cx="-12" cy="-24" rx="12" ry="20" fill="#fff" opacity=".55"/>
               </g>
-              <g class="cluster-balloon cb-p" style="--r:10deg" transform="translate(212 154) rotate(10)">
-                <path d="M0 -60 C34 -60 40 -20 40 4 C40 34 22 54 0 54 C-22 54 -40 34 -40 4 C-40 -20 -34 -60 0 -60 Z" fill="url(#gP)" stroke="#A83058" stroke-width="2.5"/>
-                <path d="M-5 54 L0 68 L5 54 Z" fill="#A83058"/><ellipse cx="-11" cy="-22" rx="11" ry="18" fill="#fff" opacity=".5"/>
+              <g transform="translate(150 128)" stroke-width="2.5">
+                <path d="M0 -68 C42 -68 48 -22 48 6 C48 40 26 62 0 62 C-26 62 -48 40 -48 6 C-48 -22 -42 -68 0 -68 Z" fill="url(#gO)" stroke="#C94E12"/>
+                <path d="M-6 62 L0 78 L6 62 Z" fill="#C94E12"/>
+                <ellipse cx="-14" cy="-28" rx="14" ry="22" fill="#fff" opacity=".58"/>
               </g>
             </g>
           </svg>
@@ -612,10 +609,29 @@ footer{padding:26px 0;border-top:2px solid rgba(26,18,6,.2);margin-top:10px}
     }
     var x=Math.random()*(W-size);
     var b={el:el,x:x,y:H+size*0.5,size:size,vy:isBalloon?0.09+Math.random()*0.12:0.16+Math.random()*0.28,
-      drift:(Math.random()-.5)*0.28,phase:Math.random()*6,isBalloon:isBalloon,spinBase:(Math.random()-.5)*5,rot:0};
+      drift:(Math.random()-.5)*0.28,phase:Math.random()*6,isBalloon:isBalloon,spinBase:(Math.random()-.5)*5,rot:0,hero:false};
     el.style.transform='translate('+b.x+'px,'+b.y+'px)';
     if(!isBalloon) el.addEventListener('click',function(e){ popBubble(b,e.clientX,e.clientY); });
     layer.appendChild(el);bubbles.push(b);
+  }
+  function createHeroDog(index){
+    var el=document.createElement('img');
+    el.className='bubble balloon-float hero-dog';
+    el.src=balloonSrcs[index];
+    el.alt='';
+    var size=78+index*10;
+    el.style.height=size+'px';el.style.width='auto';
+    var startX=index===0?W*0.1:W*0.68;
+    var b={el:el,x:startX,y:H*0.45+index*55,size:size,
+      vy:0.038+index*0.006,drift:index===0?-0.14:0.14,
+      phase:index*2.8,isBalloon:true,spinBase:index===0?-6:6,rot:0,hero:true,dogIndex:index};
+    el.style.transform='translate3d('+b.x+'px,'+b.y+'px,0) rotate('+b.rot+'deg)';
+    layer.appendChild(el);bubbles.push(b);
+  }
+  function resetHeroDog(b){
+    b.y=H+b.size*0.6;
+    b.x=b.dogIndex===0?W*(0.06+Math.random()*0.22):W*(0.62+Math.random()*0.28);
+    b.phase=Math.random()*6;
   }
   function popBubble(b,cx,cy){
     var i=bubbles.indexOf(b);if(i<0)return;
@@ -633,24 +649,32 @@ footer{padding:26px 0;border-top:2px solid rgba(26,18,6,.2);margin-top:10px}
     var dt=Math.min(32,(now||performance.now())-lastT);lastT=now||performance.now();
     for(var i=bubbles.length-1;i>=0;i--){
       var b=bubbles[i],speed=b.vy*(dt/16);
-      b.y-=speed;b.phase+=0.007*dt;
-      var sway=Math.sin(b.phase)*0.85+Math.sin(b.phase*1.63+1.1)*0.38+b.drift;
-      var dx=b.x-mx,dy=b.y-my,dist=Math.hypot(dx,dy);
-      if(dist<150&&dist>0){sway+=(dx/dist)*((150-dist)/150)*1.1;}
-      b.x+=sway;
-      if(b.isBalloon){b.rot=(b.spinBase||0)+Math.sin(b.phase*0.75)*7;}
-      else if(b.x<-b.size*0.4){b.x=W+b.size*0.2;}
-      else if(b.x>W-b.size*0.2){b.x=-b.size*0.3;}
-      if(b.y<-b.size-40){b.el.remove();bubbles.splice(i,1);continue;}
+      b.y-=speed;b.phase+=0.006*dt;
+      var sway=Math.sin(b.phase)*0.75+Math.sin(b.phase*1.55+0.8)*0.35+b.drift*(dt/16);
+      if(b.hero){
+        sway+=Math.sin(b.phase*0.9)*0.45*(dt/16);
+        b.x+=sway;
+        b.rot=b.spinBase+Math.sin(b.phase*0.72)*6;
+        if(b.y<-b.size-50){resetHeroDog(b);continue;}
+      }else{
+        var dx=b.x-mx,dy=b.y-my,dist=Math.hypot(dx,dy);
+        if(dist<150&&dist>0){sway+=(dx/dist)*((150-dist)/150)*1.0*(dt/16);}
+        b.x+=sway;
+        if(b.isBalloon){b.rot=(b.spinBase||0)+Math.sin(b.phase*0.75)*7;}
+        else if(b.x<-b.size*0.4){b.x=W+b.size*0.2;}
+        else if(b.x>W-b.size*0.2){b.x=-b.size*0.3;}
+        if(b.y<-b.size-40){b.el.remove();bubbles.splice(i,1);continue;}
+      }
       b.el.style.transform='translate3d('+b.x+'px,'+b.y+'px,0)'+(b.isBalloon?' rotate('+b.rot+'deg)':'');
     }
     requestAnimationFrame(tick);
   }
   if(!reduce){
     var target=Math.min(16,Math.floor(W/95));
-    for(var i=0;i<target;i++){setTimeout(function(){spawnBubble(false);},i*320);}
-    setInterval(function(){if(bubbles.filter(function(b){return !b.isBalloon;}).length<target)spawnBubble(false);},2100);
-    setInterval(function(){if(bubbles.filter(function(b){return b.isBalloon;}).length<5)spawnBubble(true);},3600);
+    for(var i=0;i<target;i++){setTimeout(function(){spawnBubble(false);},i*300);}
+    setInterval(function(){if(bubbles.filter(function(b){return !b.isBalloon&&!b.hero;}).length<target)spawnBubble(false);},2000);
+    createHeroDog(0);
+    createHeroDog(1);
     requestAnimationFrame(tick);
   }
 

@@ -1,50 +1,68 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 
 type Phase = "idle" | "shuffling" | "pick" | "won";
 
+/** Klobouk i → slot 0 = vlevo, 1 = střed, 2 = vpravo */
+function swapAdjacentSlots(slots: number[], pair: 0 | 1): number[] {
+  const next = [...slots];
+  const leftHat = next.findIndex((s) => s === pair);
+  const rightHat = next.findIndex((s) => s === pair + 1);
+  if (leftHat < 0 || rightHat < 0) return next;
+  next[leftHat] = pair + 1;
+  next[rightHat] = pair;
+  return next;
+}
+
 function Hat({
-  index,
-  hasRabbit,
+  slot,
+  shuffling,
   lifted,
   onPick,
   disabled,
-  offset,
+  showRabbit,
 }: {
-  index: number;
-  hasRabbit: boolean;
+  slot: number;
+  shuffling: boolean;
   lifted: boolean;
   onPick: () => void;
   disabled: boolean;
-  offset: number;
+  showRabbit: boolean;
 }) {
   return (
-    <button
-      type="button"
-      disabled={disabled}
-      onClick={onPick}
-      className={`robin-hat mx-auto block bg-transparent ${lifted ? "robin-hat--lifted" : ""}`}
-      style={{ transform: `translateX(${offset}px)` }}
-      aria-label={`Klobouk ${index + 1}`}
+    <div
+      className={`robin-hat-slot ${shuffling ? "robin-hat-slot--shuffling" : ""}`}
+      style={{ "--hat-slot": slot } as CSSProperties}
     >
-      <span className={`robin-rabbit ${lifted && hasRabbit ? "robin-rabbit--show" : ""}`}>🐰</span>
-      <div className={`robin-hat-body ${lifted ? "robin-hat-body--lifted" : ""}`}>
-        <div className="robin-hat-crown" />
-        <div className="robin-hat-band" />
-        <div className="robin-hat-brim" />
+      <div className={`robin-rabbit-pedestal ${showRabbit ? "robin-rabbit-pedestal--show" : ""}`} aria-hidden={!showRabbit}>
+        🐰
       </div>
-    </button>
+      <button
+        type="button"
+        disabled={disabled}
+        onClick={onPick}
+        className={`robin-hat ${lifted ? "robin-hat--lifted" : ""}`}
+        aria-label={`Klobouk ve sloupci ${slot + 1}`}
+      >
+        <div className={`robin-hat-body ${lifted ? "robin-hat-body--lifted" : ""}`}>
+          <div className="robin-hat-crown" />
+          <div className="robin-hat-band" />
+          <div className="robin-hat-brim" />
+        </div>
+      </button>
+    </div>
   );
 }
 
 export function HatShuffleGame() {
   const [phase, setPhase] = useState<Phase>("idle");
-  const [rabbitPos, setRabbitPos] = useState(1);
-  const rabbitPosRef = useRef(1);
-  const [offsets, setOffsets] = useState([0, 0, 0]);
+  const [rabbitHat, setRabbitHat] = useState(1);
+  const rabbitHatRef = useRef(1);
+  /** hatSlots[i] = slot index of hat i */
+  const [hatSlots, setHatSlots] = useState([0, 1, 2]);
   const [liftedHat, setLiftedHat] = useState<number | null>(null);
-  const [message, setMessage] = useState("Králíček se schoval pod jeden ze tří klobouků. Najdeš ho?");
+  const [message, setMessage] = useState("Králíček se schoval pod jeden ze tří klobouků. Najdeš ho!");
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   const clearTimers = useCallback(() => {
@@ -63,38 +81,40 @@ export function HatShuffleGame() {
     setLiftedHat(null);
     setPhase("shuffling");
     setMessage("Kouzla! Míchám klobouky…");
-    const pos = Math.floor(Math.random() * 3);
-    setRabbitPos(pos);
-    rabbitPosRef.current = pos;
 
-    const sequences = [
-      [-70, 70, 0],
-      [70, -70, 0],
-      [0, -80, 80],
-      [-90, 45, 45],
-    ];
+    const rabbit = Math.floor(Math.random() * 3);
+    setRabbitHat(rabbit);
+    rabbitHatRef.current = rabbit;
+
+    let slots = [0, 1, 2];
+    setHatSlots(slots);
+
+    const totalSwaps = 9;
     let step = 0;
-    const runStep = () => {
-      if (step >= sequences.length) {
-        setOffsets([0, 0, 0]);
+
+    const runSwap = () => {
+      if (step >= totalSwaps) {
+        setHatSlots(slots);
         setPhase("pick");
         setMessage("Pod kterým kloboukem je králíček? Klikni!");
         return;
       }
-      setOffsets(sequences[step]!);
+      const pair = (Math.random() < 0.5 ? 0 : 1) as 0 | 1;
+      slots = swapAdjacentSlots(slots, pair);
+      setHatSlots([...slots]);
       step++;
-      schedule(runStep, 380);
+      schedule(runSwap, 420);
     };
-    runStep();
+
+    schedule(runSwap, 280);
   };
 
   const pick = (hatIndex: number) => {
     if (phase !== "pick") return;
     setLiftedHat(hatIndex);
     setPhase("won");
-    const pos = rabbitPosRef.current;
     setMessage(
-      hatIndex === pos
+      hatIndex === rabbitHatRef.current
         ? "Našel jsi ho! 🎉 Stejně tak okouzlím i tvoje hosty."
         : "Hmm… tentokrát ne. Ale naživo vždycky kouzla vyjdou!",
     );
@@ -104,10 +124,10 @@ export function HatShuffleGame() {
     clearTimers();
     setPhase("idle");
     setLiftedHat(null);
-    setOffsets([0, 0, 0]);
-    setRabbitPos(1);
-    rabbitPosRef.current = 1;
-    setMessage("Králíček se schoval pod jeden ze tří klobouků. Najdeš ho?");
+    setHatSlots([0, 1, 2]);
+    setRabbitHat(1);
+    rabbitHatRef.current = 1;
+    setMessage("Králíček se schoval pod jeden ze tří klobouků. Najdeš ho!");
   };
 
   return (
@@ -121,17 +141,17 @@ export function HatShuffleGame() {
           <p className="mx-auto mt-4 max-w-lg text-lg font-semibold text-white/95">{message}</p>
         </div>
 
-        <div className="robin-panel mx-auto mt-12 max-w-2xl p-8 md:p-12">
-          <div className="flex items-end justify-center gap-4 md:gap-10">
-            {[0, 1, 2].map((i) => (
+        <div className="robin-panel robin-panel--game mx-auto mt-12 max-w-2xl p-8 md:p-12">
+          <div className="robin-hat-stage">
+            {[0, 1, 2].map((hatIndex) => (
               <Hat
-                key={i}
-                index={i}
-                hasRabbit={i === rabbitPos}
-                lifted={liftedHat === i}
-                onPick={() => pick(i)}
+                key={hatIndex}
+                slot={hatSlots[hatIndex] ?? hatIndex}
+                shuffling={phase === "shuffling"}
+                lifted={liftedHat === hatIndex}
+                onPick={() => pick(hatIndex)}
                 disabled={phase !== "pick"}
-                offset={offsets[i] ?? 0}
+                showRabbit={liftedHat === hatIndex && hatIndex === rabbitHat}
               />
             ))}
           </div>

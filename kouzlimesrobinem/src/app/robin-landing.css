@@ -891,29 +891,98 @@
   z-index: 10;
 }
 
-.robin-hat {
-  width: 100px;
-  height: 88px;
+.robin-panel--game {
+  overflow: visible;
+}
+
+.robin-hat-stage {
   position: relative;
+  width: 100%;
+  max-width: 380px;
+  height: clamp(100px, 22vw, 112px);
+  margin: 4.75rem auto 0;
+  overflow: visible;
+}
+
+.robin-hat-slot {
+  --hat-slot: 0;
+  position: absolute;
+  bottom: 0;
+  width: 33.333%;
+  height: 100%;
+  left: calc(var(--hat-slot) * 33.333%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  transition: left 0.42s cubic-bezier(0.34, 1.1, 0.48, 1);
+  will-change: left;
+}
+
+.robin-hat-slot--shuffling .robin-hat {
+  animation: robinHatShuffleBob 0.42s ease;
+}
+
+@keyframes robinHatShuffleBob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  35% {
+    transform: translateY(-10px);
+  }
+  65% {
+    transform: translateY(2px);
+  }
+}
+
+.robin-rabbit-pedestal {
+  position: absolute;
+  bottom: 0.35rem;
+  left: 50%;
+  z-index: 1;
+  font-size: clamp(2.25rem, 7vw, 3rem);
+  line-height: 1;
+  transform: translateX(-50%) scale(0);
+  opacity: 0;
+  transition:
+    transform 0.4s cubic-bezier(0.34, 1.4, 0.48, 1) 0.12s,
+    opacity 0.25s ease 0.08s;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.25));
+  pointer-events: none;
+}
+
+.robin-rabbit-pedestal--show {
+  transform: translateX(-50%) scale(1);
+  opacity: 1;
+}
+
+.robin-hat {
+  position: relative;
+  z-index: 2;
+  width: clamp(78px, 22vw, 118px);
+  height: clamp(86px, 24vw, 108px);
   cursor: pointer;
+  overflow: visible;
+  background: transparent;
+  border: none;
+  padding: 0;
   transition: transform 0.2s ease;
 }
 
-@media (min-width: 768px) {
-  .robin-hat { width: 130px; height: 114px; }
+.robin-hat:hover:not(:disabled):not(.robin-hat--lifted) {
+  transform: translateY(-6px);
 }
-
-.robin-hat:hover:not(.robin-hat--lifted) { transform: translateY(-8px); }
 
 .robin-hat-body {
   position: absolute;
   inset: 0;
-  z-index: 2;
-  transition: transform 0.45s ease;
+  transform-origin: center bottom;
+  transition: transform 0.5s cubic-bezier(0.34, 1.2, 0.48, 1);
 }
 
 .robin-hat-body--lifted {
-  animation: robinHatLift 0.45s ease forwards;
+  transform: translateY(-72px) rotate(-10deg);
 }
 
 .robin-hat-brim {
@@ -950,24 +1019,20 @@
   border-radius: 2px;
 }
 
-@keyframes robinHatLift {
-  to { transform: translateY(-58px) rotate(-8deg); }
+@media (min-width: 768px) {
+  .robin-hat-stage {
+    max-width: 420px;
+  }
 }
 
-.robin-rabbit {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%) scale(0);
-  font-size: 2.5rem;
-  z-index: 1;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-  transition: transform 0.35s ease 0.15s;
-}
-
-.robin-hat--lifted .robin-rabbit,
-.robin-rabbit--show {
-  transform: translateX(-50%) scale(1);
+@media (prefers-reduced-motion: reduce) {
+  .robin-hat-slot,
+  .robin-hat-slot--shuffling .robin-hat,
+  .robin-hat-body,
+  .robin-rabbit-pedestal {
+    animation: none;
+    transition-duration: 0.01ms;
+  }
 }
 
 .robin-nav-link {

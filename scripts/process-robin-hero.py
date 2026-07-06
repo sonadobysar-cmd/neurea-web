@@ -1,125 +1,152 @@
 #!/usr/bin/env python3
-"""Premium hero cutout — isnet + black-bg spill removal + crisp alpha."""
+"""Precise hero cutout — full-res + OpenCV grabCut + black-studio refinement."""
 
 from __future__ import annotations
 
-import sys
+import shutil
 from pathlib import Path
 
+import cv2
 import numpy as np
-from PIL import Image, ImageEnhance
-from rembg import new_session, remove
+from PIL import Image, ImageEnhance, ImageFilter
 
-SRC = Path("/Users/soni/Neurea/kouzlimesrobinem/public/robin/IMG_0722.jpg")
-OUT = Path("/Users/soni/Neurea/kouzlimesrobinem/public/robin/robin-hero.png")
-OUT_MONO = Path("/Users/soni/Neurea/public/robin/robin-hero.png")
-PAD = 10
-BG = np.array([0.0, 0.0, 0.0], dtype=np.float32)
+SRC = Path("/Users/soni/Downloads/foto robin/IMG_0722.jpg")
+OUT_PATHS = [
+    Path("/Users/soni/Neurea/kouzlimesrobinem/public/robin/robin-hero.png"),
+    Path("/Users/soni/Neurea/public/robin/robin-hero.png"),
+]
+BACKUP_SRC = Path("/Users/soni/Neurea/kouzlimesrobinem/public/robin/IMG_0722-full.jpg")
+OUTPUT_HEIGHT = 2800
 
 
-def ai_cutout(img: Image.Image) -> Image.Image:
-    session = new_session("isnet-general-use")
-    return remove(
-        img,
-        session=session,
-        alpha_matting=True,
-        alpha_matting_foreground_threshold=250,
-        alpha_matting_background_threshold=8,
-        alpha_matting_erode_size=12,
-        post_process_mask=True,
+def load_rgb(path: Path) -> tuple[np.ndarray, Image.Image]:
+    pil = Image.open(path).convert("RGB")
+    if pil.height != OUTPUT_HEIGHT:
+        w = int(pil.width * OUTPUT_HEIGHT / pil.height)
+        pil = pil.resize((w, OUTPUT_HEIGHT), Image.LANCZOS)
+    rgb = np.array(pil)
+    bgr = cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR)
+    return bgr, pil
+
+
+def retouch(pil: Image.Image) -> Image.Image:
+    pil = ImageEnhance.Contrast(pil).enhance(1.07)
+    pil = ImageEnhance.Color(pil).enhance(1.05)
+    pil = ImageEnhance.Brightness(pil).enhance(1.02)
+    return pil.filter(ImageFilter.UnsharpMask(radius=1.4, percent=100, threshold=2))
+
+
+def grabcut_alpha(bgr: np.ndarray) -> np.ndarray:
+    h, w = bgr.shape[:2]
+    max_ch = np.max(bgr, axis=2)
+    gray = cv2.cvtColor(bgr, cv2.COLOR_BGR2GRAY)
+
+    mask = np.full((h, w), cv2.GC_PR_BGD, dtype=np.uint8)
+
+    # Sure background — black studio + image borders
+    pad = max(24, int(min(h, w) * 0.015))
+    mask[:pad, :] = cv2.GC_BGD
+    mask[-pad:, :] = cv2.GC_BGD
+    mask[:, :pad] = cv2.GC_BGD
+    mask[:, -pad:] = cv2.GC_BGD
+    mask[max_ch < 24] = cv2.GC_BGD
+
+    # Sure foreground — face, sequins, balloon, hands
+    sure_fg = (max_ch > 95) | ((max_ch > 58) & (gray > 45))
+    mask[sure_fg] = cv2.GC_FGD
+
+    # Subject bounding box
+    rect = (int(w * 0.06), int(h * 0.01), int(w * 0.90), int(h * 0.98))
+    bgd = np.zeros((1, 65), np.float64)
+    fgd = np.zeros((1, 65), np.float64)
+
+    cv2.grabCut(
+        bgr,
+        mask,
+        rect,
+        bgd,
+        fgd,
+        8,
+        cv2.GC_INIT_WITH_RECT | cv2.GC_INIT_WITH_MASK,
     )
 
+    fg = np.isin(mask, (cv2.GC_FGD, cv2.GC_PR_FGD))
+    alpha = fg.astype(np.uint8) * 255
 
-def decontaminate_black_bg(rgba: np.ndarray) -> np.ndarray:
-    rgb = rgba[:, :, :3].astype(np.float32)
-    a = rgba[:, :, 3].astype(np.float32) / 255.0
-    a3 = np.clip(a, 1e-3, 1.0)[..., None]
+    # Keep dark clothing connected to body
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
+    alpha = cv2.morphologyEx(alpha, cv2.MORPH_CLOSE, kernel, iterations=2)
+    alpha = cv2.morphologyEx(alpha, cv2.MORPH_OPEN, kernel, iterations=1)
 
-    fg = np.clip((rgb - (1.0 - a3) * BG * 255.0) / a3, 0, 255)
-    lum = 0.2126 * fg[:, :, 0] + 0.7152 * fg[:, :, 1] + 0.0722 * fg[:, :, 2]
-    sat = fg.max(axis=2) - fg.min(axis=2)
+    # Soft hair / sequin edges
+    dist_in = cv2.distanceTransform(alpha, cv2.DIST_L2, 5)
+    dist_out = cv2.distanceTransform(255 - alpha, cv2.DIST_L2, 5)
+    soft = dist_in / (dist_in + dist_out + 1e-6)
+    soft = np.clip(soft * 255, 0, 255).astype(np.uint8)
+    core = dist_in > 2.5
+    soft[core] = 255
+    soft[(dist_out > 3) & (dist_in < 0.5)] = 0
 
-    bleed = (a > 0.02) & (a < 0.88) & (lum < 32)
-    a[bleed] *= 0.25
+    # Force black backdrop transparent
+    soft[max_ch < 22] = np.minimum(soft[max_ch < 22], 6)
 
-    backdrop = (a < 0.95) & (lum < 20) & (sat < 28)
-    a[backdrop] = 0.0
+    # Remove 1px dark fringe — shrink then restore soft edge
+    er = cv2.erode(soft, kernel, iterations=1)
+    fringe = (soft > 0) & (er < soft - 8)
+    soft[fringe] = np.minimum(soft[fringe], er[fringe] + 12)
 
-    out = np.zeros_like(rgba, dtype=np.float32)
-    out[:, :, :3] = fg
-    out[:, :, 3] = np.clip(a * 255.0, 0, 255)
-    return out.astype(np.uint8)
+    return soft
 
 
-def refine_alpha(rgba: np.ndarray) -> np.ndarray:
-    from scipy.ndimage import gaussian_filter, grey_erosion
-
-    a = rgba[:, :, 3].astype(np.float32)
-    core = grey_erosion(a, size=(3, 3))
-    edge = (a > 8) & (core < 220)
-    a_smooth = gaussian_filter(a, sigma=0.5)
-    a[edge] = a_smooth[edge]
-    a[a < 5] = 0
-    a[a > 249] = 255
-    rgba = rgba.copy()
+def defringe(rgba: np.ndarray) -> np.ndarray:
+    r, g, b, a = [rgba[:, :, i].astype(np.float32) for i in range(4)]
+    edge = (a > 14) & (a < 252)
+    lum = 0.299 * r + 0.587 * g + 0.114 * b
+    halo = edge & (lum > 170)
+    a[halo] *= np.clip(1.0 - (lum[halo] - 170) / 85.0, 0, 1)
+    an = np.clip(a / 255.0, 1e-3, 1.0)
+    grey = edge & (lum < 60)
+    for i in range(3):
+        ch = rgba[:, :, i].astype(np.float32)
+        ch[grey] = np.clip(ch[grey] / an[grey], 0, 255)
+        rgba[:, :, i] = ch.astype(np.uint8)
     rgba[:, :, 3] = np.clip(a, 0, 255).astype(np.uint8)
     return rgba
 
 
-def retouch(rgba: Image.Image) -> Image.Image:
-    rgb = rgba.convert("RGB")
-    rgb = ImageEnhance.Contrast(rgb).enhance(1.05)
-    rgb = ImageEnhance.Color(rgb).enhance(1.06)
-    rgb = ImageEnhance.Sharpness(rgb).enhance(1.15)
-    out = rgb.convert("RGBA")
-    out.putalpha(rgba.split()[3])
-    return out
-
-
-def tight_crop(rgba: Image.Image, pad: int = PAD) -> Image.Image:
-    bbox = rgba.getbbox()
-    if not bbox:
+def tight_crop(rgba: np.ndarray, pad: int = 14) -> np.ndarray:
+    ys, xs = np.where(rgba[:, :, 3] > 10)
+    if len(xs) == 0:
         return rgba
-    x0, y0, x1, y1 = bbox
-    w, h = rgba.size
-    return rgba.crop((max(0, x0 - pad), max(0, y0 - pad), min(w, x1 + pad), min(h, y1 + pad)))
-
-
-def fringe_score(rgba: np.ndarray) -> float:
-    a = rgba[:, :, 3]
-    semi = (a > 5) & (a < 250)
-    if not semi.any():
-        return 0.0
-    rgb = rgba[:, :, :3]
-    return (rgb[semi].max(axis=1) < 45).sum() / semi.sum()
+    x0, x1 = max(0, xs.min() - pad), min(rgba.shape[1], xs.max() + pad)
+    y0, y1 = max(0, ys.min() - pad), min(rgba.shape[0], ys.max() + pad)
+    return rgba[y0:y1, x0:x1]
 
 
 def main() -> None:
     if not SRC.exists():
-        sys.exit(f"Missing {SRC}")
+        raise SystemExit(f"Missing source: {SRC}")
 
-    src = Image.open(SRC).convert("RGB")
-    print(f"Source {src.size}")
+    shutil.copy2(SRC, BACKUP_SRC)
+    bgr, pil = load_rgb(SRC)
+    pil = retouch(pil)
+    rgb = np.array(pil)
+    bgr = cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR)
 
-    print("isnet-general-use + alpha matting...")
-    cut = ai_cutout(src)
-    arr = np.array(cut)
+    print(f"Processing {rgb.shape[1]}×{rgb.shape[0]} px …")
+    alpha = grabcut_alpha(bgr)
+    rgba = np.dstack([rgb, alpha])
+    rgba = defringe(rgba)
+    rgba = tight_crop(rgba)
 
-    print("Spill decontamination...")
-    arr = decontaminate_black_bg(arr)
+    h, w = rgba.shape[:2]
+    print(f"Output {w}×{h} px")
 
-    print("Alpha edge refine...")
-    arr = refine_alpha(arr)
-
-    img = Image.fromarray(arr)
-    img = retouch(img)
-    img = tight_crop(img)
-
-    print(f"Dark fringe ratio: {fringe_score(np.array(img)):.1%}")
-
-    img.save(OUT, "PNG", compress_level=3)
-    img.save(OUT_MONO, "PNG", compress_level=3)
-    print(f"Saved {OUT} {img.size}")
+    out_img = Image.fromarray(rgba)
+    for path in OUT_PATHS:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        out_img.save(path, format="PNG", optimize=False, compress_level=3)
+        print(f"Saved {path} ({path.stat().st_size // 1024} KB)")
 
 
 if __name__ == "__main__":

@@ -1,15 +1,18 @@
 #!/bin/bash
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+PID_FILE="$ROOT/robin-dev.pid"
 
-for PORT in 3000 3001 3002; do
-  PIDS=$(lsof -ti:"$PORT" 2>/dev/null || true)
-  if [ -n "$PIDS" ]; then
-    kill -9 $PIDS 2>/dev/null || true
+if [ -f "$PID_FILE" ]; then
+  PID="$(cat "$PID_FILE" 2>/dev/null || true)"
+  if [ -n "$PID" ]; then
+    kill "$PID" 2>/dev/null || true
+    sleep 1
+    kill -9 "$PID" 2>/dev/null || true
   fi
-done
+  rm -f "$PID_FILE"
+fi
 
 pkill -f "next start -H 127.0.0.1" 2>/dev/null || true
 pkill -f "next dev -H 127.0.0.1" 2>/dev/null || true
-rm -f "$ROOT/robin-dev.pid" "$ROOT/robin-dev.port"
-echo "  Robin server vypnut."
-read -r -p "  Stiskni Enter… " _ || true
+rm -f "$ROOT/robin-dev.port"
+echo "  ✓ Robin server vypnut."

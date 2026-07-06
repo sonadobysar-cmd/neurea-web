@@ -1,15 +1,16 @@
-/** Optimalizované fotky z galerie — /public/robin/gallery */
-export const robinHeroImage = "/robin/hero.jpg";
-export const robinStanekImage = "/robin/stanek.jpg";
-export const robinHeroCutout = "/robin/robin-hero-cutout.png";
-
-export const robinServiceImages = {
-  deti: "/robin/gallery/IMG_0890.jpg",
-  dospeli: "/robin/gallery/IMG_0628.jpg",
-  mentalismus: "/robin/gallery/IMG_0779.jpg",
-  balonky: "/robin/gallery/IMG_0722.jpg",
+/** Lovable design — ilustrační fotky pro hero a karty služeb */
+export const robinModernAssets = {
+  hero: "/robin/modern/hero-magician.jpg",
+  kids: "/robin/modern/kids.jpg",
+  cards: "/robin/modern/cards.jpg",
+  balloons: "/robin/modern/balloons.jpg",
+  mentalism: "/robin/modern/mentalism.jpg",
 } as const;
 
+/** Robinův stánek — reálná fotka */
+export const robinStanekImage = "/robin/brand-booth.jpg";
+
+/** Galerie — optimalizované fotky z vystoupení */
 export const robinGalleryImages = [
   "/robin/gallery/IMG_0532.jpg",
   "/robin/gallery/IMG_0558.jpg",

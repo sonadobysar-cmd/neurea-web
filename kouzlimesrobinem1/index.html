@@ -220,7 +220,7 @@ section{position:relative}
 .trick .panel{overflow:hidden;padding:clamp(40px,6vw,72px);text-align:center;position:relative}
 .trick h2{margin-top:16px}
 .trick .lead{margin:18px auto 0;text-align:center}
-.popstage{position:relative;width:min(440px,90vw);height:420px;margin:24px auto 0;display:grid;place-items:center;overflow:visible}
+.popstage{position:relative;width:min(440px,90vw);height:440px;margin:24px auto 0;display:grid;place-items:center;overflow:visible}
 .cluster{position:absolute;inset:0;display:grid;place-items:center;cursor:pointer;
   transform-origin:50% 78%;animation:bouquetFloat 5.5s ease-in-out infinite;
   transition:opacity .4s cubic-bezier(.4,0,.2,1), transform .45s cubic-bezier(.34,1.25,.48,1)}
@@ -459,90 +459,119 @@ footer{padding:26px 0;border-top:2px solid rgba(26,18,6,.2);margin-top:10px}
       <p class="lead reveal d2">Klikni na balónky a nech se překvapit, jaké zvířátko ti Robin vykouzlí. Pokaždé něco jiného!</p>
       <div class="popstage reveal d2" id="popstage">
         <div class="cluster" id="cluster" role="button" tabindex="0" aria-label="Prasknout balónky">
-          <svg viewBox="0 0 300 340" aria-hidden="true" class="bouquet-svg">
+          <svg viewBox="0 0 300 360" aria-hidden="true" class="bouquet-svg">
             <defs>
-              <radialGradient id="gO" cx="30%" cy="22%" r="78%"><stop offset="0%" stop-color="#FFE0A8"/><stop offset="42%" stop-color="#F68544"/><stop offset="100%" stop-color="#C94E12"/></radialGradient>
-              <radialGradient id="gV" cx="30%" cy="22%" r="78%"><stop offset="0%" stop-color="#DEC4FF"/><stop offset="42%" stop-color="#8B62C4"/><stop offset="100%" stop-color="#4A2E7A"/></radialGradient>
-              <radialGradient id="gY" cx="30%" cy="22%" r="78%"><stop offset="0%" stop-color="#FFF5A0"/><stop offset="42%" stop-color="#E8D040"/><stop offset="100%" stop-color="#A89218"/></radialGradient>
-              <radialGradient id="gB" cx="30%" cy="22%" r="78%"><stop offset="0%" stop-color="#C8EEFF"/><stop offset="42%" stop-color="#4FA9E0"/><stop offset="100%" stop-color="#256A9E"/></radialGradient>
-              <linearGradient id="stringG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#D4B078"/><stop offset="100%" stop-color="#A88450"/></linearGradient>
+              <radialGradient id="gO" cx="26%" cy="16%" r="82%"><stop offset="0%" stop-color="#FFF4D0"/><stop offset="22%" stop-color="#FFB870"/><stop offset="62%" stop-color="#F06828"/><stop offset="100%" stop-color="#A83808"/></radialGradient>
+              <radialGradient id="gV" cx="26%" cy="16%" r="82%"><stop offset="0%" stop-color="#F5EEFF"/><stop offset="22%" stop-color="#C8A8F0"/><stop offset="62%" stop-color="#7858B8"/><stop offset="100%" stop-color="#3A2070"/></radialGradient>
+              <radialGradient id="gY" cx="26%" cy="16%" r="82%"><stop offset="0%" stop-color="#FFFDE8"/><stop offset="22%" stop-color="#FFF070"/><stop offset="62%" stop-color="#E0C820"/><stop offset="100%" stop-color="#907808"/></radialGradient>
+              <radialGradient id="gB" cx="26%" cy="16%" r="82%"><stop offset="0%" stop-color="#F0FAFF"/><stop offset="22%" stop-color="#98DCFF"/><stop offset="62%" stop-color="#38A8E8"/><stop offset="100%" stop-color="#1868A0"/></radialGradient>
+              <linearGradient id="stringG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#DEC090"/><stop offset="100%" stop-color="#9A7048"/></linearGradient>
+              <radialGradient id="spec" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#fff" stop-opacity=".95"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></radialGradient>
             </defs>
-            <g class="bouquet-strings" fill="none" stroke="url(#stringG)" stroke-width="1.6" stroke-linecap="round">
-              <path d="M92 188 C108 210 128 238 150 262">
-                <animate attributeName="d" dur="4.2s" repeatCount="indefinite"
-                  values="M92 188 C108 210 128 238 150 262;M92 188 C106 212 126 240 150 262;M92 188 C110 208 130 236 150 262;M92 188 C108 210 128 238 150 262"/>
-              </path>
-              <path d="M208 188 C192 210 172 238 150 262">
-                <animate attributeName="d" dur="4.6s" repeatCount="indefinite"
-                  values="M208 188 C192 210 172 238 150 262;M208 188 C194 212 174 240 150 262;M208 188 C190 208 170 236 150 262;M208 188 C192 210 172 238 150 262"/>
-              </path>
-              <path d="M116 218 C128 232 140 248 150 262">
-                <animate attributeName="d" dur="3.8s" repeatCount="indefinite"
-                  values="M116 218 C128 232 140 248 150 262;M116 218 C126 234 138 250 150 262;M116 218 C130 230 142 246 150 262;M116 218 C128 232 140 248 150 262"/>
-              </path>
-              <path d="M184 220 C172 234 160 248 150 262">
-                <animate attributeName="d" dur="4.1s" repeatCount="indefinite"
-                  values="M184 220 C172 234 160 248 150 262;M184 220 C174 236 162 250 150 262;M184 220 C170 232 158 246 150 262;M184 220 C172 234 160 248 150 262"/>
-              </path>
-            </g>
-            <g transform="translate(150 268)">
-              <ellipse cx="0" cy="2" rx="10" ry="4" fill="#C4A062" opacity=".35"/>
-              <path d="M-10 0 C-14 -6 -6 -10 0 -4 C6 -10 14 -6 10 0 C6 4 0 5 -4 3 Z" fill="#E8C880" stroke="#1A1206" stroke-width="1.4"/>
-              <circle cx="0" cy="0" r="2.2" fill="#C4A062" stroke="#1A1206" stroke-width=".8"/>
-            </g>
             <g stroke="#1A1206" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round">
-              <g transform="translate(92 112)">
+              <g transform="translate(90 108)">
                 <g>
-                  <animateTransform attributeName="transform" type="rotate" values="-16;-12;-16" dur="4.3s" repeatCount="indefinite"/>
-                  <g>
-                    <animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0" dur="3.1s" repeatCount="indefinite"/>
-                    <path d="M0 -64 C34 -68 44 -26 42 0 C40 26 24 50 0 54 C-24 50 -42 26 -42 0 C-44 -26 -34 -68 0 -64 Z" fill="url(#gV)"/>
-                    <path d="M0 54 C-3 58 -3 62 0 66 C3 62 3 58 0 54 Z" fill="#543B8C" stroke="none"/>
-                    <rect x="-1.2" y="54" width="2.4" height="8" rx="1" fill="#543B8C" stroke="none"/>
-                    <ellipse cx="-13" cy="-28" rx="14" ry="22" fill="#fff" opacity=".48"/>
-                    <ellipse cx="8" cy="-8" rx="6" ry="4" fill="#fff" opacity=".18"/>
-                  </g>
-                </g>
-              </g>
-              <g transform="translate(208 112)">
-                <g>
-                  <animateTransform attributeName="transform" type="rotate" values="16;12;16" dur="4.7s" repeatCount="indefinite"/>
-                  <g>
-                    <animateTransform attributeName="transform" type="translate" values="0 0;0 -4;0 0" dur="3.4s" repeatCount="indefinite"/>
-                    <path d="M0 -64 C34 -68 44 -26 42 0 C40 26 24 50 0 54 C-24 50 -42 26 -42 0 C-44 -26 -34 -68 0 -64 Z" fill="url(#gY)"/>
-                    <path d="M0 54 C-3 58 -3 62 0 66 C3 62 3 58 0 54 Z" fill="#A89218" stroke="none"/>
-                    <rect x="-1.2" y="54" width="2.4" height="8" rx="1" fill="#A89218" stroke="none"/>
-                    <ellipse cx="-13" cy="-28" rx="14" ry="22" fill="#fff" opacity=".48"/>
-                    <ellipse cx="8" cy="-8" rx="6" ry="4" fill="#fff" opacity=".18"/>
-                  </g>
-                </g>
-              </g>
-              <g transform="translate(116 142)">
-                <g>
-                  <animateTransform attributeName="transform" type="rotate" values="-8;-4;-8" dur="3.9s" repeatCount="indefinite"/>
-                  <g>
-                    <animateTransform attributeName="transform" type="translate" values="0 0;0 -6;0 0" dur="2.8s" repeatCount="indefinite"/>
-                    <path d="M0 -68 C38 -72 48 -28 46 2 C44 30 26 56 0 60 C-26 56 -46 30 -46 2 C-48 -28 -38 -72 0 -68 Z" fill="url(#gB)"/>
-                    <path d="M0 60 C-3.5 65 -3.5 70 0 74 C3.5 70 3.5 65 0 60 Z" fill="#256A9E" stroke="none"/>
-                    <rect x="-1.3" y="60" width="2.6" height="9" rx="1" fill="#256A9E" stroke="none"/>
-                    <ellipse cx="-15" cy="-30" rx="15" ry="24" fill="#fff" opacity=".5"/>
-                    <ellipse cx="9" cy="-10" rx="7" ry="5" fill="#fff" opacity=".2"/>
-                  </g>
-                </g>
-              </g>
-              <g transform="translate(184 144)">
-                <g>
-                  <animateTransform attributeName="transform" type="rotate" values="10;6;10" dur="4.5s" repeatCount="indefinite"/>
+                  <animateTransform attributeName="transform" type="rotate" values="-15;-11;-15" dur="4.4s" repeatCount="indefinite"/>
                   <g>
                     <animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0" dur="3.2s" repeatCount="indefinite"/>
-                    <path d="M0 -72 C42 -76 52 -30 50 4 C48 34 28 62 0 66 C-28 62 -50 34 -50 4 C-52 -30 -42 -76 0 -72 Z" fill="url(#gO)"/>
-                    <path d="M0 66 C-4 71 -4 76 0 80 C4 76 4 71 0 66 Z" fill="#C94E12" stroke="none"/>
-                    <rect x="-1.4" y="66" width="2.8" height="10" rx="1" fill="#C94E12" stroke="none"/>
-                    <ellipse cx="-16" cy="-32" rx="16" ry="26" fill="#fff" opacity=".52"/>
-                    <ellipse cx="10" cy="-12" rx="8" ry="5" fill="#fff" opacity=".22"/>
+                    <path d="M0 -66 C36 -70 46 -28 44 2 C42 30 24 56 0 60 C-24 56 -44 30 -44 2 C-46 -28 -36 -70 0 -66 Z" fill="url(#gV)"/>
+                    <path d="M0 60 C-3 64 -3 68 0 72 C3 68 3 64 0 60 Z" fill="#543B8C" stroke="none"/>
+                    <rect x="-1.3" y="60" width="2.6" height="9" rx="1" fill="#543B8C" stroke="none"/>
+                    <ellipse cx="-14" cy="-30" rx="15" ry="24" fill="url(#spec)" opacity=".55"/>
+                    <ellipse cx="-10" cy="-24" rx="8" ry="12" fill="#fff" opacity=".35"/>
+                    <ellipse cx="10" cy="-6" rx="7" ry="5" fill="#fff" opacity=".22"/>
+                    <path d="M-20 18 Q0 28 20 18" fill="none" stroke="#3A2070" stroke-width="1.2" opacity=".25"/>
+                  </g>
+                  <g fill="none" stroke="url(#stringG)" stroke-width="1.5" stroke-linecap="round">
+                    <path d="M0 82 Q 22 108 60 144">
+                      <animate attributeName="d" dur="4.2s" repeatCount="indefinite"
+                        values="M0 82 Q 22 108 60 144;M0 82 Q 20 110 60 144;M0 82 Q 24 106 60 144;M0 82 Q 22 108 60 144"/>
+                    </path>
                   </g>
                 </g>
               </g>
+              <g transform="translate(210 108)">
+                <g>
+                  <animateTransform attributeName="transform" type="rotate" values="15;11;15" dur="4.8s" repeatCount="indefinite"/>
+                  <g>
+                    <animateTransform attributeName="transform" type="translate" values="0 0;0 -4;0 0" dur="3.5s" repeatCount="indefinite"/>
+                    <path d="M0 -66 C36 -70 46 -28 44 2 C42 30 24 56 0 60 C-24 56 -44 30 -44 2 C-46 -28 -36 -70 0 -66 Z" fill="url(#gY)"/>
+                    <path d="M0 60 C-3 64 -3 68 0 72 C3 68 3 64 0 60 Z" fill="#907808" stroke="none"/>
+                    <rect x="-1.3" y="60" width="2.6" height="9" rx="1" fill="#907808" stroke="none"/>
+                    <ellipse cx="-14" cy="-30" rx="15" ry="24" fill="url(#spec)" opacity=".55"/>
+                    <ellipse cx="-10" cy="-24" rx="8" ry="12" fill="#fff" opacity=".35"/>
+                    <ellipse cx="10" cy="-6" rx="7" ry="5" fill="#fff" opacity=".22"/>
+                    <path d="M-20 18 Q0 28 20 18" fill="none" stroke="#706008" stroke-width="1.2" opacity=".25"/>
+                  </g>
+                  <g fill="none" stroke="url(#stringG)" stroke-width="1.5" stroke-linecap="round">
+                    <path d="M0 82 Q -22 108 -60 144">
+                      <animate attributeName="d" dur="4.5s" repeatCount="indefinite"
+                        values="M0 82 Q -22 108 -60 144;M0 82 Q -20 110 -60 144;M0 82 Q -24 106 -60 144;M0 82 Q -22 108 -60 144"/>
+                    </path>
+                  </g>
+                </g>
+              </g>
+              <g transform="translate(114 138)">
+                <g>
+                  <animateTransform attributeName="transform" type="rotate" values="-7;-3;-7" dur="4s" repeatCount="indefinite"/>
+                  <g>
+                    <animateTransform attributeName="transform" type="translate" values="0 0;0 -6;0 0" dur="2.9s" repeatCount="indefinite"/>
+                    <path d="M0 -70 C40 -74 50 -30 48 4 C46 34 26 62 0 66 C-26 62 -48 34 -48 4 C-50 -30 -40 -74 0 -70 Z" fill="url(#gB)"/>
+                    <path d="M0 66 C-3.5 71 -3.5 76 0 80 C3.5 76 3.5 71 0 66 Z" fill="#1868A0" stroke="none"/>
+                    <rect x="-1.4" y="66" width="2.8" height="10" rx="1" fill="#1868A0" stroke="none"/>
+                    <ellipse cx="-16" cy="-32" rx="16" ry="26" fill="url(#spec)" opacity=".58"/>
+                    <ellipse cx="-11" cy="-26" rx="9" ry="14" fill="#fff" opacity=".38"/>
+                    <ellipse cx="11" cy="-8" rx="8" ry="6" fill="#fff" opacity=".24"/>
+                    <path d="M-22 20 Q0 32 22 20" fill="none" stroke="#1868A0" stroke-width="1.2" opacity=".22"/>
+                  </g>
+                  <g fill="none" stroke="url(#stringG)" stroke-width="1.5" stroke-linecap="round">
+                    <path d="M0 86 Q 18 98 36 114">
+                      <animate attributeName="d" dur="3.9s" repeatCount="indefinite"
+                        values="M0 86 Q 18 98 36 114;M0 86 Q 16 100 36 114;M0 86 Q 20 96 36 114;M0 86 Q 18 98 36 114"/>
+                    </path>
+                  </g>
+                </g>
+              </g>
+              <g transform="translate(186 140)">
+                <g>
+                  <animateTransform attributeName="transform" type="rotate" values="9;5;9" dur="4.6s" repeatCount="indefinite"/>
+                  <g>
+                    <animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0" dur="3.3s" repeatCount="indefinite"/>
+                    <path d="M0 -74 C42 -78 52 -32 50 6 C48 36 28 66 0 70 C-28 66 -50 36 -50 6 C-52 -32 -42 -78 0 -74 Z" fill="url(#gO)"/>
+                    <path d="M0 70 C-4 75 -4 80 0 84 C4 80 4 75 0 70 Z" fill="#A83808" stroke="none"/>
+                    <rect x="-1.5" y="70" width="3" height="11" rx="1" fill="#A83808" stroke="none"/>
+                    <ellipse cx="-17" cy="-34" rx="17" ry="28" fill="url(#spec)" opacity=".6"/>
+                    <ellipse cx="-12" cy="-28" rx="10" ry="15" fill="#fff" opacity=".4"/>
+                    <ellipse cx="12" cy="-10" rx="9" ry="6" fill="#fff" opacity=".26"/>
+                    <path d="M-24 22 Q0 34 24 22" fill="none" stroke="#883008" stroke-width="1.2" opacity=".22"/>
+                  </g>
+                  <g fill="none" stroke="url(#stringG)" stroke-width="1.5" stroke-linecap="round">
+                    <path d="M0 88 Q -18 100 -36 112">
+                      <animate attributeName="d" dur="4.3s" repeatCount="indefinite"
+                        values="M0 88 Q -18 100 -36 112;M0 88 Q -16 102 -36 112;M0 88 Q -20 98 -36 112;M0 88 Q -18 100 -36 112"/>
+                    </path>
+                  </g>
+                </g>
+              </g>
+            </g>
+            <g transform="translate(150 256)">
+              <ellipse cx="0" cy="3" rx="11" ry="4.5" fill="#000" opacity=".08"/>
+              <path d="M-11 1 C-16 -7 -7 -12 0 -5 C7 -12 16 -7 11 1 C7 6 0 7 -5 5 Z" fill="#F0D898" stroke="#1A1206" stroke-width="1.5"/>
+              <circle cx="0" cy="1" r="2.5" fill="#C4A062" stroke="#1A1206" stroke-width=".9"/>
+            </g>
+            <g class="hang-strings" fill="none" stroke="url(#stringG)" stroke-width="1.5" stroke-linecap="round">
+              <path d="M150 262 L150 332">
+                <animate attributeName="d" dur="3.6s" repeatCount="indefinite"
+                  values="M150 262 L150 332;M150 262 L149 332;M150 262 L151 332;M150 262 L150 332"/>
+              </path>
+              <path d="M150 262 Q138 288 128 328">
+                <animate attributeName="d" dur="4.1s" repeatCount="indefinite"
+                  values="M150 262 Q138 288 128 328;M150 262 Q137 290 127 328;M150 262 Q139 286 129 328;M150 262 Q138 288 128 328"/>
+              </path>
+              <path d="M150 262 Q162 288 172 328">
+                <animate attributeName="d" dur="4.4s" repeatCount="indefinite"
+                  values="M150 262 Q162 288 172 328;M150 262 Q163 290 173 328;M150 262 Q161 286 171 328;M150 262 Q162 288 172 328"/>
+              </path>
             </g>
           </svg>
           <span class="cluster-hint">Praskni mě! ✦</span>

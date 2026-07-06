@@ -290,7 +290,8 @@
   min-height: clamp(300px, 48vh, 520px);
   margin: 0 auto;
   width: 100%;
-  max-width: min(480px, 94vw);
+  max-width: min(540px, 96vw);
+  min-height: clamp(260px, 40vh, 460px);
 }
 
 .robin-hero-glow {

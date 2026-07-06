@@ -124,13 +124,13 @@ export function RobinStage() {
                 🪄
               </span>
               <Image
-                src="/robin/robin-hero-cutout.png"
+                src="/robin/robin-hero.png"
                 alt="Kouzelník Robin Panuš — balonkové tvoření"
-                width={1024}
-                height={575}
+                width={391}
+                height={547}
                 priority
                 className="robin-hero-cutout"
-                sizes="(max-width:768px) 96vw, 540px"
+                sizes="(max-width:768px) 90vw, 420px"
               />
               <span className="robin-hero-badge">Kouzelník Robin</span>
             </div>

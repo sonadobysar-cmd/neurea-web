@@ -10,7 +10,7 @@ export default function HomePage() {
     url: robinSite.url,
     telephone: robinSite.phone,
     email: robinSite.email,
-    image: `${robinSite.url}/robin/robin-hero-cutout.png`,
+    image: `${robinSite.url}/robin/robin-hero.png`,
     areaServed: { "@type": "Country", name: "Czech Republic" },
     address: {
       "@type": "PostalAddress",

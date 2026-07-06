@@ -111,53 +111,35 @@ export function RobinStage() {
               </div>
             </div>
 
-            <div className="robin-booth-window" aria-label="Photo-op stánek — Kouzelník Robin">
-              <div className="robin-booth-window__sign">
-                <span className="robin-booth-window__sign-stars" aria-hidden>
-                  ✦ ✦ ✦
-                </span>
-                <p className="robin-booth-window__sign-url">www.kouzlimesrobinem.cz</p>
-                <p className="robin-booth-window__sign-title">Kouzlíme s Robinem</p>
-              </div>
-
-              <div className="robin-booth-window__bulbs" aria-hidden>
-                {Array.from({ length: 11 }).map((_, i) => (
-                  <span key={i} className="robin-booth-window__bulb" style={{ animationDelay: `${i * 0.18}s` }} />
-                ))}
-              </div>
-
-              <div className="robin-booth-window__frame">
-                <div className="robin-booth-window__curtain robin-booth-window__curtain--left" aria-hidden />
-                <div className="robin-booth-window__viewport">
-                  <div className="robin-booth-window__spot" aria-hidden />
-                  <Image
-                    src="/robin/IMG_0722.jpg"
-                    alt="Kouzelník Robin Panuš — balonkové tvoření"
-                    width={1066}
-                    height={1600}
-                    priority
-                    className="robin-booth-window__photo"
-                    sizes="(max-width:768px) 88vw, 420px"
-                  />
-                  <div className="robin-booth-window__flash" aria-hidden />
-                  <span className="robin-booth-window__sticker" aria-hidden>
-                    🐕
-                  </span>
+            <div className="robin-hero-luxe" aria-label="Kouzelník Robin — portrét">
+              <div className="robin-hero-luxe__halo" aria-hidden />
+              <div className="robin-hero-luxe__frame">
+                <span className="robin-hero-luxe__corner robin-hero-luxe__corner--tl" aria-hidden>✦</span>
+                <span className="robin-hero-luxe__corner robin-hero-luxe__corner--tr" aria-hidden>✦</span>
+                <span className="robin-hero-luxe__corner robin-hero-luxe__corner--bl" aria-hidden>✦</span>
+                <span className="robin-hero-luxe__corner robin-hero-luxe__corner--br" aria-hidden>✦</span>
+                <div className="robin-hero-luxe__mat">
+                  <div className="robin-hero-luxe__viewport">
+                    <Image
+                      src="/robin/IMG_0722.jpg"
+                      alt="Kouzelník Robin Panuš — balonkové tvoření"
+                      width={1066}
+                      height={1600}
+                      priority
+                      className="robin-hero-luxe__photo"
+                      sizes="(max-width:768px) 90vw, 440px"
+                    />
+                    <div className="robin-hero-luxe__sheen" aria-hidden />
+                    <div className="robin-hero-luxe__vignette" aria-hidden />
+                  </div>
                 </div>
-                <div className="robin-booth-window__curtain robin-booth-window__curtain--right" aria-hidden />
               </div>
-
-              <div className="robin-booth-window__footer">
-                <span className="robin-booth-window__footer-tag">Photo-op</span>
-                <span>Kouzelník · Balonkář</span>
+              <div className="robin-hero-luxe__plinth">
+                <span className="robin-hero-luxe__plinth-tag">★ Live show</span>
+                <span>Kouzelník · Balonkář · Mentalista</span>
               </div>
-
-              <span className="robin-float-icon robin-booth-window__icon robin-booth-window__icon--hat" aria-hidden>
-                🎩
-              </span>
-              <span className="robin-float-icon robin-booth-window__icon robin-booth-window__icon--spark" aria-hidden>
-                ✨
-              </span>
+              <span className="robin-float-icon robin-hero-luxe__spark robin-hero-luxe__spark--1" aria-hidden>✨</span>
+              <span className="robin-float-icon robin-hero-luxe__spark robin-hero-luxe__spark--2" aria-hidden>🎩</span>
             </div>
           </div>
         </section>

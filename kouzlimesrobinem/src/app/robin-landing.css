@@ -281,7 +281,173 @@
   display: none;
 }
 
-/* Hero — photo-op stánek (celá fotka v rámu, bez výřezu) */
+/* Hero — luxusní portrét na jeviště (celá fotka, bez výřezu) */
+.robin-hero-luxe {
+  position: relative;
+  width: min(100%, 440px);
+  margin: 0 auto;
+  animation: robinHeroFloat 6s ease-in-out infinite;
+}
+
+.robin-hero-luxe__halo {
+  position: absolute;
+  inset: 8% 5% 18%;
+  z-index: 0;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 40%, rgba(255, 230, 140, 0.55) 0%, rgba(255, 180, 50, 0.2) 45%, transparent 72%);
+  filter: blur(22px);
+  pointer-events: none;
+}
+
+.robin-hero-luxe__frame {
+  position: relative;
+  z-index: 1;
+  padding: 0.55rem;
+  border-radius: 1.25rem;
+  background: linear-gradient(145deg, #fff8dc 0%, #ffd700 35%, #c9a020 65%, #ffd700 100%);
+  box-shadow:
+    0 0 0 3px var(--robin-ink),
+    0 0 0 6px rgba(255, 215, 0, 0.45),
+    0 24px 48px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+
+.robin-hero-luxe__mat {
+  padding: 0.45rem;
+  border-radius: 0.95rem;
+  background: linear-gradient(180deg, #1a1208 0%, #0a0a0a 100%);
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.8);
+}
+
+.robin-hero-luxe__viewport {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.7rem;
+  aspect-ratio: 2 / 3;
+  max-height: min(70vh, 560px);
+  background: #050505;
+}
+
+.robin-hero-luxe__photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 6%;
+}
+
+.robin-hero-luxe__sheen {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    125deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.07) 48%,
+    transparent 62%
+  );
+  background-size: 200% 200%;
+  animation: robinShimmer 6s ease-in-out infinite;
+}
+
+.robin-hero-luxe__vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 85% 75% at 50% 35%, transparent 50%, rgba(0, 0, 0, 0.35) 100%),
+    linear-gradient(180deg, rgba(255, 220, 120, 0.08) 0%, transparent 25%);
+}
+
+.robin-hero-luxe__corner {
+  position: absolute;
+  z-index: 4;
+  font-size: 0.85rem;
+  color: rgba(255, 254, 240, 0.9);
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.9);
+  pointer-events: none;
+}
+
+.robin-hero-luxe__corner--tl { top: 0.35rem; left: 0.45rem; }
+.robin-hero-luxe__corner--tr { top: 0.35rem; right: 0.45rem; }
+.robin-hero-luxe__corner--bl { bottom: 0.35rem; left: 0.45rem; }
+.robin-hero-luxe__corner--br { bottom: 0.35rem; right: 0.45rem; }
+
+.robin-hero-luxe__plinth {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin: 0.85rem 1.25rem 0;
+  padding: 0.55rem 1rem;
+  border-radius: 0.65rem;
+  border: 2px solid rgba(255, 215, 0, 0.55);
+  background: linear-gradient(180deg, #141414 0%, #050505 100%);
+  color: rgba(255, 248, 220, 0.88);
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.robin-hero-luxe__plinth-tag {
+  padding: 0.22rem 0.55rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ffd700, #ffb347);
+  color: var(--robin-ink);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.robin-hero-luxe__spark {
+  position: absolute;
+  z-index: 5;
+  font-size: 1.65rem;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
+}
+
+.robin-hero-luxe__spark--1 {
+  top: 12%;
+  right: -0.5rem;
+  animation: robinHeroFloat 5.5s ease-in-out infinite 0.4s;
+}
+
+.robin-hero-luxe__spark--2 {
+  bottom: 22%;
+  left: -0.65rem;
+  animation: robinHeroFloat 6.2s ease-in-out infinite;
+}
+
+/* Hra — badge nad nadpisem */
+.robin-game-badge {
+  display: inline-block;
+  padding: 0.45rem 1.1rem;
+  border-radius: 999px;
+  border: 2px solid var(--robin-gold);
+  background: rgba(0, 0, 0, 0.55);
+  color: var(--robin-gold);
+  font-weight: 800;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  box-shadow: 0 0 16px rgba(255, 215, 0, 0.25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .robin-hero-luxe,
+  .robin-hero-luxe__sheen,
+  .robin-hero-luxe__spark--1,
+  .robin-hero-luxe__spark--2 {
+    animation: none;
+  }
+}
+
+/* Legacy booth window (unused) */
 .robin-booth-window {
   position: relative;
   width: min(100%, 420px);
@@ -739,6 +905,17 @@
 
 .robin-hat:hover:not(.robin-hat--lifted) { transform: translateY(-8px); }
 
+.robin-hat-body {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  transition: transform 0.45s ease;
+}
+
+.robin-hat-body--lifted {
+  animation: robinHatLift 0.45s ease forwards;
+}
+
 .robin-hat-brim {
   position: absolute;
   bottom: 0;
@@ -748,7 +925,6 @@
   height: 14px;
   background: var(--robin-ink);
   border-radius: 50%;
-  z-index: 2;
 }
 
 .robin-hat-crown {
@@ -761,7 +937,6 @@
   background: linear-gradient(145deg, #1a1a1a, #000);
   border-radius: 8px 8px 4px 4px;
   border: 3px solid var(--robin-ink);
-  z-index: 1;
 }
 
 .robin-hat-band {
@@ -772,25 +947,22 @@
   width: 78%;
   height: 10px;
   background: var(--robin-red);
-  z-index: 3;
   border-radius: 2px;
 }
 
-.robin-hat--lifted .robin-hat-crown {
-  animation: robinHatLift 0.45s ease forwards;
-}
-
 @keyframes robinHatLift {
-  to { transform: translateX(-50%) translateY(-55px) rotate(-8deg); }
+  to { transform: translateY(-58px) rotate(-8deg); }
 }
 
 .robin-rabbit {
   position: absolute;
-  bottom: 18px;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%) scale(0);
   font-size: 2.5rem;
-  z-index: 0;
+  z-index: 1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  transition: transform 0.35s ease 0.15s;
 }
 
 .robin-hat--lifted .robin-rabbit,

@@ -29,9 +29,11 @@ function Hat({
       aria-label={`Klobouk ${index + 1}`}
     >
       <span className={`robin-rabbit ${lifted && hasRabbit ? "robin-rabbit--show" : ""}`}>🐰</span>
-      <div className="robin-hat-crown" />
-      <div className="robin-hat-band" />
-      <div className="robin-hat-brim" />
+      <div className={`robin-hat-body ${lifted ? "robin-hat-body--lifted" : ""}`}>
+        <div className="robin-hat-crown" />
+        <div className="robin-hat-band" />
+        <div className="robin-hat-brim" />
+      </div>
     </button>
   );
 }
@@ -112,9 +114,7 @@ export function HatShuffleGame() {
     <section id="hra" className="robin-tablecloth relative py-20 md:py-28">
       <div className="robin-content mx-auto max-w-4xl px-5 md:px-8">
         <div className="text-center">
-          <span className="robin-booth-sub inline-block rounded-full bg-black px-4 py-1.5 text-[var(--robin-gold)]">
-            Interaktivní kouzlo
-          </span>
+          <span className="robin-game-badge">Interaktivní kouzlo</span>
           <h2 className="robin-booth-title robin-title-ink-shadow mt-5 text-4xl md:text-6xl">
             Najdi králíčka
           </h2>

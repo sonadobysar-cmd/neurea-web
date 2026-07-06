@@ -27,8 +27,8 @@ POP_CSS_NEW = """.popstage{position:relative;width:min(320px,78vw);height:min(34
 .cluster.popping{animation:bouquetPop .6s ease-out forwards;pointer-events:none}
 @keyframes bouquetPop{0%{transform:scale(1);opacity:1}25%{transform:scale(1.05)}100%{transform:scale(.3);opacity:0}}
 .cluster.gone{opacity:0;pointer-events:none;animation:none}
-.cluster-art{width:min(280px,68vw);height:auto;display:block;pointer-events:none;user-select:none;
-  filter:drop-shadow(0 10px 20px rgba(0,0,0,.1))}"""
+.cluster-art{width:min(300px,72vw);height:auto;display:block;pointer-events:none;user-select:none;
+  filter:drop-shadow(6px 8px 0 rgba(26,18,6,.14))}"""
 
 CLUSTER_OLD_START = '<div class="cluster" id="cluster" role="button" tabindex="0" aria-label="Prasknout balónky">'
 

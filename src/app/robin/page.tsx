@@ -28,13 +28,13 @@ export const metadata: Metadata = {
     siteName: robinSite.name,
     title: "Kouzelník Robin Panuš — Kouzlíme s Robinem",
     description: robinSite.description,
-    images: [{ url: "/robin/IMG_0872.jpg", width: 800, height: 1067, alt: "Kouzelník Robin Panuš" }],
+    images: [{ url: "/robin/hero.jpg", width: 1200, height: 1350, alt: "Kouzelník Robin Panuš" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Kouzelník Robin Panuš — Kouzlíme s Robinem",
     description: robinSite.description,
-    images: ["/robin/IMG_0872.jpg"],
+    images: ["/robin/hero.jpg"],
   },
   robots: { index: true, follow: true },
 };

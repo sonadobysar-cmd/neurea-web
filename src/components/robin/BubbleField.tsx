@@ -29,11 +29,32 @@ export function BubbleField() {
 }
 
 export function StageSpotlights() {
+  const units = [
+    { left: "20%", rotate: -14, delay: 0, scale: 0.95 },
+    { left: "50%", rotate: 0, delay: 0.7, scale: 1.05 },
+    { left: "80%", rotate: 14, delay: 1.4, scale: 0.95 },
+  ];
+
   return (
     <div className="robin-spotlights" aria-hidden>
-      <div className="robin-spotlight-beam" />
-      <div className="robin-spotlight-beam" />
-      <div className="robin-spotlight-beam" />
+      {units.map((u, i) => (
+        <div
+          key={i}
+          className="robin-spot-unit"
+          style={{
+            left: u.left,
+            ["--spot-rot" as string]: `${u.rotate}deg`,
+            ["--spot-delay" as string]: `${u.delay}s`,
+            ["--spot-scale" as string]: String(u.scale),
+          }}
+        >
+          <div className="robin-spot-yoke" />
+          <div className="robin-spot-head">
+            <span className="robin-spot-lens" />
+          </div>
+          <div className="robin-spot-beam" />
+        </div>
+      ))}
     </div>
   );
 }

@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { headers } from "next/headers";
-import { EB_Garamond, Nunito, Outfit, Oxygen } from "next/font/google";
+import { EB_Garamond, Fraunces, Inter, Nunito, Outfit, Oxygen } from "next/font/google";
 import "./globals.css";
 import "./rezervace/rezervace-landing.css";
-import "./robin/robin-landing.css";
+import "./robin/robin-modern.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CookieBanner } from "@/components/CookieBanner";
@@ -27,17 +27,31 @@ const oxygen = Oxygen({
   display: "swap",
 });
 
+const fraunces = Fraunces({
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "500", "600"],
+  variable: "--font-robin-display",
+  display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-robin-sans",
+  display: "swap",
+});
+
 const outfit = Outfit({
   subsets: ["latin", "latin-ext"],
   weight: ["400", "600", "700", "800", "900"],
-  variable: "--font-robin-display",
+  variable: "--font-outfit",
   display: "swap",
 });
 
 const nunito = Nunito({
   subsets: ["latin", "latin-ext"],
   weight: ["400", "600", "700"],
-  variable: "--font-robin-sans",
+  variable: "--font-nunito",
   display: "swap",
 });
 
@@ -69,8 +83,8 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
 
   if (robinLanding) {
     return (
-      <html lang="cs" className={`${outfit.variable} ${nunito.variable}`}>
-        <body className="font-robin-sans antialiased">
+      <html lang="cs" className={`${fraunces.variable} ${inter.variable}`}>
+        <body className="font-robin-sans antialiased" style={{ background: "oklch(0.12 0.02 40)" }}>
           <main className="min-h-[100dvh]">{children}</main>
         </body>
       </html>

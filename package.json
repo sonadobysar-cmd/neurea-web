@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "printf '\\n  NEUREA — otevři v prohlížeči PŘESNĚ adresu z řádku „Local:“ (port může být 3001, 3004… pokud je 3000 obsazený).\\n  Když „localhost“ nejde, zkus http://127.0.0.1:PORT\\n  ROBIN web: http://127.0.0.1:PORT/robin  (nebo dvakrát klikni OTEVRI-ROBIN.command)\\n\\n' && WATCHPACK_POLLING=1 next dev -H 127.0.0.1",
-    "dev:robin": "node scripts/open-robin-browser.mjs",
+    "dev:robin": "bash scripts/start-robin.sh",
     "open-browser": "node scripts/open-dev-browser.mjs",
     "build": "next build",
     "start": "next start",
@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "framer-motion": "^12.42.2",
+    "lucide-react": "^0.575.0",
     "next": "^15.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

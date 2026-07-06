@@ -1,14 +1,33 @@
 #!/usr/bin/env node
 /**
- * Počká na Next.js dev server a otevře /robin v prohlížeči.
+ * Počká na Robin web a otevře prohlížeč.
  */
 import { execSync } from "node:child_process";
+import fs from "node:fs";
 import net from "node:net";
 import http from "node:http";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { setTimeout as delay } from "node:timers/promises";
 
-const ports = [3000, 3001, 3002, 3003, 3004, 3005];
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const root = path.join(__dirname, "..");
+const portFile = path.join(root, "robin-dev.port");
+
+const preferredPort = Number(process.env.ROBIN_PORT || 0);
+const ports = preferredPort
+  ? [preferredPort, 3000, 3001, 3002, 3003]
+  : [3000, 3001, 3002, 3003, 3004, 3005];
 const hosts = ["127.0.0.1", "localhost"];
+
+function readSavedPort() {
+  try {
+    const n = Number(fs.readFileSync(portFile, "utf8").trim());
+    return Number.isFinite(n) ? n : null;
+  } catch {
+    return null;
+  }
+}
 
 function portOpen(hostname, port) {
   return new Promise((resolve) => {
@@ -27,7 +46,7 @@ function portOpen(hostname, port) {
 function checkRobin(hostname, port) {
   return new Promise((resolve) => {
     const req = http.request(
-      { hostname, port, path: "/robin", method: "GET", timeout: 30000 },
+      { hostname, port, path: "/robin", method: "GET", timeout: 60000 },
       (res) => {
         res.resume();
         resolve(res.statusCode !== undefined && res.statusCode >= 200 && res.statusCode < 500);
@@ -43,8 +62,11 @@ function checkRobin(hostname, port) {
 }
 
 async function findServer() {
-  for (let i = 0; i < 180; i++) {
-    for (const port of ports) {
+  const saved = readSavedPort();
+  const tryPorts = saved ? [saved, ...ports.filter((p) => p !== saved)] : ports;
+
+  for (let i = 0; i < 120; i++) {
+    for (const port of tryPorts) {
       for (const host of hosts) {
         if (await portOpen(host, port)) {
           process.stderr.write(`  Port ${port} aktivní, čekám na /robin…\n`);
@@ -65,17 +87,16 @@ async function findServer() {
 async function main() {
   const url = await findServer();
   if (!url) {
-    console.error("\n❌ Server se nespustil do 90 s.");
-    console.error("   Zkus v terminálu:  cd ~/Neurea && npm run dev");
-    console.error("   Pak otevři:        http://127.0.0.1:3000/robin\n");
+    console.error("\n❌ Web neběží.");
+    console.error("   Dvakrát klikni: OTEVRI-ROBIN.command");
+    console.error("   Nebo:           cd ~/Neurea && bash scripts/start-robin.sh\n");
     process.exit(1);
   }
   try {
     execSync(`open "${url}"`, { stdio: "inherit" });
     console.log(`\n  ✓ Otevřeno: ${url}\n`);
   } catch {
-    console.log(`\n  ⚠ Nepodařilo se otevřít prohlížeč automaticky.`);
-    console.log(`  Zkopíruj do prohlížeče: ${url}\n`);
+    console.log(`\n  ⚠ Zkopíruj do prohlížeče: ${url}\n`);
   }
 }
 

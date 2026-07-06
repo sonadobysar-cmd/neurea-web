@@ -29,56 +29,114 @@
   z-index: 2;
 }
 
+/* ── Divadelní reflektory (jemné, ne kostky) ── */
 .robin-spotlights {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 280px;
+  height: min(420px, 55vh);
   pointer-events: none;
   overflow: hidden;
+  z-index: 1;
 }
 
-.robin-spotlights::before,
-.robin-spotlights::after {
+.robin-spot-unit {
+  position: absolute;
+  top: 0;
+  width: clamp(140px, 22vw, 220px);
+  transform: translateX(-50%) rotate(var(--spot-rot, 0deg));
+  transform-origin: top center;
+}
+
+.robin-spot-yoke {
+  width: 28px;
+  height: 14px;
+  margin: 0 auto;
+  border: 3px solid #1a1a1a;
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  background: linear-gradient(180deg, #3d3d3d, #1a1a1a);
+}
+
+.robin-spot-head {
+  position: relative;
+  z-index: 2;
+  width: 52px;
+  height: 34px;
+  margin: 0 auto;
+  background: linear-gradient(165deg, #454545 0%, #1c1c1c 45%, #0a0a0a 100%);
+  border-radius: 10px 10px 6px 6px;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -3px 6px rgba(0, 0, 0, 0.45);
+}
+
+.robin-spot-head::before {
   content: "";
   position: absolute;
-  top: -20px;
-  width: 120px;
-  height: 80px;
-  background: var(--robin-ink);
-  border-radius: 0 0 12px 12px;
+  inset: 5px 6px auto;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.12);
 }
 
-.robin-spotlights::before {
-  left: 12%;
-  transform: rotate(-8deg);
-  box-shadow: 60px 0 0 var(--robin-ink), 120px 0 0 var(--robin-ink);
-}
-
-.robin-spotlights::after {
-  right: 12%;
-  transform: rotate(8deg);
-}
-
-.robin-spotlight-beam {
+.robin-spot-lens {
   position: absolute;
-  top: 50px;
-  width: 140px;
-  height: 320px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, transparent 100%);
-  clip-path: polygon(30% 0%, 70% 0%, 100% 100%, 0% 100%);
-  filter: blur(2px);
-  animation: robinBeamPulse 4s ease-in-out infinite;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 26px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 30%, #fffef0, #ffd700 55%, #ff9500 100%);
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.65);
 }
 
-.robin-spotlight-beam:nth-child(1) { left: 10%; animation-delay: 0s; }
-.robin-spotlight-beam:nth-child(2) { left: 42%; animation-delay: 1.2s; }
-.robin-spotlight-beam:nth-child(3) { right: 10%; animation-delay: 2.4s; }
+.robin-spot-beam {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: clamp(260px, 38vh, 360px);
+  margin: -4px auto 0;
+  transform-origin: top center;
+  transform: scaleX(var(--spot-scale, 1));
+  background:
+    radial-gradient(
+      ellipse 55% 42% at 50% 0%,
+      rgba(255, 252, 235, 0.55) 0%,
+      rgba(255, 220, 120, 0.22) 35%,
+      transparent 72%
+    );
+  filter: blur(10px);
+  animation: robinSpotGlow 5.5s ease-in-out infinite;
+  animation-delay: var(--spot-delay, 0s);
+  opacity: 0.75;
+}
 
-@keyframes robinBeamPulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 0.85; }
+.robin-spot-beam::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 28% 80% at 50% 0%,
+    rgba(255, 255, 255, 0.35) 0%,
+    transparent 65%
+  );
+  filter: blur(4px);
+}
+
+@keyframes robinSpotGlow {
+  0%,
+  100% {
+    opacity: 0.5;
+    filter: blur(10px);
+  }
+  50% {
+    opacity: 0.9;
+    filter: blur(14px);
+  }
 }
 
 .robin-bubbles {
@@ -117,7 +175,15 @@
 /* Na tmavém pozadí vždy světlý text — oprava nečitelnosti */
 .robin-panel--dark,
 .robin-section-dark {
+  background: var(--robin-ink);
   color: var(--robin-white);
+  border-top: 4px solid var(--robin-gold);
+  border-bottom: 4px solid var(--robin-gold);
+}
+
+.robin-title-ink-shadow {
+  color: var(--robin-gold);
+  text-shadow: 3px 3px 0 var(--robin-ink);
 }
 
 .robin-panel--dark .robin-booth-title,
@@ -137,9 +203,13 @@
 .robin-panel--dark p,
 .robin-section-dark p,
 .robin-panel--dark li,
-.robin-section-dark > div > p,
-.robin-section-dark > div > h2 + p {
-  color: rgba(255, 254, 248, 0.92);
+.robin-section-dark li,
+.robin-section-dark strong {
+  color: rgba(255, 254, 248, 0.94);
+}
+
+.robin-section-dark strong {
+  color: var(--robin-gold);
 }
 
 /* Bílé panely uvnitř tmavé sekce — černý text */
@@ -211,39 +281,82 @@
   display: none;
 }
 
-/* Hero foto — ořez portrétu, ne kruh */
-.robin-hero-frame {
+/* Hero — Robin bez pozadí, volně v scéně */
+.robin-hero-scene {
   position: relative;
-  aspect-ratio: 4 / 5;
-  overflow: hidden;
-  border: 5px solid var(--robin-ink);
-  border-radius: 1.25rem;
-  box-shadow: 12px 12px 0 var(--robin-ink);
-  transform: rotate(2deg);
-  transition: transform 0.3s ease;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  min-height: clamp(300px, 48vh, 520px);
+  margin: 0 auto;
+  width: 100%;
+  max-width: min(480px, 94vw);
 }
 
-.robin-hero-frame:hover {
-  transform: rotate(0deg) scale(1.02);
-}
-
-.robin-hero-frame::before {
-  content: "";
+.robin-hero-glow {
   position: absolute;
-  inset: 0;
-  z-index: 2;
+  bottom: 8%;
+  left: 50%;
+  z-index: 0;
+  width: 85%;
+  height: 45%;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at 50% 60%,
+    rgba(255, 252, 220, 0.7) 0%,
+    rgba(255, 200, 80, 0.35) 40%,
+    transparent 72%
+  );
+  filter: blur(18px);
   pointer-events: none;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.35) 0%, transparent 45%);
 }
 
-.robin-hero-frame img {
-  object-position: 50% 18%;
+.robin-hero-shadow {
+  position: absolute;
+  bottom: 2%;
+  left: 50%;
+  z-index: 0;
+  width: 55%;
+  height: 14px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.22);
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+.robin-hero-cutout {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  max-height: min(72vh, 560px);
+  object-fit: contain;
+  object-position: bottom center;
+  filter: drop-shadow(0 20px 28px rgba(0, 0, 0, 0.28))
+    drop-shadow(0 6px 12px rgba(0, 0, 0, 0.12));
+  animation: robinHeroFloat 5s ease-in-out infinite;
+  transition: transform 0.35s ease;
+}
+
+.robin-hero-scene:hover .robin-hero-cutout {
+  transform: translateY(-6px) scale(1.02);
+}
+
+@keyframes robinHeroFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 .robin-hero-badge {
   position: absolute;
-  bottom: 1rem;
-  left: 1rem;
+  bottom: 6%;
+  left: 0;
   z-index: 3;
   border-radius: 0.75rem;
   border: 3px solid var(--robin-ink);
@@ -340,7 +453,7 @@
 .robin-stage { scroll-behavior: smooth; }
 
 @media (prefers-reduced-motion: reduce) {
-  .robin-bubble, .robin-spotlight-beam, .robin-star { animation: none; }
+  .robin-bubble, .robin-spot-beam, .robin-star, .robin-hero-cutout { animation: none; }
   .robin-stage { scroll-behavior: auto; }
 }
 

@@ -35,6 +35,11 @@ next-env.d.ts
 # vercel
 .vercel
 
+# Robin lokální dev
+robin-dev.log
+robin-dev.pid
+robin-dev.port
+
 # Zpussy Club (Lovable / TanStack Start)
 /zpusy-club/node_modules
 /zpusy-club/dist

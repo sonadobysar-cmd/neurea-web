@@ -1,4 +1,4 @@
-import { RobinStage } from "@/components/robin/RobinStage";
+import { RobinModernLanding } from "@/components/robin/RobinModernLanding";
 import { robinSite } from "@/lib/robinSite";
 
 export function RobinLandingView() {
@@ -10,7 +10,7 @@ export function RobinLandingView() {
     url: robinSite.url,
     telephone: robinSite.phone,
     email: robinSite.email,
-    image: `${robinSite.url}/robin/IMG_0872.jpg`,
+    image: `${robinSite.url}/robin/hero.jpg`,
     priceRange: "$$",
     areaServed: { "@type": "Country", name: "Czech Republic" },
     address: {
@@ -31,7 +31,7 @@ export function RobinLandingView() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <RobinStage />
+      <RobinModernLanding />
     </>
   );
 }

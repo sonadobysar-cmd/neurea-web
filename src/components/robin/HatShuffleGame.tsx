@@ -115,10 +115,7 @@ export function HatShuffleGame() {
           <span className="robin-booth-sub inline-block rounded-full bg-black px-4 py-1.5 text-[var(--robin-gold)]">
             Interaktivní kouzlo
           </span>
-          <h2
-            className="robin-booth-title mt-5 text-4xl text-white md:text-6xl"
-            style={{ textShadow: "3px 3px 0 #000" }}
-          >
+          <h2 className="robin-booth-title robin-title-ink-shadow mt-5 text-4xl md:text-6xl">
             Najdi králíčka
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-lg font-semibold text-white/95">{message}</p>

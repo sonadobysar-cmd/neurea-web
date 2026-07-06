@@ -79,7 +79,7 @@ export function RobinStage() {
         {/* ── HERO (photo-op stánek) ── */}
         <section className="relative overflow-hidden pb-16 pt-8 md:pb-24 md:pt-12">
           <StageSpotlights />
-          <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-5 md:grid-cols-2 md:px-8">
+          <div className="relative mx-auto grid max-w-6xl items-end gap-8 px-5 md:grid-cols-2 md:gap-10 md:px-8">
             <div>
               <p className="robin-booth-sub mb-3">www.kouzlimesrobinem.cz</p>
               <h1 className="robin-booth-title text-[clamp(2.5rem,10vw,5rem)]">
@@ -111,28 +111,28 @@ export function RobinStage() {
               </div>
             </div>
 
-            <div className="relative mx-auto w-full max-w-sm md:max-w-lg">
-              <span className="robin-float-icon -left-4 top-8 md:-left-8" style={{ animationDelay: "0s" }} aria-hidden>
+            <div className="robin-hero-scene">
+              <div className="robin-hero-glow" aria-hidden />
+              <div className="robin-hero-shadow" aria-hidden />
+              <span className="robin-float-icon -left-2 top-6 md:-left-6" style={{ animationDelay: "0s" }} aria-hidden>
                 🎩
               </span>
-              <span className="robin-float-icon -right-2 top-1/4 md:-right-6" style={{ animationDelay: "0.8s" }} aria-hidden>
+              <span className="robin-float-icon -right-1 top-1/4 md:-right-4" style={{ animationDelay: "0.8s" }} aria-hidden>
                 ✨
               </span>
-              <span className="robin-float-icon right-0 bottom-1/4" style={{ animationDelay: "1.4s" }} aria-hidden>
+              <span className="robin-float-icon right-2 bottom-1/3" style={{ animationDelay: "1.4s" }} aria-hidden>
                 🪄
               </span>
-              <div className="robin-hero-frame">
-                <div className="robin-shimmer" aria-hidden />
-                <Image
-                  src="/robin/IMG_0890.jpg"
-                  alt="Kouzelník Robin Panuš — interaktivní představení"
-                  fill
-                  priority
-                  className="object-cover"
-                  sizes="(max-width:768px) 90vw, 480px"
-                />
-                <span className="robin-hero-badge">Kouzelník Robin</span>
-              </div>
+              <Image
+                src="/robin/robin-hero-cutout.png"
+                alt="Kouzelník Robin Panuš"
+                width={682}
+                height={842}
+                priority
+                className="robin-hero-cutout"
+                sizes="(max-width:768px) 90vw, 460px"
+              />
+              <span className="robin-hero-badge">Kouzelník Robin</span>
             </div>
           </div>
         </section>
@@ -172,7 +172,7 @@ export function RobinStage() {
         </section>
 
         {/* ── O ROBINOVI ── */}
-        <section className="robin-section-dark py-20 md:py-28">
+        <section id="o-robinovi" className="robin-section-dark py-20 md:py-28">
           <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 md:grid-cols-2 md:px-8">
             <div className="relative mx-auto max-w-md">
               <Image
@@ -183,7 +183,7 @@ export function RobinStage() {
                 className="rounded-2xl border-4 border-[var(--robin-gold)] object-cover shadow-[8px_8px_0_var(--robin-gold)]"
               />
             </div>
-            <div className="text-[var(--robin-white)]">
+            <div>
               <h2 className="robin-booth-title text-4xl md:text-5xl">Robin Panuš</h2>
               <p className="mt-6 text-lg leading-relaxed">
                 Profesionální kouzelník, balonkář a mentalista. Vystupuji na narozeninových oslavách,

@@ -1,0 +1,201 @@
+/* Kouzlíme s Robinem — Modern Magic design system */
+
+.robin-modern {
+  --rm-ink: oklch(0.14 0.02 40);
+  --rm-background: oklch(0.12 0.02 40);
+  --rm-foreground: oklch(0.96 0.02 85);
+  --rm-cream: oklch(0.96 0.03 85);
+  --rm-card: oklch(0.17 0.025 40);
+  --rm-muted-foreground: oklch(0.72 0.02 80);
+  --rm-border: oklch(0.28 0.03 60 / 0.6);
+  --rm-gold: oklch(0.82 0.16 82);
+  --rm-ember: oklch(0.68 0.19 40);
+  --rm-amber: oklch(0.75 0.17 55);
+  --rm-burgundy: oklch(0.38 0.14 20);
+  --rm-gradient-sunset: linear-gradient(135deg, oklch(0.75 0.17 55) 0%, oklch(0.85 0.16 85) 100%);
+  --rm-gradient-magic:
+    radial-gradient(ellipse at top, oklch(0.68 0.19 40 / 0.35), transparent 60%),
+    radial-gradient(ellipse at bottom, oklch(0.38 0.14 20 / 0.4), transparent 55%);
+  --rm-shadow-glow: 0 0 60px -10px oklch(0.75 0.17 55 / 0.5);
+  --rm-shadow-ember: 0 30px 80px -30px oklch(0.68 0.19 40 / 0.6);
+  --rm-shadow-card: 0 20px 60px -20px oklch(0 0 0 / 0.5);
+
+  background: var(--rm-background);
+  color: var(--rm-foreground);
+  font-family: var(--font-robin-sans), ui-sans-serif, system-ui, sans-serif;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+.robin-modern h1,
+.robin-modern h2,
+.robin-modern h3,
+.robin-modern h4 {
+  font-family: var(--font-robin-display), ui-serif, Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.robin-modern ::selection {
+  background: var(--rm-gold);
+  color: var(--rm-ink);
+}
+
+.robin-modern .rm-bg-background { background: var(--rm-background); }
+.robin-modern .rm-bg-card { background: var(--rm-card); }
+.robin-modern .rm-bg-ink { background: var(--rm-ink); }
+.robin-modern .rm-bg-sunset { background-image: var(--rm-gradient-sunset); }
+.robin-modern .rm-bg-magic { background-image: var(--rm-gradient-magic); }
+
+.robin-modern .rm-text-gold { color: var(--rm-gold); }
+.robin-modern .rm-text-cream { color: var(--rm-cream); }
+.robin-modern .rm-text-muted { color: var(--rm-muted-foreground); }
+.robin-modern .rm-text-ink { color: var(--rm-ink); }
+
+.robin-modern a.rm-link-muted {
+  color: var(--rm-muted-foreground);
+  transition: color 0.2s;
+}
+.robin-modern a.rm-link-muted:hover { color: var(--rm-gold); }
+
+.robin-modern .rm-contact-card {
+  border: 1px solid var(--rm-border);
+  background: oklch(0.17 0.025 40 / 0.6);
+  transition: box-shadow 0.3s, border-color 0.3s;
+}
+.robin-modern .rm-contact-card:hover {
+  border-color: oklch(0.82 0.16 82 / 0.4);
+  box-shadow: var(--rm-shadow-glow);
+}
+.robin-modern .rm-contact-card:hover .rm-contact-value { color: var(--rm-gold); }
+
+.robin-modern .rm-faq-q { transition: color 0.2s; }
+.robin-modern .rm-faq-q:hover { color: var(--rm-gold); }
+
+.robin-modern .rm-border { border-color: var(--rm-border); }
+
+.robin-modern .rm-text-gradient-gold {
+  background: linear-gradient(135deg, oklch(0.92 0.14 90), oklch(0.72 0.18 55));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.robin-modern .rm-shimmer-text {
+  background: linear-gradient(
+    90deg,
+    oklch(0.72 0.18 55) 0%,
+    oklch(0.96 0.14 90) 50%,
+    oklch(0.72 0.18 55) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: rm-shimmer 6s linear infinite;
+}
+
+.robin-modern .rm-font-display {
+  font-family: var(--font-robin-display), ui-serif, Georgia, serif;
+}
+
+.robin-modern .rm-shadow-glow { box-shadow: var(--rm-shadow-glow); }
+.robin-modern .rm-shadow-ember { box-shadow: var(--rm-shadow-ember); }
+.robin-modern .rm-shadow-card { box-shadow: var(--rm-shadow-card); }
+
+.robin-modern .rm-btn-magic {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1rem 2rem;
+  border-radius: 999px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  background: var(--rm-gradient-sunset);
+  color: var(--rm-ink);
+  transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.2, 1), box-shadow 0.35s;
+  box-shadow: 0 10px 30px -10px oklch(0.75 0.17 55 / 0.6);
+  text-decoration: none;
+}
+
+.robin-modern .rm-btn-magic:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 20px 60px -15px oklch(0.75 0.17 55 / 0.8);
+}
+
+.robin-modern .rm-btn-magic:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.robin-modern .rm-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1rem 2rem;
+  border-radius: 999px;
+  color: var(--rm-cream);
+  border: 1px solid oklch(0.96 0.03 85 / 0.25);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s;
+  text-decoration: none;
+}
+
+.robin-modern .rm-btn-ghost:hover {
+  border-color: var(--rm-gold);
+  color: var(--rm-gold);
+  background: oklch(0.75 0.17 55 / 0.08);
+}
+
+.robin-modern .rm-card-tilt {
+  transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.2, 1), box-shadow 0.5s;
+  transform-style: preserve-3d;
+}
+
+.robin-modern .rm-accent-from-amber { --rm-accent: linear-gradient(to bottom right, var(--rm-amber), var(--rm-gold)); }
+.robin-modern .rm-accent-from-ember { --rm-accent: linear-gradient(to bottom right, var(--rm-ember), var(--rm-burgundy)); }
+.robin-modern .rm-accent-from-burgundy { --rm-accent: linear-gradient(to bottom right, var(--rm-burgundy), var(--rm-ember)); }
+.robin-modern .rm-accent-from-gold { --rm-accent: linear-gradient(to bottom right, var(--rm-gold), var(--rm-amber)); }
+
+@keyframes rm-float-slow {
+  0%, 100% { transform: translateY(0) translateX(0) scale(1); }
+  50% { transform: translateY(-40px) translateX(20px) scale(1.05); }
+}
+
+@keyframes rm-float-med {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(30px) translateX(-25px); }
+}
+
+@keyframes rm-shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.robin-modern .rm-animate-float-slow { animation: rm-float-slow 12s ease-in-out infinite; }
+.robin-modern .rm-animate-float-med { animation: rm-float-med 9s ease-in-out infinite; }
+
+.robin-modern .rm-input {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid var(--rm-border);
+  background: oklch(0.12 0.02 40 / 0.6);
+  padding: 0.75rem 1rem;
+  outline: none;
+  color: var(--rm-foreground);
+  transition: border-color 0.2s;
+}
+
+.robin-modern .rm-input:focus {
+  border-color: var(--rm-gold);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .robin-modern .rm-animate-float-slow,
+  .robin-modern .rm-animate-float-med,
+  .robin-modern .rm-shimmer-text {
+    animation: none;
+  }
+  .robin-modern { scroll-behavior: auto; }
+}

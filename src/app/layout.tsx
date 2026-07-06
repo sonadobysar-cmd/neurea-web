@@ -4,7 +4,6 @@ import { headers } from "next/headers";
 import { EB_Garamond, Fraunces, Inter, Nunito, Outfit, Oxygen } from "next/font/google";
 import "./globals.css";
 import "./rezervace/rezervace-landing.css";
-import "./robin/robin-modern.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CookieBanner } from "@/components/CookieBanner";
@@ -84,8 +83,8 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   if (robinLanding) {
     return (
       <html lang="cs" className={`${fraunces.variable} ${inter.variable}`}>
-        <body className="font-robin-sans antialiased" style={{ background: "oklch(0.12 0.02 40)" }}>
-          <main className="min-h-[100dvh]">{children}</main>
+        <body className="robin-body font-robin-sans antialiased">
+          {children}
         </body>
       </html>
     );

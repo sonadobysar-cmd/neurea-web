@@ -1,13 +1,16 @@
 #!/bin/bash
-# Dvakrát klikni — otevře živý Robin web na Vercelu (bez lokálního serveru).
+# Dvakrát klikni — otevře NAŠI verzi webu (stánek, hra, oranžový vizuál).
 cd "$(dirname "$0")"
 
-# Po nasazení domény na Vercel změň na https://www.kouzlimesrobinem.cz
+# Hlavní verze = /robin  ·  druhá (moderní) = /robin/modern
 ROBIN_URL="${ROBIN_WEB_URL:-https://neurea-web.vercel.app/robin}"
 
 open "$ROBIN_URL"
-osascript -e "display notification \"$ROBIN_URL\" with title \"Kouzlíme s Robinem\"" 2>/dev/null || true
+osascript -e "display notification \"Stánková verze webu\" with title \"Kouzlíme s Robinem\"" 2>/dev/null || true
 
 echo ""
-echo "  🎩 Otevírám: $ROBIN_URL"
+echo "  🎩 Otevírám NAŠI verzi (stánek):"
+echo "  $ROBIN_URL"
+echo ""
+echo "  (Druhá verze — moderní náhled: ${ROBIN_URL%/robin}/robin/modern)"
 echo ""

@@ -171,11 +171,14 @@ def replace_cluster(html: str) -> str:
     if start < 0:
         raise SystemExit("cluster block not found")
     hint = html.find('<span class="cluster-hint">', start)
-    end = html.find("</svg>", start)
-    if end < 0:
-        raise SystemExit("cluster svg end not found")
-    end = html.find("\n", html.find(">", hint)) + 1
-    return html[:start] + CLUSTER_NEW + html[hint:end]
+    if hint < 0:
+        raise SystemExit("cluster-hint not found")
+    close = html.find("</div>", hint)
+    if close < 0:
+        raise SystemExit("cluster div close not found")
+    after = close + len("</div>")
+    suffix = '\n          <span class="cluster-hint">Praskni mě! ✦</span>\n        </div>'
+    return html[:start] + CLUSTER_NEW + suffix + html[after:]
 
 
 def main() -> None:
@@ -197,6 +200,9 @@ def main() -> None:
         raise SystemExit("tick block not found")
     html = TICK_OLD.sub(TICK_NEW, html)
     html = replace_cluster(html)
+
+    if "</html>" not in html or "<script>" not in html:
+        raise SystemExit("Build output looks truncated — missing script or closing tags")
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(html, encoding="utf-8")

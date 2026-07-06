@@ -16,82 +16,24 @@ POP_CSS_OLD = """.popstage{position:relative;width:min(440px,90vw);height:400px;
 .cluster.gone{opacity:0;pointer-events:none;animation:none}
 .cluster svg{width:min(300px,72vw);height:auto;filter:drop-shadow(6px 8px 0 rgba(26,18,6,.14))}"""
 
-POP_CSS_NEW = """.popstage{position:relative;width:min(400px,88vw);height:400px;margin:24px auto 0;display:grid;place-items:center;overflow:visible}
+POP_CSS_NEW = """.popstage{position:relative;width:min(320px,78vw);height:min(340px,72vw);margin:24px auto 0;display:grid;place-items:center;overflow:visible}
 .cluster{position:absolute;inset:0;display:grid;place-items:center;cursor:pointer;
-  transform-origin:50% 82%;animation:bouquetFloat 4.8s ease-in-out infinite;
+  transform-origin:50% 88%;animation:bouquetFloat 4.8s ease-in-out infinite;
   transition:opacity .4s ease, transform .4s cubic-bezier(.34,1.2,.48,1)}
 @keyframes bouquetFloat{
   0%,100%{transform:translate3d(0,0,0) rotate(0deg)}
-  33%{transform:translate3d(1px,-6px,0) rotate(.4deg)}
-  66%{transform:translate3d(-1px,-10px,0) rotate(-.35deg)}}
+  33%{transform:translate3d(1px,-6px,0) rotate(.35deg)}
+  66%{transform:translate3d(-1px,-9px,0) rotate(-.3deg)}}
 .cluster.popping{animation:bouquetPop .6s ease-out forwards;pointer-events:none}
 @keyframes bouquetPop{0%{transform:scale(1);opacity:1}25%{transform:scale(1.05)}100%{transform:scale(.3);opacity:0}}
 .cluster.gone{opacity:0;pointer-events:none;animation:none}
-.cluster svg{width:min(300px,72vw);height:auto;overflow:visible;
-  filter:drop-shadow(0 8px 18px rgba(0,0,0,.1))}"""
+.cluster-art{width:min(280px,68vw);height:auto;display:block;pointer-events:none;user-select:none;
+  filter:drop-shadow(0 10px 20px rgba(0,0,0,.1))}"""
 
 CLUSTER_OLD_START = '<div class="cluster" id="cluster" role="button" tabindex="0" aria-label="Prasknout balónky">'
 
 CLUSTER_NEW = r'''<div class="cluster" id="cluster" role="button" tabindex="0" aria-label="Prasknout balónky">
-          <svg viewBox="0 0 280 320" aria-hidden="true" class="bouquet-svg">
-            <defs>
-              <radialGradient id="gSky" cx="35%" cy="28%" r="68%"><stop offset="0%" stop-color="#C8EEFF"/><stop offset="55%" stop-color="#7EC8F8"/><stop offset="100%" stop-color="#4AABE8"/></radialGradient>
-              <radialGradient id="gPur" cx="35%" cy="28%" r="68%"><stop offset="0%" stop-color="#D4C0F8"/><stop offset="55%" stop-color="#A888E0"/><stop offset="100%" stop-color="#7858C0"/></radialGradient>
-              <radialGradient id="gPink" cx="35%" cy="28%" r="68%"><stop offset="0%" stop-color="#FFC8DC"/><stop offset="55%" stop-color="#F088A8"/><stop offset="100%" stop-color="#E05888"/></radialGradient>
-              <radialGradient id="gYel" cx="35%" cy="28%" r="68%"><stop offset="0%" stop-color="#FFF8A8"/><stop offset="55%" stop-color="#FFE850"/><stop offset="100%" stop-color="#F0D020"/></radialGradient>
-              <radialGradient id="gTeal" cx="35%" cy="28%" r="68%"><stop offset="0%" stop-color="#B8F0E0"/><stop offset="55%" stop-color="#68D8B8"/><stop offset="100%" stop-color="#38B898"/></radialGradient>
-            </defs>
-            <g fill="none" stroke="#2A2A2A" stroke-width="1.4" stroke-linecap="round">
-              <path d="M68 118 L140 238"/><path d="M212 118 L140 238"/>
-              <path d="M92 164 L140 238"/><path d="M188 160 L140 238"/>
-              <path d="M140 166 L140 238"/>
-              <path d="M140 238 L140 292"/><path d="M140 238 L134 288"/>
-              <path d="M140 238 L146 288"/><path d="M140 238 L137 294"/>
-              <path d="M140 238 L143 294"/>
-            </g>
-            <g>
-              <g transform="translate(68 72)">
-                <g><animateTransform attributeName="transform" type="translate" values="0,0;0.5,-2;0,0" dur="3.4s" repeatCount="indefinite"/>
-                  <ellipse cx="0" cy="0" rx="36" ry="40" fill="url(#gSky)" stroke="#2A2A2A" stroke-width="1.8"/>
-                  <ellipse cx="-11" cy="-12" rx="11" ry="15" fill="#fff" opacity=".82"/>
-                  <circle cx="-5" cy="-24" r="3.5" fill="#fff" opacity=".92"/>
-                  <path d="M-4 38 L0 46 L4 38 Z" fill="#4AABE8" stroke="#2A2A2A" stroke-width="1.2"/>
-                </g>
-              </g>
-              <g transform="translate(212 74)">
-                <g><animateTransform attributeName="transform" type="translate" values="0,0;-0.5,-2;0,0" dur="3.7s" repeatCount="indefinite"/>
-                  <ellipse cx="0" cy="0" rx="34" ry="38" fill="url(#gPur)" stroke="#2A2A2A" stroke-width="1.8"/>
-                  <ellipse cx="11" cy="-12" rx="10" ry="14" fill="#fff" opacity=".82"/>
-                  <circle cx="5" cy="-24" r="3.5" fill="#fff" opacity=".92"/>
-                  <path d="M-4 36 L0 44 L4 36 Z" fill="#7858C0" stroke="#2A2A2A" stroke-width="1.2"/>
-                </g>
-              </g>
-              <g transform="translate(92 124)">
-                <g><animateTransform attributeName="transform" type="translate" values="0,0;0.5,-3;0,0" dur="3.1s" repeatCount="indefinite"/>
-                  <ellipse cx="0" cy="0" rx="30" ry="34" fill="url(#gPink)" stroke="#2A2A2A" stroke-width="1.8"/>
-                  <ellipse cx="-10" cy="-10" rx="9" ry="13" fill="#fff" opacity=".82"/>
-                  <circle cx="-4" cy="-20" r="3" fill="#fff" opacity=".92"/>
-                  <path d="M-3.5 32 L0 40 L3.5 32 Z" fill="#E05888" stroke="#2A2A2A" stroke-width="1.2"/>
-                </g>
-              </g>
-              <g transform="translate(188 120)">
-                <g><animateTransform attributeName="transform" type="translate" values="0,0;-0.5,-2.5;0,0" dur="3.3s" repeatCount="indefinite"/>
-                  <ellipse cx="0" cy="0" rx="30" ry="34" fill="url(#gTeal)" stroke="#2A2A2A" stroke-width="1.8"/>
-                  <ellipse cx="10" cy="-10" rx="9" ry="13" fill="#fff" opacity=".82"/>
-                  <circle cx="4" cy="-20" r="3" fill="#fff" opacity=".92"/>
-                  <path d="M-3.5 32 L0 40 L3.5 32 Z" fill="#38B898" stroke="#2A2A2A" stroke-width="1.2"/>
-                </g>
-              </g>
-              <g transform="translate(140 132)">
-                <g><animateTransform attributeName="transform" type="translate" values="0,0;0,-2;0,0" dur="2.9s" repeatCount="indefinite"/>
-                  <ellipse cx="0" cy="0" rx="24" ry="28" fill="url(#gYel)" stroke="#2A2A2A" stroke-width="1.8"/>
-                  <ellipse cx="-8" cy="-8" rx="7" ry="10" fill="#fff" opacity=".85"/>
-                  <circle cx="-3" cy="-16" r="2.5" fill="#fff" opacity=".92"/>
-                  <path d="M-3 26 L0 34 L3 26 Z" fill="#F0D020" stroke="#2A2A2A" stroke-width="1.2"/>
-                </g>
-              </g>
-            </g>
-          </svg>'''
+          <img src="balloon-cluster.png" alt="" class="cluster-art" width="600" height="591" draggable="false">'''
 
 DOPOP_OLD = """    function doPop(){
       if(busy)return;busy=true;

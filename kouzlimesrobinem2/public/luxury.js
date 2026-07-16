@@ -40,9 +40,9 @@
     });
   }
 
-  // hero portrait 3D tilt
+  // hero portrait 3D tilt (Robin3 — arch uvnitř hero-luxe)
   var hv = document.querySelector('.hero-visual');
-  var arch = hv && hv.querySelector('.arch');
+  var arch = hv && (hv.querySelector('.hero-luxe .arch') || hv.querySelector('.arch'));
   if (!reduce && fine && arch){
     arch.style.transition = 'transform .18s ease-out';
     hv.addEventListener('mousemove', function(e){

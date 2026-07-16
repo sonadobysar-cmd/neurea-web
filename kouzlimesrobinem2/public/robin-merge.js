@@ -2,12 +2,7 @@
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var KM_RATE = 12;
 
-  // Okamžitě zobrazit obsah (záloha když luxury.js spadne dřív)
-  document.querySelectorAll(".reveal").forEach(function (el) {
-    el.classList.add("in");
-  });
-
-  // ---------- marquee (Robin3 wording per agenda) ----------
+  // 7) Marquee — přesná slova ze zadání (Robin3 styl)
   var mq = document.getElementById("mq");
   if (mq) {
     var star =
@@ -31,25 +26,27 @@
     mq.innerHTML = half + half;
   }
 
-  // ---------- Robin2 floating bubbles ----------
+  // 1) Pozadí Robin2 — bubliny
   var layer = document.getElementById("bubbles");
   if (layer && !reduce) {
     var bubbles = [];
-    var balloonSrcs = ["/luxury/img-06.jpg", "/luxury/img-11.jpg", "/luxury/img-03.jpg"];
 
     function spawnBubble(asBalloon) {
       var el;
-      var size = asBalloon ? 56 + Math.random() * 36 : 18 + Math.random() * 42;
+      var size = asBalloon ? 64 + Math.random() * 48 : 18 + Math.random() * 42;
       if (asBalloon) {
         el = document.createElement("img");
         el.className = "bubble balloon-float";
-        el.src = balloonSrcs[Math.floor(Math.random() * balloonSrcs.length)];
+        el.src = "/balloon-cluster.png";
         el.alt = "";
         el.draggable = false;
-        size = 64 + Math.random() * 48;
+        el.style.width = size + "px";
+        el.style.height = "auto";
       } else {
         el = document.createElement("div");
         el.className = "bubble";
+        el.style.width = size + "px";
+        el.style.height = size + "px";
       }
       var b = {
         el: el,
@@ -60,8 +57,6 @@
         phase: Math.random() * Math.PI * 2,
         isBalloon: !!asBalloon,
       };
-      el.style.width = asBalloon ? size + "px" : size + "px";
-      el.style.height = asBalloon ? "auto" : size + "px";
       el.style.left = b.x + "px";
       el.style.top = b.y + "px";
       el.addEventListener("click", function () {
@@ -78,8 +73,8 @@
       b.el.remove();
       var p = document.createElement("div");
       p.className = "pop";
-      p.style.left = (b.x + b.size / 2) + "px";
-      p.style.top = (b.y + b.size / 2) + "px";
+      p.style.left = b.x + b.size / 2 + "px";
+      p.style.top = b.y + b.size / 2 + "px";
       for (var k = 0; k < 12; k++) {
         var sp = document.createElement("span");
         var a = (Math.PI * 2 * k) / 12;
@@ -111,37 +106,21 @@
       requestAnimationFrame(tick);
     }
 
-    var target = 14;
     requestAnimationFrame(tick);
     setInterval(function () {
-      if (bubbles.length < target) spawnBubble(false);
+      if (bubbles.length < 14) spawnBubble(false);
     }, 2600);
     setInterval(function () {
-      if (bubbles.filter(function (b) {
-        return b.isBalloon;
-      }).length < 2)
+      if (
+        bubbles.filter(function (b) {
+          return b.isBalloon;
+        }).length < 2
+      )
         spawnBubble(true);
     }, 6200);
   }
 
-  // ---------- hero tilt on arch inside luxe frame ----------
-  var hv = document.querySelector(".hero-visual");
-  var arch = hv && hv.querySelector(".arch--hero");
-  if (!reduce && arch && matchMedia("(pointer:fine)").matches) {
-    arch.style.transition = "transform .18s ease-out";
-    hv.addEventListener("mousemove", function (e) {
-      var r = hv.getBoundingClientRect();
-      var x = (e.clientX - r.left) / r.width - 0.5;
-      var y = (e.clientY - r.top) / r.height - 0.5;
-      arch.style.transform =
-        "perspective(900px) rotateY(" + x * 7 + "deg) rotateX(" + -y * 6 + "deg)";
-    });
-    hv.addEventListener("mouseleave", function () {
-      arch.style.transform = "none";
-    });
-  }
-
-  // ---------- gallery duplicate + lightbox ----------
+  // 9) Galerie — pojízdný pás + lightbox
   var strip = document.getElementById("strip");
   if (strip && strip.classList.contains("strip--marquee")) {
     strip.innerHTML = strip.innerHTML + strip.innerHTML;
@@ -185,7 +164,7 @@
     });
   }
 
-  // ---------- price calculator ----------
+  // 10) Ceník
   var eventType = document.getElementById("eventType");
   var distanceKm = document.getElementById("distanceKm");
   var priceTotal = document.getElementById("priceTotal");
@@ -220,7 +199,7 @@
   if (distanceKm) distanceKm.addEventListener("input", updatePrice);
   updatePrice();
 
-  // ---------- balloon pop (Robin2) ----------
+  // 8) Balónky Robin2
   var popstage = document.getElementById("popstage");
   var cluster = document.getElementById("cluster");
   var reward = document.getElementById("reward");
@@ -231,7 +210,7 @@
     var rewards = [
       { src: "/luxury/img-06.jpg", lbl: "balónkového pudla" },
       { src: "/luxury/img-11.jpg", lbl: "balónkového pejska" },
-      { src: "/luxury/img-08.jpg", lbl: "balónkového zvířátka" },
+      { src: "/luxury/img-08.jpg", lbl: "balónkové zvířátko" },
       { src: "/luxury/img-03.jpg", lbl: "modrého pejska" },
     ];
     var order = [];
@@ -297,7 +276,8 @@
       reward.classList.add("show");
       popped++;
       if (popBtn) popBtn.style.display = "";
-      if (popped >= 2 && final && !final.classList.contains("show")) final.classList.add("show");
+      if (popped >= 2 && final && !final.classList.contains("show"))
+        final.classList.add("show");
       setTimeout(function () {
         busy = false;
       }, 400);
@@ -320,25 +300,40 @@
     if (popBtn) popBtn.addEventListener("click", resetPop);
   }
 
-  // ---------- contact form ----------
+  // 11) Kontaktní formulář
   var contactForm = document.getElementById("contactForm");
   var contactThanks = document.getElementById("contactThanks");
+
+  function showContactError(msg) {
+    var existing = document.getElementById("contactError");
+    if (existing) existing.remove();
+    var err = document.createElement("p");
+    err.id = "contactError";
+    err.className = "contact-error";
+    err.textContent = msg;
+    if (contactForm) contactForm.insertAdjacentElement("afterend", err);
+  }
 
   if (contactForm) {
     contactForm.addEventListener("submit", function (e) {
       e.preventDefault();
       var fd = new FormData(contactForm);
+      if (String(fd.get("website") || "").trim()) return;
+
       var email = String(fd.get("email") || "").trim();
       var phone = String(fd.get("phone") || "").trim();
       if (!email || !phone) {
-        alert("Vyplňte prosím e-mail a telefon.");
+        showContactError("Vyplňte prosím e-mail a telefon.");
         return;
       }
+
       var btn = contactForm.querySelector('button[type="submit"]');
+      var btnHtml = btn ? btn.innerHTML : "";
       if (btn) {
         btn.disabled = true;
         btn.textContent = "Odesílám…";
       }
+
       fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -357,13 +352,18 @@
         .then(function (result) {
           if (!result.ok) throw new Error(result.data.error || "Odeslání se nepovedlo.");
           contactForm.hidden = true;
+          var err = document.getElementById("contactError");
+          if (err) err.remove();
           if (contactThanks) contactThanks.hidden = false;
         })
         .catch(function (err) {
-          alert(err.message || "Zprávu se nepodařilo odeslat. Zkuste to prosím znovu nebo napište na info@kouzlimesrobinem.cz.");
+          showContactError(
+            err.message ||
+              "Zprávu se nepodařilo odeslat. Napište prosím na info@kouzlimesrobinem.cz.",
+          );
           if (btn) {
             btn.disabled = false;
-            btn.innerHTML = 'Odeslat zprávu<svg class="st"><use href="#star"/></svg>';
+            btn.innerHTML = btnHtml;
           }
         });
     });

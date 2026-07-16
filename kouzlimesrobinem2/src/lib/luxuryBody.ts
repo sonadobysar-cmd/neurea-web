@@ -36,7 +36,7 @@ export const luxuryBodyHtml = `<div id="bubbles" aria-hidden="true"></div>
       <p class="lead">Kouzelnická show, balónková zvířátka a mentalismus v jednom vystoupení. Pro dětské oslavy, školky i firemní večery — vždy naživo, vždy s dětmi uprostřed dění.</p>
       <div class="cta-row">
         <a class="btn btn-ink" href="#kouzlo">Zkusit si kouzlo<svg class="st"><use href="#star"/></svg></a>
-        <a class="btn btn-ghost" href="#disciplina">Nabídka vystoupení</a>
+        <a class="btn btn-ghost" href="#disciplina">Prohlédnout nabídku</a>
       </div>
       <div class="hero-stats">
         <div class="hstat"><b><span data-count="11">0</span><em>+</em></b><span>let na jevišti</span></div>
@@ -53,7 +53,7 @@ export const luxuryBodyHtml = `<div id="bubbles" aria-hidden="true"></div>
           <span class="hero-luxe__corner hero-luxe__corner--br" aria-hidden="true">✦</span>
           <div class="hero-luxe__mat">
             <div class="hero-luxe__viewport">
-              <div class="arch arch--hero"><img src="/luxury/img-01.jpg" alt="Kouzelník Robin Panuš — portrét"></div>
+              <div class="arch"><img src="/luxury/img-01.jpg" alt="Kouzelník Robin Panuš — portrét"></div>
             </div>
           </div>
         </div>
@@ -192,12 +192,12 @@ export const luxuryBodyHtml = `<div id="bubbles" aria-hidden="true"></div>
   </div>
 </section>
 
-<section class="trick trick--balloons" id="kouzlo">
+<section class="balloon-sec" id="kouzlo">
   <div class="wrap">
-    <div class="trick-panel reveal">
-      <p class="eyebrow"><svg class="st"><use href="#star"/></svg>Malé kouzlo pro vás</p>
-      <h2>Praskni balónek, <em>co vyrobí Robin?</em></h2>
-      <p class="lead">Klikni na balónky a nech se překvapit, jaké zvířátko ti Robin vykouzlí. Pokaždé něco jiného!</p>
+    <div class="balloon-panel reveal">
+      <span class="eyebrow"><svg class="st"><use href="#star"/></svg>Malé kouzlo pro vás</span>
+      <h2>Praskni balónek, <span class="balloon-em">co vyrobí Robin?</span></h2>
+      <p class="balloon-lead">Klikni na balónky a nech se překvapit, jaké zvířátko ti Robin vykouzlí. Pokaždé něco jiného!</p>
       <div class="popstage" id="popstage">
         <div class="cluster" id="cluster" role="button" tabindex="0" aria-label="Prasknout balónky">
           <img src="/balloon-cluster.png" alt="" class="cluster-art" width="600" height="591" draggable="false">
@@ -205,7 +205,7 @@ export const luxuryBodyHtml = `<div id="bubbles" aria-hidden="true"></div>
         </div>
         <div class="reward" id="reward"></div>
       </div>
-      <button class="btn btn-amber pop-btn" id="popBtn" style="display:none" type="button">Prasknout další<svg class="st"><use href="#star"/></svg></button>
+      <button class="btn btn-primary pop-btn" id="popBtn" style="display:none" type="button">Prasknout další<svg class="st"><use href="#star"/></svg></button>
       <p class="trick-final" id="tfinal">A tohle všechno zažijete naživo. ✦</p>
     </div>
   </div>
@@ -232,24 +232,25 @@ export const luxuryBodyHtml = `<div id="bubbles" aria-hidden="true"></div>
         <div class="price-calc">
           <label class="price-calc__label" for="eventType">Typ akce</label>
           <select class="price-calc__select" id="eventType">
-            <option value="6000" data-km="0">Narozeninová oslava · 6 000 Kč</option>
-            <option value="6000" data-km="0">Školka / mateřská škola · 6 000 Kč</option>
-            <option value="6500" data-km="0">Základní škola · 6 500 Kč</option>
-            <option value="7000" data-km="0">Městská slavnost · 7 000 Kč</option>
-            <option value="7500" data-km="0">Firemní akce · 7 500 Kč</option>
-            <option value="6000" data-km="0">Soukromá akce · 6 000 Kč</option>
+            <option value="6000">Narozeninová oslava · 6 000 Kč</option>
+            <option value="6000">Školka / mateřská škola · 6 000 Kč</option>
+            <option value="6500">Základní škola · 6 500 Kč</option>
+            <option value="7000">Městská slavnost · 7 000 Kč</option>
+            <option value="7500">Firemní akce · 7 500 Kč</option>
+            <option value="6000">Veřejná akce · 6 000 Kč</option>
+            <option value="6000">Soukromá akce · 6 000 Kč</option>
           </select>
           <label class="price-calc__label" for="distanceKm">Vzdálenost od Mladé Boleslavi (km)</label>
           <input class="price-calc__input" id="distanceKm" type="number" min="0" step="1" value="0" inputmode="numeric">
           <p class="price-calc__note">Doprava: 12 Kč/km (výjezd z MB). Finální cenu upravím podle rozsahu a typu akce.</p>
-          <p class="price-calc__total" id="priceTotal" aria-live="polite">Celkem: <strong>6 000 Kč</strong> + doprava 0 Kč</p>
+          <p class="price-calc__total" id="priceTotal" aria-live="polite">Celkem: <strong>6 000 Kč</strong> (vystoupení 6 000 Kč + doprava 0 Kč)</p>
         </div>
         <p class="tk-note">Chystáte akci pro školku, obec nebo firmu? Napište mi pár řádků a připravím program i cenu přesně na míru.</p>
       </div>
       <div class="tk-side">
         <span class="from">Cena od</span>
         <div class="amt" id="ticketAmt">6 000 <small>Kč</small></div>
-        <span class="per" id="ticketPer">za vystoupení + 12 Kč/km (MB)</span>
+        <span class="per" id="ticketPer">za vystoupení + 12 Kč/km (výjezd MB)</span>
         <a class="btn btn-ink" href="#kontakt">Rezervovat termín<svg class="st"><use href="#star"/></svg></a>
       </div>
     </div>
@@ -279,16 +280,15 @@ export const luxuryBodyHtml = `<div id="bubbles" aria-hidden="true"></div>
     <a class="big-tel" href="tel:+420775950328">775 950 328</a>
     <a class="mail" href="mailto:info@kouzlimesrobinem.cz">info@kouzlimesrobinem.cz</a>
     <form class="contact-form" id="contactForm" novalidate>
+      <input type="text" name="website" class="contact-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
       <input name="name" type="text" placeholder="Jméno" autocomplete="name">
       <input name="email" type="email" required placeholder="E-mail *" autocomplete="email">
       <input name="phone" type="tel" required placeholder="Telefon *" autocomplete="tel">
       <textarea name="message" rows="4" placeholder="Typ akce, datum, místo…"></textarea>
       <button class="btn btn-ink" type="submit">Odeslat zprávu<svg class="st"><use href="#star"/></svg></button>
-      <p class="contact-form__hint">E-mail a telefon jsou povinné. Zpráva letí přímo Robinovi.</p>
     </form>
     <div class="contact-thanks" id="contactThanks" hidden>
-      <p class="contact-thanks__title">Děkujeme za zprávu!</p>
-      <p>Už letí Robinovi do e-mailu — ozve se co nejdříve.</p>
+      <p>Děkujeme za zprávu, už letí Robinovi do E-mailu, ozve se co nejdříve.</p>
     </div>
   </div>
 </section>

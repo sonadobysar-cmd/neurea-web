@@ -37,6 +37,11 @@ export async function POST(request: Request) {
   const email = "email" in body ? String(body.email ?? "").trim() : "";
   const phone = "phone" in body ? String(body.phone ?? "").trim() : "";
   const message = "message" in body ? String(body.message ?? "").trim() : "";
+  const website = "website" in body ? String(body.website ?? "").trim() : "";
+
+  if (website) {
+    return NextResponse.json({ ok: true });
+  }
 
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return NextResponse.json({ ok: false, error: "Zadejte platný e-mail." }, { status: 400 });
@@ -51,7 +56,8 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         ok: false,
-        error: "Formulář zatím není napojený na server. Napište prosím na info@kouzlimesrobinem.cz.",
+        error:
+          "Formulář je dočasně nedostupný. Napište prosím na info@kouzlimesrobinem.cz nebo volejte 775 950 328.",
       },
       { status: 503 },
     );

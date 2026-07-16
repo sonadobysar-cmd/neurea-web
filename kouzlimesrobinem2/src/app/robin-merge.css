@@ -16,12 +16,19 @@ body {
     var(--robin-orange) 12%,
     var(--robin-amber) 46%,
     var(--robin-lime) 100%
-  ) !important;
+  );
   background-attachment: fixed;
 }
 
-#glow {
+.luxury-root {
+  display: block;
+  width: 100%;
+  position: relative;
   z-index: 1;
+}
+
+#glow {
+  z-index: 0;
 }
 
 #bubbles {
@@ -103,13 +110,6 @@ body {
   }
 }
 
-nav,
-section,
-footer {
-  position: relative;
-  z-index: 2;
-}
-
 /* Robin1 hero frame on Robin3 arch photo */
 .hero-luxe {
   position: relative;
@@ -175,6 +175,17 @@ footer {
 
 .hero-visual .arch-echo {
   display: none;
+}
+
+.hero-visual .hero-luxe {
+  position: relative;
+  z-index: 1;
+}
+
+/* Záloha viditelnosti — obsah nesmí zůstat skrytý */
+.reveal {
+  opacity: 1;
+  transform: none;
 }
 
 /* Gallery marquee + lightbox */

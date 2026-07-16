@@ -37,5 +37,5 @@ export function LuxuryLanding() {
     };
   }, []);
 
-  return <div dangerouslySetInnerHTML={{ __html: luxuryBodyHtml }} />;
+  return <div className="luxury-root" dangerouslySetInnerHTML={{ __html: luxuryBodyHtml }} />;
 }

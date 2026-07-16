@@ -2,6 +2,11 @@
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var KM_RATE = 12;
 
+  // Okamžitě zobrazit obsah (záloha když luxury.js spadne dřív)
+  document.querySelectorAll(".reveal").forEach(function (el) {
+    el.classList.add("in");
+  });
+
   // ---------- marquee (Robin3 wording per agenda) ----------
   var mq = document.getElementById("mq");
   if (mq) {

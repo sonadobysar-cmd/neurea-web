@@ -135,37 +135,38 @@
       b.addEventListener('animationend', function(ev){ ev.target.remove(); });
     }
   }
-  render(ORIG);
-  tbtn.addEventListener('click', function(){
-    if (busy) return;
-    busy = true;
-    if (done){
-      // reset: schovat vzkaz, otočit dolů, vrátit původních šest karet
-      tmsg.classList.remove('show');
+  if (tbox && tbtn) {
+    render(ORIG);
+    tbtn.addEventListener('click', function(){
+      if (busy) return;
+      busy = true;
+      if (done){
+        tmsg.classList.remove('show');
+        setDown(true);
+        setTimeout(function(){
+          render(ORIG);
+          setDown(true);
+          requestAnimationFrame(function(){ requestAnimationFrame(function(){ setDown(false); }); });
+          tbtn.firstChild.textContent = 'Zamíchat karty';
+          done = false; busy = false;
+        }, 900);
+        return;
+      }
       setDown(true);
       setTimeout(function(){
-        render(ORIG);
+        render(REPL);
         setDown(true);
         requestAnimationFrame(function(){ requestAnimationFrame(function(){ setDown(false); }); });
-        tbtn.firstChild.textContent = 'Zamíchat karty';
-        done = false; busy = false;
-      }, 900);
-      return;
-    }
-    setDown(true);
-    setTimeout(function(){
-      render(REPL);
-      setDown(true);
-      requestAnimationFrame(function(){ requestAnimationFrame(function(){ setDown(false); }); });
-    }, 950);
-    setTimeout(function(){
-      tmsg.textContent = '„Vaše karta zmizela. Přesně ta, na kterou jste mysleli."';
-      tmsg.classList.add('show');
-      goldBurst(document.querySelector('.trick .wrap'));
-      tbtn.firstChild.textContent = 'Zkusit znovu';
-      done = true; busy = false;
-    }, 1750);
-  });
+      }, 950);
+      setTimeout(function(){
+        tmsg.textContent = '„Vaše karta zmizela. Přesně ta, na kterou jste mysleli."';
+        tmsg.classList.add('show');
+        goldBurst(document.querySelector('.trick .wrap'));
+        tbtn.firstChild.textContent = 'Zkusit znovu';
+        done = true; busy = false;
+      }, 1750);
+    });
+  }
 
   // reveals
   var io = new IntersectionObserver(function(es){
@@ -173,10 +174,12 @@
   }, {threshold:.14});
   document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
 
-  // drag-to-scroll gallery
+  // drag-to-scroll gallery (skip auto-marquee strips)
   var strip = document.getElementById('strip');
-  var down=false, sx=0, sl=0;
-  strip.addEventListener('pointerdown', function(e){ down=true; sx=e.clientX; sl=strip.scrollLeft; strip.classList.add('drag'); strip.setPointerCapture(e.pointerId); });
-  strip.addEventListener('pointermove', function(e){ if(!down) return; strip.scrollLeft = sl - (e.clientX - sx); });
-  ['pointerup','pointercancel'].forEach(function(ev){ strip.addEventListener(ev, function(){ down=false; strip.classList.remove('drag'); }); });
+  if (strip && !strip.classList.contains('strip--marquee')) {
+    var down=false, sx=0, sl=0;
+    strip.addEventListener('pointerdown', function(e){ down=true; sx=e.clientX; sl=strip.scrollLeft; strip.classList.add('drag'); strip.setPointerCapture(e.pointerId); });
+    strip.addEventListener('pointermove', function(e){ if(!down) return; strip.scrollLeft = sl - (e.clientX - sx); });
+    ['pointerup','pointercancel'].forEach(function(ev){ strip.addEventListener(ev, function(){ down=false; strip.classList.remove('drag'); }); });
+  }
 })();

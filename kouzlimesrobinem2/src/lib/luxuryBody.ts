@@ -1,7 +1,4 @@
-export const luxuryBodyHtml = `<div id="bubbles" aria-hidden="true"></div>
-<div id="glow" aria-hidden="true"></div>
-
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+export const luxuryBodyHtml = `<svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <symbol id="star" viewBox="0 0 24 24"><path d="M12 0c1.2 6.8 4.9 10.6 12 12-7.1 1.4-10.8 5.2-12 12-1.2-6.8-4.9-10.6-12-12C7.1 10.6 10.8 6.8 12 0z"/></symbol>
     <symbol id="s-h" viewBox="0 0 24 24"><path d="M12 21C6 15.9 2.4 12.4 2.4 8.6 2.4 5.6 4.8 3.4 7.6 3.4c1.8 0 3.4.9 4.4 2.3 1-1.4 2.6-2.3 4.4-2.3 2.8 0 5.2 2.2 5.2 5.2 0 3.8-3.6 7.3-9.6 12.4z"/></symbol>
@@ -247,20 +244,21 @@ export const luxuryBodyHtml = `<div id="bubbles" aria-hidden="true"></div>
           <li><svg class="st"><use href="#star"/></svg>Oslavenec v hlavní roli</li>
           <li><svg class="st"><use href="#star"/></svg>Velké finále na závěr</li>
         </ul>
-        <p class="tk-note">Finální cenu upravím podle typu akce a rozsahu programu. Chystáte akci pro školku, obec nebo firmu? Napište mi pár řádků a připravím vše na míru.</p>
+        <p class="tk-note">Chystáte akci pro školku, obec nebo firmu? Napište mi pár řádků a připravím program i cenu přesně na míru.</p>
       </div>
       <div class="tk-side">
-        <div class="tk-price-card">
+        <div class="tk-price-row">
           <span class="from">Cena</span>
           <div class="amt">6 000 <small>Kč</small></div>
           <span class="per">za vystoupení · 45 minut</span>
-          <p class="tk-price-note">Finální cenu upravím podle typu akce.</p>
+          <p class="tk-side-note">Finální cenu upravím podle typu akce.</p>
         </div>
-        <div class="tk-price-card tk-price-card--alt">
+        <div class="tk-price-divider" aria-hidden="true"></div>
+        <div class="tk-price-row">
           <span class="from">Doprava</span>
-          <div class="amt">12 <small>Kč/km</small></div>
+          <div class="amt amt-sm">12 <small>Kč/km</small></div>
           <span class="per">výjezd z Mladé Boleslavi</span>
-          <p class="tk-price-note">Účtujeme si pouze tolik, kolik opravdu projedeme.</p>
+          <p class="tk-side-note">Účtujeme si pouze tolik, kolik opravdu projedeme.</p>
         </div>
         <a class="btn btn-ink" href="#kontakt">Rezervovat termín<svg class="st"><use href="#star"/></svg></a>
       </div>

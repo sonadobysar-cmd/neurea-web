@@ -13,64 +13,73 @@
     mq.innerHTML = half + half;
   }
 
-  // 1) Pozadí Robin2 — bubliny
+  // 1) Pozadí Robin2 — bubliny + balónky (1:1 z kouzlimesrobinem1)
   var layer = document.getElementById("bubbles");
+  var balloonData = window.ROBIN2_BALLOON_DATA || {};
+  var balloonSrcs = balloonData.balloonSrcs || [];
   if (layer && !reduce) {
     var bubbles = [];
+    var W = innerWidth;
+    var H = innerHeight;
+    addEventListener("resize", function () {
+      W = innerWidth;
+      H = innerHeight;
+    });
 
-    function spawnBubble(asBalloon) {
-      var el;
-      var size = asBalloon ? 64 + Math.random() * 48 : 18 + Math.random() * 42;
-      if (asBalloon) {
+    function spawnBubble(isBalloon) {
+      var el, size;
+      if (isBalloon && balloonSrcs.length) {
         el = document.createElement("img");
         el.className = "bubble balloon-float";
-        el.src = "/balloon-cluster.png";
+        el.src = balloonSrcs[Math.floor(Math.random() * balloonSrcs.length)];
         el.alt = "";
-        el.draggable = false;
-        el.style.width = size + "px";
-        el.style.height = "auto";
+        size = 44 + Math.random() * 30;
+        el.style.height = size + "px";
+        el.style.width = "auto";
       } else {
         el = document.createElement("div");
         el.className = "bubble";
-        el.style.width = size + "px";
-        el.style.height = size + "px";
+        size = 26 + Math.random() * 70;
+        el.style.width = el.style.height = size + "px";
       }
+      var x = Math.random() * (W - size);
       var b = {
         el: el,
-        x: Math.random() * innerWidth,
-        y: innerHeight + size + Math.random() * 120,
+        x: x,
+        y: H + size,
         size: size,
-        vy: 0.35 + Math.random() * 0.55,
-        phase: Math.random() * Math.PI * 2,
-        isBalloon: !!asBalloon,
+        vy: 0.18 + Math.random() * 0.32,
+        drift: (Math.random() - 0.5) * 0.32,
+        phase: Math.random() * 6,
+        isBalloon: !!isBalloon,
+        spin: (Math.random() - 0.5) * 0.4,
+        rot: 0,
       };
-      el.style.left = b.x + "px";
-      el.style.top = b.y + "px";
-      el.addEventListener("click", function () {
-        popBubble(b);
-      });
+      el.style.transform = "translate(" + b.x + "px," + b.y + "px)";
+      if (!isBalloon) {
+        el.addEventListener("click", function (e) {
+          popBubble(b, e.clientX, e.clientY);
+        });
+      }
       layer.appendChild(el);
       bubbles.push(b);
     }
 
-    function popBubble(b) {
+    function popBubble(b, cx, cy) {
       var i = bubbles.indexOf(b);
       if (i < 0) return;
       bubbles.splice(i, 1);
       b.el.remove();
       var p = document.createElement("div");
       p.className = "pop";
-      p.style.left = b.x + b.size / 2 + "px";
-      p.style.top = b.y + b.size / 2 + "px";
-      for (var k = 0; k < 12; k++) {
-        var sp = document.createElement("span");
-        var a = (Math.PI * 2 * k) / 12;
-        var d = 40 + Math.random() * 60;
-        sp.style.setProperty("--px", Math.cos(a) * d + "px");
-        sp.style.setProperty("--py", Math.sin(a) * d + "px");
-        sp.style.background = ["#EDE81F", "#7457B1", "#F68544", "#3FA9E0"][k % 4];
-        sp.style.width = sp.style.height = 6 + Math.random() * 6 + "px";
-        p.appendChild(sp);
+      p.style.left = cx + "px";
+      p.style.top = cy + "px";
+      for (var k = 0; k < 7; k++) {
+        var s = document.createElement("span");
+        var a = (Math.PI * 2 * k) / 7;
+        s.style.setProperty("--px", Math.cos(a) * 40 + "px");
+        s.style.setProperty("--py", Math.sin(a) * 40 + "px");
+        p.appendChild(s);
       }
       document.body.appendChild(p);
       setTimeout(function () {
@@ -78,33 +87,59 @@
       }, 650);
     }
 
+    var mx = W / 2;
+    var my = H / 2;
+    addEventListener("mousemove", function (e) {
+      mx = e.clientX;
+      my = e.clientY;
+    });
+
     function tick() {
       for (var i = bubbles.length - 1; i >= 0; i--) {
         var b = bubbles[i];
         b.y -= b.vy;
         b.phase += 0.01;
-        b.x += Math.sin(b.phase) * 0.35;
-        b.el.style.transform = "translate3d(" + b.x + "px," + b.y + "px,0)";
+        var sway = Math.sin(b.phase) * 0.5 + b.drift;
+        var dx = b.x - mx;
+        var dy = b.y - my;
+        var dist = Math.hypot(dx, dy);
+        if (dist < 120) sway += dx / dist * 1.2;
+        b.x += sway;
+        if (b.isBalloon) b.rot += b.spin;
         if (b.y < -b.size - 20) {
           b.el.remove();
           bubbles.splice(i, 1);
+          continue;
         }
+        b.el.style.transform =
+          "translate(" +
+          b.x +
+          "px," +
+          b.y +
+          "px)" +
+          (b.isBalloon ? " rotate(" + b.rot + "deg)" : "");
       }
       requestAnimationFrame(tick);
     }
 
-    requestAnimationFrame(tick);
+    var target = Math.min(14, Math.floor(W / 110));
+    for (var i = 0; i < target; i++) {
+      setTimeout(function () {
+        spawnBubble(false);
+      }, i * 400);
+    }
     setInterval(function () {
-      if (bubbles.length < 14) spawnBubble(false);
+      if (bubbles.length < target) spawnBubble(false);
     }, 2600);
     setInterval(function () {
       if (
         bubbles.filter(function (b) {
           return b.isBalloon;
-        }).length < 2
+        }).length < 3
       )
         spawnBubble(true);
-    }, 6200);
+    }, 5200);
+    requestAnimationFrame(tick);
   }
 
   // 9) Galerie — pojízdný pás + lightbox se šipkami
@@ -184,7 +219,7 @@
     });
   }
 
-  // 8) Balónky Robin2
+  // 8) Balónky Robin2 — hra 1:1 (base64 odměny z originálu)
   var popstage = document.getElementById("popstage");
   var cluster = document.getElementById("cluster");
   var reward = document.getElementById("reward");
@@ -192,12 +227,7 @@
   var final = document.getElementById("tfinal");
 
   if (popstage && cluster && reward) {
-    var rewards = [
-      { src: "/luxury/img-06.jpg", lbl: "balónkového pudla" },
-      { src: "/luxury/img-11.jpg", lbl: "balónkového pejska" },
-      { src: "/luxury/img-08.jpg", lbl: "balónkové zvířátko" },
-      { src: "/luxury/img-03.jpg", lbl: "modrého pejska" },
-    ];
+    var rewards = balloonData.rewards || [];
     var order = [];
     var popped = 0;
     var busy = false;
@@ -236,11 +266,11 @@
       document.body.appendChild(p);
       setTimeout(function () {
         p.remove();
-      }, 650);
+      }, 700);
     }
 
     function doPop() {
-      if (busy) return;
+      if (busy || !rewards.length) return;
       busy = true;
       var pick = rewards[order[popped % order.length]];
       starBurst();

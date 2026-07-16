@@ -25,7 +25,8 @@ export function LuxuryLanding() {
 
     (async () => {
       try {
-        await loadScript("luxury-init", "/luxury.js");
+        await loadScript("robin2-balloon-data", "/robin2-balloon-data.js");
+        if (!cancelled) await loadScript("luxury-init", "/luxury.js");
         if (!cancelled) await loadScript("robin-merge-init", "/robin-merge.js");
       } catch (err) {
         console.error(err);
@@ -37,5 +38,11 @@ export function LuxuryLanding() {
     };
   }, []);
 
-  return <div className="luxury-root" dangerouslySetInnerHTML={{ __html: luxuryBodyHtml }} />;
+  return (
+    <>
+      <div id="bubbles" aria-hidden="true" />
+      <div id="glow" aria-hidden="true" />
+      <div className="luxury-root" dangerouslySetInnerHTML={{ __html: luxuryBodyHtml }} />
+    </>
+  );
 }

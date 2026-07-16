@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
 import "./luxury.css";
+import "./robin-merge.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kouzlimesrobinem2.vercel.app"),

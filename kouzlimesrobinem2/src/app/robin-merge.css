@@ -1,0 +1,541 @@
+/* Merged Robin — Robin2 background + Robin1 hero frame + extras */
+
+:root {
+  --robin-orange: #f68544;
+  --robin-amber: #fbb56a;
+  --robin-lime: #c8e86c;
+  --robin-cream: #fff7e8;
+  --robin-star: #ede81f;
+  --robin-violet: #7457b1;
+}
+
+body {
+  background: linear-gradient(
+    170deg,
+    var(--robin-orange) 0%,
+    var(--robin-orange) 12%,
+    var(--robin-amber) 46%,
+    var(--robin-lime) 100%
+  ) !important;
+  background-attachment: fixed;
+}
+
+#glow {
+  z-index: 1;
+}
+
+#bubbles {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.bubble {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: auto;
+  cursor: pointer;
+  background: radial-gradient(
+    circle at 32% 28%,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 255, 255, 0.35) 18%,
+    rgba(255, 250, 235, 0.14) 45%,
+    rgba(255, 240, 210, 0.06) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow:
+    inset 0 0 24px rgba(255, 255, 255, 0.35),
+    0 6px 22px rgba(120, 60, 10, 0.12);
+  will-change: transform;
+}
+
+.bubble::after {
+  content: "";
+  position: absolute;
+  top: 14%;
+  left: 20%;
+  width: 26%;
+  height: 26%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  filter: blur(1px);
+}
+
+.bubble.balloon-float {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  width: auto !important;
+  object-fit: contain;
+  overflow: visible;
+  filter: drop-shadow(3px 4px 5px rgba(120, 60, 10, 0.18));
+  opacity: 0.9;
+}
+
+.bubble.balloon-float::after {
+  display: none;
+}
+
+.pop {
+  position: fixed;
+  pointer-events: none;
+  z-index: 80;
+  transform: translate(-50%, -50%);
+}
+
+.pop span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  animation: popfly 0.6s ease-out forwards;
+}
+
+@keyframes popfly {
+  to {
+    opacity: 0;
+    transform: translate(var(--px), var(--py)) scale(0.3);
+  }
+}
+
+nav,
+section,
+footer {
+  position: relative;
+  z-index: 2;
+}
+
+/* Robin1 hero frame on Robin3 arch photo */
+.hero-luxe {
+  position: relative;
+  width: min(100%, 400px);
+  margin: 0 auto;
+}
+
+.hero-luxe__frame {
+  position: relative;
+  padding: 0.55rem;
+  border-radius: 1.15rem;
+  background: linear-gradient(145deg, #ffd700 0%, #ffb347 40%, #ff8c00 100%);
+  border: 3px solid #1a1206;
+  box-shadow:
+    8px 8px 0 rgba(26, 18, 6, 0.22),
+    0 24px 48px -20px rgba(32, 20, 6, 0.35);
+}
+
+.hero-luxe__mat {
+  padding: 0.45rem;
+  border-radius: 0.95rem;
+  background: linear-gradient(180deg, #1a1208 0%, #0a0a0a 100%);
+  border: 2px solid #1a1206;
+}
+
+.hero-luxe__viewport {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.7rem;
+}
+
+.hero-luxe__corner {
+  position: absolute;
+  z-index: 4;
+  font-size: 0.85rem;
+  color: #1a1206;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
+  pointer-events: none;
+}
+
+.hero-luxe__corner--tl {
+  top: 0.35rem;
+  left: 0.45rem;
+}
+.hero-luxe__corner--tr {
+  top: 0.35rem;
+  right: 0.45rem;
+}
+.hero-luxe__corner--bl {
+  bottom: 0.35rem;
+  left: 0.45rem;
+}
+.hero-luxe__corner--br {
+  bottom: 0.35rem;
+  right: 0.45rem;
+}
+
+.hero-visual .arch--hero {
+  aspect-ratio: 3 / 4;
+  box-shadow: none;
+  border-radius: 0.7rem;
+}
+
+.hero-visual .arch-echo {
+  display: none;
+}
+
+/* Gallery marquee + lightbox */
+.gal-viewport {
+  overflow: hidden;
+  padding: 0 0 30px;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+}
+
+.strip--marquee {
+  width: max-content;
+  animation: galMarquee 52s linear infinite;
+  cursor: pointer;
+}
+
+.gal-viewport:hover .strip--marquee {
+  animation-play-state: paused;
+}
+
+@keyframes galMarquee {
+  to {
+    transform: translateX(calc(-50% - 11px));
+  }
+}
+
+.gph[data-lightbox] {
+  cursor: zoom-in;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(10, 8, 4, 0.82);
+  backdrop-filter: blur(8px);
+}
+
+.lightbox[hidden] {
+  display: none !important;
+}
+
+.lightbox-inner {
+  max-width: min(920px, 94vw);
+  margin: 0;
+  text-align: center;
+}
+
+.lightbox-inner img {
+  max-height: min(78vh, 720px);
+  width: auto;
+  margin: 0 auto;
+  border-radius: 16px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+
+.lightbox-inner figcaption {
+  margin-top: 14px;
+  color: var(--robin-cream);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  width: 44px;
+  height: 44px;
+  border: 2px solid var(--robin-cream);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--robin-cream);
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* Balloon pop (Robin2) */
+.trick--balloons .trick-panel {
+  background: var(--robin-cream);
+  border: 3px solid var(--ink);
+  border-radius: 32px;
+  padding: clamp(40px, 6vw, 72px);
+  text-align: center;
+  box-shadow: 10px 10px 0 rgba(26, 18, 6, 0.14);
+}
+
+.trick--balloons h2 em {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--violet-deep, #5e439a);
+}
+
+.popstage {
+  position: relative;
+  width: min(320px, 78vw);
+  height: min(340px, 72vw);
+  margin: 24px auto 0;
+  display: grid;
+  place-items: center;
+  overflow: visible;
+}
+
+.cluster {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transform-origin: 50% 88%;
+  animation: bouquetFloat 4.8s ease-in-out infinite;
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s cubic-bezier(0.34, 1.2, 0.48, 1);
+}
+
+@keyframes bouquetFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate3d(1px, -6px, 0) rotate(0.35deg);
+  }
+  66% {
+    transform: translate3d(-1px, -9px, 0) rotate(-0.3deg);
+  }
+}
+
+.cluster.popping {
+  animation: bouquetPop 0.6s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes bouquetPop {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  25% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+}
+
+.cluster.gone {
+  opacity: 0;
+  pointer-events: none;
+  animation: none;
+}
+
+.cluster-art {
+  width: min(300px, 72vw);
+  height: auto;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+  filter: drop-shadow(6px 8px 0 rgba(26, 18, 6, 0.14));
+}
+
+.cluster-hint {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font: 800 12px var(--sans);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  background: var(--robin-cream);
+  border: 2px solid var(--ink);
+  border-radius: 99px;
+  padding: 6px 16px;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.reward {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.5);
+}
+
+.reward.show {
+  animation: rewardin 0.8s cubic-bezier(0.3, 1.4, 0.5, 1) forwards;
+}
+
+@keyframes rewardin {
+  0% {
+    opacity: 0;
+    transform: scale(0.4) rotate(-8deg);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.08) rotate(3deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+
+.reward img {
+  max-height: 340px;
+  max-width: 90%;
+  width: auto;
+  filter: drop-shadow(8px 10px 0 rgba(26, 18, 6, 0.12));
+  border-radius: 12px;
+}
+
+.reward .rlabel {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font: 800 14px var(--sans);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink);
+  background: #e8f5a8;
+  border: 2.5px solid var(--ink);
+  border-radius: 99px;
+  padding: 8px 20px;
+  box-shadow: 4px 4px 0 var(--ink);
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.reward .rlabel svg {
+  width: 15px;
+  height: 15px;
+  fill: var(--robin-star);
+  stroke: var(--ink);
+  stroke-width: 1;
+}
+
+.pop-btn {
+  margin: 30px auto 0;
+}
+
+.trick-final {
+  font: italic 400 clamp(24px, 3vw, 36px) var(--serif);
+  color: var(--violet-deep, #5e439a);
+  margin-top: 22px;
+  min-height: 1.3em;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: 0.6s;
+}
+
+.trick-final.show {
+  opacity: 1;
+  transform: none;
+}
+
+/* Price calculator */
+.price-calc {
+  margin-top: 24px;
+  padding: 20px;
+  border: 2px solid var(--hair);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.45);
+  display: grid;
+  gap: 10px;
+  text-align: left;
+}
+
+.price-calc__label {
+  font: 800 11px var(--sans);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.price-calc__select,
+.price-calc__input,
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  font: 500 15px var(--sans);
+  padding: 12px 14px;
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--ink);
+}
+
+.price-calc__note {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+.price-calc__total {
+  margin: 6px 0 0;
+  font-size: 16px;
+}
+
+.price-calc__total strong {
+  font-size: 1.15em;
+}
+
+/* Contact form */
+.contact-form {
+  max-width: 480px;
+  margin: 28px auto 0;
+  display: grid;
+  gap: 12px;
+  text-align: left;
+}
+
+.contact-form__hint {
+  font-size: 12px;
+  color: var(--ink-soft);
+  margin: 0;
+  text-align: center;
+}
+
+.contact-thanks {
+  max-width: 480px;
+  margin: 28px auto 0;
+  padding: 28px 24px;
+  border: 3px solid var(--ink);
+  border-radius: 20px;
+  background: var(--champagne);
+  box-shadow: 6px 6px 0 var(--saffron);
+  text-align: center;
+}
+
+.contact-thanks__title {
+  font: 800 clamp(22px, 3vw, 30px) var(--sans);
+  margin-bottom: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .strip--marquee {
+    animation: none;
+  }
+  .cluster {
+    animation: none;
+  }
+  #bubbles {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .nav-links a {
+    font-size: 13px;
+  }
+}

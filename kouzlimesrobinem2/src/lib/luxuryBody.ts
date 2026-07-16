@@ -35,8 +35,8 @@ export const luxuryBodyHtml = `<div id="bubbles" aria-hidden="true"></div>
       </h1>
       <p class="lead">Kouzelnická show, balónková zvířátka a mentalismus v jednom vystoupení. Pro dětské oslavy, školky i firemní večery — vždy naživo, vždy s dětmi uprostřed dění.</p>
       <div class="cta-row">
-        <a class="btn btn-ink" href="#kouzlo">Zkusit si kouzlo<svg class="st"><use href="#star"/></svg></a>
-        <a class="btn btn-ghost" href="#disciplina">Prohlédnout nabídku</a>
+        <a class="btn btn-ink" href="#kouzla">Zkusit si kouzlo<svg class="st"><use href="#star"/></svg></a>
+        <a class="btn btn-ghost" href="#disciplina">Nabídka vystoupení</a>
       </div>
       <div class="hero-stats">
         <div class="hstat"><b><span data-count="11">0</span><em>+</em></b><span>let na jevišti</span></div>
@@ -176,6 +176,8 @@ export const luxuryBodyHtml = `<div id="bubbles" aria-hidden="true"></div>
 
 <div class="lightbox" id="lightbox" hidden aria-hidden="true">
   <button class="lightbox-close" type="button" aria-label="Zavřít">×</button>
+  <button class="lightbox-prev" type="button" aria-label="Předchozí fotka">‹</button>
+  <button class="lightbox-next" type="button" aria-label="Další fotka">›</button>
   <figure class="lightbox-inner">
     <img id="lightbox-img" src="" alt="">
     <figcaption id="lightbox-cap"></figcaption>
@@ -192,21 +194,37 @@ export const luxuryBodyHtml = `<div id="bubbles" aria-hidden="true"></div>
   </div>
 </section>
 
-<section class="balloon-sec" id="kouzlo">
-  <div class="wrap">
-    <div class="balloon-panel reveal">
-      <span class="eyebrow"><svg class="st"><use href="#star"/></svg>Malé kouzlo pro vás</span>
-      <h2>Praskni balónek, <span class="balloon-em">co vyrobí Robin?</span></h2>
-      <p class="balloon-lead">Klikni na balónky a nech se překvapit, jaké zvířátko ti Robin vykouzlí. Pokaždé něco jiného!</p>
-      <div class="popstage" id="popstage">
-        <div class="cluster" id="cluster" role="button" tabindex="0" aria-label="Prasknout balónky">
-          <img src="/balloon-cluster.png" alt="" class="cluster-art" width="600" height="591" draggable="false">
-          <span class="cluster-hint">Praskni mě! ✦</span>
-        </div>
-        <div class="reward" id="reward"></div>
+<section class="kouzla-sec" id="kouzla">
+  <div class="trick trick-cards">
+    <div class="wrap">
+      <div class="reveal" style="text-align:center;max-width:660px;margin:0 auto">
+        <p class="eyebrow"><svg class="st" style="fill:var(--amber)"><use href="#star"/></svg>Nevěříte na kouzla?</p>
+        <h2>Přečtu vám <em>myšlenky.</em></h2>
+        <p class="lead">Zapamatujte si <strong style="color:var(--ivory)">jednu</strong> z šesti karet. Jen v duchu — nikam neklikejte. Soustřeďte se na ni&hellip; a pak nechte zamíchat.</p>
       </div>
-      <button class="btn btn-primary pop-btn" id="popBtn" style="display:none" type="button">Prasknout další<svg class="st"><use href="#star"/></svg></button>
-      <p class="trick-final" id="tfinal">A tohle všechno zažijete naživo. ✦</p>
+      <div class="tcards reveal d1" id="tcards" aria-live="polite"></div>
+      <p class="trick-msg" id="tmsg"></p>
+      <div class="trick-ctas reveal d2">
+        <button class="btn btn-amber" id="tbtn" type="button">Zamíchat karty<svg class="st"><use href="#star"/></svg></button>
+      </div>
+    </div>
+  </div>
+  <div class="balloon-wrap">
+    <div class="wrap">
+      <div class="balloon-panel reveal">
+        <span class="eyebrow"><svg class="st"><use href="#star"/></svg>Malé kouzlo pro vás</span>
+        <h2>Praskni balónek, <span class="balloon-em">co vyrobí Robin?</span></h2>
+        <p class="balloon-lead">Klikni na balónky a nech se překvapit, jaké zvířátko ti Robin vykouzlí. Pokaždé něco jiného!</p>
+        <div class="popstage" id="popstage">
+          <div class="cluster" id="cluster" role="button" tabindex="0" aria-label="Prasknout balónky">
+            <img src="/balloon-cluster.png" alt="" class="cluster-art" width="600" height="591" draggable="false">
+            <span class="cluster-hint">Praskni mě! ✦</span>
+          </div>
+          <div class="reward" id="reward"></div>
+        </div>
+        <button class="btn btn-primary pop-btn" id="popBtn" style="display:none" type="button">Prasknout další<svg class="st"><use href="#star"/></svg></button>
+        <p class="trick-final" id="tfinal">A tohle všechno zažijete naživo. ✦</p>
+      </div>
     </div>
   </div>
 </section>
@@ -229,28 +247,21 @@ export const luxuryBodyHtml = `<div id="bubbles" aria-hidden="true"></div>
           <li><svg class="st"><use href="#star"/></svg>Oslavenec v hlavní roli</li>
           <li><svg class="st"><use href="#star"/></svg>Velké finále na závěr</li>
         </ul>
-        <div class="price-calc">
-          <label class="price-calc__label" for="eventType">Typ akce</label>
-          <select class="price-calc__select" id="eventType">
-            <option value="6000">Narozeninová oslava · 6 000 Kč</option>
-            <option value="6000">Školka / mateřská škola · 6 000 Kč</option>
-            <option value="6500">Základní škola · 6 500 Kč</option>
-            <option value="7000">Městská slavnost · 7 000 Kč</option>
-            <option value="7500">Firemní akce · 7 500 Kč</option>
-            <option value="6000">Veřejná akce · 6 000 Kč</option>
-            <option value="6000">Soukromá akce · 6 000 Kč</option>
-          </select>
-          <label class="price-calc__label" for="distanceKm">Vzdálenost od Mladé Boleslavi (km)</label>
-          <input class="price-calc__input" id="distanceKm" type="number" min="0" step="1" value="0" inputmode="numeric">
-          <p class="price-calc__note">Doprava: 12 Kč/km (výjezd z MB). Finální cenu upravím podle rozsahu a typu akce.</p>
-          <p class="price-calc__total" id="priceTotal" aria-live="polite">Celkem: <strong>6 000 Kč</strong> (vystoupení 6 000 Kč + doprava 0 Kč)</p>
-        </div>
-        <p class="tk-note">Chystáte akci pro školku, obec nebo firmu? Napište mi pár řádků a připravím program i cenu přesně na míru.</p>
+        <p class="tk-note">Finální cenu upravím podle typu akce a rozsahu programu. Chystáte akci pro školku, obec nebo firmu? Napište mi pár řádků a připravím vše na míru.</p>
       </div>
       <div class="tk-side">
-        <span class="from">Cena od</span>
-        <div class="amt" id="ticketAmt">6 000 <small>Kč</small></div>
-        <span class="per" id="ticketPer">za vystoupení + 12 Kč/km (výjezd MB)</span>
+        <div class="tk-price-card">
+          <span class="from">Cena</span>
+          <div class="amt">6 000 <small>Kč</small></div>
+          <span class="per">za vystoupení · 45 minut</span>
+          <p class="tk-price-note">Finální cenu upravím podle typu akce.</p>
+        </div>
+        <div class="tk-price-card tk-price-card--alt">
+          <span class="from">Doprava</span>
+          <div class="amt">12 <small>Kč/km</small></div>
+          <span class="per">výjezd z Mladé Boleslavi</span>
+          <p class="tk-price-note">Účtujeme si pouze tolik, kolik opravdu projedeme.</p>
+        </div>
         <a class="btn btn-ink" href="#kontakt">Rezervovat termín<svg class="st"><use href="#star"/></svg></a>
       </div>
     </div>
@@ -281,14 +292,13 @@ export const luxuryBodyHtml = `<div id="bubbles" aria-hidden="true"></div>
     <a class="mail" href="mailto:info@kouzlimesrobinem.cz">info@kouzlimesrobinem.cz</a>
     <form class="contact-form" id="contactForm" novalidate>
       <input type="text" name="website" class="contact-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <input name="name" type="text" placeholder="Jméno" autocomplete="name">
       <input name="email" type="email" required placeholder="E-mail *" autocomplete="email">
       <input name="phone" type="tel" required placeholder="Telefon *" autocomplete="tel">
-      <textarea name="message" rows="4" placeholder="Typ akce, datum, místo…"></textarea>
+      <textarea name="message" rows="4" placeholder="Poznámka (volitelné) — typ akce, datum, místo…"></textarea>
       <button class="btn btn-ink" type="submit">Odeslat zprávu<svg class="st"><use href="#star"/></svg></button>
     </form>
     <div class="contact-thanks" id="contactThanks" hidden>
-      <p>Děkujeme za zprávu, už letí Robinovi do E-mailu, ozve se co nejdříve.</p>
+      <p>Děkujeme za zprávu, už letí Robinovi do e-mailu, ozve se co nejdříve.</p>
     </div>
   </div>
 </section>

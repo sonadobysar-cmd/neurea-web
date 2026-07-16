@@ -6,8 +6,8 @@ body {
     170deg,
     #f68544 0%,
     #f68544 12%,
-    #fbb56a 46%,
-    #c8e86c 100%
+    #e5a33e 46%,
+    #c9c134 100%
   );
   background-attachment: fixed;
 }
@@ -210,24 +210,85 @@ body {
   font-weight: 600;
 }
 
-.lightbox-close {
+.lightbox-close,
+.lightbox-prev,
+.lightbox-next {
   position: absolute;
-  top: 18px;
-  right: 22px;
   width: 44px;
   height: 44px;
   border: 2px solid #fff7e8;
   border-radius: 50%;
-  background: transparent;
+  background: rgba(10, 8, 4, 0.35);
   color: #fff7e8;
   font-size: 28px;
   line-height: 1;
   cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
 }
 
-/* 8) Balónky Robin2 */
-.balloon-sec {
-  padding: clamp(64px, 9vh, 110px) 0;
+.lightbox-close:hover,
+.lightbox-prev:hover,
+.lightbox-next:hover {
+  background: rgba(10, 8, 4, 0.65);
+}
+
+.lightbox-close {
+  top: 18px;
+  right: 22px;
+}
+
+.lightbox-prev,
+.lightbox-next {
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 32px;
+}
+
+.lightbox-prev:hover,
+.lightbox-next:hover {
+  transform: translateY(-50%) scale(1.06);
+}
+
+.lightbox-prev {
+  left: 18px;
+}
+
+.lightbox-next {
+  right: 18px;
+}
+
+/* 8) Sekce Kouzla — karty + balónky */
+.kouzla-sec .trick-cards {
+  margin: 0;
+}
+
+.kouzla-sec .balloon-wrap {
+  padding: clamp(64px, 9vh, 110px) 0 clamp(80px, 10vh, 120px);
+}
+
+/* 10) Ceník — dvě cenové karty */
+.tk-price-card {
+  padding: 22px 20px;
+  border: 2px solid var(--hair);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.tk-price-card--alt {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.tk-price-card .amt {
+  font-size: clamp(36px, 5vw, 48px);
+}
+
+.tk-price-note {
+  margin: 12px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink-soft);
 }
 
 .balloon-panel {
@@ -416,27 +477,6 @@ body {
   transform: none;
 }
 
-/* 10) Ceník — kalkulačka */
-.price-calc {
-  margin-top: 24px;
-  padding: 20px;
-  border: 2px solid var(--hair);
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.45);
-  display: grid;
-  gap: 10px;
-  text-align: left;
-}
-
-.price-calc__label {
-  font: 800 11px var(--sans);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-}
-
-.price-calc__select,
-.price-calc__input,
 .contact-form input,
 .contact-form textarea {
   width: 100%;
@@ -446,17 +486,6 @@ body {
   border-radius: 12px;
   background: #fff;
   color: var(--ink);
-}
-
-.price-calc__note {
-  font-size: 13px;
-  color: var(--ink-soft);
-  margin: 0;
-}
-
-.price-calc__total {
-  margin: 6px 0 0;
-  font-size: 16px;
 }
 
 /* 11) Kontaktní formulář */
@@ -515,5 +544,18 @@ body {
 @media (max-width: 720px) {
   .nav-links a {
     font-size: 12px;
+  }
+
+  .lightbox-prev {
+    left: 8px;
+  }
+
+  .lightbox-next {
+    right: 8px;
+  }
+
+  .lightbox-close {
+    top: 12px;
+    right: 12px;
   }
 }

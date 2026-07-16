@@ -1,28 +1,15 @@
 (function () {
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var KM_RATE = 12;
 
-  // 7) Marquee — přesná slova ze zadání (Robin3 styl)
+  // 7) Marquee — přesný obsah ze zadání (styl Robin3)
   var mq = document.getElementById("mq");
   if (mq) {
     var star =
       '<svg class="st lg" style="fill:#EE8B00"><use href="#star"/></svg>';
-    var words = [
-      "kouzelník",
-      "balonkář",
-      "mentalista",
-      "školky",
-      "školy",
-      "narozeninové oslavy",
-      "městské slavnosti",
-      "veřejné akce",
-      "soukromé akce",
-    ];
-    var half = words
-      .map(function (w) {
-        return '<span class="mq-item">' + w + " " + star + "</span>";
-      })
-      .join("");
+    var line =
+      "kouzelník · balonkář · mentalista · školky · školy · narozeninové oslavy · městské slavnosti · veřejné akce · soukromé akce";
+    var half =
+      '<span class="mq-item">' + line + " " + star + "</span>";
     mq.innerHTML = half + half;
   }
 
@@ -120,19 +107,32 @@
     }, 6200);
   }
 
-  // 9) Galerie — pojízdný pás + lightbox
+  // 9) Galerie — pojízdný pás + lightbox se šipkami
   var strip = document.getElementById("strip");
   if (strip && strip.classList.contains("strip--marquee")) {
     strip.innerHTML = strip.innerHTML + strip.innerHTML;
+  }
+
+  var galleryImgs = [];
+  if (strip) {
+    strip.querySelectorAll("figure[data-lightbox] img").forEach(function (img) {
+      galleryImgs.push(img);
+    });
   }
 
   var lightbox = document.getElementById("lightbox");
   var lightboxImg = document.getElementById("lightbox-img");
   var lightboxCap = document.getElementById("lightbox-cap");
   var closeBtn = lightbox && lightbox.querySelector(".lightbox-close");
+  var prevBtn = lightbox && lightbox.querySelector(".lightbox-prev");
+  var nextBtn = lightbox && lightbox.querySelector(".lightbox-next");
+  var currentLb = -1;
 
-  function openLightbox(img) {
-    if (!lightbox || !lightboxImg) return;
+  function showLightboxAt(index) {
+    if (!lightbox || !lightboxImg || !galleryImgs.length) return;
+    var n = galleryImgs.length;
+    currentLb = ((index % n) + n) % n;
+    var img = galleryImgs[currentLb];
     lightboxImg.src = img.src;
     lightboxImg.alt = img.alt || "";
     if (lightboxCap) lightboxCap.textContent = img.alt || "";
@@ -141,11 +141,22 @@
     document.body.style.overflow = "hidden";
   }
 
+  function openLightbox(img) {
+    var idx = galleryImgs.indexOf(img);
+    showLightboxAt(idx >= 0 ? idx : 0);
+  }
+
   function closeLightbox() {
     if (!lightbox) return;
     lightbox.hidden = true;
     lightbox.setAttribute("aria-hidden", "true");
     document.body.style.overflow = "";
+    currentLb = -1;
+  }
+
+  function stepLightbox(delta) {
+    if (currentLb < 0) return;
+    showLightboxAt(currentLb + delta);
   }
 
   if (strip) {
@@ -155,49 +166,23 @@
     });
   }
   if (closeBtn) closeBtn.addEventListener("click", closeLightbox);
+  if (prevBtn) prevBtn.addEventListener("click", function () {
+    stepLightbox(-1);
+  });
+  if (nextBtn) nextBtn.addEventListener("click", function () {
+    stepLightbox(1);
+  });
   if (lightbox) {
     lightbox.addEventListener("click", function (e) {
       if (e.target === lightbox) closeLightbox();
     });
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && lightbox && !lightbox.hidden) closeLightbox();
+      if (!lightbox || lightbox.hidden) return;
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowLeft") stepLightbox(-1);
+      if (e.key === "ArrowRight") stepLightbox(1);
     });
   }
-
-  // 10) Ceník
-  var eventType = document.getElementById("eventType");
-  var distanceKm = document.getElementById("distanceKm");
-  var priceTotal = document.getElementById("priceTotal");
-  var ticketAmt = document.getElementById("ticketAmt");
-
-  function formatKc(n) {
-    return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-  }
-
-  function updatePrice() {
-    if (!eventType) return;
-    var base = parseInt(eventType.value, 10) || 6000;
-    var km = Math.max(0, parseInt(distanceKm && distanceKm.value, 10) || 0);
-    var transport = km * KM_RATE;
-    var total = base + transport;
-    if (priceTotal) {
-      priceTotal.innerHTML =
-        "Celkem: <strong>" +
-        formatKc(total) +
-        " Kč</strong> (vystoupení " +
-        formatKc(base) +
-        " Kč + doprava " +
-        formatKc(transport) +
-        " Kč)";
-    }
-    if (ticketAmt) {
-      ticketAmt.innerHTML = formatKc(base) + " <small>Kč</small>";
-    }
-  }
-
-  if (eventType) eventType.addEventListener("change", updatePrice);
-  if (distanceKm) distanceKm.addEventListener("input", updatePrice);
-  updatePrice();
 
   // 8) Balónky Robin2
   var popstage = document.getElementById("popstage");
@@ -322,8 +307,12 @@
 
       var email = String(fd.get("email") || "").trim();
       var phone = String(fd.get("phone") || "").trim();
-      if (!email || !phone) {
-        showContactError("Vyplňte prosím e-mail a telefon.");
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showContactError("Zadejte prosím platný e-mail.");
+        return;
+      }
+      if (!phone || phone.replace(/\D/g, "").length < 9) {
+        showContactError("Zadejte prosím platné telefonní číslo.");
         return;
       }
 
@@ -338,7 +327,6 @@
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: String(fd.get("name") || "").trim(),
           email: email,
           phone: phone,
           message: String(fd.get("message") || "").trim(),

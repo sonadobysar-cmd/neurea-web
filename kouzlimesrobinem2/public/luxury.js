@@ -1,12 +1,14 @@
 (function(){
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // marquee content
+  // marquee content (přepíše robin-merge.js správným obsahem)
   var mq = document.getElementById('mq');
+  if (mq) {
   var star = '<svg class="st lg" style="fill:#EE8B00"><use href="#star"/></svg>';
   var words = ['kouzla','balónková zvířátka','mentalismus','dětské oslavy','školky','firemní večery'];
   var half = words.map(function(w){return '<span class="mq-item">'+w+' '+star+'</span>';}).join('');
   mq.innerHTML = half + half;
+  }
 
   // cursor glow + sparkle trail
   var glow = document.getElementById('glow');

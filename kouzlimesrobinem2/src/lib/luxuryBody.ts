@@ -36,7 +36,7 @@ export const luxuryBodyHtml = `<svg width="0" height="0" style="position:absolut
         <a class="btn btn-ghost" href="#disciplina">Nabídka vystoupení</a>
       </div>
       <div class="hero-stats">
-        <div class="hstat"><b><span data-count="11">0</span><em>+</em></b><span>let na jevišti</span></div>
+        <div class="hstat"><b><span data-count="16">0</span><em>+</em></b><span>let na jevišti</span></div>
         <div class="hstat"><b>3<em>v</em>1</b><span>kouzla · balónky · mentalismus</span></div>
         <div class="hstat"><b><span data-count="45">0</span><em>′</em></b><span>show na míru</span></div>
       </div>
@@ -59,7 +59,7 @@ export const luxuryBodyHtml = `<svg width="0" height="0" style="position:absolut
       <svg class="seal" viewBox="0 0 132 132" aria-hidden="true">
         <circle class="disc" cx="66" cy="66" r="66"/>
         <defs><path id="cir" d="M66,66 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs>
-        <text><textPath href="#cir">11 LET NA JEVIŠTI · CELÁ ČR ·&#160;</textPath></text>
+        <text><textPath href="#cir">16 LET NA JEVIŠTI · CELÁ ČR ·&#160;</textPath></text>
         <path class="core" d="M66 50c1.6 9 6.5 14 16 16-9.5 1.9-14.4 6.9-16 16-1.6-9.1-6.5-14.1-16-16 9.5-2 14.4-7 16-16z"/>
       </svg>
     </div>
@@ -274,8 +274,8 @@ export const luxuryBodyHtml = `<svg width="0" height="0" style="position:absolut
     </div>
     <div class="reveal d1">
       <p class="eyebrow"><svg class="st"><use href="#star"/></svg>O Robinovi</p>
-      <h2>Jedenáct let <em>na jevišti.</em></h2>
-      <p class="lead">Kouzlím od dětství a posledních jedenáct let se tomu věnuji naplno. Vystupuji pro školky, základní školy a rodinné oslavy, s mikromagií jsem soutěžil i mezi profesionály.</p>
+      <h2>Šestnáct let <em>na jevišti.</em></h2>
+      <p class="lead">Kouzlím od dětství a posledních šestnáct let se tomu věnuji naplno. Vystupuji pro školky, základní školy a rodinné oslavy, s mikromagií jsem soutěžil i mezi profesionály.</p>
       <p class="lead">Nejvíc mě baví ten okamžik, kdy dítě poprvé uvěří, že kouzla existují. Kvůli němu jezdím na každou akci.</p>
       <p class="sig">— Robin Panuš</p>
     </div>

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://kouzlimesrobinem2.vercel.app"),
   title: "Kouzlíme s Robinem — kouzelník, balónkář a mentalista",
   description:
-    "Kouzelnická show, balónková zvířátka a mentalismus pro dětské oslavy, školky i firemní akce. Robin Panuš — 11 let na jevišti.",
+    "Kouzelnická show, balónková zvířátka a mentalismus pro dětské oslavy, školky i firemní akce. Robin Panuš — 16 let na jevišti.",
   openGraph: {
     type: "website",
     locale: "cs_CZ",

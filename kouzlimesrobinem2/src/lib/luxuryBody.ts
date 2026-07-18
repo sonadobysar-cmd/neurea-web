@@ -24,7 +24,7 @@ export const luxuryBodyHtml = `<svg width="0" height="0" style="position:absolut
 <header class="hero" id="top">
   <div class="wrap hero-grid">
     <div>
-      <p class="eyebrow"><svg class="st"><use href="#star"/></svg>Kouzelník Robin Panuš — Praha a okolí</p>
+      <p class="eyebrow"><svg class="st"><use href="#star"/></svg>Kouzelník Robin Panuš</p>
       <h1>
         <span class="line"><span>Umění</span></span>
         <span class="line"><span><em>úžasu</em> pro</span></span>
@@ -186,7 +186,7 @@ export const luxuryBodyHtml = `<svg width="0" height="0" style="position:absolut
     <p class="eyebrow" style="justify-content:center"><svg class="st"><use href="#star"/></svg>Řekli o Robinovi</p>
     <figure>
       <blockquote>„Udržet pozornost dvaceti předškoláků celých čtyřicet pět minut — to je samo o sobě kouzlo."</blockquote>
-      <figcaption>maminka oslavenkyně · narozeniny, Praha</figcaption>
+      <figcaption>maminka oslavenkyně · narozeniny</figcaption>
     </figure>
   </div>
 </section>
@@ -276,7 +276,7 @@ export const luxuryBodyHtml = `<svg width="0" height="0" style="position:absolut
       <p class="eyebrow"><svg class="st"><use href="#star"/></svg>O Robinovi</p>
       <h2>Jedenáct let <em>na jevišti.</em></h2>
       <p class="lead">Kouzlím od dětství a posledních jedenáct let se tomu věnuji naplno. Vystupuji pro školky, základní školy a rodinné oslavy, s mikromagií jsem soutěžil i mezi profesionály.</p>
-      <p class="lead">Nejvíc mě baví ten okamžik, kdy dítě poprvé uvěří, že kouzla existují. Kvůli němu jezdím po Praze i daleko za ni.</p>
+      <p class="lead">Nejvíc mě baví ten okamžik, kdy dítě poprvé uvěří, že kouzla existují. Kvůli němu jezdím na každou akci.</p>
       <p class="sig">— Robin Panuš</p>
     </div>
   </div>
@@ -284,7 +284,7 @@ export const luxuryBodyHtml = `<svg width="0" height="0" style="position:absolut
 
 <section class="contact" id="kontakt">
   <div class="wrap reveal">
-    <p class="eyebrow" style="justify-content:center"><svg class="st"><use href="#star"/></svg>Kontakt · Praha a okolí</p>
+    <p class="eyebrow" style="justify-content:center"><svg class="st"><use href="#star"/></svg>Kontakt</p>
     <h2>Domluvme si <em>termín.</em></h2>
     <a class="big-tel" href="tel:+420775950328">775 950 328</a>
     <a class="mail" href="mailto:info@kouzlimesrobinem.cz">info@kouzlimesrobinem.cz</a>
@@ -304,6 +304,6 @@ export const luxuryBodyHtml = `<svg width="0" height="0" style="position:absolut
 <footer>
   <div class="wrap foot">
     <span>© 2026 Kouzlíme s Robinem — Robin Panuš</span>
-    <span>Praha a okolí · www.kouzlimesrobinem.cz</span>
+    <span>www.kouzlimesrobinem.cz</span>
   </div>
 </footer>`;

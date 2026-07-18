@@ -292,7 +292,7 @@ body {
   padding: clamp(64px, 9vh, 110px) 0 clamp(80px, 10vh, 120px);
 }
 
-/* 10) Ceník — levý panel cena, pravý doprava */
+/* 10) Ceník — barvy nadpisu + typografie obsahu (layout z luxury.css) */
 .luxury-root .price-sec .eyebrow {
   color: #f4e9d3;
 }
@@ -305,31 +305,19 @@ body {
   color: #f4e9d3;
 }
 
-.luxury-root .ticket {
-  grid-template-columns: 1fr 1fr;
-  align-items: stretch;
-  margin-top: clamp(36px, 5vh, 52px);
-}
-
-.luxury-root .tk-main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  padding: clamp(36px, 4.8vw, 64px) clamp(32px, 4vw, 56px);
-}
-
+/* Levý panel — cena ve stylu hlavní části vstupenky */
 .luxury-root .tk-main .tk-price-block--main .from {
-  font: 700 11px var(--sans);
+  font: 700 10.5px var(--sans);
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #f68544;
+  color: var(--ember);
+  display: block;
 }
 
 .luxury-root .tk-main .tk-price-block--main .amt {
-  font: 400 clamp(54px, 5.4vw, 76px) var(--serif);
+  font: 400 clamp(50px, 4.6vw, 66px) var(--serif);
   line-height: 1;
-  margin: 14px 0 8px;
+  margin: 14px 0 6px;
 }
 
 .luxury-root .tk-main .tk-price-block--main .amt small {
@@ -337,60 +325,28 @@ body {
 }
 
 .luxury-root .tk-main .tk-price-block--main .per {
-  font-size: clamp(15px, 1.45vw, 17px);
+  display: block;
+  font-size: 15px;
   color: var(--ink-soft);
 }
 
 .luxury-root .tk-main .tk-price-block--main .tk-note {
-  margin-top: 20px;
-  font-size: clamp(13.5px, 1.25vw, 15px);
+  margin-top: 22px;
+  padding-top: 22px;
+  border-top: 1px solid var(--hair);
+  font-size: 14px;
   line-height: 1.55;
   color: var(--ink-soft);
-  max-width: 34ch;
+  max-width: 42ch;
 }
 
-.luxury-root .tk-side {
-  justify-content: center;
-  padding: clamp(36px, 4.8vw, 64px) clamp(28px, 3.5vw, 48px);
-}
-
+/* Pravý panel — doprava v odtrženém stubu */
 .luxury-root .tk-side .tk-price-row .from {
-  font-size: 11px;
-  color: #f68544;
+  color: var(--ember);
 }
 
 .luxury-root .tk-side .amt-sm {
-  font-size: clamp(44px, 4.2vw, 58px);
-  margin: 14px 0 8px;
-}
-
-.luxury-root .tk-side .per {
-  font-size: clamp(14px, 1.35vw, 16px);
-}
-
-.luxury-root .tk-side .tk-side-note {
-  font-size: clamp(12.5px, 1.15vw, 14px);
-  max-width: 28ch;
-  margin-inline: auto;
-}
-
-.luxury-root .tk-side .btn {
-  margin-top: clamp(24px, 3vh, 32px);
-}
-
-@media (max-width: 960px) {
-  .luxury-root .ticket {
-    grid-template-columns: 1fr;
-  }
-
-  .luxury-root .tk-main {
-    align-items: center;
-    text-align: center;
-  }
-
-  .luxury-root .tk-main .tk-price-block--main .tk-note {
-    max-width: none;
-  }
+  font-size: clamp(40px, 3.8vw, 54px);
 }
 
 .tk-side .tk-price-row + .tk-price-divider {

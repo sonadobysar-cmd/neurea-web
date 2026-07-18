@@ -643,6 +643,15 @@ body {
   fill: #f9f6f0;
 }
 
+/* Řekli o Robinovi — eyebrow + hvězda */
+.luxury-root .quote .eyebrow {
+  color: #f9f6f0;
+}
+
+.luxury-root .quote .eyebrow .st {
+  fill: #f9f6f0;
+}
+
 /* Tři disciplíny — menší mezera mezi textem a kartami */
 .luxury-root .fan {
   margin-top: clamp(24px, 3.5vh, 40px);

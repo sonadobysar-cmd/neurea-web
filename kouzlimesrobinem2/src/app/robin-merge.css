@@ -173,6 +173,10 @@ body {
 }
 
 /* 9) Galerie — pojízdný pás + lightbox */
+.luxury-root .gal-hint .st {
+  fill: currentColor;
+}
+
 .gal-viewport {
   overflow: hidden;
   padding-bottom: 30px;

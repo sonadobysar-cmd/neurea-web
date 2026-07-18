@@ -643,6 +643,12 @@ body {
   fill: #f9f6f0;
 }
 
+/* Tři disciplíny — menší mezera mezi textem a kartami */
+.luxury-root .fan {
+  margin-top: clamp(24px, 3.5vh, 40px);
+  height: calc(min(320px, 78vw) * 4.35 / 3 + 36px);
+}
+
 /* Hero — úžasu + pečeť před fotkou */
 .luxury-root .hero h1 em {
   color: #f9f6f0;

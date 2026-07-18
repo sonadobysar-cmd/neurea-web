@@ -540,6 +540,53 @@ body {
   text-align: center;
 }
 
+.luxury-root h1 em,
+.luxury-root h2 em,
+.luxury-root .hstat b em,
+.luxury-root .step .rn,
+.luxury-root .about .sig,
+.luxury-root .eyebrow,
+.luxury-root .brand span,
+.luxury-root .tk-tag,
+.luxury-root .tk-side .from,
+.luxury-root .pc-back .flip-hint,
+.luxury-root .trick .eyebrow,
+.luxury-root .trick h2 em,
+.luxury-root .trick-msg {
+  color: #f68544;
+}
+
+.luxury-root .st,
+.luxury-root .btn-amber .st {
+  fill: #f68544;
+}
+
+.luxury-root .nav-links a::after,
+.luxury-root .contact .big-tel::after {
+  background: #f68544;
+}
+
+.luxury-root .contact .mail:hover {
+  color: #f68544;
+}
+
+.luxury-root .btn-amber {
+  background: linear-gradient(105deg, #f68544, #e5a33e);
+}
+
+/* Hero — úžasu + pečeť před fotkou */
+.luxury-root .hero h1 em {
+  color: #f9f6f0;
+}
+
+.hero-visual .seal {
+  z-index: 6;
+}
+
+.hero-luxe {
+  z-index: 2;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .strip--marquee,
   .cluster {

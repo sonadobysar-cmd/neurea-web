@@ -292,7 +292,107 @@ body {
   padding: clamp(64px, 9vh, 110px) 0 clamp(80px, 10vh, 120px);
 }
 
-/* 10) Ceník — dvě ceny v pravém panelu vstupenky (Robin3 styl) */
+/* 10) Ceník — levý panel cena, pravý doprava */
+.luxury-root .price-sec .eyebrow {
+  color: #f9f6f0;
+}
+
+.luxury-root .price-sec .eyebrow .st {
+  fill: #f9f6f0;
+}
+
+.luxury-root .price-sec h2 em {
+  color: #f9f6f0;
+}
+
+.luxury-root .ticket {
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  margin-top: clamp(36px, 5vh, 52px);
+}
+
+.luxury-root .tk-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: clamp(36px, 4.8vw, 64px) clamp(32px, 4vw, 56px);
+}
+
+.luxury-root .tk-main .tk-price-block--main .from {
+  font: 700 11px var(--sans);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #f68544;
+}
+
+.luxury-root .tk-main .tk-price-block--main .amt {
+  font: 400 clamp(54px, 5.4vw, 76px) var(--serif);
+  line-height: 1;
+  margin: 14px 0 8px;
+}
+
+.luxury-root .tk-main .tk-price-block--main .amt small {
+  font-size: 0.42em;
+}
+
+.luxury-root .tk-main .tk-price-block--main .per {
+  font-size: clamp(15px, 1.45vw, 17px);
+  color: var(--ink-soft);
+}
+
+.luxury-root .tk-main .tk-price-block--main .tk-note {
+  margin-top: 20px;
+  font-size: clamp(13.5px, 1.25vw, 15px);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 34ch;
+}
+
+.luxury-root .tk-side {
+  justify-content: center;
+  padding: clamp(36px, 4.8vw, 64px) clamp(28px, 3.5vw, 48px);
+}
+
+.luxury-root .tk-side .tk-price-row .from {
+  font-size: 11px;
+  color: #f68544;
+}
+
+.luxury-root .tk-side .amt-sm {
+  font-size: clamp(44px, 4.2vw, 58px);
+  margin: 14px 0 8px;
+}
+
+.luxury-root .tk-side .per {
+  font-size: clamp(14px, 1.35vw, 16px);
+}
+
+.luxury-root .tk-side .tk-side-note {
+  font-size: clamp(12.5px, 1.15vw, 14px);
+  max-width: 28ch;
+  margin-inline: auto;
+}
+
+.luxury-root .tk-side .btn {
+  margin-top: clamp(24px, 3vh, 32px);
+}
+
+@media (max-width: 960px) {
+  .luxury-root .ticket {
+    grid-template-columns: 1fr;
+  }
+
+  .luxury-root .tk-main {
+    align-items: center;
+    text-align: center;
+  }
+
+  .luxury-root .tk-main .tk-price-block--main .tk-note {
+    max-width: none;
+  }
+}
+
 .tk-side .tk-price-row + .tk-price-divider {
   margin-top: 4px;
 }

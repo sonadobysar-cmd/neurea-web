@@ -229,26 +229,14 @@ export const luxuryBodyHtml = `<svg width="0" height="0" style="position:absolut
     </div>
     <div class="ticket reveal d1">
       <div class="tk-main">
-        <span class="tk-tag">Nejčastější volba</span>
-        <h3>Kouzelnická show · 45 minut</h3>
-        <ul class="tk-list">
-          <li><svg class="st"><use href="#star"/></svg>Interaktivní kouzla s dětmi</li>
-          <li><svg class="st"><use href="#star"/></svg>Balónkové zvířátko pro každého</li>
-          <li><svg class="st"><use href="#star"/></svg>Program dle věku publika</li>
-          <li><svg class="st"><use href="#star"/></svg>Vlastní ozvučení i rekvizity</li>
-          <li><svg class="st"><use href="#star"/></svg>Oslavenec v hlavní roli</li>
-          <li><svg class="st"><use href="#star"/></svg>Velké finále na závěr</li>
-        </ul>
-        <p class="tk-note">Chystáte akci pro školku, obec nebo firmu? Napište mi pár řádků a připravím program i cenu přesně na míru.</p>
-      </div>
-      <div class="tk-side">
-        <div class="tk-price-row">
+        <div class="tk-price-block tk-price-block--main">
           <span class="from">Cena</span>
           <div class="amt">6 000 <small>Kč</small></div>
           <span class="per">za vystoupení · 45 minut</span>
-          <p class="tk-side-note">Finální cenu upravím podle typu akce.</p>
+          <p class="tk-note">Finální cenu je možné upravit podle typu akce.</p>
         </div>
-        <div class="tk-price-divider" aria-hidden="true"></div>
+      </div>
+      <div class="tk-side">
         <div class="tk-price-row">
           <span class="from">Doprava</span>
           <div class="amt amt-sm">12 <small>Kč/km</small></div>

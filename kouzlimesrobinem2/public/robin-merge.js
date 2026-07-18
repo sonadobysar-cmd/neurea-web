@@ -1,15 +1,33 @@
 (function () {
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // 7) Marquee — přesný obsah ze zadání (styl Robin3)
+  // 7) Marquee — každá položka + oranžová hvězda
   var mq = document.getElementById("mq");
   if (mq) {
     var star =
-      '<svg class="st lg" style="fill:#EE8B00"><use href="#star"/></svg>';
-    var line =
-      "kouzelník · balonkář · mentalista · školky · školy · narozeninové oslavy · městské slavnosti · veřejné akce · soukromé akce";
-    var half =
-      '<span class="mq-item">' + line + " " + star + "</span>";
+      '<svg class="st mq-star" aria-hidden="true"><use href="#star"/></svg>';
+    var words = [
+      "kouzelník",
+      "balonkář",
+      "mentalista",
+      "školky",
+      "školy",
+      "narozeninové oslavy",
+      "městské slavnosti",
+      "veřejné akce",
+      "soukromé akce",
+    ];
+    var half = words
+      .map(function (w) {
+        return (
+          '<span class="mq-item"><span class="mq-text">' +
+          w +
+          "</span>" +
+          star +
+          "</span>"
+        );
+      })
+      .join("");
     mq.innerHTML = half + half;
   }
 

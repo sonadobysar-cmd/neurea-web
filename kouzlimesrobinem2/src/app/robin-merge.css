@@ -151,6 +151,27 @@ body {
   box-shadow: none;
 }
 
+/* Marquee — stejnorodé oddělení textu a hvězdy */
+.luxury-root .mq-track {
+  align-items: center;
+}
+
+.luxury-root .mq-item {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(18px, 2.4vw, 28px);
+  padding-inline: clamp(16px, 2.2vw, 26px);
+  padding-right: clamp(16px, 2.2vw, 26px);
+  font: italic 400 clamp(24px, 2.8vw, 30px) var(--serif);
+}
+
+.luxury-root .mq-item .mq-star {
+  flex: none;
+  width: clamp(12px, 1.35vw, 15px);
+  height: clamp(12px, 1.35vw, 15px);
+  fill: #f68544;
+}
+
 /* 9) Galerie — pojízdný pás + lightbox */
 .gal-viewport {
   overflow: hidden;

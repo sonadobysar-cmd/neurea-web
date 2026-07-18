@@ -574,6 +574,45 @@ body {
   background: linear-gradient(105deg, #f68544, #e5a33e);
 }
 
+/* Hero — text zarovnaný s fotkou */
+.luxury-root .hero-grid {
+  align-items: stretch;
+}
+
+.luxury-root .hero-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: clamp(12px, 2vh, 28px);
+  padding-right: clamp(0px, 2vw, 20px);
+}
+
+.luxury-root .hero-visual {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.luxury-root .hero .lead {
+  max-width: 46ch;
+}
+
+.luxury-root .hero .cta-row {
+  margin-top: clamp(28px, 3.5vh, 36px);
+}
+
+@media (max-width: 960px) {
+  .luxury-root .hero-copy {
+    justify-content: flex-start;
+    padding-block: 0;
+    padding-right: 0;
+  }
+
+  .luxury-root .hero-visual {
+    margin-top: clamp(28px, 5vw, 40px);
+  }
+}
+
 /* Hero — úžasu + pečeť před fotkou */
 .luxury-root .hero h1 em {
   color: #f9f6f0;

@@ -23,7 +23,7 @@ export const luxuryBodyHtml = `<svg width="0" height="0" style="position:absolut
 
 <header class="hero" id="top">
   <div class="wrap hero-grid">
-    <div>
+    <div class="hero-copy">
       <p class="eyebrow"><svg class="st"><use href="#star"/></svg>Kouzelník Robin Panuš</p>
       <h1>
         <span class="line"><span>Umění</span></span>

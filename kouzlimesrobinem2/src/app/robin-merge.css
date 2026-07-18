@@ -781,3 +781,13 @@ body {
     right: 12px;
   }
 }
+
+.luxury-root .foot-credit {
+  color: var(--ink-soft);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.luxury-root .foot-credit:hover {
+  color: var(--saffron);
+}

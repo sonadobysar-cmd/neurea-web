@@ -288,6 +288,6 @@ export const luxuryBodyHtml = `<svg width="0" height="0" style="position:absolut
 <footer>
   <div class="wrap foot">
     <span>© 2026 Kouzlíme s Robinem — Robin Panuš</span>
-    <span>www.kouzlimesrobinem.cz</span>
+    <a class="foot-credit" href="https://niadobysar.com" target="_blank" rel="noopener noreferrer">Web · Nia Dobyšar</a>
   </div>
 </footer>`;

@@ -72,6 +72,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "Chybí údaje." }, { status: 400 });
   }
 
+  const name = "name" in body ? String(body.name ?? "").trim() : "";
   const email = "email" in body ? String(body.email ?? "").trim() : "";
   const phone = "phone" in body ? String(body.phone ?? "").trim() : "";
   const message = "message" in body ? String(body.message ?? "").trim() : "";
@@ -81,6 +82,9 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true });
   }
 
+  if (!name) {
+    return NextResponse.json({ ok: false, error: "Zadejte jméno." }, { status: 400 });
+  }
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return NextResponse.json({ ok: false, error: "Zadejte platný e-mail." }, { status: 400 });
   }
@@ -104,6 +108,7 @@ export async function POST(request: Request) {
   const plain = [
     "Nová zpráva z webu Kouzlíme s Robinem",
     "",
+    `Jméno: ${name}`,
     `E-mail: ${email}`,
     `Telefon: ${phone}`,
     "",
@@ -112,6 +117,7 @@ export async function POST(request: Request) {
 
   const html = `
     <h2>Nová zpráva z webu Kouzlíme s Robinem</h2>
+    <p><strong>Jméno:</strong> ${escapeHtml(name)}</p>
     <p><strong>E-mail:</strong> ${escapeHtml(email)}</p>
     <p><strong>Telefon:</strong> ${escapeHtml(phone)}</p>
     <p><strong>Poznámka:</strong></p>
@@ -128,7 +134,7 @@ export async function POST(request: Request) {
       from: resolveFrom(),
       to: [TO_EMAIL],
       reply_to: email,
-      subject: `[Kouzlíme s Robinem] Zpráva od ${email}`,
+      subject: `[Kouzlíme s Robinem] Zpráva od ${name}`,
       text: plain,
       html,
     }),

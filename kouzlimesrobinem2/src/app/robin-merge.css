@@ -721,6 +721,19 @@ body {
   color: #f4e9d3;
 }
 
+/* Kontakt — eyebrow + termín */
+.luxury-root .contact .eyebrow {
+  color: #f4e9d3;
+}
+
+.luxury-root .contact .eyebrow .st {
+  fill: #f4e9d3;
+}
+
+.luxury-root .contact h2 em {
+  color: #f4e9d3;
+}
+
 /* Tři disciplíny — menší mezera mezi textem a kartami */
 .luxury-root .fan {
   margin-top: clamp(24px, 3.5vh, 40px);

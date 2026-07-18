@@ -353,8 +353,13 @@
       var fd = new FormData(contactForm);
       if (String(fd.get("website") || "").trim()) return;
 
+      var name = String(fd.get("name") || "").trim();
       var email = String(fd.get("email") || "").trim();
       var phone = String(fd.get("phone") || "").trim();
+      if (!name) {
+        showContactError("Zadejte prosím jméno.");
+        return;
+      }
       if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         showContactError("Zadejte prosím platný e-mail.");
         return;
@@ -375,6 +380,7 @@
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          name: name,
           email: email,
           phone: phone,
           message: String(fd.get("message") || "").trim(),

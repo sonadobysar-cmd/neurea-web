@@ -634,6 +634,15 @@ body {
   }
 }
 
+/* Tři disciplíny — eyebrow + hvězdy */
+.luxury-root .cards-head .eyebrow {
+  color: #f9f6f0;
+}
+
+.luxury-root .cards-head .eyebrow .st {
+  fill: #f9f6f0;
+}
+
 /* Hero — úžasu + pečeť před fotkou */
 .luxury-root .hero h1 em {
   color: #f9f6f0;

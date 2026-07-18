@@ -708,6 +708,19 @@ body {
   fill: #f4e9d3;
 }
 
+/* Z vystoupení — eyebrow + spadne brada */
+.luxury-root .gal-head .eyebrow {
+  color: #f4e9d3;
+}
+
+.luxury-root .gal-head .eyebrow .st {
+  fill: #f4e9d3;
+}
+
+.luxury-root .gal-head h2 em {
+  color: #f4e9d3;
+}
+
 /* Tři disciplíny — menší mezera mezi textem a kartami */
 .luxury-root .fan {
   margin-top: clamp(24px, 3.5vh, 40px);

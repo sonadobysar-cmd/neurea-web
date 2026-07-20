@@ -651,18 +651,9 @@ body {
   background: linear-gradient(105deg, #f68544, #e5a33e);
 }
 
-/* Navigace — větší písmo, uppercase */
+/* Navigace — uppercase (caps lock), původní velikost */
 .luxury-root .nav-links {
-  gap: clamp(22px, 2.8vw, 36px);
-  font: 700 clamp(15px, 1.45vw, 18px) var(--sans);
-  letter-spacing: 0.14em;
   text-transform: uppercase;
-}
-
-.luxury-root .nav-links a {
-  font-size: inherit;
-  letter-spacing: inherit;
-  text-transform: inherit;
 }
 
 /* Hero — text zarovnaný s fotkou */

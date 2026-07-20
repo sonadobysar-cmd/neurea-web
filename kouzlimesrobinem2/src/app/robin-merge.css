@@ -617,6 +617,49 @@ body {
   text-align: center;
 }
 
+.contact-turnstile {
+  display: flex;
+  justify-content: center;
+  min-height: 65px;
+}
+
+/* Mobilní menu */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1.5px solid var(--hair);
+  border-radius: 12px;
+  background: rgba(252, 248, 239, 0.95);
+  cursor: pointer;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  margin: 0 auto;
+  background: var(--ink);
+  border-radius: 2px;
+  transition: transform 0.25s, opacity 0.25s;
+}
+
+nav.is-open .nav-toggle span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+nav.is-open .nav-toggle span:nth-child(2) {
+  opacity: 0;
+}
+
+nav.is-open .nav-toggle span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
 .luxury-root h1 em,
 .luxury-root h2 em,
 .luxury-root .hstat b em,
@@ -791,4 +834,187 @@ body {
 
 .luxury-root .foot-credit:hover {
   color: var(--saffron);
+}
+
+/* ---------- Responzivita ---------- */
+@media (max-width: 960px) {
+  .luxury-root .nav-toggle {
+    display: flex;
+  }
+
+  .luxury-root .nav-in {
+    position: relative;
+  }
+
+  .luxury-root .nav-links {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 8px;
+    border: 1px solid var(--hair);
+    border-radius: 16px;
+    background: rgba(252, 248, 239, 0.98);
+    box-shadow: 0 18px 40px -20px rgba(32, 20, 6, 0.35);
+    z-index: 60;
+  }
+
+  .luxury-root nav.is-open .nav-links {
+    display: flex;
+  }
+
+  .luxury-root .nav-links a {
+    padding: 14px 16px;
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  .luxury-root .nav-links a:hover {
+    background: rgba(246, 133, 68, 0.12);
+  }
+
+  .luxury-root .hero h1 {
+    font-size: clamp(44px, 11vw, 72px);
+  }
+
+  .luxury-root .hero .lead {
+    font-size: 16px;
+  }
+
+  .luxury-root .cta-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .luxury-root .cta-row .btn {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .luxury-root .hero-visual {
+    width: min(100%, 360px);
+    margin-inline: auto;
+  }
+
+  .luxury-root .cards-head h2,
+  .luxury-root .gal-head h2,
+  .luxury-root .price-sec h2,
+  .luxury-root .contact h2 {
+    font-size: clamp(36px, 9vw, 56px);
+  }
+
+  .luxury-root .contact .big-tel {
+    font-size: clamp(28px, 8vw, 44px);
+    word-break: break-word;
+  }
+
+  .luxury-root .contact-form {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .luxury-root .ticket {
+    margin-top: clamp(28px, 5vh, 40px);
+  }
+
+  .luxury-root .tk-main,
+  .luxury-root .tk-side {
+    padding: clamp(28px, 5vw, 40px) clamp(20px, 4vw, 32px);
+    text-align: center;
+    align-items: center;
+  }
+
+  .luxury-root .tk-main .tk-price-block--main {
+    align-items: center;
+  }
+
+  .luxury-root .tk-main .tk-price-block--main .tk-note {
+    max-width: none;
+  }
+
+  .luxury-root .foot {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+  }
+
+  .luxury-root .prog-grid {
+    gap: clamp(28px, 5vw, 48px);
+  }
+
+  .luxury-root .step {
+    gap: 16px;
+  }
+
+  .luxury-root .about-grid {
+    gap: clamp(28px, 5vw, 48px);
+  }
+}
+
+@media (max-width: 480px) {
+  .luxury-root .wrap {
+    padding-inline: clamp(16px, 4vw, 24px);
+  }
+
+  .luxury-root .brand b {
+    font-size: 20px;
+  }
+
+  .luxury-root .brand span {
+    letter-spacing: 0.22em;
+  }
+
+  .luxury-root .hero {
+    padding-top: clamp(40px, 7vh, 64px);
+  }
+
+  .luxury-root .hero h1 {
+    font-size: clamp(38px, 12vw, 52px);
+  }
+
+  .luxury-root .mq-item {
+    font-size: clamp(20px, 5.5vw, 26px);
+    padding-inline: clamp(12px, 3vw, 18px);
+    gap: clamp(14px, 3vw, 20px);
+  }
+
+  .luxury-root .pcard {
+    width: min(320px, 92vw);
+  }
+
+  .luxury-root .tk-main .tk-price-block--main .amt {
+    font-size: clamp(44px, 12vw, 58px);
+  }
+
+  .luxury-root .tk-side .amt-sm {
+    font-size: clamp(36px, 10vw, 48px);
+  }
+
+  .luxury-root .contact h2 {
+    font-size: clamp(32px, 10vw, 48px);
+  }
+
+  .luxury-root .contact .mail {
+    font-size: 16px;
+    word-break: break-all;
+  }
+
+  .luxury-root .seal {
+    width: 88px;
+    height: 88px;
+    top: -24px;
+    right: -4px;
+  }
+}
+
+@media (max-width: 360px) {
+  .luxury-root .nav-links a {
+    font-size: 13px;
+    letter-spacing: 0.1em;
+  }
 }

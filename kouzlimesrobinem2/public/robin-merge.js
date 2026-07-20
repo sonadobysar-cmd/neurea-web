@@ -336,6 +336,86 @@
   // 11) Kontaktní formulář
   var contactForm = document.getElementById("contactForm");
   var contactThanks = document.getElementById("contactThanks");
+  var turnstileSiteKey = window.__ROBIN_TURNSTILE_SITE_KEY || "";
+  var turnstileWidgetId = null;
+
+  function loadTurnstileScript() {
+    return new Promise(function (resolve) {
+      if (!turnstileSiteKey) return resolve(false);
+      if (window.turnstile) return resolve(true);
+      var existing = document.getElementById("turnstile-api");
+      if (existing) {
+        existing.addEventListener("load", function () {
+          resolve(!!window.turnstile);
+        });
+        return;
+      }
+      var script = document.createElement("script");
+      script.id = "turnstile-api";
+      script.src =
+        "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+      script.async = true;
+      script.onload = function () {
+        resolve(!!window.turnstile);
+      };
+      script.onerror = function () {
+        resolve(false);
+      };
+      document.head.appendChild(script);
+    });
+  }
+
+  function renderTurnstileWidget() {
+    var mount = document.getElementById("contactTurnstile");
+    if (!mount || !turnstileSiteKey || !window.turnstile || turnstileWidgetId != null) {
+      return;
+    }
+    turnstileWidgetId = window.turnstile.render(mount, {
+      sitekey: turnstileSiteKey,
+      theme: "light",
+    });
+  }
+
+  function resetTurnstileWidget() {
+    if (window.turnstile && turnstileWidgetId != null) {
+      window.turnstile.reset(turnstileWidgetId);
+    }
+  }
+
+  function getTurnstileToken() {
+    if (!turnstileSiteKey) return "";
+    if (!window.turnstile || turnstileWidgetId == null) return "";
+    return window.turnstile.getResponse(turnstileWidgetId) || "";
+  }
+
+  // Mobilní menu
+  var navEl = document.querySelector("nav");
+  var navToggle = document.querySelector(".nav-toggle");
+  var navMenu = document.getElementById("navMenu");
+  if (navEl && navToggle && navMenu) {
+    navToggle.addEventListener("click", function () {
+      var open = navEl.classList.toggle("is-open");
+      navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+      navToggle.setAttribute(
+        "aria-label",
+        open ? "Zavřít menu" : "Otevřít menu",
+      );
+    });
+    navMenu.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", function () {
+        navEl.classList.remove("is-open");
+        navToggle.setAttribute("aria-expanded", "false");
+        navToggle.setAttribute("aria-label", "Otevřít menu");
+      });
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") {
+        navEl.classList.remove("is-open");
+        navToggle.setAttribute("aria-expanded", "false");
+        navToggle.setAttribute("aria-label", "Otevřít menu");
+      }
+    });
+  }
 
   function showContactError(msg) {
     var existing = document.getElementById("contactError");
@@ -348,14 +428,19 @@
   }
 
   if (contactForm) {
+    loadTurnstileScript().then(function (ok) {
+      if (ok) renderTurnstileWidget();
+    });
+
     contactForm.addEventListener("submit", function (e) {
       e.preventDefault();
       var fd = new FormData(contactForm);
       if (String(fd.get("website") || "").trim()) return;
 
-      var name = String(fd.get("name") || "").trim();
-      var email = String(fd.get("email") || "").trim();
-      var phone = String(fd.get("phone") || "").trim();
+      var name = String(fd.get("name") || "").trim().slice(0, 120);
+      var email = String(fd.get("email") || "").trim().slice(0, 254);
+      var phone = String(fd.get("phone") || "").trim().slice(0, 30);
+      var message = String(fd.get("message") || "").trim().slice(0, 5000);
       if (!name) {
         showContactError("Zadejte prosím jméno.");
         return;
@@ -366,6 +451,12 @@
       }
       if (!phone || phone.replace(/\D/g, "").length < 9) {
         showContactError("Zadejte prosím platné telefonní číslo.");
+        return;
+      }
+
+      var turnstileToken = getTurnstileToken();
+      if (turnstileSiteKey && !turnstileToken) {
+        showContactError("Potvrďte prosím, že nejste robot.");
         return;
       }
 
@@ -383,7 +474,8 @@
           name: name,
           email: email,
           phone: phone,
-          message: String(fd.get("message") || "").trim(),
+          message: message,
+          turnstileToken: turnstileToken,
         }),
       })
         .then(function (res) {
@@ -403,6 +495,7 @@
             err.message ||
               "Zprávu se nepodařilo odeslat. Napište prosím na kouzlimesrobinem@email.cz.",
           );
+          resetTurnstileWidget();
           if (btn) {
             btn.disabled = false;
             btn.innerHTML = btnHtml;

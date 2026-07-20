@@ -3,6 +3,10 @@ import { NextResponse } from "next/server";
 const TO_EMAIL = "kouzlimesrobinem@email.cz";
 const RATE_LIMIT_MAX = 5;
 const RATE_LIMIT_WINDOW_MS = 60_000;
+const MAX_NAME = 120;
+const MAX_EMAIL = 254;
+const MAX_PHONE = 30;
+const MAX_MESSAGE = 5000;
 
 type RateEntry = { count: number; resetAt: number };
 
@@ -30,6 +34,28 @@ function getClientIp(request: Request): string {
     request.headers.get("x-real-ip")?.trim() ||
     "unknown"
   );
+}
+
+async function verifyTurnstile(token: string, ip: string): Promise<boolean> {
+  const secret = process.env.TURNSTILE_SECRET_KEY?.trim();
+  if (!secret) return true;
+
+  if (!token) return false;
+
+  const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
+      secret,
+      response: token,
+      remoteip: ip,
+    }),
+  });
+
+  if (!res.ok) return false;
+
+  const data = (await res.json()) as { success?: boolean };
+  return data.success === true;
 }
 
 function isRateLimited(ip: string): boolean {
@@ -75,20 +101,33 @@ export async function POST(request: Request) {
   const name = "name" in body ? String(body.name ?? "").trim() : "";
   const email = "email" in body ? String(body.email ?? "").trim() : "";
   const phone = "phone" in body ? String(body.phone ?? "").trim() : "";
-  const message = "message" in body ? String(body.message ?? "").trim() : "";
+  const message = "message" in body ? String(body.message ?? "").trim().slice(0, MAX_MESSAGE) : "";
   const website = "website" in body ? String(body.website ?? "").trim() : "";
+  const turnstileToken =
+    "turnstileToken" in body ? String(body.turnstileToken ?? "").trim() : "";
 
   if (website) {
     return NextResponse.json({ ok: true });
   }
 
-  if (!name) {
+  const turnstileSecret = process.env.TURNSTILE_SECRET_KEY?.trim();
+  if (turnstileSecret) {
+    const valid = await verifyTurnstile(turnstileToken, ip);
+    if (!valid) {
+      return NextResponse.json(
+        { ok: false, error: "Ověření proti robotům se nepovedlo. Zkuste to prosím znovu." },
+        { status: 403 },
+      );
+    }
+  }
+
+  if (!name || name.length > MAX_NAME) {
     return NextResponse.json({ ok: false, error: "Zadejte jméno." }, { status: 400 });
   }
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  if (!email || email.length > MAX_EMAIL || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return NextResponse.json({ ok: false, error: "Zadejte platný e-mail." }, { status: 400 });
   }
-  if (!phone || phone.replace(/\D/g, "").length < 9) {
+  if (!phone || phone.length > MAX_PHONE || phone.replace(/\D/g, "").length < 9) {
     return NextResponse.json({ ok: false, error: "Zadejte platné telefonní číslo." }, { status: 400 });
   }
 

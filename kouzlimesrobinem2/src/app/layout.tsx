@@ -21,9 +21,18 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "";
+
   return (
     <html lang="cs">
-      <body>{children}</body>
+      <body>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.__ROBIN_TURNSTILE_SITE_KEY=${JSON.stringify(turnstileSiteKey)};`,
+          }}
+        />
+        {children}
+      </body>
     </html>
   );
 }

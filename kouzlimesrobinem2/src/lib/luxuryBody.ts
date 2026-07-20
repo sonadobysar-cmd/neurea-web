@@ -11,7 +11,12 @@ export const luxuryBodyHtml = `<svg width="0" height="0" style="position:absolut
 <nav>
   <div class="wrap nav-in">
     <a class="brand" href="#top"><b>Kouzlíme s Robinem</b><span>kouzelník · balónkář · mentalista</span></a>
-    <div class="nav-links">
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navMenu" aria-label="Otevřít menu">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+    <div class="nav-links" id="navMenu">
       <a href="#top">Domů</a>
       <a href="#robin">O mě</a>
       <a href="#ukazka">Ukázka představení</a>
@@ -273,10 +278,11 @@ export const luxuryBodyHtml = `<svg width="0" height="0" style="position:absolut
     <a class="mail" href="mailto:kouzlimesrobinem@email.cz">kouzlimesrobinem@email.cz</a>
     <form class="contact-form" id="contactForm" novalidate>
       <input type="text" name="website" class="contact-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <input name="name" type="text" required placeholder="Jméno *" autocomplete="name">
-      <input name="email" type="email" required placeholder="E-mail *" autocomplete="email">
-      <input name="phone" type="tel" required placeholder="Telefon *" autocomplete="tel">
-      <textarea name="message" rows="4" placeholder="Poznámka (volitelné)"></textarea>
+      <input name="name" type="text" required placeholder="Jméno *" autocomplete="name" maxlength="120">
+      <input name="email" type="email" required placeholder="E-mail *" autocomplete="email" maxlength="254">
+      <input name="phone" type="tel" required placeholder="Telefon *" autocomplete="tel" maxlength="30">
+      <textarea name="message" rows="4" placeholder="Poznámka (volitelné)" maxlength="5000"></textarea>
+      <div class="contact-turnstile" id="contactTurnstile" aria-label="Ověření proti robotům"></div>
       <button class="btn btn-ink" type="submit">Odeslat zprávu<svg class="st"><use href="#star"/></svg></button>
     </form>
     <div class="contact-thanks" id="contactThanks" hidden>

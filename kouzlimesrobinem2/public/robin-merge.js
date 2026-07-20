@@ -401,7 +401,7 @@
         .catch(function (err) {
           showContactError(
             err.message ||
-              "Zprávu se nepodařilo odeslat. Napište prosím na info@kouzlimesrobinem.cz.",
+              "Zprávu se nepodařilo odeslat. Napište prosím na kouzlimesrobinem@email.cz.",
           );
           if (btn) {
             btn.disabled = false;

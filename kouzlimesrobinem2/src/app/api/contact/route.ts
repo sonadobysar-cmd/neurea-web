@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-const TO_EMAIL = "info@kouzlimesrobinem.cz";
+const TO_EMAIL = "kouzlimesrobinem@email.cz";
 const RATE_LIMIT_MAX = 5;
 const RATE_LIMIT_WINDOW_MS = 60_000;
 
@@ -99,7 +99,7 @@ export async function POST(request: Request) {
       {
         ok: false,
         error:
-          "Formulář je dočasně nedostupný. Napište prosím na info@kouzlimesrobinem.cz nebo volejte 775 950 328.",
+          "Formulář je dočasně nedostupný. Napište prosím na kouzlimesrobinem@email.cz nebo volejte 775 950 328.",
       },
       { status: 503 },
     );

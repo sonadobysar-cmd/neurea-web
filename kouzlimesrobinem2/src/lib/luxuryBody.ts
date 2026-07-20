@@ -270,7 +270,7 @@ export const luxuryBodyHtml = `<svg width="0" height="0" style="position:absolut
     <p class="eyebrow" style="justify-content:center"><svg class="st"><use href="#star"/></svg>Kontakt</p>
     <h2>Domluvme si <em>termín.</em></h2>
     <a class="big-tel" href="tel:+420775950328">775 950 328</a>
-    <a class="mail" href="mailto:info@kouzlimesrobinem.cz">info@kouzlimesrobinem.cz</a>
+    <a class="mail" href="mailto:kouzlimesrobinem@email.cz">kouzlimesrobinem@email.cz</a>
     <form class="contact-form" id="contactForm" novalidate>
       <input type="text" name="website" class="contact-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
       <input name="name" type="text" required placeholder="Jméno *" autocomplete="name">

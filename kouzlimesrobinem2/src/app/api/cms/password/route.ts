@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { changeAdminPassword, isAdminAuthenticated } from "@/lib/cms/auth";
+import { changeAdminPassword, createAdminSession, isAdminAuthenticated } from "@/lib/cms/auth";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -41,5 +41,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: result.error }, { status: 400 });
   }
 
+  await createAdminSession(result.version);
   return NextResponse.json({ ok: true });
 }

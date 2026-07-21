@@ -342,9 +342,11 @@ export function AdminEditor({ initial }: { initial: SiteContent }) {
           <Field label="Eyebrow" value={content.pricing.eyebrow} onChange={(v) => patch("pricing", { ...content.pricing, eyebrow: v })} />
           <Field label="Nadpis před" value={content.pricing.titleBefore} onChange={(v) => patch("pricing", { ...content.pricing, titleBefore: v })} />
           <Field label="Zvýraznění" value={content.pricing.titleEm} onChange={(v) => patch("pricing", { ...content.pricing, titleEm: v })} />
+          <Field label="Cena — popisek" value={content.pricing.priceLabel} onChange={(v) => patch("pricing", { ...content.pricing, priceLabel: v })} />
           <Field label="Cena — částka" value={content.pricing.priceAmount} onChange={(v) => patch("pricing", { ...content.pricing, priceAmount: v })} />
           <Field label="Měna" value={content.pricing.priceCurrency} onChange={(v) => patch("pricing", { ...content.pricing, priceCurrency: v })} />
           <Field label="Pod cenou" value={content.pricing.pricePer} onChange={(v) => patch("pricing", { ...content.pricing, pricePer: v })} />
+          <Field label="Doprava — popisek" value={content.pricing.travelLabel} onChange={(v) => patch("pricing", { ...content.pricing, travelLabel: v })} />
           <Field label="Doprava — částka" value={content.pricing.travelAmount} onChange={(v) => patch("pricing", { ...content.pricing, travelAmount: v })} />
           <Field label="Jednotka dopravy" value={content.pricing.travelUnit} onChange={(v) => patch("pricing", { ...content.pricing, travelUnit: v })} />
           <Field label="Popis dopravy" value={content.pricing.travelPer} onChange={(v) => patch("pricing", { ...content.pricing, travelPer: v })} />

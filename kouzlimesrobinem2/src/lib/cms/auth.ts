@@ -8,22 +8,26 @@ import {
 } from "./passwordStore";
 
 const COOKIE = "robin_admin_session";
-const MAX_AGE = 60 * 60 * 24 * 14; // 14 dní
+const MAX_AGE_MS = 60 * 60 * 24 * 14 * 1000; // 14 dní
 
-function secret(): string {
-  return (
-    process.env.ADMIN_SECRET?.trim() ||
-    process.env.ADMIN_PASSWORD?.trim() ||
-    "robin-dev-only-secret"
-  );
+function requireAdminSecret(): string {
+  const secret = process.env.ADMIN_SECRET?.trim();
+  if (secret) return secret;
+  if (process.env.NODE_ENV === "production") {
+    throw new Error("ADMIN_SECRET must be set in production");
+  }
+  return "robin-dev-only-secret";
 }
 
 function sign(value: string): string {
-  return createHmac("sha256", secret()).update(value).digest("hex");
+  return createHmac("sha256", requireAdminSecret()).update(value).digest("hex");
 }
 
-function getBootstrapPassword(): string {
-  return process.env.ADMIN_PASSWORD?.trim() || "robin2026";
+function getBootstrapPassword(): string | null {
+  const fromEnv = process.env.ADMIN_PASSWORD?.trim();
+  if (fromEnv) return fromEnv;
+  if (process.env.NODE_ENV === "production") return null;
+  return "robin2026";
 }
 
 function safeEqualString(a: string, b: string): boolean {
@@ -38,13 +42,15 @@ export async function verifyPassword(input: string): Promise<boolean> {
   if (stored) {
     return verifyPasswordRecord(input, stored);
   }
-  return safeEqualString(input, getBootstrapPassword());
+  const bootstrap = getBootstrapPassword();
+  if (!bootstrap) return false;
+  return safeEqualString(input, bootstrap);
 }
 
 export async function changeAdminPassword(
   currentPassword: string,
   newPassword: string,
-): Promise<{ ok: true } | { ok: false; error: string }> {
+): Promise<{ ok: true; version: number } | { ok: false; error: string }> {
   if (!(await verifyPassword(currentPassword))) {
     return { ok: false, error: "Současné heslo nesedí." };
   }
@@ -55,19 +61,36 @@ export async function changeAdminPassword(
     return { ok: false, error: "Nové heslo musí být jiné než současné." };
   }
 
-  await writeStoredAuth(createPasswordRecord(newPassword));
-  return { ok: true };
+  const current = await readStoredAuth();
+  const version = (current?.version ?? 0) + 1;
+  await writeStoredAuth(createPasswordRecord(newPassword, version));
+  return { ok: true, version };
 }
 
-export async function createAdminSession(): Promise<void> {
-  const token = `ok.${Date.now()}`;
+function trySign(value: string): string | null {
+  try {
+    return sign(value);
+  } catch {
+    return null;
+  }
+}
+
+export async function createAdminSession(version?: number): Promise<void> {
+  const stored = await readStoredAuth();
+  const ver = version ?? stored?.version ?? 0;
+  const issuedAt = Date.now();
+  const token = `ok.${ver}.${issuedAt}`;
+  const signature = trySign(token);
+  if (!signature) {
+    throw new Error("ADMIN_SECRET must be set in production");
+  }
   const jar = await cookies();
-  jar.set(COOKIE, `${token}.${sign(token)}`, {
+  jar.set(COOKIE, `${token}.${signature}`, {
     httpOnly: true,
-    sameSite: "lax",
+    sameSite: "strict",
     secure: process.env.NODE_ENV === "production",
     path: "/",
-    maxAge: MAX_AGE,
+    maxAge: Math.floor(MAX_AGE_MS / 1000),
   });
 }
 
@@ -81,13 +104,25 @@ export async function isAdminAuthenticated(): Promise<boolean> {
   const raw = jar.get(COOKIE)?.value;
   if (!raw) return false;
   const parts = raw.split(".");
-  if (parts.length < 3) return false;
+  if (parts.length < 4) return false;
   const sig = parts.pop()!;
   const token = parts.join(".");
-  const expected = sign(token);
+  const expected = trySign(token);
+  if (!expected) return false;
   try {
-    return timingSafeEqual(Buffer.from(sig), Buffer.from(expected));
+    if (!timingSafeEqual(Buffer.from(sig), Buffer.from(expected))) return false;
   } catch {
     return false;
   }
+
+  const [, verStr, issuedStr] = token.split(".");
+  const issuedAt = Number(issuedStr);
+  const cookieVersion = Number(verStr);
+  if (!Number.isFinite(issuedAt) || Date.now() - issuedAt > MAX_AGE_MS) return false;
+
+  const stored = await readStoredAuth();
+  const currentVersion = stored?.version ?? 0;
+  if (cookieVersion !== currentVersion) return false;
+
+  return true;
 }

@@ -5,6 +5,30 @@ function esc(s: string): string {
   return escapeHtml(s);
 }
 
+function safeUrl(s: string): string {
+  const v = s.trim();
+  if (!v) return "";
+  if (v.startsWith("/") && !v.startsWith("//")) return esc(v);
+  try {
+    const u = new URL(v);
+    if (u.protocol === "https:" || u.protocol === "http:") return esc(u.toString());
+  } catch {
+    /* fall through */
+  }
+  return "";
+}
+
+function safeTel(s: string): string {
+  const cleaned = s.replace(/[^\d+]/g, "");
+  return esc(cleaned || s);
+}
+
+function safeMailto(s: string): string {
+  const v = s.trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return "";
+  return esc(v);
+}
+
 export function renderLuxuryBody(content: SiteContent, template: string): string {
   const c = content;
   const card = (i: number) => c.disciplines.cards[i];
@@ -13,7 +37,7 @@ export function renderLuxuryBody(content: SiteContent, template: string): string
   const galleryHtml = c.gallery.images
     .map((img) => {
       const wide = img.wide ? " wide" : "";
-      return `<figure class="gph${wide}" data-lightbox><img src="${esc(img.src)}" alt="${esc(img.alt)}"></figure>`;
+      return `<figure class="gph${wide}" data-lightbox><img src="${safeUrl(img.src)}" alt="${esc(img.alt)}"></figure>`;
     })
     .join("\n      ");
 
@@ -25,7 +49,7 @@ export function renderLuxuryBody(content: SiteContent, template: string): string
         <div class="pc-inner">
           <div class="pc-face">
             <div class="idx"><b>${esc(item.letter)}</b><svg class="st"><use href="#star"/></svg></div>
-            <div class="ph"><img src="${esc(item.image)}" alt="${esc(item.imageAlt)}"></div>
+            <div class="ph"><img src="${safeUrl(item.image)}" alt="${esc(item.imageAlt)}"></div>
             <h3>${esc(item.title)}</h3>
             <p>${esc(item.text)}</p>
             <div class="idx flip"><b>${esc(item.letter)}</b><svg class="st"><use href="#star"/></svg></div>
@@ -61,7 +85,7 @@ export function renderLuxuryBody(content: SiteContent, template: string): string
     "{{cms.hero.lead}}": esc(c.hero.lead),
     "{{cms.hero.ctaPrimary}}": esc(c.hero.ctaPrimary),
     "{{cms.hero.ctaSecondary}}": esc(c.hero.ctaSecondary),
-    "{{cms.hero.image}}": esc(c.hero.image),
+    "{{cms.hero.image}}": safeUrl(c.hero.image),
     "{{cms.hero.imageAlt}}": esc(c.hero.imageAlt),
     "{{cms.hero.seal}}": esc(c.hero.seal),
     "{{cms.disciplines.eyebrow}}": esc(c.disciplines.eyebrow),
@@ -100,14 +124,14 @@ export function renderLuxuryBody(content: SiteContent, template: string): string
     "{{cms.about.lead1}}": esc(c.about.lead1),
     "{{cms.about.lead2}}": esc(c.about.lead2),
     "{{cms.about.signature}}": esc(c.about.signature),
-    "{{cms.about.image}}": esc(c.about.image),
+    "{{cms.about.image}}": safeUrl(c.about.image),
     "{{cms.about.imageAlt}}": esc(c.about.imageAlt),
     "{{cms.contact.eyebrow}}": esc(c.contact.eyebrow),
     "{{cms.contact.titleBefore}}": esc(c.contact.titleBefore),
     "{{cms.contact.titleEm}}": esc(c.contact.titleEm),
     "{{cms.contact.phoneDisplay}}": esc(c.contact.phoneDisplay),
-    "{{cms.contact.phoneHref}}": esc(c.contact.phoneHref),
-    "{{cms.contact.email}}": esc(c.contact.email),
+    "{{cms.contact.phoneHref}}": safeTel(c.contact.phoneHref),
+    "{{cms.contact.email}}": safeMailto(c.contact.email),
     "{{cms.contact.thanks}}": esc(c.contact.thanks),
     "{{cms.footer.copy}}": esc(c.footer.copy),
   };

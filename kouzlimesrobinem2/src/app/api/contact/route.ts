@@ -7,6 +7,7 @@ const MAX_NAME = 120;
 const MAX_EMAIL = 254;
 const MAX_PHONE = 30;
 const MAX_MESSAGE = 5000;
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 type RateEntry = { count: number; resetAt: number };
 
@@ -29,16 +30,21 @@ function resolveFrom(): string {
 }
 
 function getClientIp(request: Request): string {
+  const vercelIp = request.headers.get("x-vercel-forwarded-for")?.split(",")[0]?.trim();
+  if (vercelIp) return vercelIp;
   return (
-    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
     request.headers.get("x-real-ip")?.trim() ||
+    request.headers.get("x-forwarded-for")?.split(",").pop()?.trim() ||
     "unknown"
   );
 }
 
 async function verifyTurnstile(token: string, ip: string): Promise<boolean> {
   const secret = process.env.TURNSTILE_SECRET_KEY?.trim();
-  if (!secret) return true;
+  if (!secret) {
+    if (process.env.NODE_ENV === "production") return false;
+    return true;
+  }
 
   if (!token) return false;
 
@@ -75,6 +81,19 @@ function isRateLimited(ip: string): boolean {
   return false;
 }
 
+function sanitizeSubjectPart(s: string): string {
+  return s.replace(/[\r\n\u0000-\u001f]/g, " ").trim().slice(0, 80);
+}
+
+function resolveToEmail(candidate: string): string | null {
+  const pinned = process.env.CONTACT_TO_EMAIL?.trim();
+  if (pinned && EMAIL_RE.test(pinned)) return pinned;
+  const email = candidate.trim();
+  if (!EMAIL_RE.test(email)) return null;
+  if (email.includes(",") || email.includes(";")) return null;
+  return email;
+}
+
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
@@ -98,9 +117,9 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "Chybí údaje." }, { status: 400 });
   }
 
-  const name = "name" in body ? String(body.name ?? "").trim() : "";
-  const email = "email" in body ? String(body.email ?? "").trim() : "";
-  const phone = "phone" in body ? String(body.phone ?? "").trim() : "";
+  const name = "name" in body ? String(body.name ?? "").trim().slice(0, MAX_NAME) : "";
+  const email = "email" in body ? String(body.email ?? "").trim().slice(0, MAX_EMAIL) : "";
+  const phone = "phone" in body ? String(body.phone ?? "").trim().slice(0, MAX_PHONE) : "";
   const message = "message" in body ? String(body.message ?? "").trim().slice(0, MAX_MESSAGE) : "";
   const website = "website" in body ? String(body.website ?? "").trim() : "";
   const turnstileToken =
@@ -111,7 +130,17 @@ export async function POST(request: Request) {
   }
 
   const turnstileSecret = process.env.TURNSTILE_SECRET_KEY?.trim();
-  if (turnstileSecret) {
+  if (process.env.NODE_ENV === "production" && !turnstileSecret) {
+    return NextResponse.json(
+      {
+        ok: false,
+        error: "Formulář je dočasně nedostupný. Zkuste to prosím později.",
+      },
+      { status: 503 },
+    );
+  }
+
+  if (turnstileSecret || process.env.NODE_ENV === "production") {
     const valid = await verifyTurnstile(turnstileToken, ip);
     if (!valid) {
       return NextResponse.json(
@@ -121,33 +150,38 @@ export async function POST(request: Request) {
     }
   }
 
-  if (!name || name.length > MAX_NAME) {
+  if (!name) {
     return NextResponse.json({ ok: false, error: "Zadejte jméno." }, { status: 400 });
   }
-  if (!email || email.length > MAX_EMAIL || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  if (!email || !EMAIL_RE.test(email)) {
     return NextResponse.json({ ok: false, error: "Zadejte platný e-mail." }, { status: 400 });
   }
-  if (!phone || phone.length > MAX_PHONE || phone.replace(/\D/g, "").length < 9) {
+  if (!phone || phone.replace(/\D/g, "").length < 9) {
     return NextResponse.json({ ok: false, error: "Zadejte platné telefonní číslo." }, { status: 400 });
   }
 
   const apiKey = process.env.RESEND_API_KEY?.trim();
+  const site = await readSiteContent();
+  const fallbackEmail = resolveToEmail(site.contact.email) || "kouzlimesrobinem@email.cz";
+
   if (!apiKey) {
     console.error("[robin/contact] RESEND_API_KEY missing");
-    const site = await readSiteContent();
-    const fallbackEmail = site.contact.email || "kouzlimesrobinem@email.cz";
     return NextResponse.json(
       {
         ok: false,
-        error:
-          `Formulář je dočasně nedostupný. Napište prosím na ${fallbackEmail} nebo volejte 775 950 328.`,
+        error: `Formulář je dočasně nedostupný. Napište prosím na ${fallbackEmail} nebo volejte ${site.contact.phoneDisplay}.`,
       },
       { status: 503 },
     );
   }
 
-  const site = await readSiteContent();
-  const TO_EMAIL = site.contact.email || "kouzlimesrobinem@email.cz";
+  const TO_EMAIL = resolveToEmail(site.contact.email);
+  if (!TO_EMAIL) {
+    return NextResponse.json(
+      { ok: false, error: "Formulář je dočasně nedostupný." },
+      { status: 503 },
+    );
+  }
 
   const plain = [
     "Nová zpráva z webu Kouzlíme s Robinem",
@@ -178,7 +212,7 @@ export async function POST(request: Request) {
       from: resolveFrom(),
       to: [TO_EMAIL],
       reply_to: email,
-      subject: `[Kouzlíme s Robinem] Zpráva od ${name}`,
+      subject: `[Kouzlíme s Robinem] Zpráva od ${sanitizeSubjectPart(name)}`,
       text: plain,
       html,
     }),

@@ -411,6 +411,13 @@
         navToggle.setAttribute("aria-label", "Otevřít menu");
       });
     });
+    document.addEventListener("click", function (e) {
+      if (!navEl.classList.contains("is-open")) return;
+      if (navEl.contains(e.target)) return;
+      navEl.classList.remove("is-open");
+      navToggle.setAttribute("aria-expanded", "false");
+      navToggle.setAttribute("aria-label", "Otevřít menu");
+    });
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape") {
         navEl.classList.remove("is-open");

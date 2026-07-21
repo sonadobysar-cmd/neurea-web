@@ -8,15 +8,15 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const assets = join(root, "assets");
 const srcDir = "/Users/soni/Downloads/Návrh bez názvu-15";
 
-/** Zdroj → zrychlený clip do mockupu (~3,5 s při 4×) */
+/** ~5 s clip (20 s zdroje @ 4×) — stačí na delší ukázky */
 const clips = [
-  { n: 1, out: "web-01.mp4", take: 14 },
-  { n: 2, out: "web-02.mp4", take: 14 },
-  { n: 3, out: "web-03.mp4", take: 14 },
-  { n: 4, out: "web-04.mp4", take: 14 },
-  { n: 5, out: "web-05.mp4", take: 14 },
-  { n: 6, out: "web-06.mp4", take: 14 },
-  { n: 7, out: "web-07.mp4", take: 14 },
+  { n: 1, out: "web-01.mp4", take: 20, scale: "540:-2" },
+  { n: 2, out: "web-02.mp4", take: 20, scale: "540:-2" },
+  { n: 3, out: "web-03.mp4", take: 20, scale: "540:-2" },
+  { n: 4, out: "web-04.mp4", take: 20, scale: "540:-2" },
+  { n: 5, out: "web-05.mp4", take: 20, scale: "720:-2" },
+  { n: 6, out: "web-06.mp4", take: 20, scale: "720:-2" },
+  { n: 7, out: "web-07.mp4", take: 20, scale: "720:-2" },
 ];
 
 const SPEED = 4;
@@ -41,7 +41,7 @@ for (const clip of clips) {
       "-i",
       input,
       "-vf",
-      `setpts=PTS/${SPEED},scale=540:-2`,
+      `setpts=PTS/${SPEED},scale=${clip.scale}`,
       "-an",
       "-c:v",
       "libx264",

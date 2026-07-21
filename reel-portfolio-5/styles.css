@@ -4,7 +4,7 @@
   --paper: #f0ebe8;
   --burg: #9e4d6a;
   --gold: #c9a468;
-  --dur: 30s;
+  --dur: 42s;
 }
 
 *,
@@ -278,7 +278,7 @@ em {
   opacity: 0.75;
 }
 
-/* ——— HOOK 0–2.6s = 0–8.7% ——— */
+/* ——— HOOK 0–3s = 0–7.1% ——— */
 #s1 {
   animation: s1 var(--dur) both;
 }
@@ -287,10 +287,10 @@ em {
   0% {
     opacity: 1;
   }
-  7.5% {
+  6.2% {
     opacity: 1;
   }
-  9% {
+  7.5% {
     opacity: 0;
   }
   100% {
@@ -363,23 +363,23 @@ em {
   }
 }
 
-/* ——— CENA 2.6–5.2s = 8.7–17.3% ——— */
+/* ——— CENA 3–6.2s = 7.1–14.8% ——— */
 #s2 {
   animation: s2 var(--dur) both;
 }
 
 @keyframes s2 {
   0%,
-  8% {
+  6.5% {
     opacity: 0;
   }
-  9.5% {
+  7.8% {
     opacity: 1;
   }
-  16% {
+  13.8% {
     opacity: 1;
   }
-  18% {
+  15.2% {
     opacity: 0;
   }
   100% {
@@ -402,7 +402,7 @@ em {
 
 #s2 .in {
   opacity: 0;
-  animation: pop-in 0.65s 2.8s cubic-bezier(0.2, 0.9, 0.2, 1) both;
+  animation: pop-in 0.65s 3.2s cubic-bezier(0.2, 0.9, 0.2, 1) both;
 }
 
 @keyframes pop-in {
@@ -422,6 +422,10 @@ em {
 .mock {
   justify-content: flex-start;
   padding-top: 200px;
+}
+
+.mock-pc {
+  padding-top: 220px;
 }
 
 .phone {
@@ -464,7 +468,7 @@ em {
   position: relative;
 }
 
-.mock-vid {
+.phone-screen .mock-vid {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -483,7 +487,84 @@ em {
   pointer-events: none;
 }
 
-@keyframes phone-in {
+/* ——— LAPTOP / PC ——— */
+.laptop {
+  position: relative;
+  width: 920px;
+  margin-top: 8px;
+}
+
+.laptop-lid {
+  position: relative;
+  background: linear-gradient(180deg, #2c2828 0%, #161414 100%);
+  border-radius: 18px 18px 8px 8px;
+  padding: 14px 14px 10px;
+  box-shadow:
+    0 30px 70px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.laptop-camera {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #0a0808;
+  box-shadow: inset 0 0 0 1.5px #2a2222;
+  margin: 0 auto 10px;
+}
+
+.laptop-screen {
+  width: 100%;
+  height: 580px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #0c0a0a;
+  position: relative;
+}
+
+.laptop-screen .mock-vid {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+.laptop-base {
+  height: 22px;
+  margin: 0 -18px;
+  background: linear-gradient(180deg, #3a3434 0%, #1a1616 55%, #121010 100%);
+  border-radius: 0 0 14px 14px;
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  position: relative;
+}
+
+.laptop-indent {
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 6px;
+  border-radius: 0 0 6px 6px;
+  background: #0e0c0c;
+}
+
+.laptop-glow {
+  position: absolute;
+  inset: 20% -6% -10%;
+  background: radial-gradient(ellipse at center, rgba(158, 77, 106, 0.32) 0%, transparent 70%);
+  filter: blur(40px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+@keyframes device-in {
   from {
     opacity: 0;
     transform: translateY(50px) scale(0.95);
@@ -494,7 +575,7 @@ em {
   }
 }
 
-/* 7 mockups × 2.8s from 5.2s → 24.8s  (of 30s) */
+/* 7 mockups × 4.4s from 6.2s → 37s (of 42s) */
 #m1 { animation: m1 var(--dur) both; }
 #m2 { animation: m2 var(--dur) both; }
 #m3 { animation: m3 var(--dur) both; }
@@ -504,96 +585,96 @@ em {
 #m7 { animation: m7 var(--dur) both; }
 
 @keyframes m1 {
-  0%, 16.5% { opacity: 0; }
-  18% { opacity: 1; }
-  25.5% { opacity: 1; }
-  27.2% { opacity: 0; }
+  0%, 13.8% { opacity: 0; }
+  15.2% { opacity: 1; }
+  24.3% { opacity: 1; }
+  25.7% { opacity: 0; }
   100% { opacity: 0; }
 }
 @keyframes m2 {
-  0%, 25.8% { opacity: 0; }
-  27.3% { opacity: 1; }
+  0%, 24.5% { opacity: 0; }
+  25.9% { opacity: 1; }
   34.8% { opacity: 1; }
-  36.5% { opacity: 0; }
+  36.2% { opacity: 0; }
   100% { opacity: 0; }
 }
 @keyframes m3 {
-  0%, 35.2% { opacity: 0; }
-  36.7% { opacity: 1; }
-  44.2% { opacity: 1; }
-  45.9% { opacity: 0; }
+  0%, 34.9% { opacity: 0; }
+  36.3% { opacity: 1; }
+  45.2% { opacity: 1; }
+  46.7% { opacity: 0; }
   100% { opacity: 0; }
 }
 @keyframes m4 {
-  0%, 44.5% { opacity: 0; }
-  46% { opacity: 1; }
-  53.5% { opacity: 1; }
-  55.2% { opacity: 0; }
+  0%, 45.5% { opacity: 0; }
+  46.9% { opacity: 1; }
+  55.7% { opacity: 1; }
+  57.1% { opacity: 0; }
   100% { opacity: 0; }
 }
 @keyframes m5 {
-  0%, 53.8% { opacity: 0; }
-  55.3% { opacity: 1; }
-  62.8% { opacity: 1; }
-  64.5% { opacity: 0; }
+  0%, 55.9% { opacity: 0; }
+  57.3% { opacity: 1; }
+  66.2% { opacity: 1; }
+  67.6% { opacity: 0; }
   100% { opacity: 0; }
 }
 @keyframes m6 {
-  0%, 63.2% { opacity: 0; }
-  64.7% { opacity: 1; }
-  72.2% { opacity: 1; }
-  73.9% { opacity: 0; }
+  0%, 66.4% { opacity: 0; }
+  67.8% { opacity: 1; }
+  76.7% { opacity: 1; }
+  78.1% { opacity: 0; }
   100% { opacity: 0; }
 }
 @keyframes m7 {
-  0%, 72.5% { opacity: 0; }
-  74% { opacity: 1; }
-  81.5% { opacity: 1; }
-  83.2% { opacity: 0; }
+  0%, 76.9% { opacity: 0; }
+  78.3% { opacity: 1; }
+  87.1% { opacity: 1; }
+  88.6% { opacity: 0; }
   100% { opacity: 0; }
 }
 
-#m1 .phone { animation: phone-in 0.55s 5.3s cubic-bezier(0.2, 0.85, 0.2, 1) both; }
-#m2 .phone { animation: phone-in 0.55s 8.1s cubic-bezier(0.2, 0.85, 0.2, 1) both; }
-#m3 .phone { animation: phone-in 0.55s 10.9s cubic-bezier(0.2, 0.85, 0.2, 1) both; }
-#m4 .phone { animation: phone-in 0.55s 13.7s cubic-bezier(0.2, 0.85, 0.2, 1) both; }
-#m5 .phone { animation: phone-in 0.55s 16.5s cubic-bezier(0.2, 0.85, 0.2, 1) both; }
-#m6 .phone { animation: phone-in 0.55s 19.3s cubic-bezier(0.2, 0.85, 0.2, 1) both; }
-#m7 .phone { animation: phone-in 0.55s 22.1s cubic-bezier(0.2, 0.85, 0.2, 1) both; }
+#m1 .phone { animation: device-in 0.6s 6.3s cubic-bezier(0.2, 0.85, 0.2, 1) both; }
+#m2 .phone { animation: device-in 0.6s 10.7s cubic-bezier(0.2, 0.85, 0.2, 1) both; }
+#m3 .phone { animation: device-in 0.6s 15.1s cubic-bezier(0.2, 0.85, 0.2, 1) both; }
+#m4 .phone { animation: device-in 0.6s 19.5s cubic-bezier(0.2, 0.85, 0.2, 1) both; }
+#m5 .laptop { animation: device-in 0.65s 23.9s cubic-bezier(0.2, 0.85, 0.2, 1) both; }
+#m6 .laptop { animation: device-in 0.65s 28.3s cubic-bezier(0.2, 0.85, 0.2, 1) both; }
+#m7 .laptop { animation: device-in 0.65s 32.7s cubic-bezier(0.2, 0.85, 0.2, 1) both; }
 
-#m1 .eyebrow, #m1 .label { opacity: 0; animation: fade-up 0.4s 5.35s both; }
-#m2 .eyebrow, #m2 .label { opacity: 0; animation: fade-up 0.4s 8.15s both; }
-#m3 .eyebrow, #m3 .label { opacity: 0; animation: fade-up 0.4s 10.95s both; }
-#m4 .eyebrow, #m4 .label { opacity: 0; animation: fade-up 0.4s 13.75s both; }
-#m5 .eyebrow, #m5 .label { opacity: 0; animation: fade-up 0.4s 16.55s both; }
-#m6 .eyebrow, #m6 .label { opacity: 0; animation: fade-up 0.4s 19.35s both; }
-#m7 .eyebrow, #m7 .label { opacity: 0; animation: fade-up 0.4s 22.15s both; }
+#m1 .eyebrow, #m1 .label { opacity: 0; animation: fade-up 0.45s 6.4s both; }
+#m2 .eyebrow, #m2 .label { opacity: 0; animation: fade-up 0.45s 10.8s both; }
+#m3 .eyebrow, #m3 .label { opacity: 0; animation: fade-up 0.45s 15.2s both; }
+#m4 .eyebrow, #m4 .label { opacity: 0; animation: fade-up 0.45s 19.6s both; }
+#m5 .eyebrow, #m5 .label { opacity: 0; animation: fade-up 0.45s 24.0s both; }
+#m6 .eyebrow, #m6 .label { opacity: 0; animation: fade-up 0.45s 28.4s both; }
+#m7 .eyebrow, #m7 .label { opacity: 0; animation: fade-up 0.45s 32.8s both; }
 
-#m1 .label { animation-delay: 5.5s; }
-#m2 .label { animation-delay: 8.3s; }
-#m3 .label { animation-delay: 11.1s; }
-#m4 .label { animation-delay: 13.9s; }
-#m5 .label { animation-delay: 16.7s; }
-#m6 .label { animation-delay: 19.5s; }
-#m7 .label { animation-delay: 22.3s; }
+#m1 .label { animation-delay: 6.6s; }
+#m2 .label { animation-delay: 11.0s; }
+#m3 .label { animation-delay: 15.4s; }
+#m4 .label { animation-delay: 19.8s; }
+#m5 .label { animation-delay: 24.2s; }
+#m6 .label { animation-delay: 28.6s; }
+#m7 .label { animation-delay: 33.0s; }
 
-/* ——— FILTR 24.8–27.2s = 82.7–90.7% ——— */
+/* ——— FILTR 37–39.5s = 88.1–94% ——— */
 #s6 {
   animation: s6 var(--dur) both;
 }
 
 @keyframes s6 {
   0%,
-  82% {
+  87.5% {
     opacity: 0;
   }
-  83.5% {
+  89% {
     opacity: 1;
   }
-  89.5% {
+  93% {
     opacity: 1;
   }
-  91.5% {
+  94.5% {
     opacity: 0;
   }
   100% {
@@ -612,20 +693,20 @@ em {
 
 #s6 .in {
   opacity: 0;
-  animation: pop-in 0.6s 24.9s cubic-bezier(0.2, 0.9, 0.2, 1) both;
+  animation: pop-in 0.6s 37.1s cubic-bezier(0.2, 0.9, 0.2, 1) both;
 }
 
-/* ——— CTA 27.2–30s = 90.7–100% ——— */
+/* ——— CTA 39.5–42s = 94–100% ——— */
 #s7 {
   animation: s7 var(--dur) both;
 }
 
 @keyframes s7 {
   0%,
-  90% {
+  93.5% {
     opacity: 0;
   }
-  91.5% {
+  95% {
     opacity: 1;
   }
   100% {
@@ -674,5 +755,5 @@ em {
 
 .cta-box {
   opacity: 0;
-  animation: pop-in 0.65s 27.3s cubic-bezier(0.2, 0.9, 0.2, 1) both;
+  animation: pop-in 0.65s 39.6s cubic-bezier(0.2, 0.9, 0.2, 1) both;
 }

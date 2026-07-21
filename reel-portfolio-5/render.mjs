@@ -12,21 +12,21 @@ const qaDir = join(root, "qa");
 const outVideo = join(root, "reel.mp4");
 
 const FPS = 24;
-const DURATION = 30;
+const DURATION = 42;
 const TOTAL_FRAMES = FPS * DURATION;
 
 const QA_FRAMES = [
-  { name: "01-hook.png", frame: Math.round(1.4 * FPS) },
-  { name: "02-price.png", frame: Math.round(3.8 * FPS) },
-  { name: "03-mock-gloss.png", frame: Math.round(6.6 * FPS) },
-  { name: "04-mock-reality.png", frame: Math.round(9.4 * FPS) },
-  { name: "05-mock-void.png", frame: Math.round(12.2 * FPS) },
-  { name: "06-mock-lume.png", frame: Math.round(15.0 * FPS) },
-  { name: "07-mock-matcha.png", frame: Math.round(17.8 * FPS) },
-  { name: "08-mock-rokyne.png", frame: Math.round(20.6 * FPS) },
-  { name: "09-mock-vini.png", frame: Math.round(23.4 * FPS) },
-  { name: "10-filter.png", frame: Math.round(25.8 * FPS) },
-  { name: "11-cta.png", frame: Math.round(28.5 * FPS) },
+  { name: "01-hook.png", frame: Math.round(1.5 * FPS) },
+  { name: "02-price.png", frame: Math.round(4.5 * FPS) },
+  { name: "03-mock-gloss.png", frame: Math.round(8.4 * FPS) },
+  { name: "04-mock-reality.png", frame: Math.round(12.8 * FPS) },
+  { name: "05-mock-void.png", frame: Math.round(17.2 * FPS) },
+  { name: "06-mock-lume.png", frame: Math.round(21.6 * FPS) },
+  { name: "07-mock-matcha-pc.png", frame: Math.round(26.0 * FPS) },
+  { name: "08-mock-rokyne-pc.png", frame: Math.round(30.4 * FPS) },
+  { name: "09-mock-vini-pc.png", frame: Math.round(34.8 * FPS) },
+  { name: "10-filter.png", frame: Math.round(38.2 * FPS) },
+  { name: "11-cta.png", frame: Math.round(40.5 * FPS) },
 ];
 
 if (!ffmpegPath) {

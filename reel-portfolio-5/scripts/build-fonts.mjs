@@ -4,36 +4,31 @@ import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 
+/** Stejné fonty jako na niadobysar.com */
 const fonts = [
   {
     family: "Bodoni Moda",
-    weight: 700,
+    weight: "400 600",
     style: "normal",
     url: "https://raw.githubusercontent.com/google/fonts/main/ofl/bodonimoda/BodoniModa%5Bopsz%2Cwght%5D.ttf",
   },
   {
     family: "Bodoni Moda",
-    weight: 700,
+    weight: "400 600",
     style: "italic",
     url: "https://raw.githubusercontent.com/google/fonts/main/ofl/bodonimoda/BodoniModa-Italic%5Bopsz%2Cwght%5D.ttf",
   },
   {
     family: "Outfit",
-    weight: 300,
+    weight: "300 500",
     style: "normal",
     url: "https://raw.githubusercontent.com/google/fonts/main/ofl/outfit/Outfit%5Bwght%5D.ttf",
   },
   {
-    family: "Outfit",
-    weight: 600,
+    family: "Pinyon Script",
+    weight: "400",
     style: "normal",
-    url: "https://raw.githubusercontent.com/google/fonts/main/ofl/outfit/Outfit%5Bwght%5D.ttf",
-  },
-  {
-    family: "Outfit",
-    weight: 800,
-    style: "normal",
-    url: "https://raw.githubusercontent.com/google/fonts/main/ofl/outfit/Outfit%5Bwght%5D.ttf",
+    url: "https://raw.githubusercontent.com/google/fonts/main/ofl/pinyonscript/PinyonScript-Regular.ttf",
   },
 ];
 

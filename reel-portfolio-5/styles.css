@@ -24,8 +24,8 @@ body {
 }
 
 body {
-  font-family: "Outfit", sans-serif;
-  font-weight: 400;
+  font-family: "Outfit", system-ui, sans-serif;
+  font-weight: 300;
   color: var(--cream);
   -webkit-font-smoothing: antialiased;
 }
@@ -105,11 +105,12 @@ body {
   left: 50%;
   transform: translateX(-50%);
   z-index: 20;
-  font-size: 19px;
-  letter-spacing: 0.36em;
+  font-family: "Bodoni Moda", Georgia, "Times New Roman", serif;
+  font-size: 22px;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--paper);
-  opacity: 0.55;
+  opacity: 0.65;
   font-weight: 500;
   white-space: nowrap;
 }
@@ -204,14 +205,24 @@ body {
 
 h1,
 h2 {
-  font-family: "Bodoni Moda", serif;
+  font-family: "Bodoni Moda", Georgia, "Times New Roman", serif;
   font-weight: 500;
+  letter-spacing: -0.01em;
   line-height: 1.05;
 }
 
 em {
   font-style: italic;
+  font-weight: 500;
   color: var(--cream);
+}
+
+.script {
+  font-family: "Pinyon Script", cursive;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .star {
@@ -306,12 +317,13 @@ em {
 #s1 .l2 {
   animation-delay: 0.4s;
   font-size: 118px;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--burg);
   text-shadow: 0 0 60px rgba(158, 77, 106, 0.35);
 }
 
 #s1 .l2 em {
+  font-weight: 500;
   color: var(--burg);
 }
 
@@ -383,7 +395,7 @@ em {
   display: block;
   margin-top: 8px;
   font-size: 110px;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--burg);
   text-shadow: 0 0 50px rgba(158, 77, 106, 0.3);
 }
@@ -680,9 +692,12 @@ em {
   margin-bottom: 20px;
 }
 
-#s7 h2 em {
+#s7 h2 .script {
+  display: block;
+  margin-top: 4px;
   color: var(--burg);
-  font-size: 96px;
+  font-size: 120px;
+  line-height: 1;
 }
 
 .cta-line {

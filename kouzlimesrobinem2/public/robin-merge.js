@@ -500,9 +500,14 @@
         })
         .then(function (result) {
           if (!result.ok) throw new Error(result.data.error || "Odeslání se nepovedlo.");
-          contactForm.hidden = true;
           var err = document.getElementById("contactError");
           if (err) err.remove();
+          contactForm.reset();
+          resetTurnstileWidget();
+          if (btn) {
+            btn.disabled = true;
+            btn.textContent = "Odesláno";
+          }
           if (contactThanks) contactThanks.hidden = false;
         })
         .catch(function (err) {

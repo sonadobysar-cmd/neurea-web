@@ -4,7 +4,7 @@
   --paper: #f0ebe8;
   --burg: #9e4d6a;
   --gold: #c9a468;
-  --dur: 26s;
+  --dur: 30s;
 }
 
 *,
@@ -278,7 +278,7 @@ em {
   opacity: 0.75;
 }
 
-/* ——— HOOK 0–3.2s = 0–12.3% ——— */
+/* ——— HOOK 0–2.6s = 0–8.7% ——— */
 #s1 {
   animation: s1 var(--dur) both;
 }
@@ -287,10 +287,10 @@ em {
   0% {
     opacity: 1;
   }
-  11% {
+  7.5% {
     opacity: 1;
   }
-  12.5% {
+  9% {
     opacity: 0;
   }
   100% {
@@ -363,23 +363,23 @@ em {
   }
 }
 
-/* ——— CENA 3.2–6.5s = 12.3–25% ——— */
+/* ——— CENA 2.6–5.2s = 8.7–17.3% ——— */
 #s2 {
   animation: s2 var(--dur) both;
 }
 
 @keyframes s2 {
   0%,
-  12% {
+  8% {
     opacity: 0;
   }
-  13.5% {
+  9.5% {
     opacity: 1;
   }
-  23.5% {
+  16% {
     opacity: 1;
   }
-  25.5% {
+  18% {
     opacity: 0;
   }
   100% {
@@ -402,7 +402,7 @@ em {
 
 #s2 .in {
   opacity: 0;
-  animation: pop-in 0.65s 3.4s cubic-bezier(0.2, 0.9, 0.2, 1) both;
+  animation: pop-in 0.65s 2.8s cubic-bezier(0.2, 0.9, 0.2, 1) both;
 }
 
 @keyframes pop-in {
@@ -464,15 +464,14 @@ em {
   position: relative;
 }
 
-.scroll-shot {
+.mock-vid {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
   display: block;
-  transform: translate3d(0, 0, 0);
-  will-change: transform;
 }
 
 .phone-glow {
@@ -484,136 +483,10 @@ em {
   pointer-events: none;
 }
 
-/* MOCK 1 6.5–11.5s = 25–44.2% */
-#s3 {
-  animation: s3 var(--dur) both;
-}
-
-@keyframes s3 {
-  0%,
-  24% {
-    opacity: 0;
-  }
-  26% {
-    opacity: 1;
-  }
-  42.5% {
-    opacity: 1;
-  }
-  44.5% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-#s3 .phone {
-  animation: phone-in 0.8s 6.6s cubic-bezier(0.2, 0.85, 0.2, 1) both;
-}
-
-#s3 .scroll-shot {
-  animation: scroll-slow 4.6s 6.8s linear both;
-}
-
-#s3 .eyebrow,
-#s3 .label {
-  opacity: 0;
-  animation: fade-up 0.5s 6.7s both;
-}
-
-#s3 .label {
-  animation-delay: 7s;
-}
-
-/* MOCK 2 11.5–16.5s = 44.2–63.5% */
-#s4 {
-  animation: s4 var(--dur) both;
-}
-
-@keyframes s4 {
-  0%,
-  43.5% {
-    opacity: 0;
-  }
-  45.5% {
-    opacity: 1;
-  }
-  61.5% {
-    opacity: 1;
-  }
-  63.8% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-#s4 .phone {
-  animation: phone-in 0.8s 11.6s cubic-bezier(0.2, 0.85, 0.2, 1) both;
-}
-
-#s4 .scroll-shot {
-  animation: scroll-slow 4.6s 11.8s linear both;
-}
-
-#s4 .eyebrow,
-#s4 .label {
-  opacity: 0;
-  animation: fade-up 0.5s 11.7s both;
-}
-
-#s4 .label {
-  animation-delay: 12s;
-}
-
-/* MOCK 3 16.5–21s = 63.5–80.8% */
-#s5 {
-  animation: s5 var(--dur) both;
-}
-
-@keyframes s5 {
-  0%,
-  62.5% {
-    opacity: 0;
-  }
-  64.5% {
-    opacity: 1;
-  }
-  79% {
-    opacity: 1;
-  }
-  81.2% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-#s5 .phone {
-  animation: phone-in 0.8s 16.6s cubic-bezier(0.2, 0.85, 0.2, 1) both;
-}
-
-#s5 .scroll-shot {
-  animation: scroll-slow 4.2s 16.8s linear both;
-}
-
-#s5 .eyebrow,
-#s5 .label {
-  opacity: 0;
-  animation: fade-up 0.5s 16.7s both;
-}
-
-#s5 .label {
-  animation-delay: 17s;
-}
-
 @keyframes phone-in {
   from {
     opacity: 0;
-    transform: translateY(60px) scale(0.94);
+    transform: translateY(50px) scale(0.95);
   }
   to {
     opacity: 1;
@@ -621,33 +494,106 @@ em {
   }
 }
 
-@keyframes scroll-slow {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    /* scroll through most of the cropped screenshot inside the phone */
-    transform: translate3d(0, calc(-100% + 980px), 0);
-  }
+/* 7 mockups × 2.8s from 5.2s → 24.8s  (of 30s) */
+#m1 { animation: m1 var(--dur) both; }
+#m2 { animation: m2 var(--dur) both; }
+#m3 { animation: m3 var(--dur) both; }
+#m4 { animation: m4 var(--dur) both; }
+#m5 { animation: m5 var(--dur) both; }
+#m6 { animation: m6 var(--dur) both; }
+#m7 { animation: m7 var(--dur) both; }
+
+@keyframes m1 {
+  0%, 16.5% { opacity: 0; }
+  18% { opacity: 1; }
+  25.5% { opacity: 1; }
+  27.2% { opacity: 0; }
+  100% { opacity: 0; }
+}
+@keyframes m2 {
+  0%, 25.8% { opacity: 0; }
+  27.3% { opacity: 1; }
+  34.8% { opacity: 1; }
+  36.5% { opacity: 0; }
+  100% { opacity: 0; }
+}
+@keyframes m3 {
+  0%, 35.2% { opacity: 0; }
+  36.7% { opacity: 1; }
+  44.2% { opacity: 1; }
+  45.9% { opacity: 0; }
+  100% { opacity: 0; }
+}
+@keyframes m4 {
+  0%, 44.5% { opacity: 0; }
+  46% { opacity: 1; }
+  53.5% { opacity: 1; }
+  55.2% { opacity: 0; }
+  100% { opacity: 0; }
+}
+@keyframes m5 {
+  0%, 53.8% { opacity: 0; }
+  55.3% { opacity: 1; }
+  62.8% { opacity: 1; }
+  64.5% { opacity: 0; }
+  100% { opacity: 0; }
+}
+@keyframes m6 {
+  0%, 63.2% { opacity: 0; }
+  64.7% { opacity: 1; }
+  72.2% { opacity: 1; }
+  73.9% { opacity: 0; }
+  100% { opacity: 0; }
+}
+@keyframes m7 {
+  0%, 72.5% { opacity: 0; }
+  74% { opacity: 1; }
+  81.5% { opacity: 1; }
+  83.2% { opacity: 0; }
+  100% { opacity: 0; }
 }
 
-/* ——— FILTR 21–23.5s = 80.8–90.4% ——— */
+#m1 .phone { animation: phone-in 0.55s 5.3s cubic-bezier(0.2, 0.85, 0.2, 1) both; }
+#m2 .phone { animation: phone-in 0.55s 8.1s cubic-bezier(0.2, 0.85, 0.2, 1) both; }
+#m3 .phone { animation: phone-in 0.55s 10.9s cubic-bezier(0.2, 0.85, 0.2, 1) both; }
+#m4 .phone { animation: phone-in 0.55s 13.7s cubic-bezier(0.2, 0.85, 0.2, 1) both; }
+#m5 .phone { animation: phone-in 0.55s 16.5s cubic-bezier(0.2, 0.85, 0.2, 1) both; }
+#m6 .phone { animation: phone-in 0.55s 19.3s cubic-bezier(0.2, 0.85, 0.2, 1) both; }
+#m7 .phone { animation: phone-in 0.55s 22.1s cubic-bezier(0.2, 0.85, 0.2, 1) both; }
+
+#m1 .eyebrow, #m1 .label { opacity: 0; animation: fade-up 0.4s 5.35s both; }
+#m2 .eyebrow, #m2 .label { opacity: 0; animation: fade-up 0.4s 8.15s both; }
+#m3 .eyebrow, #m3 .label { opacity: 0; animation: fade-up 0.4s 10.95s both; }
+#m4 .eyebrow, #m4 .label { opacity: 0; animation: fade-up 0.4s 13.75s both; }
+#m5 .eyebrow, #m5 .label { opacity: 0; animation: fade-up 0.4s 16.55s both; }
+#m6 .eyebrow, #m6 .label { opacity: 0; animation: fade-up 0.4s 19.35s both; }
+#m7 .eyebrow, #m7 .label { opacity: 0; animation: fade-up 0.4s 22.15s both; }
+
+#m1 .label { animation-delay: 5.5s; }
+#m2 .label { animation-delay: 8.3s; }
+#m3 .label { animation-delay: 11.1s; }
+#m4 .label { animation-delay: 13.9s; }
+#m5 .label { animation-delay: 16.7s; }
+#m6 .label { animation-delay: 19.5s; }
+#m7 .label { animation-delay: 22.3s; }
+
+/* ——— FILTR 24.8–27.2s = 82.7–90.7% ——— */
 #s6 {
   animation: s6 var(--dur) both;
 }
 
 @keyframes s6 {
   0%,
-  80% {
+  82% {
     opacity: 0;
   }
-  82% {
+  83.5% {
     opacity: 1;
   }
-  89% {
+  89.5% {
     opacity: 1;
   }
-  91% {
+  91.5% {
     opacity: 0;
   }
   100% {
@@ -666,17 +612,17 @@ em {
 
 #s6 .in {
   opacity: 0;
-  animation: pop-in 0.6s 21.1s cubic-bezier(0.2, 0.9, 0.2, 1) both;
+  animation: pop-in 0.6s 24.9s cubic-bezier(0.2, 0.9, 0.2, 1) both;
 }
 
-/* ——— CTA 23.5–26s = 90.4–100% ——— */
+/* ——— CTA 27.2–30s = 90.7–100% ——— */
 #s7 {
   animation: s7 var(--dur) both;
 }
 
 @keyframes s7 {
   0%,
-  89.5% {
+  90% {
     opacity: 0;
   }
   91.5% {
@@ -728,5 +674,5 @@ em {
 
 .cta-box {
   opacity: 0;
-  animation: pop-in 0.65s 23.6s cubic-bezier(0.2, 0.9, 0.2, 1) both;
+  animation: pop-in 0.65s 27.3s cubic-bezier(0.2, 0.9, 0.2, 1) both;
 }

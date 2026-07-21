@@ -1,51 +1,46 @@
-# Reel — 5 oborů do portfolia (1080×1920, 26 s, 24 fps)
+# Reel — 5 oborů do portfolia (1080×1920, 30 s, 24 fps)
 
-Prodejní reel pro NIADO BY SAR. Phone mockupy s tvými weby + přirozený text o otevřených místech v portfoliu.
-
-## Požadavky
-
-- Node.js 20+
-- Chromium (nainstaluje se s Playwright)
+Prodejní reel pro NIADO BY SAR. 7 zrychlených webových scrollů v phone mockupech + přirozený text.
 
 ## Použití
 
 ```bash
 npm install
 npx playwright install chromium
+# (volitelně znovu sestavit clipy ze Downloads)
+# npm run videos
 npm run build
 ```
 
-Výstup:
+Výstup: `reel.mp4`
 
-- `reel.mp4` — finální video (bez zvuku)
-- `qa/` — kontrolní snímky
-- `frames/` — PNG snímky (24 fps × 26 s)
+## Assety
 
-## Assety — vlož své weby
+Zrychlené clipy (4×, ~3,5 s) v `assets/web-01.mp4` … `web-07.mp4`:
 
-Do `./assets/` dej screenshoty webů (na výšku, ideálně full-page):
+| Soubor | Obor |
+|--------|------|
+| web-01 | Beauty atelier (Gloss) |
+| web-02 | Realitka |
+| web-03 | Architektura (Void) |
+| web-04 | Klinika estetiky (Lumé) |
+| web-05 | Kavárna (Matchá) |
+| web-06 | Activewear (Rokyne) |
+| web-07 | Import vín (Vini) |
 
-| Soubor | Popisek ve videu |
-|--------|------------------|
-| `web-01.png` | Klinika estetiky |
-| `web-02.png` | Kavárna & cukrárna |
-| `web-03.png` | Import vín |
+Zdrojová videa: `~/Downloads/Návrh bez názvu-15/1–7.mp4` → `npm run videos`
 
-Teď jsou tam placeholdery z portfolia — stačí je přepsat vlastními PNG se stejným názvem a znovu spustit `npm run render`.
-
-## Timeline (26 s)
+## Timeline (30 s)
 
 | Čas | Scéna |
 |-----|-------|
-| 0–3,2 s | Hook — přijímám ještě 5 oborů |
-| 3,2–6,5 s | Cena — web za 2–5 tisíc |
-| 6,5–11,5 s | Mockup 1 |
-| 11,5–16,5 s | Mockup 2 |
-| 16,5–21 s | Mockup 3 |
-| 21–23,5 s | Filtr — obory, které v portfoliu chybí |
-| 23,5–26 s | CTA — napiš obor do DM |
+| 0–2,6 s | Hook — 5 oborů |
+| 2,6–5,2 s | Cena — 2–5 tisíc |
+| 5,2–24,8 s | 7× mockup (2,8 s) |
+| 24,8–27,2 s | Filtr oborů |
+| 27,2–30 s | CTA |
 
-## Caption na Instagram (zkopíruj)
+## Caption
 
 ```
 Přijímám ještě 5 oborů do portfolia.

@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "prepare": "node scripts/build-fonts.mjs",
+    "videos": "node scripts/prepare-videos.mjs",
     "render": "node render.mjs",
     "build": "npm run prepare && npm run render"
   },

@@ -1,0 +1,143 @@
+{
+  "brand": {
+    "name": "Kouzlíme s Robinem",
+    "tagline": "kouzelník · balónkář · mentalista"
+  },
+  "hero": {
+    "eyebrow": "Kouzelník Robin Panuš",
+    "line1": "Umění",
+    "line2Before": "",
+    "line2Em": "úžasu",
+    "line2After": " pro",
+    "line3": "malé i velké.",
+    "lead": "Kouzelnická show, balónková zvířátka a mentalismus v jednom vystoupení. Pro dětské oslavy, školky i firemní večery — vždy naživo, vždy s dětmi uprostřed dění.",
+    "ctaPrimary": "Zkusit si kouzlo",
+    "ctaSecondary": "Nabídka vystoupení",
+    "image": "/luxury/img-01.jpg",
+    "imageAlt": "Kouzelník Robin Panuš — portrét",
+    "seal": "16 LET NA JEVIŠTI · CELÁ ČR ·"
+  },
+  "marquee": [
+    "kouzelník",
+    "balonkář",
+    "mentalista",
+    "školky",
+    "školy",
+    "narozeninové oslavy",
+    "městské slavnosti",
+    "veřejné akce",
+    "soukromé akce"
+  ],
+  "disciplines": {
+    "eyebrow": "Tři disciplíny",
+    "titleBefore": "Vyberte si ",
+    "titleEm": "kartu.",
+    "lead": "Každé vystoupení skládám z toho, co se hodí právě pro vaši akci — nebo všechny tři dohromady.",
+    "cards": [
+      {
+        "letter": "K",
+        "title": "Kouzelník",
+        "text": "Interaktivní kouzla plná humoru pro předškoláky, školáky i dospělé publikum.",
+        "image": "/luxury/img-02.jpg",
+        "imageAlt": "Robin při kouzelnickém triku se šátky",
+        "back": ["Oslavy · školky · 1. stupeň ZŠ", "Děti asistují na jevišti", "Humor pro celou rodinu"]
+      },
+      {
+        "letter": "B",
+        "title": "Balónkář",
+        "text": "Zvířátka, meče i květiny na počkání — každé dítě si odnese svoje domů.",
+        "image": "/luxury/img-03.jpg",
+        "imageAlt": "Robin tvoří modrého balónkového pejska",
+        "back": ["Pejsci, meče i květiny", "Tvorba přímo před očima", "Výtvor pro každé dítě domů"]
+      },
+      {
+        "letter": "M",
+        "title": "Mentalista",
+        "text": "Čtení myšlenek a překvapivé triky u stolu — ideální zvláštnění firemního večera.",
+        "image": "/luxury/img-04.jpg",
+        "imageAlt": "Robin předvádí mentalismus",
+        "back": ["Firemní večery a rauty", "Mikromagie u stolu", "Čtení myšlenek naživo"]
+      }
+    ]
+  },
+  "program": {
+    "eyebrow": "Průběh vystoupení",
+    "titleBefore": "Jak vypadá ",
+    "titleEm": "show.",
+    "lead": "Čtyřicet pět minut, které utečou jako pět. Program vždy ladím podle věku dětí a povahy akce.",
+    "steps": [
+      {
+        "title": "Přivítání a první kouzlo",
+        "text": "Prolomení ledů — děti se během pár minut stanou součástí představení."
+      },
+      {
+        "title": "Interaktivní kouzelnická show",
+        "text": "Triky, u kterých děti asistují na jevišti. Smích a údiv v jednom."
+      },
+      {
+        "title": "Balónková zvířátka",
+        "text": "Pejsci, meče a květiny pro každého — vyráběné přímo před očima."
+      },
+      {
+        "title": "Velké finále",
+        "text": "Závěrečné kouzlo, o kterém se doma mluví ještě týden."
+      }
+    ]
+  },
+  "gallery": {
+    "eyebrow": "Z vystoupení",
+    "titleBefore": "Okamžiky, u kterých ",
+    "titleEm": "spadne brada.",
+    "images": [
+      { "src": "/luxury/img-05.jpg", "alt": "Robin tvaruje balónek na pódiu" },
+      { "src": "/luxury/img-06.jpg", "alt": "Robin s červeným balónkovým pudlem" },
+      { "src": "/luxury/img-07.jpg", "alt": "Robin předvádí kouzelnou knihu dětem", "wide": true },
+      { "src": "/luxury/img-08.jpg", "alt": "Robin s loutkou mývala" },
+      { "src": "/luxury/img-09.jpg", "alt": "Kouzelnický trik s barevnými šátky" },
+      { "src": "/luxury/img-10.jpg", "alt": "Kouzelnický trik s míčky" },
+      { "src": "/luxury/img-11.jpg", "alt": "Robin s balónkovým pejskem" }
+    ]
+  },
+  "quote": {
+    "eyebrow": "Řekli o Robinovi",
+    "text": "„Udržet pozornost dvaceti předškoláků celých čtyřicet pět minut — to je samo o sobě kouzlo.\"",
+    "caption": "maminka oslavenkyně · narozeniny"
+  },
+  "pricing": {
+    "eyebrow": "Program a cena",
+    "titleBefore": "Vaše ",
+    "titleEm": "vstupenka.",
+    "priceLabel": "Cena",
+    "priceAmount": "6 000",
+    "priceCurrency": "Kč",
+    "pricePer": "za vystoupení · 45 minut",
+    "priceNote": "Finální cenu je možné upravit podle typu akce.",
+    "travelLabel": "Doprava",
+    "travelAmount": "12",
+    "travelUnit": "Kč/km",
+    "travelPer": "výjezd z Mladé Boleslavi",
+    "travelNote": "Účtujeme si pouze tolik, kolik opravdu projedeme."
+  },
+  "about": {
+    "eyebrow": "O Robinovi",
+    "titleBefore": "Šestnáct let ",
+    "titleEm": "na jevišti.",
+    "lead1": "Kouzlím od dětství a posledních šestnáct let se tomu věnuji naplno. Vystupuji pro školky, základní školy a rodinné oslavy, s mikromagií jsem soutěžil i mezi profesionály.",
+    "lead2": "Nejvíc mě baví ten okamžik, kdy dítě poprvé uvěří, že kouzla existují. Kvůli němu jezdím na každou akci.",
+    "signature": "— Robin Panuš",
+    "image": "/luxury/img-12.jpg",
+    "imageAlt": "Kouzelník Robin Panuš při vystoupení"
+  },
+  "contact": {
+    "eyebrow": "Kontakt",
+    "titleBefore": "Domluvme si ",
+    "titleEm": "termín.",
+    "phoneDisplay": "775 950 328",
+    "phoneHref": "+420775950328",
+    "email": "kouzlimesrobinem@email.cz",
+    "thanks": "Děkujeme za zprávu, už letí Robinovi do e-mailu, ozve se co nejdříve."
+  },
+  "footer": {
+    "copy": "© 2026 Kouzlíme s Robinem — Robin Panuš"
+  }
+}

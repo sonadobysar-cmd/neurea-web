@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import { luxuryBodyHtml } from "@/lib/luxuryBody";
 
 function loadScript(id: string, src: string): Promise<void> {
   return new Promise((resolve, reject) => {
@@ -19,8 +18,15 @@ function loadScript(id: string, src: string): Promise<void> {
   });
 }
 
-export function LuxuryLanding() {
+export function LuxuryLanding({
+  html,
+  marquee,
+}: {
+  html: string;
+  marquee: string[];
+}) {
   useEffect(() => {
+    window.__ROBIN_MARQUEE = marquee;
     let cancelled = false;
 
     (async () => {
@@ -36,13 +42,25 @@ export function LuxuryLanding() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [marquee]);
 
   return (
     <>
       <div id="bubbles" aria-hidden="true" />
       <div id="glow" aria-hidden="true" />
-      <div className="luxury-root" dangerouslySetInnerHTML={{ __html: luxuryBodyHtml }} />
+      <div className="luxury-root" dangerouslySetInnerHTML={{ __html: html }} />
     </>
   );
+}
+
+declare global {
+  interface Window {
+    __ROBIN_MARQUEE?: string[];
+    __ROBIN_TURNSTILE_SITE_KEY?: string;
+    turnstile?: {
+      render: (el: HTMLElement, opts: Record<string, unknown>) => string | number;
+      reset: (id: string | number) => void;
+      getResponse: (id: string | number) => string;
+    };
+  }
 }

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
+import { readSiteContent } from "@/lib/cms/store";
 
-const TO_EMAIL = "kouzlimesrobinem@email.cz";
 const RATE_LIMIT_MAX = 5;
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const MAX_NAME = 120;
@@ -134,15 +134,20 @@ export async function POST(request: Request) {
   const apiKey = process.env.RESEND_API_KEY?.trim();
   if (!apiKey) {
     console.error("[robin/contact] RESEND_API_KEY missing");
+    const site = await readSiteContent();
+    const fallbackEmail = site.contact.email || "kouzlimesrobinem@email.cz";
     return NextResponse.json(
       {
         ok: false,
         error:
-          "Formulář je dočasně nedostupný. Napište prosím na kouzlimesrobinem@email.cz nebo volejte 775 950 328.",
+          `Formulář je dočasně nedostupný. Napište prosím na ${fallbackEmail} nebo volejte 775 950 328.`,
       },
       { status: 503 },
     );
   }
+
+  const site = await readSiteContent();
+  const TO_EMAIL = site.contact.email || "kouzlimesrobinem@email.cz";
 
   const plain = [
     "Nová zpráva z webu Kouzlíme s Robinem",

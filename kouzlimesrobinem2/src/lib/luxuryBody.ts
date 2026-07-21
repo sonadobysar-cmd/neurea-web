@@ -1,4 +1,4 @@
-export const luxuryBodyHtml = `<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+export const luxuryBodyTemplate = `<svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <symbol id="star" viewBox="0 0 24 24"><path d="M12 0c1.2 6.8 4.9 10.6 12 12-7.1 1.4-10.8 5.2-12 12-1.2-6.8-4.9-10.6-12-12C7.1 10.6 10.8 6.8 12 0z"/></symbol>
     <symbol id="s-h" viewBox="0 0 24 24"><path d="M12 21C6 15.9 2.4 12.4 2.4 8.6 2.4 5.6 4.8 3.4 7.6 3.4c1.8 0 3.4.9 4.4 2.3 1-1.4 2.6-2.3 4.4-2.3 2.8 0 5.2 2.2 5.2 5.2 0 3.8-3.6 7.3-9.6 12.4z"/></symbol>
@@ -10,7 +10,7 @@ export const luxuryBodyHtml = `<svg width="0" height="0" style="position:absolut
 
 <nav>
   <div class="wrap nav-in">
-    <a class="brand" href="#top"><b>Kouzlíme s Robinem</b><span>kouzelník · balónkář · mentalista</span></a>
+    <a class="brand" href="#top"><b>{{cms.brand.name}}</b><span>{{cms.brand.tagline}}</span></a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navMenu" aria-label="Otevřít menu">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
@@ -29,16 +29,16 @@ export const luxuryBodyHtml = `<svg width="0" height="0" style="position:absolut
 <header class="hero" id="top">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <p class="eyebrow"><svg class="st"><use href="#star"/></svg>Kouzelník Robin Panuš</p>
+      <p class="eyebrow"><svg class="st"><use href="#star"/></svg>{{cms.hero.eyebrow}}</p>
       <h1>
-        <span class="line"><span>Umění</span></span>
-        <span class="line"><span><em>úžasu</em> pro</span></span>
-        <span class="line"><span>malé i velké.</span></span>
+        <span class="line"><span>{{cms.hero.line1}}</span></span>
+        <span class="line"><span>{{cms.hero.line2Before}}<em>{{cms.hero.line2Em}}</em>{{cms.hero.line2After}}</span></span>
+        <span class="line"><span>{{cms.hero.line3}}</span></span>
       </h1>
-      <p class="lead">Kouzelnická show, balónková zvířátka a mentalismus v jednom vystoupení. Pro dětské oslavy, školky i firemní večery — vždy naživo, vždy s dětmi uprostřed dění.</p>
+      <p class="lead">{{cms.hero.lead}}</p>
       <div class="cta-row">
-        <a class="btn btn-ink" href="#kouzla">Zkusit si kouzlo<svg class="st"><use href="#star"/></svg></a>
-        <a class="btn btn-ghost" href="#disciplina">Nabídka vystoupení</a>
+        <a class="btn btn-ink" href="#kouzla">{{cms.hero.ctaPrimary}}<svg class="st"><use href="#star"/></svg></a>
+        <a class="btn btn-ghost" href="#disciplina">{{cms.hero.ctaSecondary}}</a>
       </div>
     </div>
     <div class="hero-visual">
@@ -50,7 +50,7 @@ export const luxuryBodyHtml = `<svg width="0" height="0" style="position:absolut
           <span class="hero-luxe__corner hero-luxe__corner--br" aria-hidden="true">✦</span>
           <div class="hero-luxe__mat">
             <div class="hero-luxe__viewport">
-              <div class="arch"><img src="/luxury/img-01.jpg" alt="Kouzelník Robin Panuš — portrét"></div>
+              <div class="arch"><img src="{{cms.hero.image}}" alt="{{cms.hero.imageAlt}}"></div>
             </div>
           </div>
         </div>
@@ -59,7 +59,7 @@ export const luxuryBodyHtml = `<svg width="0" height="0" style="position:absolut
       <svg class="seal" viewBox="0 0 132 132" aria-hidden="true">
         <circle class="disc" cx="66" cy="66" r="66"/>
         <defs><path id="cir" d="M66,66 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs>
-        <text><textPath href="#cir">16 LET NA JEVIŠTI · CELÁ ČR ·&#160;</textPath></text>
+        <text><textPath href="#cir">{{cms.hero.seal}}&#160;</textPath></text>
         <path class="core" d="M66 50c1.6 9 6.5 14 16 16-9.5 1.9-14.4 6.9-16 16-1.6-9.1-6.5-14.1-16-16 9.5-2 14.4-7 16-16z"/>
       </svg>
     </div>
@@ -73,62 +73,12 @@ export const luxuryBodyHtml = `<svg width="0" height="0" style="position:absolut
 <section class="cards-sec" id="disciplina">
   <div class="wrap">
     <div class="cards-head reveal">
-      <p class="eyebrow"><svg class="st"><use href="#star"/></svg>Tři disciplíny<svg class="st"><use href="#star"/></svg></p>
-      <h2>Vyberte si <em>kartu.</em></h2>
-      <p class="lead" style="margin-left:auto;margin-right:auto">Každé vystoupení skládám z toho, co se hodí právě pro vaši akci — nebo všechny tři dohromady.</p>
+      <p class="eyebrow"><svg class="st"><use href="#star"/></svg>{{cms.disciplines.eyebrow}}<svg class="st"><use href="#star"/></svg></p>
+      <h2>{{cms.disciplines.titleBefore}}<em>{{cms.disciplines.titleEm}}</em></h2>
+      <p class="lead" style="margin-left:auto;margin-right:auto">{{cms.disciplines.lead}}</p>
     </div>
     <div class="fan reveal d1">
-      <article class="pcard" data-i="0" tabindex="0" role="button" aria-label="Kouzelník — kliknutím otočíte kartu">
-        <div class="pc-inner">
-          <div class="pc-face">
-            <div class="idx"><b>K</b><svg class="st"><use href="#star"/></svg></div>
-            <div class="ph"><img src="/luxury/img-02.jpg" alt="Robin při kouzelnickém triku se šátky"></div>
-            <h3>Kouzelník</h3>
-            <p>Interaktivní kouzla plná humoru pro předškoláky, školáky i dospělé publikum.</p>
-            <div class="idx flip"><b>K</b><svg class="st"><use href="#star"/></svg></div>
-          </div>
-          <div class="pc-face pc-back">
-            <svg class="st"><use href="#star"/></svg>
-            <h4>Kouzelník</h4>
-            <ul><li>Oslavy · školky · 1. stupeň ZŠ</li><li>Děti asistují na jevišti</li><li>Humor pro celou rodinu</li></ul>
-            <span class="flip-hint">Kliknutím otočíte zpět</span>
-          </div>
-        </div>
-      </article>
-      <article class="pcard" data-i="1" tabindex="0" role="button" aria-label="Balónkář — kliknutím otočíte kartu">
-        <div class="pc-inner">
-          <div class="pc-face">
-            <div class="idx"><b>B</b><svg class="st"><use href="#star"/></svg></div>
-            <div class="ph"><img src="/luxury/img-03.jpg" alt="Robin tvoří modrého balónkového pejska"></div>
-            <h3>Balónkář</h3>
-            <p>Zvířátka, meče i květiny na počkání — každé dítě si odnese svoje domů.</p>
-            <div class="idx flip"><b>B</b><svg class="st"><use href="#star"/></svg></div>
-          </div>
-          <div class="pc-face pc-back">
-            <svg class="st"><use href="#star"/></svg>
-            <h4>Balónkář</h4>
-            <ul><li>Pejsci, meče i květiny</li><li>Tvorba přímo před očima</li><li>Výtvor pro každé dítě domů</li></ul>
-            <span class="flip-hint">Kliknutím otočíte zpět</span>
-          </div>
-        </div>
-      </article>
-      <article class="pcard" data-i="2" tabindex="0" role="button" aria-label="Mentalista — kliknutím otočíte kartu">
-        <div class="pc-inner">
-          <div class="pc-face">
-            <div class="idx"><b>M</b><svg class="st"><use href="#star"/></svg></div>
-            <div class="ph"><img src="/luxury/img-04.jpg" alt="Robin předvádí mentalismus"></div>
-            <h3>Mentalista</h3>
-            <p>Čtení myšlenek a překvapivé triky u stolu — ideální zvláštnění firemního večera.</p>
-            <div class="idx flip"><b>M</b><svg class="st"><use href="#star"/></svg></div>
-          </div>
-          <div class="pc-face pc-back">
-            <svg class="st"><use href="#star"/></svg>
-            <h4>Mentalista</h4>
-            <ul><li>Firemní večery a rauty</li><li>Mikromagie u stolu</li><li>Čtení myšlenek naživo</li></ul>
-            <span class="flip-hint">Kliknutím otočíte zpět</span>
-          </div>
-        </div>
-      </article>
+      {{cms.disciplines.cards}}
     </div>
     <p class="fan-hint">Najeďte na kartu — kliknutím ji otočíte</p>
   </div>
@@ -137,15 +87,12 @@ export const luxuryBodyHtml = `<svg width="0" height="0" style="position:absolut
 <section class="program" id="ukazka">
   <div class="wrap prog-grid">
     <div class="prog-left reveal">
-      <p class="eyebrow"><svg class="st"><use href="#star"/></svg>Průběh vystoupení</p>
-      <h2>Jak vypadá <em>show.</em></h2>
-      <p class="lead">Čtyřicet pět minut, které utečou jako pět. Program vždy ladím podle věku dětí a povahy akce.</p>
+      <p class="eyebrow"><svg class="st"><use href="#star"/></svg>{{cms.program.eyebrow}}</p>
+      <h2>{{cms.program.titleBefore}}<em>{{cms.program.titleEm}}</em></h2>
+      <p class="lead">{{cms.program.lead}}</p>
     </div>
     <div>
-      <div class="step reveal"><div class="rn">I.</div><div><h3>Přivítání a první kouzlo</h3><p>Prolomení ledů — děti se během pár minut stanou součástí představení.</p></div></div>
-      <div class="step reveal d1"><div class="rn">II.</div><div><h3>Interaktivní kouzelnická show</h3><p>Triky, u kterých děti asistují na jevišti. Smích a údiv v jednom.</p></div></div>
-      <div class="step reveal d2"><div class="rn">III.</div><div><h3>Balónková zvířátka</h3><p>Pejsci, meče a květiny pro každého — vyráběné přímo před očima.</p></div></div>
-      <div class="step reveal d3"><div class="rn">IV.</div><div><h3>Velké finále</h3><p>Závěrečné kouzlo, o kterém se doma mluví ještě týden.</p></div></div>
+      {{cms.program.steps}}
     </div>
   </div>
 </section>
@@ -153,20 +100,14 @@ export const luxuryBodyHtml = `<svg width="0" height="0" style="position:absolut
 <section class="gal-sec" id="galerie">
   <div class="wrap gal-head reveal">
     <div>
-      <p class="eyebrow"><svg class="st"><use href="#star"/></svg>Z vystoupení</p>
-      <h2>Okamžiky, u kterých <em>spadne brada.</em></h2>
+      <p class="eyebrow"><svg class="st"><use href="#star"/></svg>{{cms.gallery.eyebrow}}</p>
+      <h2>{{cms.gallery.titleBefore}}<em>{{cms.gallery.titleEm}}</em></h2>
     </div>
     <p class="gal-hint">Klikněte na fotku<svg class="st"><use href="#star"/></svg></p>
   </div>
   <div class="gal-viewport">
     <div class="strip strip--marquee" id="strip">
-      <figure class="gph" data-lightbox><img src="/luxury/img-05.jpg" alt="Robin tvaruje balónek na pódiu"></figure>
-      <figure class="gph" data-lightbox><img src="/luxury/img-06.jpg" alt="Robin s červeným balónkovým pudlem"></figure>
-      <figure class="gph wide" data-lightbox><img src="/luxury/img-07.jpg" alt="Robin předvádí kouzelnou knihu dětem"></figure>
-      <figure class="gph" data-lightbox><img src="/luxury/img-08.jpg" alt="Robin s loutkou mývala"></figure>
-      <figure class="gph" data-lightbox><img src="/luxury/img-09.jpg" alt="Kouzelnický trik s barevnými šátky"></figure>
-      <figure class="gph" data-lightbox><img src="/luxury/img-10.jpg" alt="Kouzelnický trik s míčky"></figure>
-      <figure class="gph" data-lightbox><img src="/luxury/img-11.jpg" alt="Robin s balónkovým pejskem"></figure>
+      {{cms.gallery.images}}
     </div>
   </div>
 </section>
@@ -183,10 +124,10 @@ export const luxuryBodyHtml = `<svg width="0" height="0" style="position:absolut
 
 <section class="quote">
   <div class="wrap reveal">
-    <p class="eyebrow" style="justify-content:center"><svg class="st"><use href="#star"/></svg>Řekli o Robinovi</p>
+    <p class="eyebrow" style="justify-content:center"><svg class="st"><use href="#star"/></svg>{{cms.quote.eyebrow}}</p>
     <figure>
-      <blockquote>„Udržet pozornost dvaceti předškoláků celých čtyřicet pět minut — to je samo o sobě kouzlo."</blockquote>
-      <figcaption>maminka oslavenkyně · narozeniny</figcaption>
+      <blockquote>{{cms.quote.text}}</blockquote>
+      <figcaption>{{cms.quote.caption}}</figcaption>
     </figure>
   </div>
 </section>
@@ -229,24 +170,24 @@ export const luxuryBodyHtml = `<svg width="0" height="0" style="position:absolut
 <section class="price-sec" id="cena">
   <div class="wrap">
     <div class="reveal" style="text-align:center;max-width:640px;margin:0 auto">
-      <p class="eyebrow" style="justify-content:center"><svg class="st"><use href="#star"/></svg>Program a cena</p>
-      <h2>Vaše <em>vstupenka.</em></h2>
+      <p class="eyebrow" style="justify-content:center"><svg class="st"><use href="#star"/></svg>{{cms.pricing.eyebrow}}</p>
+      <h2>{{cms.pricing.titleBefore}}<em>{{cms.pricing.titleEm}}</em></h2>
     </div>
     <div class="ticket reveal d1">
       <div class="tk-main">
         <div class="tk-price-block tk-price-block--main">
-          <span class="from">Cena</span>
-          <div class="amt">6 000 <small>Kč</small></div>
-          <span class="per">za vystoupení · 45 minut</span>
-          <p class="tk-note">Finální cenu je možné upravit podle typu akce.</p>
+          <span class="from">{{cms.pricing.priceLabel}}</span>
+          <div class="amt">{{cms.pricing.priceAmount}} <small>{{cms.pricing.priceCurrency}}</small></div>
+          <span class="per">{{cms.pricing.pricePer}}</span>
+          <p class="tk-note">{{cms.pricing.priceNote}}</p>
         </div>
       </div>
       <div class="tk-side">
         <div class="tk-price-row">
-          <span class="from">Doprava</span>
-          <div class="amt amt-sm">12 <small>Kč/km</small></div>
-          <span class="per">výjezd z Mladé Boleslavi</span>
-          <p class="tk-side-note">Účtujeme si pouze tolik, kolik opravdu projedeme.</p>
+          <span class="from">{{cms.pricing.travelLabel}}</span>
+          <div class="amt amt-sm">{{cms.pricing.travelAmount}} <small>{{cms.pricing.travelUnit}}</small></div>
+          <span class="per">{{cms.pricing.travelPer}}</span>
+          <p class="tk-side-note">{{cms.pricing.travelNote}}</p>
         </div>
         <a class="btn btn-ink" href="#kontakt">Rezervovat termín<svg class="st"><use href="#star"/></svg></a>
       </div>
@@ -257,25 +198,25 @@ export const luxuryBodyHtml = `<svg width="0" height="0" style="position:absolut
 <section class="about" id="robin">
   <div class="wrap about-grid">
     <div class="about-visual reveal">
-      <div class="arch"><img src="/luxury/img-12.jpg" alt="Kouzelník Robin Panuš při vystoupení"></div>
+      <div class="arch"><img src="{{cms.about.image}}" alt="{{cms.about.imageAlt}}"></div>
       <div class="arch-echo" aria-hidden="true"></div>
     </div>
     <div class="reveal d1">
-      <p class="eyebrow"><svg class="st"><use href="#star"/></svg>O Robinovi</p>
-      <h2>Šestnáct let <em>na jevišti.</em></h2>
-      <p class="lead">Kouzlím od dětství a posledních šestnáct let se tomu věnuji naplno. Vystupuji pro školky, základní školy a rodinné oslavy, s mikromagií jsem soutěžil i mezi profesionály.</p>
-      <p class="lead">Nejvíc mě baví ten okamžik, kdy dítě poprvé uvěří, že kouzla existují. Kvůli němu jezdím na každou akci.</p>
-      <p class="sig">— Robin Panuš</p>
+      <p class="eyebrow"><svg class="st"><use href="#star"/></svg>{{cms.about.eyebrow}}</p>
+      <h2>{{cms.about.titleBefore}}<em>{{cms.about.titleEm}}</em></h2>
+      <p class="lead">{{cms.about.lead1}}</p>
+      <p class="lead">{{cms.about.lead2}}</p>
+      <p class="sig">{{cms.about.signature}}</p>
     </div>
   </div>
 </section>
 
 <section class="contact" id="kontakt">
   <div class="wrap reveal">
-    <p class="eyebrow" style="justify-content:center"><svg class="st"><use href="#star"/></svg>Kontakt</p>
-    <h2>Domluvme si <em>termín.</em></h2>
-    <a class="big-tel" href="tel:+420775950328">775 950 328</a>
-    <a class="mail" href="mailto:kouzlimesrobinem@email.cz">kouzlimesrobinem@email.cz</a>
+    <p class="eyebrow" style="justify-content:center"><svg class="st"><use href="#star"/></svg>{{cms.contact.eyebrow}}</p>
+    <h2>{{cms.contact.titleBefore}}<em>{{cms.contact.titleEm}}</em></h2>
+    <a class="big-tel" href="tel:{{cms.contact.phoneHref}}">{{cms.contact.phoneDisplay}}</a>
+    <a class="mail" href="mailto:{{cms.contact.email}}">{{cms.contact.email}}</a>
     <form class="contact-form" id="contactForm" novalidate>
       <input type="text" name="website" class="contact-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
       <input name="name" type="text" required placeholder="Jméno *" autocomplete="name" maxlength="120">
@@ -286,14 +227,14 @@ export const luxuryBodyHtml = `<svg width="0" height="0" style="position:absolut
       <button class="btn btn-ink" type="submit">Odeslat zprávu<svg class="st"><use href="#star"/></svg></button>
     </form>
     <div class="contact-thanks" id="contactThanks" hidden>
-      <p>Děkujeme za zprávu, už letí Robinovi do e-mailu, ozve se co nejdříve.</p>
+      <p>{{cms.contact.thanks}}</p>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap foot">
-    <span>© 2026 Kouzlíme s Robinem — Robin Panuš</span>
+    <span>{{cms.footer.copy}}</span>
     <a class="foot-credit" href="https://niadobysar.com" target="_blank" rel="noopener noreferrer">Web · Nia Dobyšar</a>
   </div>
 </footer>`;

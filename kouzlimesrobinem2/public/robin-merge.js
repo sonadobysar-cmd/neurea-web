@@ -6,17 +6,20 @@
   if (mq) {
     var star =
       '<svg class="st mq-star" aria-hidden="true"><use href="#star"/></svg>';
-    var words = [
-      "kouzelník",
-      "balonkář",
-      "mentalista",
-      "školky",
-      "školy",
-      "narozeninové oslavy",
-      "městské slavnosti",
-      "veřejné akce",
-      "soukromé akce",
-    ];
+    var words =
+      (window.__ROBIN_MARQUEE && window.__ROBIN_MARQUEE.length
+        ? window.__ROBIN_MARQUEE
+        : [
+            "kouzelník",
+            "balonkář",
+            "mentalista",
+            "školky",
+            "školy",
+            "narozeninové oslavy",
+            "městské slavnosti",
+            "veřejné akce",
+            "soukromé akce",
+          ]);
     var half = words
       .map(function (w) {
         return (

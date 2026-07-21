@@ -9,6 +9,14 @@ export const metadata: Metadata = {
   title: "Kouzlíme s Robinem — kouzelník, balónkář a mentalista",
   description:
     "Kouzelnická show, balónková zvířátka a mentalismus pro dětské oslavy, školky i firemní akce. Robin Panuš — 16 let na jevišti.",
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+  },
+  manifest: "/site.webmanifest",
   openGraph: {
     type: "website",
     locale: "cs_CZ",

@@ -1,0 +1,65 @@
+.privacy-page {
+  min-height: 100vh;
+  background: linear-gradient(170deg, #f68544, #f68544 12%, #e5a33e 46%, #c9c134);
+  color: #201406;
+  font-family: "Hanken Grotesk", "Segoe UI", sans-serif;
+  padding: 40px 16px 80px;
+}
+
+.privacy-wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  background: rgba(252, 248, 239, 0.94);
+  border-radius: 24px;
+  padding: clamp(24px, 4vw, 40px);
+  box-shadow: 0 24px 60px -30px rgba(32, 20, 6, 0.35);
+}
+
+.privacy-back a {
+  color: #8a5a2b;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.privacy-wrap h1 {
+  font-family: "Instrument Serif", Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(36px, 6vw, 52px);
+  margin: 18px 0 12px;
+  line-height: 1.05;
+}
+
+.privacy-lead,
+.privacy-wrap p,
+.privacy-wrap li {
+  font-size: 16px;
+  line-height: 1.65;
+  color: #3a2a18;
+}
+
+.privacy-wrap section {
+  margin-top: 28px;
+}
+
+.privacy-wrap h2 {
+  font-family: "Instrument Serif", Georgia, serif;
+  font-weight: 400;
+  font-size: 28px;
+  margin: 0 0 10px;
+}
+
+.privacy-wrap ul {
+  margin: 10px 0 0;
+  padding-left: 1.2em;
+}
+
+.privacy-wrap a {
+  color: #b85a1a;
+}
+
+.privacy-updated {
+  margin-top: 36px;
+  font-size: 13px !important;
+  color: #6b5640 !important;
+}

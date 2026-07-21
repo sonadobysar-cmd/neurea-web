@@ -124,9 +124,19 @@ export async function POST(request: Request) {
   const website = "website" in body ? String(body.website ?? "").trim() : "";
   const turnstileToken =
     "turnstileToken" in body ? String(body.turnstileToken ?? "").trim() : "";
+  const consent =
+    "consent" in body &&
+    (body.consent === true || body.consent === "true" || body.consent === "1" || body.consent === 1);
 
   if (website) {
     return NextResponse.json({ ok: true });
+  }
+
+  if (!consent) {
+    return NextResponse.json(
+      { ok: false, error: "Pro odeslání je potřeba souhlas se zpracováním údajů." },
+      { status: 400 },
+    );
   }
 
   const turnstileSecret = process.env.TURNSTILE_SECRET_KEY?.trim();

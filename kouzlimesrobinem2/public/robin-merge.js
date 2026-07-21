@@ -463,6 +463,10 @@
         showContactError("Zadejte prosím platné telefonní číslo.");
         return;
       }
+      if (!fd.get("consent")) {
+        showContactError("Pro odeslání je potřeba souhlas se zpracováním údajů.");
+        return;
+      }
 
       var turnstileToken = getTurnstileToken();
       if (turnstileSiteKey && !turnstileToken) {
@@ -485,6 +489,7 @@
           email: email,
           phone: phone,
           message: message,
+          consent: true,
           turnstileToken: turnstileToken,
         }),
       })

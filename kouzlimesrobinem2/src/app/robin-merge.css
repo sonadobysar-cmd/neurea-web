@@ -620,6 +620,47 @@ body {
   text-align: center;
 }
 
+.contact-consent {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  text-align: left;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+
+.contact-consent input {
+  width: auto;
+  margin-top: 3px;
+  flex: none;
+  accent-color: #f68544;
+}
+
+.contact-consent a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.foot-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 18px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.foot-links a {
+  color: var(--ink-soft);
+  text-decoration: none;
+  font: 500 13px var(--sans);
+}
+
+.foot-links a:hover {
+  color: var(--saffron);
+}
+
 .contact-turnstile {
   display: flex;
   justify-content: center;
@@ -961,6 +1002,10 @@ nav.is-open .nav-toggle span:nth-child(3) {
     align-items: center;
     text-align: center;
     gap: 10px;
+  }
+
+  .luxury-root .foot-links {
+    justify-content: center;
   }
 
   .luxury-root .prog-grid {

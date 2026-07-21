@@ -223,6 +223,10 @@ export const luxuryBodyTemplate = `<svg width="0" height="0" style="position:abs
       <input name="email" type="email" required placeholder="E-mail *" autocomplete="email" maxlength="254">
       <input name="phone" type="tel" required placeholder="Telefon *" autocomplete="tel" maxlength="30">
       <textarea name="message" rows="4" placeholder="Poznámka (volitelné)" maxlength="5000"></textarea>
+      <label class="contact-consent">
+        <input type="checkbox" name="consent" value="1" required>
+        <span>Souhlasím se <a href="/ochrana-udaju" target="_blank" rel="noopener noreferrer">zpracováním osobních údajů</a> za účelem vyřízení poptávky. *</span>
+      </label>
       <div class="contact-turnstile" id="contactTurnstile" aria-label="Ověření proti robotům"></div>
       <button class="btn btn-ink" type="submit">Odeslat zprávu<svg class="st"><use href="#star"/></svg></button>
     </form>
@@ -235,6 +239,9 @@ export const luxuryBodyTemplate = `<svg width="0" height="0" style="position:abs
 <footer>
   <div class="wrap foot">
     <span>{{cms.footer.copy}}</span>
-    <a class="foot-credit" href="https://niadobysar.com" target="_blank" rel="noopener noreferrer">Web · Nia Dobyšar</a>
+    <div class="foot-links">
+      <a href="/ochrana-udaju">Ochrana údajů</a>
+      <a class="foot-credit" href="https://niadobysar.com" target="_blank" rel="noopener noreferrer">Web · Nia Dobyšar</a>
+    </div>
   </div>
 </footer>`;

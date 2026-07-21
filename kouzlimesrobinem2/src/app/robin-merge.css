@@ -747,6 +747,10 @@ nav.is-open .nav-toggle span:nth-child(3) {
   fill: #f4e9d3;
 }
 
+.luxury-root .cards-head h2 em {
+  color: #f4e9d3;
+}
+
 /* Řekli o Robinovi — eyebrow + hvězda */
 .luxury-root .quote .eyebrow {
   color: #f4e9d3;

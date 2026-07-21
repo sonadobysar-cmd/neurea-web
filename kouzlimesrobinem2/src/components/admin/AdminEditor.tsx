@@ -3,6 +3,7 @@
 import { FormEvent, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { SiteContent } from "@/lib/cms/types";
+import { AdminPasswordForm } from "./AdminPasswordForm";
 
 function Field({
   label,
@@ -146,6 +147,8 @@ export function AdminEditor({ initial }: { initial: SiteContent }) {
       </header>
 
       {status ? <p className="admin-status">{status}</p> : null}
+
+      <AdminPasswordForm />
 
       <section className="admin-section">
         <h2>Značka</h2>

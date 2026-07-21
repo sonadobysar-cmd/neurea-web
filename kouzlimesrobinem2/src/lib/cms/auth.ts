@@ -1,5 +1,11 @@
 import { createHmac, timingSafeEqual } from "crypto";
 import { cookies } from "next/headers";
+import {
+  createPasswordRecord,
+  readStoredAuth,
+  verifyPasswordRecord,
+  writeStoredAuth,
+} from "./passwordStore";
 
 const COOKIE = "robin_admin_session";
 const MAX_AGE = 60 * 60 * 24 * 14; // 14 dní
@@ -16,16 +22,41 @@ function sign(value: string): string {
   return createHmac("sha256", secret()).update(value).digest("hex");
 }
 
-export function getAdminPassword(): string {
+function getBootstrapPassword(): string {
   return process.env.ADMIN_PASSWORD?.trim() || "robin2026";
 }
 
-export function verifyPassword(input: string): boolean {
-  const expected = getAdminPassword();
-  const a = Buffer.from(input);
-  const b = Buffer.from(expected);
-  if (a.length !== b.length) return false;
-  return timingSafeEqual(a, b);
+function safeEqualString(a: string, b: string): boolean {
+  const left = Buffer.from(a);
+  const right = Buffer.from(b);
+  if (left.length !== right.length) return false;
+  return timingSafeEqual(left, right);
+}
+
+export async function verifyPassword(input: string): Promise<boolean> {
+  const stored = await readStoredAuth();
+  if (stored) {
+    return verifyPasswordRecord(input, stored);
+  }
+  return safeEqualString(input, getBootstrapPassword());
+}
+
+export async function changeAdminPassword(
+  currentPassword: string,
+  newPassword: string,
+): Promise<{ ok: true } | { ok: false; error: string }> {
+  if (!(await verifyPassword(currentPassword))) {
+    return { ok: false, error: "Současné heslo nesedí." };
+  }
+  if (newPassword.length < 8) {
+    return { ok: false, error: "Nové heslo musí mít alespoň 8 znaků." };
+  }
+  if (newPassword === currentPassword) {
+    return { ok: false, error: "Nové heslo musí být jiné než současné." };
+  }
+
+  await writeStoredAuth(createPasswordRecord(newPassword));
+  return { ok: true };
 }
 
 export async function createAdminSession(): Promise<void> {

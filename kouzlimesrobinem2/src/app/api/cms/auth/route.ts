@@ -26,7 +26,7 @@ export async function POST(request: Request) {
       ? String((body as { password?: unknown }).password ?? "")
       : "";
 
-  if (!verifyPassword(password)) {
+  if (!(await verifyPassword(password))) {
     return NextResponse.json({ ok: false, error: "Špatné heslo." }, { status: 401 });
   }
 

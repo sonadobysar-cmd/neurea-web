@@ -151,7 +151,7 @@ export const luxuryBodyTemplate = `<svg width="0" height="0" style="position:abs
     <div class="wrap">
       <div class="balloon-panel reveal">
         <span class="eyebrow"><svg class="st"><use href="#star"/></svg>Malé kouzlo pro vás</span>
-        <h2>Praskni balónek, <span class="balloon-em">co vyrobí Robin?</span></h2>
+        <h2>Praskni balonek a zjisti, <span class="balloon-em">co ti Robin vyrobil</span></h2>
         <p class="balloon-lead">Klikni na balónky a nech se překvapit, jaké zvířátko ti Robin vykouzlí. Pokaždé něco jiného!</p>
         <div class="popstage" id="popstage">
           <div class="cluster" id="cluster" role="button" tabindex="0" aria-label="Prasknout balónky">

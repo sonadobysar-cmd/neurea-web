@@ -1,0 +1,14 @@
+{
+  "name": "reel-byznys-start",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "fonts": "node scripts/build-fonts.mjs",
+    "render": "node render.mjs",
+    "build": "npm run render"
+  },
+  "dependencies": {
+    "ffmpeg-static": "^5.2.0",
+    "playwright": "^1.52.0"
+  }
+}

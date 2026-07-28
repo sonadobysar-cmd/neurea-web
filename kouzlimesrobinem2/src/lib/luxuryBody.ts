@@ -18,7 +18,7 @@ export const luxuryBodyTemplate = `<svg width="0" height="0" style="position:abs
     </button>
     <div class="nav-links" id="navMenu">
       <a href="#top">Domů</a>
-      <a href="#robin">O mě</a>
+      <a href="#robin">O mně</a>
       <a href="#galerie">Ukázka představení</a>
       <a href="#cena">Ceník</a>
       <a href="#kontakt">Kontakt</a>

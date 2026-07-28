@@ -318,6 +318,9 @@ export function AdminEditor({ initial }: { initial: SiteContent }) {
           <Field label="Eyebrow" value={content.pricing.eyebrow} onChange={(v) => patch("pricing", { ...content.pricing, eyebrow: v })} />
           <Field label="Nadpis před" value={content.pricing.titleBefore} onChange={(v) => patch("pricing", { ...content.pricing, titleBefore: v })} />
           <Field label="Zvýraznění" value={content.pricing.titleEm} onChange={(v) => patch("pricing", { ...content.pricing, titleEm: v })} />
+        </div>
+        <Field label="Textace u ceníku" value={content.pricing.lead} onChange={(v) => patch("pricing", { ...content.pricing, lead: v })} multiline />
+        <div className="admin-grid">
           <Field label="Cena — popisek" value={content.pricing.priceLabel} onChange={(v) => patch("pricing", { ...content.pricing, priceLabel: v })} />
           <Field label="Cena — částka" value={content.pricing.priceAmount} onChange={(v) => patch("pricing", { ...content.pricing, priceAmount: v })} />
           <Field label="Měna" value={content.pricing.priceCurrency} onChange={(v) => patch("pricing", { ...content.pricing, priceCurrency: v })} />
@@ -327,7 +330,6 @@ export function AdminEditor({ initial }: { initial: SiteContent }) {
           <Field label="Jednotka dopravy" value={content.pricing.travelUnit} onChange={(v) => patch("pricing", { ...content.pricing, travelUnit: v })} />
           <Field label="Popis dopravy" value={content.pricing.travelPer} onChange={(v) => patch("pricing", { ...content.pricing, travelPer: v })} />
         </div>
-        <Field label="Textace u ceníku" value={content.pricing.lead} onChange={(v) => patch("pricing", { ...content.pricing, lead: v })} multiline />
         <Field label="Poznámka k ceně" value={content.pricing.priceNote} onChange={(v) => patch("pricing", { ...content.pricing, priceNote: v })} multiline />
         <Field label="Poznámka k dopravě" value={content.pricing.travelNote} onChange={(v) => patch("pricing", { ...content.pricing, travelNote: v })} multiline />
       </section>

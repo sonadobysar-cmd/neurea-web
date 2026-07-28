@@ -6,15 +6,16 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "FLAX · Tiny houses se surovým teplem",
-    template: "%s · FLAX",
+    default: "Chatky na kolech · Moderní tiny house na kolech",
+    template: "%s · Chatky na kolech",
   },
   description:
-    "Tiny House FLAX — surové dřevo, teplý kámen, domov na kolech. Interaktivní konfigurátor a česká dílna.",
+    "Moderní tiny house z teplého dřeva. Bydlení, Airbnb i výměna chatek v kempu. Homologovaná kola. Konfigurátor na chatkynakolech.cz.",
   icons: { icon: "/favicon.svg" },
   openGraph: {
-    title: "FLAX · Tiny houses se surovým teplem",
-    description: "Surové dřevo. Teplý kámen. Domov na kolech.",
+    title: "Chatky na kolech · Moderní tiny house na kolech",
+    description:
+      "Teplé dřevo. Moderní střih. Svoboda přemístit dům. Pro bydlení, investice i kempy.",
     type: "website",
     locale: "cs_CZ",
   },

@@ -7,7 +7,8 @@ import { realizations } from "@/data/content";
 
 export const metadata: Metadata = {
   title: "Realizace",
-  description: "Vybrané tiny houses z naší dílny — projekty napříč Českem.",
+  description:
+    "Tiny houses Chatky na kolech — bydlení, Airbnb i kempy. Ukázky atmosféry a připravované projekty.",
 };
 
 export default function RealizacePage() {
@@ -16,11 +17,11 @@ export default function RealizacePage() {
       <SiteNav />
       <header className="page-hero">
         <div className="wrap">
-          <p className="eyebrow">Portfolio</p>
+          <p className="eyebrow">Důkaz</p>
           <h1>Realizace</h1>
           <p>
-            Domy, které už stojí na loukách, v lesích a na glampingových
-            pozemcích. Každý s jiným charakterem — stejnou precizností.
+            Atmosféra, ke které míříme. Vaše fotky doplníme, jakmile je
+            nahrajete do složky — zatím vibe, brzy vaše domy.
           </p>
         </div>
       </header>
@@ -66,12 +67,24 @@ export default function RealizacePage() {
                 marginBottom: "1.25rem",
               }}
             >
-              Chcete být další na seznamu?
+              Chcete tu být příště vy?
             </p>
-            <Link href="/konfigurator" className="btn btn-ink btn-arrow">
-              Sestavit svůj dům
-              <ArrowIcon />
-            </Link>
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "0.75rem",
+                justifyContent: "center",
+              }}
+            >
+              <Link href="/konfigurator" className="btn btn-ink btn-arrow">
+                Spočítat svůj dům
+                <ArrowIcon />
+              </Link>
+              <Link href="/#kontakt" className="btn btn-ghost">
+                Domluvit hovor
+              </Link>
+            </div>
           </div>
         </div>
       </section>

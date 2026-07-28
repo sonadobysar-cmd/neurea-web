@@ -4,3 +4,7 @@ node_modules
 *.log
 .env*
 .vercel
+
+# Raw client photo dumps stay local (optimize before shipping)
+public/photos/**
+!public/photos/README.md

@@ -35,7 +35,7 @@ export function SiteNav({ darkHero = false }: { darkHero?: boolean }) {
             <LogoMark className="brand-mark" />
             <span className="brand-text">
               <strong>{brand.name}</strong>
-              <span>Tiny houses · surové teplo</span>
+              <span>{brand.domain}</span>
             </span>
           </Link>
 
@@ -48,7 +48,7 @@ export function SiteNav({ darkHero = false }: { darkHero?: boolean }) {
           </nav>
 
           <Link href="/#kontakt" className="btn btn-ink nav-cta">
-            Domluvit schůzku
+            Domluvit hovor
           </Link>
 
           <button

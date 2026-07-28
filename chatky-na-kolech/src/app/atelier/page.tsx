@@ -7,9 +7,9 @@ import { SiteNav } from "@/components/SiteNav";
 import { values } from "@/data/content";
 
 export const metadata: Metadata = {
-  title: "Ateliér",
+  title: "Dílna",
   description:
-    "Srdce naší dílny — od maringotek k prémiovým tiny houses. Česká řemeslná výroba.",
+    "Kde vznikají Chatky na kolech — moderní dřevostavby s teplým interiérem a homologovaným podvozkem.",
 };
 
 export default function AtelierPage() {
@@ -18,11 +18,11 @@ export default function AtelierPage() {
       <SiteNav />
       <header className="page-hero">
         <div className="wrap">
-          <p className="eyebrow">O nás</p>
-          <h1>Srdce naší dílny</h1>
+          <p className="eyebrow">Dílna</p>
+          <h1>Stavíme domy, které se smí hýbat</h1>
           <p>
-            Nejsme montovna. Jsme ateliér a řemeslná dílna v jednom — místo,
-            kde vznikají domy, které mají charakter.
+            Nejsme katalog. Jsme dílna s moderním střihem — teplé dřevo,
+            čisté linie, kola jako součást produktu.
           </p>
         </div>
       </header>
@@ -43,17 +43,21 @@ export default function AtelierPage() {
             </Reveal>
             <Reveal delay={1}>
               <div className="split-copy">
-                <p className="eyebrow">Příběh</p>
-                <h2>Od maringotek k prémiovým Tiny Housům</h2>
+                <p className="eyebrow">Přístup</p>
+                <h2>Od záměru k jednotce, která vydělává nebo bydlí</h2>
                 <p>
-                  Začínali jsme opravami a úpravami mobilních příbytků. Postupně
-                  jsme pochopili, že lidé nechtějí kompromis — chtějí prostor,
-                  který je krásný, funkční a připravený na české počasí.
+                  Stavíme pro majitele pozemků, provozovatele Airbnb i kempy,
+                  které chtějí vyměnit staré chatky za něco, na co jsou hosté
+                  pyšní.
                 </p>
                 <p>
-                  Dnes stavíme homologované tiny houses na míru. Od prvního
-                  nákresu po předání klíčků. Vše pod jednou střechou.
+                  Každý projekt začíná otázkou „k čemu to má sloužit“ — ne
+                  „který model z PDF“.
                 </p>
+                <Link href="/#kontakt" className="btn btn-ink btn-arrow">
+                  Domluvit konzultaci
+                  <ArrowIcon />
+                </Link>
               </div>
             </Reveal>
           </div>
@@ -64,8 +68,8 @@ export default function AtelierPage() {
         <div className="wrap">
           <Reveal>
             <div className="section-head">
-              <p className="eyebrow">Hodnoty</p>
-              <h2>Co nás drží při zemi — a ve dřevě</h2>
+              <p className="eyebrow">Principy</p>
+              <h2>Na čem stojíme</h2>
             </div>
           </Reveal>
           <div className="values">
@@ -86,22 +90,26 @@ export default function AtelierPage() {
           <div className="split">
             <Reveal>
               <div className="split-copy">
-                <p className="eyebrow">Dílna</p>
-                <h2>Kde váš dům vzniká</h2>
+                <p className="eyebrow">Výroba</p>
+                <h2>Hotový dům. Ne staveniště u vás.</h2>
                 <p>
-                  Suchá hala, přesné nářadí, lidé, kteří dřevo cítí. Každý spoj,
-                  každá izolace, každé okno — kontrolujeme sami. Protože dům na
-                  kolech musí vydržet cestu i zimu.
+                  Konstrukce, izolace, interiér — skládáme v dílně. K vám přijede
+                  jednotka připravená k životu nebo k první rezervaci.
                 </p>
                 <ul className="split-list">
-                  <li>Vlastní výroba konstrukcí a interiérů</li>
-                  <li>Spolupráce s ověřenými dodavateli podvozků</li>
-                  <li>Předání včetně zaučení a dokumentace</li>
+                  <li>Vlastní výroba a kontrola detailů</li>
+                  <li>Homologovaný podvozek jako standard</li>
+                  <li>Předání včetně zaučení</li>
                 </ul>
-                <Link href="/#kontakt" className="btn btn-paper btn-arrow">
-                  Domluvit návštěvu
-                  <ArrowIcon />
-                </Link>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem" }}>
+                  <Link href="/konfigurator" className="btn btn-oak btn-arrow">
+                    Spočítat dům
+                    <ArrowIcon />
+                  </Link>
+                  <Link href="/#kontakt" className="btn btn-ghost-light">
+                    Napsat nám
+                  </Link>
+                </div>
               </div>
             </Reveal>
             <Reveal delay={1}>

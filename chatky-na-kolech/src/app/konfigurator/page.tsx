@@ -3,9 +3,9 @@ import { Configurator } from "@/components/Configurator";
 import { SiteNav } from "@/components/SiteNav";
 
 export const metadata: Metadata = {
-  title: "Konfigurátor Tiny House FLAX",
+  title: "Konfigurátor",
   description:
-    "Sestavte si Tiny House FLAX na míru — rozměry, střecha, fasáda, výbava. Živý náhled a orientační cena.",
+    "Sestavte si tiny house na míru — rozměry, střecha, fasáda, výbava. Orientační cena a poptávka na chatkynakolech.cz.",
 };
 
 export default function KonfiguratorPage() {
@@ -14,11 +14,11 @@ export default function KonfiguratorPage() {
       <SiteNav />
       <header className="page-hero">
         <div className="wrap">
-          <p className="eyebrow">Tiny House FLAX</p>
+          <p className="eyebrow">Krok, který šetří týdny</p>
           <h1>Konfigurátor</h1>
           <p>
-            Nastavte rozměry, materiály a výbavu. Systém spočítá plochy i
-            orientační cenu — a vy pošlete nezávaznou poptávku jedním klikem.
+            Nastavte dům. Uvidíte cenu. Pošlete poptávku. My se ozveme s jasným
+            dalším krokem — bydlení, Airbnb i kemp.
           </p>
         </div>
       </header>

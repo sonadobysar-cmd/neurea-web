@@ -151,7 +151,7 @@ export function Configurator() {
   return (
     <div className="configurator">
       <aside className="cfg-stage">
-        <div className="cfg-stage-label">Tiny House FLAX · živý náhled</div>
+        <div className="cfg-stage-label">chatkynakolech.cz · živý náhled</div>
         <div className="cfg-canvas">
           <HousePreview
             length={cfg.length}
@@ -185,7 +185,7 @@ export function Configurator() {
             <strong>{formatCzk(prices.total)}</strong>
           </div>
           <a href="#cfg-poptavka" className="btn btn-oak btn-arrow">
-            Poptávka
+            Poslat poptávku
             <ArrowIcon />
           </a>
         </div>
@@ -635,12 +635,12 @@ export function Configurator() {
         <section className="cfg-block" id="cfg-poptavka">
           <div className="cfg-step">
             <span>→</span>
-            <h3>Nezávazná poptávka</h3>
+            <h3>Hotovo? Pošlete to nám</h3>
           </div>
           {sent ? (
             <p className="cfg-note" style={{ fontSize: "1.05rem" }}>
-              Děkujeme. Konfiguraci Tiny House FLAX jsme přijali — ozveme se do
-              24 hodin s upřesněním a termínem konzultace.
+              Konfiguraci máme. Ozveme se do 24 hodin s upřesněním a návrhem
+              dalšího kroku — konzultace, termín, případně úpravy.
             </p>
           ) : (
             <form className="contact-form" onSubmit={onSubmit}>
@@ -663,20 +663,30 @@ export function Configurator() {
                 <input id="cfg-phone" name="phone" type="tel" placeholder="+420…" />
               </div>
               <div className="field">
+                <label htmlFor="cfg-intent">Záměr</label>
+                <select id="cfg-intent" name="intent" defaultValue="bydleni">
+                  <option value="bydleni">Vlastní bydlení</option>
+                  <option value="airbnb">Airbnb / investice</option>
+                  <option value="kemp">Kemp / výměna chatek</option>
+                  <option value="jine">Zatím nevím</option>
+                </select>
+              </div>
+              <div className="field">
                 <label htmlFor="cfg-note">Poznámka</label>
                 <textarea
                   id="cfg-note"
                   name="note"
-                  placeholder="Pozemek, termín, speciální přání…"
+                  placeholder="Pozemek, lokalita, kapacita, termín…"
                 />
               </div>
               <input type="hidden" name="config" value={JSON.stringify({ cfg, prices })} />
               <button type="submit" className="btn btn-ink btn-arrow">
-                Odeslat nezávaznou poptávku
+                Odeslat konfiguraci a poptávku
                 <ArrowIcon />
               </button>
               <p className="cfg-note">
-                Cena je orientační. Finální nabídku připravíme po konzultaci.
+                Cena je orientační. Finál doladíme po krátké konzultaci — bez
+                závazku.
               </p>
             </form>
           )}
@@ -710,10 +720,9 @@ export function Configurator() {
                   <li key={layer}>{layer}</li>
                 ))}
               </ol>
-              <h4>Naši dodavatelé</h4>
+              <h4>Dodavatelé</h4>
               <p className="cfg-note" style={{ marginBottom: "0.75rem" }}>
-                Při výrobě Tiny House FLAX využíváme materiály a komponenty od
-                ověřených dodavatelů:
+                Materiály a komponenty od ověřených partnerů:
               </p>
               <div className="cfg-suppliers">
                 {SUPPLIERS.map((s) => (

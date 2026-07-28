@@ -101,6 +101,16 @@ export default async function HomePage({
         </div>
       </section>
 
+      <section className="lux-band">
+        <div className="container">
+          <Reveal>
+            <p className="lux-quote">
+              {dict.footer.mission}
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
       <section className="section" style={{ paddingTop: 0 }}>
         <div className="container split">
           <Reveal>

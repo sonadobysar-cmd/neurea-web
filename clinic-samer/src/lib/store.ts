@@ -2,7 +2,10 @@ import { promises as fs } from "fs";
 import path from "path";
 import { randomUUID } from "crypto";
 
-const DATA_DIR = path.join(process.cwd(), "data");
+const DATA_DIR =
+  process.env.VERCEL || process.env.NODE_ENV === "production"
+    ? path.join("/tmp", "clinic-samer-data")
+    : path.join(process.cwd(), "data");
 
 export type ReviewStatus = "pending" | "approved" | "rejected";
 

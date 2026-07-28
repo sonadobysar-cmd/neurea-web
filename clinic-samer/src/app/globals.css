@@ -296,10 +296,11 @@ img {
 }
 
 .brand-logo {
-  width: 2.75rem;
-  height: 2.75rem;
+  width: 3.15rem;
+  height: 3.15rem;
   flex-shrink: 0;
   display: block;
+  filter: drop-shadow(0 12px 24px rgba(42, 35, 56, 0.3));
 }
 
 .brand-lockup .brand-text {

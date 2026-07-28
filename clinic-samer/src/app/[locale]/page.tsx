@@ -30,10 +30,9 @@ export default async function HomePage({
           <div className="hero-shade" />
         </div>
         <div className="container hero-content">
-          <p className="hero-brand">{dict.hero.brand}</p>
+          <p className="hero-brand">{dict.brand.short}</p>
           <h1>
-            {dict.hero.title}
-            <br />
+            {dict.hero.title}{" "}
             <em>{dict.hero.titleEm}</em>
           </h1>
           <p className="hero-lead">{dict.hero.lead}</p>

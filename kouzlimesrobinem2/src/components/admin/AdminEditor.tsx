@@ -264,40 +264,6 @@ export function AdminEditor({ initial }: { initial: SiteContent }) {
       </section>
 
       <section className="admin-section">
-        <h2>Program</h2>
-        <div className="admin-grid">
-          <Field label="Eyebrow" value={content.program.eyebrow} onChange={(v) => patch("program", { ...content.program, eyebrow: v })} />
-          <Field label="Nadpis před" value={content.program.titleBefore} onChange={(v) => patch("program", { ...content.program, titleBefore: v })} />
-          <Field label="Zvýraznění" value={content.program.titleEm} onChange={(v) => patch("program", { ...content.program, titleEm: v })} />
-        </div>
-        <Field label="Lead" value={content.program.lead} onChange={(v) => patch("program", { ...content.program, lead: v })} multiline />
-        {content.program.steps.map((step, i) => (
-          <div className="admin-card-block" key={i}>
-            <h3>Krok {i + 1}</h3>
-            <Field
-              label="Název"
-              value={step.title}
-              onChange={(v) => {
-                const steps = [...content.program.steps];
-                steps[i] = { ...step, title: v };
-                patch("program", { ...content.program, steps });
-              }}
-            />
-            <Field
-              label="Text"
-              value={step.text}
-              multiline
-              onChange={(v) => {
-                const steps = [...content.program.steps];
-                steps[i] = { ...step, text: v };
-                patch("program", { ...content.program, steps });
-              }}
-            />
-          </div>
-        ))}
-      </section>
-
-      <section className="admin-section">
         <h2>Galerie</h2>
         <div className="admin-grid">
           <Field label="Eyebrow" value={content.gallery.eyebrow} onChange={(v) => patch("gallery", { ...content.gallery, eyebrow: v })} />

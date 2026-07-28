@@ -19,7 +19,7 @@ export const luxuryBodyTemplate = `<svg width="0" height="0" style="position:abs
     <div class="nav-links" id="navMenu">
       <a href="#top">Domů</a>
       <a href="#robin">O mě</a>
-      <a href="#ukazka">Ukázka představení</a>
+      <a href="#galerie">Ukázka představení</a>
       <a href="#cena">Ceník</a>
       <a href="#kontakt">Kontakt</a>
     </div>
@@ -80,19 +80,6 @@ export const luxuryBodyTemplate = `<svg width="0" height="0" style="position:abs
       {{cms.disciplines.cards}}
     </div>
     <p class="fan-hint">Klepnutím / kliknutím kartu otočíte</p>
-  </div>
-</section>
-
-<section class="program" id="ukazka">
-  <div class="wrap prog-grid">
-    <div class="prog-left reveal">
-      <p class="eyebrow"><svg class="st"><use href="#star"/></svg>{{cms.program.eyebrow}}</p>
-      <h2>{{cms.program.titleBefore}}<em>{{cms.program.titleEm}}</em></h2>
-      <p class="lead">{{cms.program.lead}}</p>
-    </div>
-    <div>
-      {{cms.program.steps}}
-    </div>
   </div>
 </section>
 

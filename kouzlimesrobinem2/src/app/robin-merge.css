@@ -346,6 +346,7 @@ body {
   line-height: 1.55;
   color: var(--ink-soft);
   max-width: 42ch;
+  white-space: pre-line;
 }
 
 /* Pravý panel — doprava v odtrženém stubu */

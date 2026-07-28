@@ -97,6 +97,13 @@ export type Dictionary = {
     hoursTitle: string;
     hours: { day: string; time: string }[];
     privacy: string;
+    stepService: string;
+    stepDateTime: string;
+    stepDetails: string;
+    next: string;
+    back: string;
+    slotsTitle: string;
+    summary: string;
   };
   contact: {
     eyebrow: string;
@@ -256,6 +263,13 @@ const cs: Dictionary = {
       { day: "Pátek", time: "8:30 – 12:30" },
     ],
     privacy: "Odesláním souhlasíte se zpracováním údajů pro účely rezervace.",
+    stepService: "1 · Služba",
+    stepDateTime: "2 · Termín",
+    stepDetails: "3 · Kontakt",
+    next: "Pokračovat",
+    back: "Zpět",
+    slotsTitle: "Dostupné časy",
+    summary: "Shrnutí",
   },
   contact: {
     eyebrow: "Kontakt",
@@ -416,6 +430,13 @@ const en: Dictionary = {
       { day: "Friday", time: "8:30 – 12:30" },
     ],
     privacy: "By submitting you agree to processing of data for booking purposes.",
+    stepService: "1 · Service",
+    stepDateTime: "2 · Time",
+    stepDetails: "3 · Details",
+    next: "Continue",
+    back: "Back",
+    slotsTitle: "Available times",
+    summary: "Summary",
   },
   contact: {
     eyebrow: "Contact",
@@ -576,6 +597,13 @@ const de: Dictionary = {
       { day: "Freitag", time: "8:30 – 12:30" },
     ],
     privacy: "Mit dem Absenden stimmen Sie der Datenverarbeitung für Terminzwecke zu.",
+    stepService: "1 · Leistung",
+    stepDateTime: "2 · Termin",
+    stepDetails: "3 · Kontakt",
+    next: "Weiter",
+    back: "Zurück",
+    slotsTitle: "Verfügbare Zeiten",
+    summary: "Zusammenfassung",
   },
   contact: {
     eyebrow: "Kontakt",
@@ -736,6 +764,13 @@ const it: Dictionary = {
       { day: "Venerdì", time: "8:30 – 12:30" },
     ],
     privacy: "Inviando accetti il trattamento dei dati per la prenotazione.",
+    stepService: "1 · Servizio",
+    stepDateTime: "2 · Orario",
+    stepDetails: "3 · Contatto",
+    next: "Continua",
+    back: "Indietro",
+    slotsTitle: "Orari disponibili",
+    summary: "Riepilogo",
   },
   contact: {
     eyebrow: "Contatti",
@@ -896,6 +931,13 @@ const ar: Dictionary = {
       { day: "الجمعة", time: "8:30 – 12:30" },
     ],
     privacy: "بإرسال النموذج توافقين على معالجة البيانات لغرض الحجز.",
+    stepService: "١ · الخدمة",
+    stepDateTime: "٢ · الموعد",
+    stepDetails: "٣ · التواصل",
+    next: "متابعة",
+    back: "رجوع",
+    slotsTitle: "الأوقات المتاحة",
+    summary: "الملخص",
   },
   contact: {
     eyebrow: "التواصل",

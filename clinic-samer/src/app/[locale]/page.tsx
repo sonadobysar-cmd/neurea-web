@@ -39,7 +39,7 @@ export default async function HomePage({
             <Link href={`/${locale}/booking`} className="btn btn-light">
               {dict.hero.ctaPrimary}
             </Link>
-            <Link href={`/${locale}/services`} className="btn btn-ghost" style={{ color: "#fff8f6", borderColor: "rgba(255,248,246,0.35)" }}>
+            <Link href={`/${locale}/services`} className="btn btn-ghost" style={{ color: "#f8f5fc", borderColor: "rgba(248,245,252,0.35)" }}>
               {dict.hero.ctaSecondary}
             </Link>
           </div>

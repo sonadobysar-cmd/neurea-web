@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Noto_Sans_Arabic, Outfit } from "next/font/google";
+import { Manrope, Noto_Sans_Arabic, Syne } from "next/font/google";
 import "./globals.css";
 
-const display = Cormorant_Garamond({
+const display = Syne({
   subsets: ["latin", "latin-ext"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-display",
   display: "swap",
 });
 
-const sans = Outfit({
+const sans = Manrope({
   subsets: ["latin", "latin-ext"],
-  weight: ["300", "400", "500", "600"],
+  weight: ["300", "400", "500", "600", "700"],
   variable: "--font-sans",
   display: "swap",
 });

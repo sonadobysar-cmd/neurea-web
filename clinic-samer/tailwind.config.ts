@@ -5,6 +5,12 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        lilac: {
+          ink: "var(--rose-ink)",
+          deep: "var(--rose-deep)",
+          soft: "var(--rose-soft)",
+          mist: "var(--rose-mist)",
+        },
         rose: {
           ink: "var(--rose-ink)",
           deep: "var(--rose-deep)",
@@ -21,7 +27,7 @@ const config: Config = {
         ink: "var(--ink)",
       },
       fontFamily: {
-        display: ["var(--font-display)", "Georgia", "serif"],
+        display: ["var(--font-display)", "system-ui", "sans-serif"],
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
       },
       maxWidth: {

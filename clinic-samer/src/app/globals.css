@@ -155,19 +155,6 @@ img {
   background: #5a5072;
 }
 
-.brand-logo {
-  width: 2.85rem;
-  height: 2.85rem;
-  flex-shrink: 0;
-  display: block;
-  filter: drop-shadow(0 8px 18px rgba(155, 139, 184, 0.28));
-}
-
-.lang-switch a.is-active {
-  background: #6e6288;
-  color: #f8f5fc;
-}
-
 .btn-ghost {
   background: transparent;
   border-color: rgba(58, 42, 50, 0.18);
@@ -309,11 +296,11 @@ img {
 }
 
 .brand-logo {
-  width: 3.15rem;
-  height: 3.15rem;
+  width: 2.85rem;
+  height: 2.85rem;
   flex-shrink: 0;
   display: block;
-  filter: drop-shadow(0 12px 24px rgba(42, 35, 56, 0.3));
+  filter: drop-shadow(0 8px 18px rgba(155, 139, 184, 0.28));
 }
 
 .brand-lockup .brand-text {
@@ -384,7 +371,7 @@ img {
 }
 
 .lang-switch a.is-active {
-  background: var(--rose-ink);
+  background: #6e6288;
   color: #f8f5fc;
 }
 

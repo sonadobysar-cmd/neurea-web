@@ -393,22 +393,23 @@ function TinyHouse({
 function Scene(props: House3DProps) {
   return (
     <>
-      <color attach="background" args={["#f0efec"]} />
-      <ambientLight intensity={0.55} />
+      <color attach="background" args={["#efe6da"]} />
+      <ambientLight intensity={0.6} />
       <directionalLight
         position={[6, 10, 4]}
-        intensity={1.35}
+        intensity={1.25}
         castShadow
         shadow-mapSize={[2048, 2048]}
         shadow-bias={-0.0002}
+        color="#fff5e8"
       />
-      <directionalLight position={[-4, 4, -2]} intensity={0.35} color="#ffe8c8" />
-      <Environment preset="city" environmentIntensity={0.35} />
+      <directionalLight position={[-4, 4, -2]} intensity={0.45} color="#ffd8a8" />
+      <Environment preset="city" environmentIntensity={0.3} />
       <TinyHouse {...props} />
-      <ContactShadows position={[0, -0.02, 0]} opacity={0.45} scale={18} blur={2.4} far={8} />
+      <ContactShadows position={[0, -0.02, 0]} opacity={0.4} scale={18} blur={2.4} far={8} />
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.01, 0]} receiveShadow>
         <circleGeometry args={[7, 64]} />
-        <meshStandardMaterial color="#e8e6e1" roughness={1} />
+        <meshStandardMaterial color="#e4d5c4" roughness={1} />
       </mesh>
       <OrbitControls
         makeDefault

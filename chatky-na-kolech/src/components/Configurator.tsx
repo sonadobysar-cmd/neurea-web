@@ -238,7 +238,7 @@ export function Configurator() {
           </button>
           <button
             type="button"
-            className="btn btn-ink"
+            className="btn btn-oak"
             onClick={() => setStep("quote")}
           >
             Request quote
@@ -730,7 +730,7 @@ export function Configurator() {
               <span />
             )}
             {step !== "quote" && (
-              <button type="button" className="btn btn-ink btn-arrow" onClick={goNext}>
+              <button type="button" className="btn btn-oak btn-arrow" onClick={goNext}>
                 Další
                 <ArrowIcon />
               </button>

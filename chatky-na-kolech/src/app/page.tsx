@@ -90,7 +90,7 @@ export default function HomePage() {
             Airbnb, kempy.
           </p>
           <div className="hero-actions">
-            <Link href="/konfigurator" className="btn btn-paper btn-arrow">
+            <Link href="/konfigurator" className="btn btn-oak btn-arrow">
               Start build
               <ArrowIcon />
             </Link>

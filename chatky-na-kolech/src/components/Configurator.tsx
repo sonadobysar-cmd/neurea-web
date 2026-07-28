@@ -148,10 +148,32 @@ export function Configurator() {
       ? "Ne"
       : KITCHEN_VARIANTS.find((k) => k.id === cfg.kitchenVariant)?.label ?? "Ano";
 
+  const steps = [
+    { id: "cfg-rozmery", n: "01", label: "Rozměry" },
+    { id: "cfg-strecha", n: "02", label: "Střecha" },
+    { id: "cfg-fasada", n: "03", label: "Fasáda" },
+    { id: "cfg-koupelna", n: "05", label: "Koupelna" },
+    { id: "cfg-lofty", n: "08", label: "Lofty", hide: !showLofts },
+    { id: "cfg-kuchyne", n: "09", label: "Kuchyň" },
+    { id: "cfg-poptavka", n: "→", label: "Poptávka" },
+  ].filter((s) => !("hide" in s && s.hide));
+
+  const planW = Math.min(220, 40 + cfg.length * 14);
+  const planH = Math.min(100, 28 + cfg.width * 16);
+
   return (
     <div className="configurator">
+      <div className="cfg-progress" aria-label="Kroky konfigurátoru">
+        {steps.map((s) => (
+          <a key={s.id} href={`#${s.id}`} className="cfg-progress-item">
+            <span>{s.n}</span>
+            {s.label}
+          </a>
+        ))}
+      </div>
+
       <aside className="cfg-stage">
-        <div className="cfg-stage-label">chatkynakolech.cz · živý náhled</div>
+        <div className="cfg-stage-label">Živý náhled · na míru, ne typový katalog</div>
         <div className="cfg-canvas">
           <HousePreview
             length={cfg.length}
@@ -162,6 +184,16 @@ export function Configurator() {
             hasBathroom={cfg.bathroom === "yes"}
             hasKitchen={cfg.kitchen === "yes"}
           />
+        </div>
+
+        <div className="cfg-plan" aria-hidden="true">
+          <div
+            className="cfg-plan-box"
+            style={{ width: planW, height: planH }}
+          >
+            <span className="cfg-plan-l">{formatM(cfg.length)}</span>
+            <span className="cfg-plan-w">{formatM(cfg.width)}</span>
+          </div>
         </div>
 
         <div className="cfg-metrics">
@@ -192,8 +224,7 @@ export function Configurator() {
       </aside>
 
       <div className="cfg-panel">
-        {/* 1 Rozměry */}
-        <section className="cfg-block">
+        <section className="cfg-block" id="cfg-rozmery">
           <div className="cfg-step">
             <span>01</span>
             <h3>Rozměry</h3>
@@ -223,8 +254,7 @@ export function Configurator() {
           </p>
         </section>
 
-        {/* 2 Střecha */}
-        <section className="cfg-block">
+        <section className="cfg-block" id="cfg-strecha">
           <div className="cfg-step">
             <span>02</span>
             <h3>Typ střechy</h3>
@@ -256,8 +286,7 @@ export function Configurator() {
           </div>
         </section>
 
-        {/* 3 Fasáda */}
-        <section className="cfg-block">
+        <section className="cfg-block" id="cfg-fasada">
           <div className="cfg-step">
             <span>03</span>
             <h3>Fasáda</h3>
@@ -317,8 +346,7 @@ export function Configurator() {
           </section>
         )}
 
-        {/* 5 Koupelna */}
-        <section className="cfg-block">
+        <section className="cfg-block" id="cfg-koupelna">
           <div className="cfg-step">
             <span>05</span>
             <h3>Koupelna</h3>
@@ -414,7 +442,7 @@ export function Configurator() {
 
         {/* 8 Lofty */}
         {showLofts && (
-          <section className="cfg-block">
+          <section className="cfg-block" id="cfg-lofty">
             <div className="cfg-step">
               <span>08</span>
               <h3>Spací lofty</h3>
@@ -446,7 +474,7 @@ export function Configurator() {
         )}
 
         {/* 9 Kuchyň */}
-        <section className="cfg-block">
+        <section className="cfg-block" id="cfg-kuchyne">
           <div className="cfg-step">
             <span>09</span>
             <h3>Kuchyň</h3>
@@ -732,6 +760,16 @@ export function Configurator() {
             </div>
           )}
         </section>
+      </div>
+
+      <div className="cfg-mobile-bar">
+        <div>
+          <span>Orientačně</span>
+          <strong>{formatCzk(prices.total)}</strong>
+        </div>
+        <a href="#cfg-poptavka" className="btn btn-oak">
+          Poslat
+        </a>
       </div>
     </div>
   );

@@ -1841,8 +1841,225 @@ p {
   border-top-color: var(--line-light);
 }
 
-.values-on-ink .value p {
-  opacity: 0.65;
+/* ——— Path cards (3 systematické cesty) ——— */
+.path-stack {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.path-card {
+  display: grid;
+  gap: 0;
+  border-radius: 1.35rem;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--sand);
+}
+
+@media (min-width: 900px) {
+  .path-card {
+    grid-template-columns: 1.05fr 1fr;
+    min-height: 22rem;
+  }
+
+  .path-card:nth-child(even) .path-card-media {
+    order: 2;
+  }
+}
+
+.path-card-media {
+  position: relative;
+  min-height: 14rem;
+  aspect-ratio: 4 / 3;
+}
+
+@media (min-width: 900px) {
+  .path-card-media {
+    aspect-ratio: auto;
+    min-height: 100%;
+  }
+}
+
+.path-card-media img {
+  object-fit: cover;
+}
+
+.path-card-body {
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.path-card-body h3 {
+  font-size: clamp(1.75rem, 3.5vw, 2.4rem);
+  margin-bottom: 0.75rem;
+}
+
+.path-lead {
+  opacity: 0.72;
+  font-weight: 300;
+  margin-bottom: 1.15rem;
+  max-width: 42ch;
+}
+
+.path-points {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.path-points li {
+  font-size: 0.92rem;
+  padding-left: 1.1rem;
+  position: relative;
+}
+
+.path-points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.45rem;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--oak);
+}
+
+.path-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.cfg-preview--photo {
+  position: relative;
+  min-height: 16rem;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.cfg-preview--photo > span,
+.cfg-preview--photo img {
+  object-fit: cover;
+}
+
+/* Configurator progress + plan + mobile bar */
+.cfg-progress {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.25rem;
+}
+
+.cfg-progress-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--sand);
+  font-size: 0.78rem;
+  font-weight: 500;
+  opacity: 0.85;
+  transition: background 0.25s, border-color 0.25s;
+}
+
+.cfg-progress-item span {
+  font-family: var(--font-display);
+  color: var(--oak);
+  font-size: 0.85rem;
+}
+
+.cfg-progress-item:hover {
+  background: #fff;
+  border-color: var(--oak);
+  opacity: 1;
+}
+
+.cfg-plan {
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem 0 0.75rem;
+}
+
+.cfg-plan-box {
+  position: relative;
+  border: 1.5px dashed rgba(244, 246, 242, 0.35);
+  border-radius: 0.35rem;
+  background: rgba(244, 246, 242, 0.06);
+  transition: width 0.35s var(--ease-out), height 0.35s var(--ease-out);
+}
+
+.cfg-plan-l,
+.cfg-plan-w {
+  position: absolute;
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  opacity: 0.55;
+}
+
+.cfg-plan-l {
+  bottom: -1.1rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.cfg-plan-w {
+  right: -2.4rem;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.cfg-mobile-bar {
+  display: none;
+}
+
+@media (max-width: 999px) {
+  .cfg-mobile-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    padding: 0.85rem 1.15rem calc(0.85rem + env(safe-area-inset-bottom));
+    background: rgba(28, 20, 16, 0.92);
+    backdrop-filter: blur(12px);
+    color: var(--paper);
+    border-top: 1px solid var(--line-light);
+  }
+
+  .cfg-mobile-bar span {
+    display: block;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.5;
+  }
+
+  .cfg-mobile-bar strong {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 400;
+  }
+
+  .configurator {
+    padding-bottom: 5.5rem;
+  }
+}
+
+@media (min-width: 1000px) {
+  .configurator {
+    grid-template-columns: 0.95fr 1.05fr;
+  }
 }
 
 .wheel-visual {

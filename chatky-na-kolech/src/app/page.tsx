@@ -5,25 +5,15 @@ import { ArrowIcon } from "@/components/Icons";
 import { Reveal } from "@/components/Reveal";
 import { SiteNav } from "@/components/SiteNav";
 import {
-  audiences,
   brand,
-  businessPoints,
   faq,
   media,
-  models,
+  paths,
   process,
   realizations,
   values,
   wheelPoints,
 } from "@/data/content";
-
-function formatFrom(n: number) {
-  return new Intl.NumberFormat("cs-CZ", {
-    style: "currency",
-    currency: "CZK",
-    maximumFractionDigits: 0,
-  }).format(n);
-}
 
 function CtaBand({
   title,
@@ -74,16 +64,15 @@ export default function HomePage() {
     <>
       <SiteNav darkHero />
 
-      {/* 1 · Hook */}
       <section className="hero">
         <div className="hero-media">
           <Image
             src={media.hero}
-            alt="Tiny house na kolech — převoz na louku"
+            alt="Moderní tiny house na kolech — teplé dřevo, čistý střih"
             fill
             priority
             sizes="100vw"
-            style={{ objectFit: "cover" }}
+            style={{ objectFit: "cover", objectPosition: "center 60%" }}
           />
           <div className="hero-shade" />
         </div>
@@ -95,21 +84,21 @@ export default function HomePage() {
             <em>Svoboda na kolech.</em>
           </h1>
           <p className="hero-lead">
-            Moderní tiny house pro bydlení, Airbnb i obnovu kempů. Hotový přijede
-            — vy rozhodnete, kam ho postavíte příště.
+            Nový tiny house, renovace stávající chatky, nebo byznys jednotky.
+            Jedna dílna — tři jasné cesty.
           </p>
           <div className="hero-actions">
             <Link href="/konfigurator" className="btn btn-oak btn-arrow">
-              Spočítat svůj dům
+              Konfigurátor nového domu
               <ArrowIcon />
             </Link>
-            <Link href="/#kontakt" className="btn btn-ghost-light">
-              Domluvit hovor
+            <Link href="/#cesty" className="btn btn-ghost-light">
+              Vybrat cestu
             </Link>
           </div>
           <div className="hero-scroll">
             <i />
-            Jak to funguje
+            Systém
           </div>
         </div>
       </section>
@@ -118,13 +107,13 @@ export default function HomePage() {
         <div className="mq-track">
           {[0, 1].flatMap((dup) =>
             [
-              "Bydlení na pozemku",
-              "Airbnb jednotky",
-              "Výměna chatek v kempu",
+              "Nový tiny house",
+              "Opravy & renovace",
+              "Airbnb & kempy",
               "Homologovaný podvozek",
               "Přemístitelné",
               "Moderní dřevo",
-              "Konfigurátor online",
+              "Konfigurátor",
               brand.domain,
             ].map((label) => (
               <span key={`${dup}-${label}`}>{label}</span>
@@ -133,40 +122,60 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* 2 · Pro koho (qualify) */}
-      <section className="section section-paper" id="pro-koho">
+      {/* System: 3 paths */}
+      <section className="section section-paper" id="cesty">
         <div className="wrap">
           <Reveal>
             <div className="section-head wide">
               <div>
-                <p className="eyebrow">Pro koho stavíme</p>
-                <h2>Tři cesty. Jeden dům, který se hýbe.</h2>
+                <p className="eyebrow">Systém</p>
+                <h2>Tři cesty. Bez typových katalogů.</h2>
               </div>
               <p>
-                Nehledáte katalogovou chatku. Hledáte řešení — pro sebe, pro
-                hosty, nebo pro celý areál. Vyberte, kudy začít.
+                Neprodáváme „model A / model B“. Řešíme váš záměr — nový dům,
+                renovaci, nebo byznys. Každá cesta má jasný další krok.
               </p>
             </div>
           </Reveal>
-          <div className="audience-rail">
-            {audiences.map((a, i) => (
-              <Reveal key={a.id} delay={(Math.min(i + 1, 3) as 1 | 2 | 3)}>
-                <Link href={a.href} className="audience-tile">
-                  <span className="audience-n">0{i + 1}</span>
-                  <h3>{a.title}</h3>
-                  <p>{a.text}</p>
-                  <span className="audience-cta">
-                    {a.cta}
-                    <ArrowIcon />
-                  </span>
-                </Link>
+
+          <div className="path-stack">
+            {paths.map((p, i) => (
+              <Reveal key={p.id} delay={(Math.min(i + 1, 3) as 1 | 2 | 3)}>
+                <article className={`path-card path-card--${p.id}`} id={p.id}>
+                  <div className="path-card-media">
+                    <Image
+                      src={p.image}
+                      alt={p.title}
+                      fill
+                      sizes="(max-width:900px) 100vw, 48vw"
+                    />
+                  </div>
+                  <div className="path-card-body">
+                    <p className="eyebrow">{p.eyebrow}</p>
+                    <h3>{p.title}</h3>
+                    <p className="path-lead">{p.text}</p>
+                    <ul className="path-points">
+                      {p.points.map((pt) => (
+                        <li key={pt}>{pt}</li>
+                      ))}
+                    </ul>
+                    <div className="path-actions">
+                      <Link href={p.href} className="btn btn-ink btn-arrow">
+                        {p.cta}
+                        <ArrowIcon />
+                      </Link>
+                      <Link href={p.secondaryHref} className="btn btn-ghost">
+                        {p.secondary}
+                      </Link>
+                    </div>
+                  </div>
+                </article>
               </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 3 · Wheels USP */}
       <section className="section section-ink" id="kola">
         <div className="wrap">
           <Reveal>
@@ -176,8 +185,8 @@ export default function HomePage() {
                 <h2>Nejsilnější argument není design. Je to pohyb.</h2>
               </div>
               <p>
-                Beton drží. Kola pouští dál. Proto stavíme tiny house jako
-                homologované vozidlo — krásné uvnitř, volné venku.
+                Beton drží. Kola pouští dál. Homologované vozidlo — krásné
+                uvnitř, volné venku.
               </p>
             </div>
           </Reveal>
@@ -195,241 +204,62 @@ export default function HomePage() {
             <div className="wheel-visual mt-3">
               <Image
                 src={media.chassis}
-                alt="Homologovaný podvozek tiny house v dílně"
+                alt="Homologovaný podvozek tiny house"
                 fill
                 sizes="100vw"
                 style={{ objectFit: "cover" }}
               />
             </div>
           </Reveal>
-          <Reveal>
-            <div className="mt-3">
-              <CtaBand
-                dark
-                title="Chcete vědět, jestli to sedí na váš pozemek?"
-                text="Napište nám lokalitu a záměr. Ozveme se s jasným doporučením — bez omáčky."
-                primary="Napsat teď"
-                primaryHref="/#kontakt"
-                secondary="Nejdřív konfigurátor"
-                secondaryHref="/konfigurator"
-              />
-            </div>
-          </Reveal>
         </div>
       </section>
 
-      {/* 4 · Lines */}
-      <section className="section section-mist" id="modely">
-        <div className="wrap">
-          <Reveal>
-            <div className="section-head wide">
-              <div>
-                <p className="eyebrow">Řady</p>
-                <h2>Weekend. Live. Stay.</h2>
-              </div>
-              <p>
-                Stejná DNA — teplé dřevo, moderní střih, kola. Jiný účel. V
-                konfigurátoru doladíte rozměry a výbavu na metr.
-              </p>
-            </div>
-          </Reveal>
-          <div className="models-rail">
-            {models.map((m, i) => (
-              <Reveal key={m.id} delay={(Math.min(i + 1, 3) as 1 | 2 | 3)}>
-                <article className="model-tile">
-                  <Image
-                    src={m.image}
-                    alt={m.name}
-                    fill
-                    sizes="(max-width:900px) 100vw, 33vw"
-                  />
-                  <div className="model-meta">
-                    {m.subtitle} · {m.size}
-                  </div>
-                  <h3>{m.name}</h3>
-                  <p>{m.desc}</p>
-                  <div className="model-foot">
-                    <strong>od {formatFrom(m.from)}</strong>
-                    <Link href="/konfigurator" className="btn btn-paper">
-                      Nastavit
-                    </Link>
-                  </div>
-                </article>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 5 · Configurator = mid funnel */}
-      <section className="section section-paper" id="konfigurator-teaser">
+      <section className="section section-mist" id="konfigurator-teaser">
         <div className="wrap">
           <Reveal>
             <div className="cfg-teaser">
               <div>
-                <p className="eyebrow">Konfigurátor</p>
-                <h2>Nejdřív čísla. Pak hovor.</h2>
+                <p className="eyebrow">Cesta 01 · Konfigurátor</p>
+                <h2>Sestavte dům. Uvidíte cenu. Pošlete poptávku.</h2>
                 <p>
-                  Rozměry, střecha, fasáda, koupelna, kuchyň — sestavíte dům a
-                  uvidíte orientační cenu. Pak jedním klikem pošlete poptávku.
-                  Žádné „napište nám do prázdna“.
+                  Rozměry, střecha, fasáda, výbava — živý náhled a orientační
+                  rozpočet. Žádné typové šablony. Váš brief, vaše čísla.
                 </p>
                 <div className="hero-actions" style={{ marginBottom: 0 }}>
                   <Link href="/konfigurator" className="btn btn-oak btn-arrow">
-                    Spustit konfigurátor
+                    Otevřít konfigurátor
                     <ArrowIcon />
                   </Link>
-                  <Link href="/#kontakt" className="btn btn-ghost-light">
-                    Radši rovnou konzultace
+                  <Link href="/#renovace" className="btn btn-ghost-light">
+                    Spíš renovace?
                   </Link>
                 </div>
               </div>
-              <div className="cfg-preview" aria-hidden="true">
-                <svg
-                  className="house-svg"
-                  viewBox="0 0 480 340"
-                  style={{ maxWidth: 340 }}
-                >
-                  <ellipse cx="240" cy="300" rx="160" ry="14" fill="#000" opacity="0.35" />
-                  <rect x="130" y="248" width="240" height="10" rx="2" fill="#1a1a1a" />
-                  <circle cx="165" cy="268" r="14" fill="#111" />
-                  <circle cx="335" cy="268" r="14" fill="#111" />
-                  <rect x="130" y="145" width="240" height="105" fill="#B8956A" />
-                  <path d="M118 152 L240 78 L362 152 Z" fill="#4A5560" />
-                  <rect x="155" y="178" width="40" height="72" fill="#1a1512" opacity="0.85" />
-                  <rect x="220" y="168" width="48" height="38" fill="#FFF4D6" opacity="0.85" />
-                  <rect x="290" y="168" width="48" height="38" fill="#FFF4D6" opacity="0.7" />
-                </svg>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 6 · Business */}
-      <section className="section section-mist" id="byznys">
-        <div className="wrap">
-          <Reveal>
-            <div className="section-head wide">
-              <div>
-                <p className="eyebrow">Investice & provozy</p>
-                <h2>Nejen bydlet. Vydělávat. Obnovovat.</h2>
-              </div>
-              <p>
-                Cílíme na lidi s pozemkem i na ty, kdo počítají cashflow. Tiny
-                house je produkt — i aktivum.
-              </p>
-            </div>
-          </Reveal>
-          <div className="values">
-            {businessPoints.map((v, i) => (
-              <Reveal key={v.title} delay={(Math.min(i + 1, 3) as 1 | 2 | 3)}>
-                <div className="value">
-                  <h3>{v.title}</h3>
-                  <p>{v.text}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-          <Reveal>
-            <div className="mt-3">
-              <CtaBand
-                title="Máte kemp, nebo plánujete flotilu?"
-                text="Napište kapacitu a lokalitu. Připravíme návrh výměny chatek nebo startovacích Airbnb jednotek."
-                primary="Poptat byznys řešení"
-                primaryHref="/#kontakt"
-                secondary="Sestavit jednotku"
-                secondaryHref="/konfigurator"
-              />
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 7 · Process */}
-      <section className="section section-ink" id="proces">
-        <div className="wrap">
-          <Reveal>
-            <div className="section-head">
-              <p className="eyebrow">Jak to běží</p>
-              <h2>Od záměru k zaparkovanému domu</h2>
-              <p>
-                Funnel, ne chaos. Každý krok má výstup — vy vždy víte, co
-                následuje.
-              </p>
-            </div>
-          </Reveal>
-          <div className="process-grid">
-            {process.map((step, i) => (
-              <Reveal key={step.n} delay={(Math.min(i + 1, 3) as 1 | 2 | 3)}>
-                <div className="process-step">
-                  <span className="process-n">{step.n}</span>
-                  <h3>{step.title}</h3>
-                  <p>{step.text}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-          <div className="mt-3" style={{ textAlign: "center" }}>
-            <Link href="/konfigurator" className="btn btn-oak btn-arrow">
-              Začít krokem 02 — konfigurátor
-              <ArrowIcon />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* 8 · Craft */}
-      <section className="section section-paper">
-        <div className="wrap">
-          <div className="split">
-            <Reveal>
-              <div className="split-media">
+              <div className="cfg-preview cfg-preview--photo">
                 <Image
-                  src={media.craft}
-                  alt="Interiérový smrkový obklad v dílně"
+                  src="/media/realizace/tiny-12x4.jpg"
+                  alt=""
                   fill
-                  sizes="(max-width:900px) 100vw, 50vw"
-                  style={{ objectFit: "cover" }}
+                  sizes="400px"
+                  style={{ objectFit: "cover", borderRadius: "1rem" }}
                 />
               </div>
-            </Reveal>
-            <Reveal delay={1}>
-              <div className="split-copy">
-                <p className="eyebrow">Design</p>
-                <h2>Teplo dřeva. Moderní klid.</h2>
-                <p>
-                  Inspirace resortovým pocitem — měkké světlo, přírodní
-                  materiály, čisté linie. Interiér, ve kterém chcete zůstat.
-                  Exteriér, který nezkopíruje sousedovu kůlnu.
-                </p>
-                <ul className="split-list">
-                  <li>Teplé dřevo bez rustikálního přetížení</li>
-                  <li>Homologovaný podvozek jako standard</li>
-                  <li>Dispozice pro život i short-stay provoz</li>
-                </ul>
-                <Link href="/#kontakt" className="btn btn-ink btn-arrow">
-                  Chci konzultaci
-                  <ArrowIcon />
-                </Link>
-              </div>
-            </Reveal>
-          </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* 9 · Proof */}
-      <section className="section section-mist" id="realizace-preview">
+      <section className="section section-paper" id="realizace-preview">
         <div className="wrap">
           <Reveal>
             <div className="section-head wide">
               <div>
                 <p className="eyebrow">Realizace</p>
-                <h2>Už stojí. Už vydělávají. Už bydlí.</h2>
+                <h2>Důkaz z dílny</h2>
               </div>
               <p>
-                Skutečné jednotky z dílny — převoz na louku, flat box, kulatá
-                střecha, smrkové interiéry. To, co hosté i majitelé poznají hned.
+                Exteriéry, interiéry, převozy. Skutečné jednotky — ne katalogové
+                vizualizace.
               </p>
             </div>
           </Reveal>
@@ -452,7 +282,7 @@ export default function HomePage() {
           </Reveal>
           <div className="mt-2" style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem" }}>
             <Link href="/realizace" className="btn btn-ink btn-arrow">
-              Prohlédnout realizace
+              Všechny realizace
               <ArrowIcon />
             </Link>
             <Link href="/#kontakt" className="btn btn-ghost">
@@ -462,8 +292,29 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 10 · Why us */}
-      <section className="section section-paper">
+      <section className="section section-ink" id="proces">
+        <div className="wrap">
+          <Reveal>
+            <div className="section-head">
+              <p className="eyebrow">Jak to běží</p>
+              <h2>Čtyři kroky. Vždy víte, co dál.</h2>
+            </div>
+          </Reveal>
+          <div className="process-grid">
+            {process.map((step, i) => (
+              <Reveal key={step.n} delay={(Math.min(i + 1, 3) as 1 | 2 | 3)}>
+                <div className="process-step">
+                  <span className="process-n">{step.n}</span>
+                  <h3>{step.title}</h3>
+                  <p>{step.text}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section section-mist">
         <div className="wrap">
           <Reveal>
             <div className="section-head">
@@ -481,11 +332,22 @@ export default function HomePage() {
               </Reveal>
             ))}
           </div>
+          <Reveal>
+            <div className="mt-3">
+              <CtaBand
+                title="Nejste si jistí, která cesta je vaše?"
+                text="Napište jednou větou, co řešíte. Ozveme se s doporučením."
+                primary="Napsat teď"
+                primaryHref="/#kontakt"
+                secondary="Konfigurátor"
+                secondaryHref="/konfigurator"
+              />
+            </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* 11 · FAQ */}
-      <section className="section section-mist">
+      <section className="section section-paper">
         <div className="wrap-narrow">
           <Reveal>
             <div className="section-head" style={{ maxWidth: "none" }}>
@@ -503,23 +365,10 @@ export default function HomePage() {
               ))}
             </div>
           </Reveal>
-          <Reveal>
-            <div className="mt-3">
-              <CtaBand
-                title="Pořád si nejste jistí?"
-                text="To je v pořádku. Desetiminutový hovor ušetří týdny dohadů."
-                primary="Domluvit hovor"
-                primaryHref="/#kontakt"
-                secondary="Nejdřív si pohrát s cenou"
-                secondaryHref="/konfigurator"
-              />
-            </div>
-          </Reveal>
         </div>
       </section>
 
-      {/* 12 · Contact close */}
-      <section className="section section-paper" id="kontakt">
+      <section className="section section-mist" id="kontakt">
         <div className="wrap">
           <div className="contact-band">
             <Reveal>
@@ -532,7 +381,7 @@ export default function HomePage() {
                     maxWidth: "16ch",
                   }}
                 >
-                  Napište záměr. My vrátíme konkrétní další krok.
+                  Napište záměr. My vrátíme další krok.
                 </h2>
                 <p
                   style={{
@@ -542,8 +391,8 @@ export default function HomePage() {
                     marginBottom: "1.5rem",
                   }}
                 >
-                  Bydlení, Airbnb, kemp — jedno pole stačí. Nebo rovnou pošlete
-                  konfiguraci z konfigurátoru.
+                  Nový dům, renovace, byznys — vyberte v formuláři. Nebo rovnou
+                  pošlete konfiguraci.
                 </p>
                 <p style={{ marginBottom: "0.35rem" }}>
                   <a href={`mailto:${brand.email}`}>{brand.email}</a>
@@ -554,16 +403,8 @@ export default function HomePage() {
                   </a>
                 </p>
                 <p style={{ opacity: 0.55, fontWeight: 300 }}>
-                  {brand.domain} · {brand.address}
+                  {brand.domain}
                 </p>
-                <Link
-                  href="/konfigurator"
-                  className="btn btn-oak btn-arrow"
-                  style={{ marginTop: "1.5rem" }}
-                >
-                  Radši nejdřív konfigurátor
-                  <ArrowIcon />
-                </Link>
               </div>
             </Reveal>
             <Reveal delay={1}>

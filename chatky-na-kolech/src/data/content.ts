@@ -10,143 +10,126 @@ export const brand = {
 };
 
 export const nav = [
-  { href: "/#pro-koho", label: "Pro koho" },
+  { href: "/#cesty", label: "Cesty" },
   { href: "/#kola", label: "Proč kola" },
   { href: "/konfigurator", label: "Konfigurátor" },
-  { href: "/#byznys", label: "Investice" },
+  { href: "/realizace", label: "Realizace" },
   { href: "/#kontakt", label: "Kontakt" },
 ];
 
-export const audiences = [
+/** Tři systematické cesty — ne typové domy */
+export const paths = [
   {
-    id: "bydleni",
-    title: "Vlastní útočiště",
-    text: "Chcete dům, ne projekt na pět let. Zaparkujete na pozemku a žijete — s teplem dřeva a bez stavebního kolečka.",
-    cta: "Chci svůj dům",
+    id: "novy",
+    eyebrow: "01 · Nový tiny house",
+    title: "Chci nový dům na kolech",
+    text: "Od rozměrů po výbavu — sestavíte si jednotku v konfigurátoru a uvidíte orientační cenu. Ideál pro pozemek, bydlení i první Airbnb.",
+    points: [
+      "Rozměry a materiály na míru",
+      "Homologovaný podvozek",
+      "Orientační cena hned",
+    ],
+    image: "/media/hero/hero-01.jpg",
+    cta: "Spustit konfigurátor",
     href: "/konfigurator",
+    secondary: "Domluvit hovor",
+    secondaryHref: "/#kontakt",
   },
   {
-    id: "airbnb",
-    title: "Airbnb & výnos",
-    text: "Hosté fotí, rezervují, vracejí se. Mobilní jednotka, kterou přesunete tam, kde dává smysl byznys — ne kde vás drží beton.",
-    cta: "Spočítat jednotku",
-    href: "/konfigurator",
+    id: "renovace",
+    eyebrow: "02 · Opravy & renovace",
+    title: "Už mám chatku nebo maringotku",
+    text: "Oprava, modernizace interiéru, výměna fasády, zateplení, koupelna. Vdechneme život tomu, co už stojí — bez zbytečné demolice.",
+    points: [
+      "Diagnostika stavu",
+      "Fasáda, izolace, interiér",
+      "Krok za krokem s rozpočtem",
+    ],
+    image: "/media/atelier/obklad.jpg",
+    cta: "Poptat renovaci",
+    href: "/?zamer=renovace#kontakt",
+    secondary: "Napsat e-mail",
+    secondaryHref: "mailto:ahoj@chatkynakolech.cz?subject=Opravy%20%26%20renovace",
   },
   {
-    id: "kemp",
-    title: "Kemp & rekonstrukce",
-    text: "Staré chatky ven. Nové tiny houses dovnitř. Obnovíte areál bez demolice celého světa — a hosté to okamžitě poznají.",
-    cta: "Poptat výměnu",
-    href: "/#kontakt",
-  },
-];
-
-export const models = [
-  {
-    id: "zahrada",
-    name: "Weekend",
-    subtitle: "Pozemek & klid",
-    size: "od 15 m²",
-    from: 890_000,
-    desc: "Kompaktní únik na víkend i delší pobyt. Dostatek tepla, málo kompromisů — ideál pro zahradu nebo okraj lesa.",
-    image: "/media/models/weekend.jpg",
-  },
-  {
-    id: "celorocni",
-    name: "Live",
-    subtitle: "Celoroční bydlení",
-    size: "od 20 m²",
-    from: 1_490_000,
-    desc: "Plnohodnotný domov na kolech. Koupelna, kuchyň, izolace na českou zimu. Homologace součástí.",
-    image: "/media/models/live.jpg",
-  },
-  {
-    id: "glamping",
-    name: "Stay",
-    subtitle: "Airbnb & glamping",
-    size: "od 18 m²",
-    from: 1_290_000,
-    desc: "Jednotka, která se prodává sama. Design, který hosté sdílejí — a provozovatel přesune podle sezóny.",
-    image: "/media/models/stay.jpg",
+    id: "byznys",
+    eyebrow: "03 · Pro byznys",
+    title: "Airbnb, kemp, investice",
+    text: "Jednotky i flotily. Výměna starých chatek v kempu. Short-stay, který hosté fotí — a který přesunete, když lokalita přestane dávat smysl.",
+    points: [
+      "Airbnb & glamping jednotky",
+      "Rekonstrukce / výměna kempů",
+      "Počítáme s provozem, ne jen půdorysem",
+    ],
+    image: "/media/realizace/sirek.jpg",
+    cta: "Poptat byznys řešení",
+    href: "/?zamer=byznys#kontakt",
+    secondary: "Sestavit jednotku",
+    secondaryHref: "/konfigurator",
   },
 ];
 
 export const process = [
   {
     n: "01",
-    title: "Řeknete záměr",
-    text: "Bydlení, výnos, nebo obnova kempu? My ptáme na pozemek, rozpočet a termín — ne na katalogové sny.",
+    title: "Záměr",
+    text: "Nový dům, renovace, nebo byznys? Upřesníme pozemek, rozpočet a termín.",
   },
   {
     n: "02",
-    title: "Složíte dům",
-    text: "V konfigurátoru nastavíte rozměry a výbavu. Vidíte orientační cenu dřív, než padne první hřebík.",
+    title: "Návrh / konfigurace",
+    text: "U nového domu konfigurátor. U renovace a byznysu konkrétní plán prací a kapacity.",
   },
   {
     n: "03",
-    title: "Postavíme v dílně",
-    text: "Moderní dřevostavba, teplé materiály, česká zima v hlavě. Hotový dům, ne staveniště u vás na louce.",
+    title: "Výroba nebo zásah",
+    text: "Dílna, materiály, detaily. Hotová jednotka — nebo renovace na místě podle dohody.",
   },
   {
     n: "04",
-    title: "Přijede na kolech",
-    text: "Homologace, převoz, zaučení. Zaparkujete — a rovnou bydlíte, hostíte, nebo otvíráte sezónu.",
+    title: "Předání",
+    text: "Převoz, zaučení, dokumentace. Bydlíte, hostíte, nebo otvíráte sezónu.",
   },
 ];
 
 export const wheelPoints = [
   {
     title: "Přemístíte, když potřebujete",
-    text: "Změna pozemku, nová lokalita pro Airbnb, sezónní kemp. Dům jede s vámi — ne naopak.",
+    text: "Změna pozemku, nová lokalita pro Airbnb, sezónní kemp. Dům jede s vámi.",
   },
   {
     title: "Bez stavebního maratonu",
-    text: "Homologovaný podvozek = přívěs. Místo let na úřadě řešíte souhlas s pozemkem a chytrou dispozici.",
+    text: "Homologovaný podvozek = přívěs. Řešíte umístění a dispozici — ne roky na úřadě.",
   },
   {
     title: "Investice, která není přibitá",
-    text: "Když lokalita přestane vydělávat, jednotku přesunete. Beton vám tohle nedovolí.",
-  },
-];
-
-export const businessPoints = [
-  {
-    title: "Airbnb & short-stay",
-    text: "Jedna silná jednotka, nebo flotila. Počítáme s fotogenickým interiérem a provozem, ne jen s půdorysem.",
-  },
-  {
-    title: "Lidé s pozemkem",
-    text: "Máte místo, chybí dům. My dodáme hotové bydlení, které nezabije územní plán ani cashflow.",
-  },
-  {
-    title: "Rekonstrukce kempů",
-    text: "Výměna zastaralých chatek za moderní tiny houses. Areál omládne, kapacita zůstane — hosté to pocítí hned.",
+    text: "Když lokalita přestane vydělávat, jednotku přesunete. Beton tohle neumí.",
   },
 ];
 
 export const realizations = [
   {
-    id: "sirek",
-    title: "Sirek 8×3",
-    place: "Louka · převoz",
-    year: "2025",
-    tag: "Stay",
-    image: "/media/realizace/sirek.jpg",
-  },
-  {
     id: "tiny-12x4",
     title: "Tiny 12×4",
-    place: "Česko",
+    place: "Moderní flat",
     year: "2025",
-    tag: "Live",
+    tag: "Nový dům",
     image: "/media/realizace/tiny-12x4.jpg",
+  },
+  {
+    id: "sirek",
+    title: "Sirek 8×3",
+    place: "Převoz na louku",
+    year: "2025",
+    tag: "Byznys",
+    image: "/media/realizace/sirek.jpg",
   },
   {
     id: "gajan",
     title: "Gajan",
-    place: "Maringotka",
+    place: "Kulatá střecha",
     year: "2024",
-    tag: "Kulatá",
+    tag: "Nový dům",
     image: "/media/realizace/gajan.jpg",
   },
   {
@@ -154,7 +137,7 @@ export const realizations = [
     title: "Vagonek",
     place: "Glamping",
     year: "2024",
-    tag: "Stay",
+    tag: "Byznys",
     image: "/media/realizace/vagonek.jpg",
   },
   {
@@ -162,7 +145,7 @@ export const realizations = [
     title: "Tiny 8×4",
     place: "Interiér · loft",
     year: "2025",
-    tag: "Live",
+    tag: "Nový dům",
     image: "/media/realizace/tiny-8x4-interior.jpg",
   },
   {
@@ -170,7 +153,7 @@ export const realizations = [
     title: "Tiny 9×3,4",
     place: "Smrk & loft",
     year: "2025",
-    tag: "Live",
+    tag: "Nový dům",
     image: "/media/realizace/tiny-9x34-interior.jpg",
   },
   {
@@ -178,7 +161,7 @@ export const realizations = [
     title: "Tiny 2,7×8",
     place: "Kompakt",
     year: "2024",
-    tag: "Weekend",
+    tag: "Nový dům",
     image: "/media/realizace/tiny-27x8.jpg",
   },
   {
@@ -186,7 +169,7 @@ export const realizations = [
     title: "Gajan · uvnitř",
     place: "Kulatá střecha",
     year: "2024",
-    tag: "Stay",
+    tag: "Nový dům",
     image: "/media/realizace/gajan-interior.jpg",
   },
 ];
@@ -194,38 +177,37 @@ export const realizations = [
 export const values = [
   {
     title: "Teplé dřevo, čistý střih",
-    text: "Materiály, které voní po lese — a dispozice, které sedí dnešku. Žádný rustikální kostým, žádný studený showroom.",
+    text: "Materiály s charakterem — a moderní dispozice. Žádný rustikální kostým.",
   },
   {
-    title: "Kola jsou výhoda, ne detail",
-    text: "Homologace, SPZ, převoz. Svoboda přemístit dům je součástí produktu — ne marketingová poznámka pod čarou.",
+    title: "Kola jsou výhoda",
+    text: "Homologace a převoz jsou součást produktu. Ne poznámka pod čarou.",
   },
   {
-    title: "Od jedné jednotky po kemp",
-    text: "Stavíme pro majitele pozemku i pro provozovatele. Stejná dílna, jiný byznys plán — vždy s jasnou cenou z konfigurátoru.",
+    title: "Tři cesty, jedna dílna",
+    text: "Nový dům, renovace i byznys. Stejná kvalita, jiný brief.",
   },
 ];
 
 export const faq = [
   {
+    q: "Stavíte jen nové tiny houses?",
+    a: "Ne. Nové jednotky na míru, renovace stávajících chatek/maringotek i byznys projekty (Airbnb, kempy). Vyberete cestu — my navrhneme postup.",
+  },
+  {
     q: "Opravdu nepotřebuju stavební povolení?",
-    a: "Tiny house na homologovaném podvozku je legislativně přívěs. Klasické stavební povolení obvykle neřešíte — potřebujete souhlas k umístění na pozemku a respekt k místním pravidlům. Projdeme to s vámi konkrétně.",
+    a: "U homologovaného podvozku jde legislativně o přívěs. Obvykle řešíte umístění na pozemku, ne klasické stavební řízení. Projdeme to konkrétně.",
   },
   {
     q: "Proč jsou kola tak důležitá?",
-    a: "Protože život i byznys se hýbou. Změna pozemku, nová Airbnb lokalita, sezónní kemp — dům přesunete místo abyste stavěli znovu.",
+    a: "Protože život i byznys se hýbou. Změna pozemku nebo lokality = přesun jednotky, ne nová stavba.",
   },
   {
-    q: "Dává to smysl jako investice?",
-    a: "Ano, pokud počítáte výnos, obsazenost a provoz — ne jen „hezký domek“. Pomůžeme nastavit jednotku pro short-stay i výměnu chatek v kempu.",
-  },
-  {
-    q: "Jak rychle můžu začít?",
-    a: "Nejdřív konfigurátor (minuty), pak krátká konzultace. Výroba obvykle řádově měsíce podle rozsahu — termín potvrdíme po odsouhlasení specifikace.",
+    q: "Jak začít?",
+    a: "Nový dům → konfigurátor. Renovace nebo byznys → krátká poptávka s fotkami/záměrem. Ozveme se s dalším krokem.",
   },
 ];
 
-/** Media used across sections */
 export const media = {
   hero: "/media/hero/hero-01.jpg",
   craft: "/media/atelier/obklad.jpg",

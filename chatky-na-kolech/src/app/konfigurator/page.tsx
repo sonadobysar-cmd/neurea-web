@@ -5,7 +5,7 @@ import { SiteNav } from "@/components/SiteNav";
 export const metadata: Metadata = {
   title: "Konfigurátor",
   description:
-    "Sestavte si tiny house na míru — rozměry, střecha, fasáda, výbava. Orientační cena a poptávka na chatkynakolech.cz.",
+    "Sestavte si tiny house na míru — rozměry, střecha, fasáda, výbava. Orientační cena a poptávka. Žádné typové katalogy.",
 };
 
 export default function KonfiguratorPage() {
@@ -14,11 +14,11 @@ export default function KonfiguratorPage() {
       <SiteNav />
       <header className="page-hero">
         <div className="wrap">
-          <p className="eyebrow">Krok, který šetří týdny</p>
+          <p className="eyebrow">Cesta 01 · Nový dům</p>
           <h1>Konfigurátor</h1>
           <p>
-            Nastavte dům. Uvidíte cenu. Pošlete poptávku. My se ozveme s jasným
-            dalším krokem — bydlení, Airbnb i kemp.
+            Ne katalog. Váš brief. Nastavte rozměry a výbavu, sledujte cenu v
+            reálném čase a pošlete poptávku jedním klikem.
           </p>
         </div>
       </header>

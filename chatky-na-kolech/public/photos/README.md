@@ -1,10 +1,17 @@
-# Fotky sem
+# Fotky Chatky na kolech
 
-```
-/Users/soni/Neurea/chatky-na-kolech/public/photos/
-```
+## Raw projekty (originály)
+Složky `Tiny …`, `Maringotka …`, `Vagonek` — kompletní dump z telefonu/foťáku.
+**Nejdou do gitu** (jsou velké).
 
-Složky podle projektů (Tiny 8x3, Maringotka…) jsou OK.
-Vybrané hero/fasády můžeme později zkopírovat do `hero/`, `fasady/` atd.
+## Kurátorované role
+| Složka | Účel |
+|--------|------|
+| `hero/` | Úvodní full-bleed |
+| `realizace/` | Portfolio |
+| `atelier/` | Dílna, podvozek, konstrukce |
+| `fasady/` | Vzorky do konfigurátoru |
+| `ostatni/` | Wellness / detaily |
 
-Formáty: JPG / PNG / WebP. Videa (.MOV) sem nechte, ale do gitu nejdou.
+## Web (optimalizované)
+Prohlížeč bere z `public/media/` (max ~2000 px, ~19 MB celkem).

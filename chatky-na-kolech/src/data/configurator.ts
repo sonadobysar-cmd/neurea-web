@@ -52,8 +52,7 @@ export const FACADES = [
     includesPaint: true,
     woodShare: 1,
     metalShare: 0,
-    sample:
-      "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=200&q=80",
+    sample: "/media/fasady/smrk.jpg",
     swatch: "#C4A882",
   },
   {
@@ -64,8 +63,7 @@ export const FACADES = [
     includesPaint: false,
     woodShare: 1,
     metalShare: 0,
-    sample:
-      "https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=200&q=80",
+    sample: "/media/fasady/thermo-look.jpg",
     swatch: "#5C4033",
   },
   {
@@ -76,8 +74,7 @@ export const FACADES = [
     includesPaint: false,
     woodShare: 1,
     metalShare: 0,
-    sample:
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=200&q=80",
+    sample: "/media/fasady/modrin-look.jpg",
     swatch: "#B8956A",
   },
   {
@@ -88,8 +85,7 @@ export const FACADES = [
     includesPaint: false,
     woodShare: 0,
     metalShare: 1,
-    sample:
-      "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=200&q=80",
+    sample: "/media/fasady/thermo-look.jpg",
     swatch: "#6B7280",
   },
   {
@@ -101,8 +97,7 @@ export const FACADES = [
     includesPaint: false,
     woodShare: 0.5,
     metalShare: 0.5,
-    sample:
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=200&q=80",
+    sample: "/media/fasady/smrk.jpg",
     swatch: "#8B7355",
   },
 ] as const;

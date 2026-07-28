@@ -1845,6 +1845,18 @@ p {
   opacity: 0.65;
 }
 
+.wheel-visual {
+  position: relative;
+  border-radius: 1.15rem;
+  overflow: hidden;
+  aspect-ratio: 21 / 9;
+  min-height: 12rem;
+}
+
+.wheel-visual img {
+  object-fit: cover;
+}
+
 /* ——— Utility ——— */
 .sr-only {
   position: absolute;

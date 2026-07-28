@@ -9,6 +9,7 @@ import {
   brand,
   businessPoints,
   faq,
+  media,
   models,
   process,
   realizations,
@@ -77,8 +78,8 @@ export default function HomePage() {
       <section className="hero">
         <div className="hero-media">
           <Image
-            src="https://images.unsplash.com/photo-1518780664697-55e3abfb3887?auto=format&fit=crop&w=2400&q=85"
-            alt="Moderní tiny house na kolech v přírodě"
+            src={media.hero}
+            alt="Tiny house na kolech — převoz na louku"
             fill
             priority
             sizes="100vw"
@@ -190,6 +191,17 @@ export default function HomePage() {
               </Reveal>
             ))}
           </div>
+          <Reveal>
+            <div className="wheel-visual mt-3">
+              <Image
+                src={media.chassis}
+                alt="Homologovaný podvozek tiny house v dílně"
+                fill
+                sizes="100vw"
+                style={{ objectFit: "cover" }}
+              />
+            </div>
+          </Reveal>
           <Reveal>
             <div className="mt-3">
               <CtaBand
@@ -374,8 +386,8 @@ export default function HomePage() {
             <Reveal>
               <div className="split-media">
                 <Image
-                  src="https://images.unsplash.com/photo-1504148455328-c663245643a9?auto=format&fit=crop&w=1400&q=80"
-                  alt="Moderní práce se dřevem"
+                  src={media.craft}
+                  alt="Interiérový smrkový obklad v dílně"
                   fill
                   sizes="(max-width:900px) 100vw, 50vw"
                   style={{ objectFit: "cover" }}
@@ -416,8 +428,8 @@ export default function HomePage() {
                 <h2>Už stojí. Už vydělávají. Už bydlí.</h2>
               </div>
               <p>
-                Ukázky atmosféry — vaše fotky sem brzy doplníme. Principie, kterou
-                hosté i majitelé poznají na první dobrou.
+                Skutečné jednotky z dílny — převoz na louku, flat box, kulatá
+                střecha, smrkové interiéry. To, co hosté i majitelé poznají hned.
               </p>
             </div>
           </Reveal>

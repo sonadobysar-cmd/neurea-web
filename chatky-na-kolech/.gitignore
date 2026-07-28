@@ -5,6 +5,9 @@ node_modules
 .env*
 .vercel
 
-# Raw client photo dumps stay local (optimize before shipping)
+# Raw client dumps stay local
 public/photos/**
 !public/photos/README.md
+
+# Keep optimized web media in git
+!public/media/**

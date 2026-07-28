@@ -17,7 +17,6 @@ export const nav = [
   { href: "/#kontakt", label: "Kontakt" },
 ];
 
-/** Funnel audiences */
 export const audiences = [
   {
     id: "bydleni",
@@ -50,8 +49,7 @@ export const models = [
     size: "od 15 m²",
     from: 890_000,
     desc: "Kompaktní únik na víkend i delší pobyt. Dostatek tepla, málo kompromisů — ideál pro zahradu nebo okraj lesa.",
-    image:
-      "https://images.unsplash.com/photo-1518780664697-55e3abfb3887?auto=format&fit=crop&w=1600&q=80",
+    image: "/media/models/weekend.jpg",
   },
   {
     id: "celorocni",
@@ -60,8 +58,7 @@ export const models = [
     size: "od 20 m²",
     from: 1_490_000,
     desc: "Plnohodnotný domov na kolech. Koupelna, kuchyň, izolace na českou zimu. Homologace součástí.",
-    image:
-      "https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&w=1600&q=80",
+    image: "/media/models/live.jpg",
   },
   {
     id: "glamping",
@@ -70,8 +67,7 @@ export const models = [
     size: "od 18 m²",
     from: 1_290_000,
     desc: "Jednotka, která se prodává sama. Design, který hosté sdílejí — a provozovatel přesune podle sezóny.",
-    image:
-      "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1600&q=80",
+    image: "/media/models/stay.jpg",
   },
 ];
 
@@ -130,58 +126,68 @@ export const businessPoints = [
 
 export const realizations = [
   {
-    id: "borovice",
-    title: "Borovice 24",
-    place: "Šumava",
+    id: "sirek",
+    title: "Sirek 8×3",
+    place: "Louka · převoz",
+    year: "2025",
+    tag: "Stay",
+    image: "/media/realizace/sirek.jpg",
+  },
+  {
+    id: "tiny-12x4",
+    title: "Tiny 12×4",
+    place: "Česko",
     year: "2025",
     tag: "Live",
-    image:
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=80",
+    image: "/media/realizace/tiny-12x4.jpg",
   },
   {
-    id: "louka",
-    title: "Louka 14",
-    place: "Jižní Morava",
+    id: "gajan",
+    title: "Gajan",
+    place: "Maringotka",
+    year: "2024",
+    tag: "Kulatá",
+    image: "/media/realizace/gajan.jpg",
+  },
+  {
+    id: "vagonek",
+    title: "Vagonek",
+    place: "Glamping",
+    year: "2024",
+    tag: "Stay",
+    image: "/media/realizace/vagonek.jpg",
+  },
+  {
+    id: "tiny-8x4",
+    title: "Tiny 8×4",
+    place: "Interiér · loft",
     year: "2025",
-    tag: "Weekend",
-    image:
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=80",
-  },
-  {
-    id: "hvezda",
-    title: "Hvězda 18",
-    place: "Beskydy",
-    year: "2024",
-    tag: "Stay",
-    image:
-      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1400&q=80",
-  },
-  {
-    id: "mlha",
-    title: "Mlha 22",
-    place: "Vysočina",
-    year: "2024",
     tag: "Live",
-    image:
-      "https://images.unsplash.com/photo-1600047509807-ba8f99d36708?auto=format&fit=crop&w=1400&q=80",
+    image: "/media/realizace/tiny-8x4-interior.jpg",
   },
   {
-    id: "dub",
-    title: "Dub 16",
-    place: "Kokořínsko",
+    id: "tiny-9",
+    title: "Tiny 9×3,4",
+    place: "Smrk & loft",
+    year: "2025",
+    tag: "Live",
+    image: "/media/realizace/tiny-9x34-interior.jpg",
+  },
+  {
+    id: "tiny-27",
+    title: "Tiny 2,7×8",
+    place: "Kompakt",
     year: "2024",
     tag: "Weekend",
-    image:
-      "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?auto=format&fit=crop&w=1400&q=80",
+    image: "/media/realizace/tiny-27x8.jpg",
   },
   {
-    id: "rosa",
-    title: "Rosa 20",
-    place: "Orlické hory",
-    year: "2023",
+    id: "gajan-in",
+    title: "Gajan · uvnitř",
+    place: "Kulatá střecha",
+    year: "2024",
     tag: "Stay",
-    image:
-      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1400&q=80",
+    image: "/media/realizace/gajan-interior.jpg",
   },
 ];
 
@@ -218,3 +224,13 @@ export const faq = [
     a: "Nejdřív konfigurátor (minuty), pak krátká konzultace. Výroba obvykle řádově měsíce podle rozsahu — termín potvrdíme po odsouhlasení specifikace.",
   },
 ];
+
+/** Media used across sections */
+export const media = {
+  hero: "/media/hero/hero-01.jpg",
+  craft: "/media/atelier/obklad.jpg",
+  chassis: "/media/atelier/podvozek.jpg",
+  structure: "/media/atelier/konstrukce.jpg",
+  loft: "/media/atelier/loft-view.jpg",
+  wellness: "/media/wellness/virivka.jpg",
+};

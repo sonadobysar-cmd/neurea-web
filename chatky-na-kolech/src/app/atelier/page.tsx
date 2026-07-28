@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ArrowIcon } from "@/components/Icons";
 import { Reveal } from "@/components/Reveal";
 import { SiteNav } from "@/components/SiteNav";
-import { values } from "@/data/content";
+import { media, values } from "@/data/content";
 
 export const metadata: Metadata = {
   title: "Dílna",
@@ -21,8 +21,8 @@ export default function AtelierPage() {
           <p className="eyebrow">Dílna</p>
           <h1>Stavíme domy, které se smí hýbat</h1>
           <p>
-            Nejsme katalog. Jsme dílna s moderním střihem — teplé dřevo,
-            čisté linie, kola jako součást produktu.
+            Nejsme katalog. Jsme dílna s moderním střihem — teplé dřevo, čisté
+            linie, kola jako součást produktu.
           </p>
         </div>
       </header>
@@ -33,8 +33,8 @@ export default function AtelierPage() {
             <Reveal>
               <div className="split-media">
                 <Image
-                  src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=1400&q=80"
-                  alt="Dílna — práce se dřevem"
+                  src={media.structure}
+                  alt="KVH konstrukce a zateplení v dílně"
                   fill
                   sizes="(max-width:900px) 100vw, 50vw"
                   style={{ objectFit: "cover" }}
@@ -93,8 +93,9 @@ export default function AtelierPage() {
                 <p className="eyebrow">Výroba</p>
                 <h2>Hotový dům. Ne staveniště u vás.</h2>
                 <p>
-                  Konstrukce, izolace, interiér — skládáme v dílně. K vám přijede
-                  jednotka připravená k životu nebo k první rezervaci.
+                  Podvozek, konstrukce, izolace, interiér — skládáme v dílně. K
+                  vám přijede jednotka připravená k životu nebo k první
+                  rezervaci.
                 </p>
                 <ul className="split-list">
                   <li>Vlastní výroba a kontrola detailů</li>
@@ -115,12 +116,44 @@ export default function AtelierPage() {
             <Reveal delay={1}>
               <div className="split-media">
                 <Image
-                  src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1400&q=80"
-                  alt="Výroba a konstrukce"
+                  src={media.chassis}
+                  alt="Ocelový podvozek tiny house"
                   fill
                   sizes="(max-width:900px) 100vw, 50vw"
                   style={{ objectFit: "cover" }}
                 />
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      <section className="section section-paper">
+        <div className="wrap">
+          <div className="split">
+            <Reveal>
+              <div className="split-media">
+                <Image
+                  src={media.loft}
+                  alt="Loft a smrkový obklad"
+                  fill
+                  sizes="(max-width:900px) 100vw, 50vw"
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
+            </Reveal>
+            <Reveal delay={1}>
+              <div className="split-copy">
+                <p className="eyebrow">Detail</p>
+                <h2>Teplo, které vydrží pohled zblízka</h2>
+                <p>
+                  Smrkový obklad, loft, černé rámy oken. Interiér, který fotí
+                  hosté — a majitelé v něm chtějí zůstat.
+                </p>
+                <Link href="/realizace" className="btn btn-ink btn-arrow">
+                  Prohlédnout realizace
+                  <ArrowIcon />
+                </Link>
               </div>
             </Reveal>
           </div>

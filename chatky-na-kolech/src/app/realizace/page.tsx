@@ -20,8 +20,8 @@ export default function RealizacePage() {
           <p className="eyebrow">Důkaz</p>
           <h1>Realizace</h1>
           <p>
-            Atmosféra, ke které míříme. Vaše fotky doplníme, jakmile je
-            nahrajete do složky — zatím vibe, brzy vaše domy.
+            Skutečné domy z naší dílny — exteriéry na louce, interiéry ze smrku,
+            kulaté střechy i flat box. Každý s koly.
           </p>
         </div>
       </header>

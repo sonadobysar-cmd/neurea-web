@@ -55,7 +55,6 @@ export const luxuryBodyTemplate = `<svg width="0" height="0" style="position:abs
           </div>
         </div>
       </div>
-      <div class="arch-echo" aria-hidden="true"></div>
       <svg class="seal" viewBox="0 0 132 132" aria-hidden="true">
         <circle class="disc" cx="66" cy="66" r="66"/>
         <defs><path id="cir" d="M66,66 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs>

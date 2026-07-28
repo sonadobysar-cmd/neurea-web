@@ -107,16 +107,17 @@
     "eyebrow": "Program a cena",
     "titleBefore": "Vaše ",
     "titleEm": "vstupenka.",
+    "lead": "Moje vystoupení není jen o kouzlech. Je o atmosféře, smíchu a vzpomínkách, které vám zůstanou ještě dlouho po potlesku.",
     "priceLabel": "Cena",
     "priceAmount": "6 000",
     "priceCurrency": "Kč",
-    "pricePer": "za vystoupení · 45 minut",
-    "priceNote": "Finální cenu je možné upravit podle typu akce.",
+    "pricePer": "za vystoupení · 30–45 minut",
+    "priceNote": "V ceně je tvarování zvířátek z balonků pro 15 dětí, další děti navíc dle dohody.",
     "travelLabel": "Doprava",
     "travelAmount": "12",
     "travelUnit": "Kč/km",
     "travelPer": "výjezd z Mladé Boleslavi",
-    "travelNote": "Účtujeme si pouze tolik, kolik opravdu projedeme."
+    "travelNote": "Účtuji si pouze tolik, kolik opravdu projedu."
   },
   "about": {
     "eyebrow": "O Robinovi",

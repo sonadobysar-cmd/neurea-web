@@ -305,6 +305,14 @@ body {
   color: #f4e9d3;
 }
 
+.luxury-root .price-sec .lead {
+  margin-top: 18px;
+  max-width: 34em;
+  font-size: clamp(16px, 1.7vw, 18px);
+  line-height: 1.55;
+  color: rgba(249, 246, 240, 0.78);
+}
+
 /* Levý panel — cena ve stylu hlavní části vstupenky */
 .luxury-root .tk-main .tk-price-block--main .from {
   font: 700 10.5px var(--sans);

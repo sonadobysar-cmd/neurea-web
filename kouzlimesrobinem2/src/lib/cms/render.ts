@@ -108,6 +108,7 @@ export function renderLuxuryBody(content: SiteContent, template: string): string
     "{{cms.pricing.eyebrow}}": esc(c.pricing.eyebrow),
     "{{cms.pricing.titleBefore}}": esc(c.pricing.titleBefore),
     "{{cms.pricing.titleEm}}": esc(c.pricing.titleEm),
+    "{{cms.pricing.lead}}": esc(c.pricing.lead),
     "{{cms.pricing.priceLabel}}": esc(c.pricing.priceLabel),
     "{{cms.pricing.priceAmount}}": esc(c.pricing.priceAmount),
     "{{cms.pricing.priceCurrency}}": esc(c.pricing.priceCurrency),

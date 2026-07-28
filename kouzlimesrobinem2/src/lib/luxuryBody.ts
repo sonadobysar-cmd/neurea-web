@@ -158,6 +158,7 @@ export const luxuryBodyTemplate = `<svg width="0" height="0" style="position:abs
     <div class="reveal" style="text-align:center;max-width:640px;margin:0 auto">
       <p class="eyebrow" style="justify-content:center"><svg class="st"><use href="#star"/></svg>{{cms.pricing.eyebrow}}</p>
       <h2>{{cms.pricing.titleBefore}}<em>{{cms.pricing.titleEm}}</em></h2>
+      <p class="lead" style="margin-left:auto;margin-right:auto">{{cms.pricing.lead}}</p>
     </div>
     <div class="ticket reveal d1">
       <div class="tk-main">

@@ -57,6 +57,7 @@ export type SiteContent = {
     eyebrow: string;
     titleBefore: string;
     titleEm: string;
+    lead: string;
     priceLabel: string;
     priceAmount: string;
     priceCurrency: string;

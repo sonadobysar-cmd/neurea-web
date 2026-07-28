@@ -10,7 +10,7 @@
     "line2Em": "úžasu",
     "line2After": " pro",
     "line3": "malé i velké.",
-    "lead": "Kouzelnická show a balónková zvířátka v jednom vystoupení. Pro dětské oslavy, školy, školky i veřejné akce — celé vystoupení je plně interaktivní a všichni jsou zapojeni do dění.",
+    "lead": "Kouzelnická show, balónková zvířátka a mentalismus v jednom vystoupení. Pro dětské oslavy, školky i firemní večery — vždy naživo, vždy s dětmi uprostřed dění.",
     "ctaPrimary": "Zkusit si kouzlo",
     "ctaSecondary": "Nabídka vystoupení",
     "image": "/luxury/img-01.jpg",
@@ -32,7 +32,7 @@
     "eyebrow": "Tři disciplíny",
     "titleBefore": "Vyberte si ",
     "titleEm": "kartu.",
-    "lead": "Namíchat správné vystoupení je jako složit balónkového pejska, chce to ten správný grif! Připravím vystoupení přesně podle vašich potřeb a přání a věřím, že vznikne nezapomenutelný zážitek.",
+    "lead": "Každé vystoupení skládám z toho, co se hodí právě pro vaši akci — nebo všechny tři dohromady.",
     "cards": [
       {
         "letter": "K",
@@ -41,7 +41,11 @@
         "text": "Interaktivní kouzla plná humoru pro předškoláky, školáky i dospělé publikum.",
         "image": "/luxury/img-02.jpg",
         "imageAlt": "Robin při kouzelnickém triku se šátky",
-        "back": ["Oslavy · školky · 1. stupeň ZŠ", "Děti asistují na jevišti", "Humor pro celou rodinu"]
+        "back": [
+          "Oslavy · školky · 1. stupeň ZŠ",
+          "Děti asistují na jevišti",
+          "Humor pro celou rodinu"
+        ]
       },
       {
         "letter": "Q",
@@ -50,7 +54,11 @@
         "text": "Zvířátka, meče i květiny na počkání, každé dítě si odnese svoje domů.",
         "image": "/luxury/img-03.jpg",
         "imageAlt": "Robin tvoří modrého balónkového pejska",
-        "back": ["Pejsci, meče i květiny", "Tvorba přímo před očima", "Výtvor pro každé dítě i dospěláka domů :-)"]
+        "back": [
+          "Pejsci, meče i květiny",
+          "Tvorba přímo před očima",
+          "Výtvor pro každé dítě i dospěláka domů :-)"
+        ]
       },
       {
         "letter": "A",
@@ -59,7 +67,11 @@
         "text": "Čtení myšlenek a překvapivé triky u stolu. Ideální pro firemní večírek či svatbu.",
         "image": "/luxury/img-04.jpg",
         "imageAlt": "Robin předvádí mentalismus",
-        "back": ["Firemní večírky a svatby", "Mikromagie u stolu", "Čtení myšlenek naživo"]
+        "back": [
+          "Firemní večírky a svatby",
+          "Mikromagie u stolu",
+          "Čtení myšlenek naživo"
+        ]
       }
     ]
   },
@@ -92,13 +104,35 @@
     "titleBefore": "Okamžiky, u kterých ",
     "titleEm": "spadne brada.",
     "images": [
-      { "src": "/luxury/img-05.jpg", "alt": "Robin tvaruje balónek na pódiu" },
-      { "src": "/luxury/img-06.jpg", "alt": "Robin s červeným balónkovým pudlem" },
-      { "src": "/luxury/img-07.jpg", "alt": "Robin předvádí kouzelnou knihu dětem", "wide": true },
-      { "src": "/luxury/img-08.jpg", "alt": "Robin s loutkou mývala" },
-      { "src": "/luxury/img-09.jpg", "alt": "Kouzelnický trik s barevnými šátky" },
-      { "src": "/luxury/img-10.jpg", "alt": "Kouzelnický trik s míčky" },
-      { "src": "/luxury/img-11.jpg", "alt": "Robin s balónkovým pejskem" }
+      {
+        "src": "/luxury/img-05.jpg",
+        "alt": "Robin tvaruje balónek na pódiu"
+      },
+      {
+        "src": "/luxury/img-06.jpg",
+        "alt": "Robin s červeným balónkovým pudlem"
+      },
+      {
+        "src": "/luxury/img-07.jpg",
+        "alt": "Robin předvádí kouzelnou knihu dětem",
+        "wide": true
+      },
+      {
+        "src": "/luxury/img-08.jpg",
+        "alt": "Robin s loutkou mývala"
+      },
+      {
+        "src": "/luxury/img-09.jpg",
+        "alt": "Kouzelnický trik s barevnými šátky"
+      },
+      {
+        "src": "/luxury/img-10.jpg",
+        "alt": "Kouzelnický trik s míčky"
+      },
+      {
+        "src": "/luxury/img-11.jpg",
+        "alt": "Robin s balónkovým pejskem"
+      }
     ]
   },
   "quote": {

@@ -2,6 +2,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Placeholder } from "@/components/Placeholder";
 import { Reveal } from "@/components/Reveal";
+import {
+  educationCs,
+  spokenLanguages,
+  treatedConditions,
+} from "@/data/clinic-catalog";
 import { getDictionary } from "@/data/i18n/dictionaries";
 import { isLocale, type Locale } from "@/lib/locales";
 
@@ -14,6 +19,8 @@ export default async function AboutPage({
   if (!isLocale(raw)) notFound();
   const locale = raw as Locale;
   const dict = getDictionary(locale);
+  const conditions = treatedConditions[locale];
+  const languages = spokenLanguages[locale];
 
   return (
     <>
@@ -52,7 +59,24 @@ export default async function AboutPage({
                   marginTop: "2rem",
                   marginBottom: "0.75rem",
                   color: "var(--rose-ink)",
-                  fontFamily: "var(--font-display), Georgia, serif",
+                  fontFamily: "var(--font-display), system-ui, sans-serif",
+                  fontWeight: 450,
+                  fontSize: "1.4rem",
+                }}
+              >
+                {dict.pricing.languagesTitle}
+              </h3>
+              <ul className="chip-inline">
+                {languages.map((lang) => (
+                  <li key={lang}>{lang}</li>
+                ))}
+              </ul>
+              <h3
+                style={{
+                  marginTop: "2rem",
+                  marginBottom: "0.75rem",
+                  color: "var(--rose-ink)",
+                  fontFamily: "var(--font-display), system-ui, sans-serif",
                   fontWeight: 450,
                   fontSize: "1.4rem",
                 }}
@@ -64,6 +88,27 @@ export default async function AboutPage({
                   <li key={m}>{m}</li>
                 ))}
               </ul>
+              {locale === "cs" && (
+                <>
+                  <h3
+                    style={{
+                      marginTop: "2rem",
+                      marginBottom: "0.75rem",
+                      color: "var(--rose-ink)",
+                      fontFamily: "var(--font-display), system-ui, sans-serif",
+                      fontWeight: 450,
+                      fontSize: "1.4rem",
+                    }}
+                  >
+                    Vzdělání a kvalifikace
+                  </h3>
+                  <ul className="memberships">
+                    {educationCs.map((e) => (
+                      <li key={e}>{e}</li>
+                    ))}
+                  </ul>
+                </>
+              )}
               <div className="team-chip">
                 <strong>{dict.about.nurseTitle}</strong>
                 <span>{dict.about.nurseRole}</span>
@@ -75,6 +120,34 @@ export default async function AboutPage({
               </div>
             </div>
           </Reveal>
+        </div>
+      </section>
+
+      <section className="section section-soft">
+        <div className="container">
+          <Reveal>
+            <span className="eyebrow">{dict.pricing.diseasesTitle}</span>
+            <h2
+              className="display"
+              style={{
+                fontSize: "clamp(1.85rem, 3vw, 2.4rem)",
+                color: "var(--rose-ink)",
+                margin: "0.35rem 0 0.75rem",
+              }}
+            >
+              {dict.pricing.diseasesTitle}
+            </h2>
+          </Reveal>
+          <Reveal delay={0.05}>
+            <ul className="condition-grid">
+              {conditions.map((c) => (
+                <li key={c}>{c}</li>
+              ))}
+            </ul>
+          </Reveal>
+          <p className="source-note" style={{ marginTop: "1.5rem" }}>
+            {dict.pricing.sourceNote}
+          </p>
         </div>
       </section>
     </>

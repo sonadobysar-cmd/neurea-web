@@ -124,6 +124,21 @@ export type Dictionary = {
     phone: string;
     mapCta: string;
   };
+  pricing: {
+    eyebrow: string;
+    title: string;
+    lead: string;
+    priceCol: string;
+    onRequest: string;
+    notesTitle: string;
+    insuranceTitle: string;
+    insuranceLead: string;
+    diseasesTitle: string;
+    languagesTitle: string;
+    paymentTitle: string;
+    paymentCash: string;
+    sourceNote: string;
+  };
   footer: {
     mission: string;
     rights: string;
@@ -299,6 +314,21 @@ const cs: Dictionary = {
     email: "dr.samer@seznam.cz",
     phone: "+420 734 421 860",
     mapCta: "Otevřít mapu",
+  },
+  pricing: {
+    eyebrow: "Ceník",
+    title: "Služby a orientační ceny",
+    lead: "Kompletní přehled ze Známy lékař. Přesná cena závisí na rozsahu péče — rádi ji upřesníme při rezervaci.",
+    priceCol: "Cena",
+    onRequest: "Individuálně",
+    notesTitle: "Důležité informace",
+    insuranceTitle: "Zdravotní pojišťovny",
+    insuranceLead: "Máme smlouvy se všemi hlavními zdravotními pojišťovnami.",
+    diseasesTitle: "Časté oblasti péče",
+    languagesTitle: "Jazyky",
+    paymentTitle: "Platba (soukromé návštěvy)",
+    paymentCash: "Hotovost",
+    sourceNote: "Údaje dle profilu na Známy lékař. Ceny pro pacienty bez pojištění jsou orientační.",
   },
   footer: {
     mission:
@@ -477,6 +507,21 @@ const en: Dictionary = {
     phone: "+420 734 421 860",
     mapCta: "Open map",
   },
+  pricing: {
+    eyebrow: "Pricing",
+    title: "Services and indicative prices",
+    lead: "Full overview from Známy lékař. Exact pricing depends on the scope of care — we will confirm when you book.",
+    priceCol: "Price",
+    onRequest: "On request",
+    notesTitle: "Important notes",
+    insuranceTitle: "Health insurance",
+    insuranceLead: "We contract with all major Czech health insurers.",
+    diseasesTitle: "Common areas of care",
+    languagesTitle: "Languages",
+    paymentTitle: "Payment (private visits)",
+    paymentCash: "Cash",
+    sourceNote: "Data per Známy lékař profile. Prices for uninsured patients are indicative.",
+  },
   footer: {
     mission:
       "A pleasant, discreet environment. Medical care and advice — in the clinic and during hospital stays.",
@@ -653,6 +698,21 @@ const de: Dictionary = {
     email: "dr.samer@seznam.cz",
     phone: "+420 734 421 860",
     mapCta: "Karte öffnen",
+  },
+  pricing: {
+    eyebrow: "Preise",
+    title: "Leistungen und Richtpreise",
+    lead: "Vollständige Übersicht von Známy lékař. Der genaue Preis hängt vom Umfang ab — wir bestätigen bei der Buchung.",
+    priceCol: "Preis",
+    onRequest: "Individuell",
+    notesTitle: "Wichtige Hinweise",
+    insuranceTitle: "Krankenkassen",
+    insuranceLead: "Wir haben Verträge mit allen großen tschechischen Krankenkassen.",
+    diseasesTitle: "Häufige Behandlungsbereiche",
+    languagesTitle: "Sprachen",
+    paymentTitle: "Zahlung (Privatbesuche)",
+    paymentCash: "Bargeld",
+    sourceNote: "Angaben laut Profil auf Známy lékař. Preise für Patientinnen ohne Versicherung sind Richtwerte.",
   },
   footer: {
     mission:
@@ -831,6 +891,21 @@ const it: Dictionary = {
     phone: "+420 734 421 860",
     mapCta: "Apri mappa",
   },
+  pricing: {
+    eyebrow: "Prezzi",
+    title: "Servizi e prezzi indicativi",
+    lead: "Panoramica completa da Známy lékař. Il prezzo esatto dipende dall’ambito — lo confermiamo in prenotazione.",
+    priceCol: "Prezzo",
+    onRequest: "Su richiesta",
+    notesTitle: "Note importanti",
+    insuranceTitle: "Assicurazioni sanitarie",
+    insuranceLead: "Convenzioni con le principali assicurazioni sanitarie ceche.",
+    diseasesTitle: "Aree di cura frequenti",
+    languagesTitle: "Lingue",
+    paymentTitle: "Pagamento (visite private)",
+    paymentCash: "Contanti",
+    sourceNote: "Dati dal profilo Známy lékař. Prezzi per pazienti non assicurati indicativi.",
+  },
   footer: {
     mission:
       "Ambiente piacevole e discreto. Cura medica e consiglio — in ambulatorio e in ospedale.",
@@ -1007,6 +1082,21 @@ const ar: Dictionary = {
     email: "dr.samer@seznam.cz",
     phone: "+420 734 421 860",
     mapCta: "افتحي الخريطة",
+  },
+  pricing: {
+    eyebrow: "الأسعار",
+    title: "الخدمات والأسعار الإرشادية",
+    lead: "نظرة كاملة من Známy lékař. السعر الدقيق يعتمد على نطاق الرعاية — نؤكده عند الحجز.",
+    priceCol: "السعر",
+    onRequest: "حسب الحالة",
+    notesTitle: "معلومات مهمة",
+    insuranceTitle: "التأمين الصحي",
+    insuranceLead: "عقود مع شركات التأمين الصحي التشيكية الرئيسية.",
+    diseasesTitle: "مجالات الرعاية الشائعة",
+    languagesTitle: "اللغات",
+    paymentTitle: "الدفع (زيارات خاصة)",
+    paymentCash: "نقداً",
+    sourceNote: "البيانات وفق ملف Známy lékař. الأسعار للمرضى دون تأمين إرشادية.",
   },
   footer: {
     mission:

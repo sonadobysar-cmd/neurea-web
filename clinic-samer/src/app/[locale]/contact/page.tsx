@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { Reveal } from "@/components/Reveal";
+import { insurers } from "@/data/clinic-catalog";
 import { getDictionary } from "@/data/i18n/dictionaries";
 import { isLocale, type Locale } from "@/lib/locales";
 
@@ -83,8 +84,55 @@ export default async function ContactPage({
                   </li>
                 ))}
               </ul>
+              <h3
+                className="display"
+                style={{
+                  fontSize: "1.35rem",
+                  margin: "2rem 0 0.75rem",
+                  color: "var(--rose-ink)",
+                }}
+              >
+                {dict.pricing.paymentTitle}
+              </h3>
+              <p style={{ margin: 0, color: "var(--stone)" }}>
+                {dict.pricing.paymentCash}
+              </p>
             </div>
           </Reveal>
+        </div>
+      </section>
+
+      <section className="section section-soft">
+        <div className="container">
+          <Reveal>
+            <span className="eyebrow">{dict.pricing.insuranceTitle}</span>
+            <h2
+              className="display"
+              style={{
+                fontSize: "clamp(1.85rem, 3vw, 2.4rem)",
+                color: "var(--rose-ink)",
+                margin: "0.35rem 0 0.75rem",
+              }}
+            >
+              {dict.pricing.insuranceTitle}
+            </h2>
+            <p className="lead" style={{ maxWidth: "40rem" }}>
+              {dict.pricing.insuranceLead}
+            </p>
+          </Reveal>
+          <Reveal delay={0.06}>
+            <ul className="chip-grid">
+              {insurers.map((ins) => (
+                <li key={ins.code}>
+                  <span className="chip-code">{ins.code}</span>
+                  <span>{ins.name}</span>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+          <p className="source-note" style={{ marginTop: "1.5rem" }}>
+            {dict.pricing.sourceNote}
+          </p>
         </div>
       </section>
     </>

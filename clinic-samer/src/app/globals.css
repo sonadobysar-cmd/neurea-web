@@ -1017,6 +1017,152 @@ img {
   line-height: 1.6;
 }
 
+.section-soft {
+  background:
+    radial-gradient(ellipse 80% 60% at 10% 0%, rgba(196, 181, 220, 0.28), transparent 55%),
+    linear-gradient(180deg, rgba(248, 244, 252, 0.9), rgba(255, 255, 255, 0.4));
+}
+
+.price-table-wrap {
+  margin-top: 2rem;
+  overflow-x: auto;
+  border-radius: 1rem;
+  border: 1px solid rgba(58, 42, 50, 0.08);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.price-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.98rem;
+}
+
+.price-table th,
+.price-table td {
+  padding: 0.95rem 1.15rem;
+  text-align: start;
+  border-bottom: 1px solid rgba(58, 42, 50, 0.07);
+}
+
+.price-table th {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 500;
+  color: var(--rose-ink);
+  background: rgba(196, 181, 220, 0.18);
+}
+
+.price-table td:last-child,
+.price-table th:last-child {
+  text-align: end;
+  white-space: nowrap;
+  font-weight: 500;
+  color: var(--champagne-deep);
+}
+
+.price-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.price-notes {
+  margin-top: 2rem;
+  max-width: 44rem;
+}
+
+.price-notes h3 {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: 1.35rem;
+  font-weight: 450;
+  color: var(--rose-ink);
+  margin: 0 0 0.85rem;
+}
+
+.price-notes ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.price-notes li {
+  padding-inline-start: 1rem;
+  border-inline-start: 2px solid rgba(168, 140, 196, 0.55);
+  color: var(--stone);
+  line-height: 1.55;
+}
+
+.source-note {
+  margin: 1.25rem 0 0;
+  font-size: 0.88rem;
+  color: var(--stone);
+  opacity: 0.85;
+}
+
+.chip-grid {
+  list-style: none;
+  margin: 1.75rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: 0.75rem;
+}
+
+.chip-grid li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  padding: 0.85rem 1rem;
+  border-radius: 0.85rem;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(58, 42, 50, 0.07);
+  color: var(--rose-ink);
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+.chip-code {
+  flex-shrink: 0;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 0.82rem;
+  color: var(--champagne-deep);
+  min-width: 2.6rem;
+}
+
+.chip-inline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.chip-inline li {
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(196, 181, 220, 0.22);
+  color: var(--rose-ink);
+  font-size: 0.9rem;
+}
+
+.condition-grid {
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: 0.55rem 1.25rem;
+}
+
+.condition-grid li {
+  color: var(--stone);
+  font-size: 0.95rem;
+  line-height: 1.45;
+  padding-inline-start: 0.85rem;
+  border-inline-start: 2px solid rgba(168, 140, 196, 0.45);
+}
+
 .memberships {
   list-style: none;
   padding: 0;

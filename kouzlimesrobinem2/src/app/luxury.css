@@ -142,7 +142,7 @@ nav{position:sticky;top:0;z-index:50;background:rgba(252,248,239,.86);backdrop-f
 .pcard .ph img{width:100%;height:100%;object-fit:cover;transition:transform .8s}
 .pcard:hover .ph img{transform:scale(1.06)}
 .pcard h3{font-size:29px;text-align:center;margin-top:16px}
-.pcard .pc-face p{font:400 13.5px/1.55 var(--sans);color:var(--ink-soft);text-align:center;margin:6px 8px 10px}
+.pcard .pc-face p{font:400 13.5px/1.55 var(--sans);color:var(--ink-soft);text-align:center;margin:6px 8px 10px;white-space:pre-line}
 
 /* ---------- sparkle trail ---------- */
 .spark{position:fixed;z-index:60;pointer-events:none;transform:translate(-50%,-50%);

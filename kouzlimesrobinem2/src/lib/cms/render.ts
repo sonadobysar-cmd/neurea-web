@@ -63,7 +63,7 @@ export function renderLuxuryBody(content: SiteContent, template: string): string
             ${corner}
             <div class="ph"><img src="${safeUrl(item.image)}" alt="${esc(item.imageAlt)}"></div>
             <h3>${esc(item.title)}</h3>
-            <p>${esc(item.text)}</p>
+            <p>${esc(item.text).replace(/\n/g, "<br>")}</p>
             <div class="idx flip${red}"><b>${esc(item.letter)}</b><svg class="suit" viewBox="0 0 24 24" aria-hidden="true"><use href="${suitHref}"/></svg></div>
           </div>
           <div class="pc-face pc-back">

@@ -215,8 +215,8 @@ export const luxuryBodyTemplate = `<svg width="0" height="0" style="position:abs
   <div class="wrap reveal">
     <p class="eyebrow" style="justify-content:center"><svg class="st"><use href="#star"/></svg>{{cms.contact.eyebrow}}</p>
     <h2>{{cms.contact.titleBefore}}<em>{{cms.contact.titleEm}}</em></h2>
-    <a class="big-tel" href="tel:{{cms.contact.phoneHref}}">{{cms.contact.phoneDisplay}}</a>
-    <a class="mail" href="mailto:{{cms.contact.email}}">{{cms.contact.email}}</a>
+    <span class="big-tel">{{cms.contact.phoneDisplay}}</span>
+    <span class="mail">{{cms.contact.email}}</span>
     <form class="contact-form" id="contactForm" novalidate>
       <input type="text" name="website" class="contact-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
       <input name="name" type="text" required placeholder="Jméno *" autocomplete="name" maxlength="120">

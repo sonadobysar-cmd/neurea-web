@@ -730,8 +730,19 @@ nav.is-open .nav-toggle span:nth-child(3) {
   background: #f68544;
 }
 
+.luxury-root .contact .big-tel,
+.luxury-root .contact .mail {
+  cursor: default;
+  text-decoration: none;
+  pointer-events: none;
+}
+
+.luxury-root .contact .big-tel:hover::after {
+  transform: none;
+}
+
 .luxury-root .contact .mail:hover {
-  color: #f68544;
+  color: var(--ink-soft);
 }
 
 .luxury-root .btn-amber {

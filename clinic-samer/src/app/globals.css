@@ -3,22 +3,22 @@
 @tailwind utilities;
 
 :root {
-  /* Luxury clinic lilac + soft platinum */
-  --rose-ink: #2a2338;
-  --rose-deep: #7a6a9e;
-  --rose-soft: #c4b6de;
-  --rose-mist: #efeaf8;
-  --blush: #ebe4f4;
-  --champagne: #c9b8d4;
-  --champagne-deep: #9a88b0;
-  --sage: #6e7a74;
-  --sage-soft: #e6ebe8;
-  --ivory: #f7f5fb;
-  --stone: #7a7388;
-  --ink: #1e1a28;
+  /* Soft pastel lilac — gentle luxury clinic */
+  --rose-ink: #4a3f63;
+  --rose-deep: #9b8bb8;
+  --rose-soft: #d4c8e8;
+  --rose-mist: #f3eff9;
+  --blush: #ebe4f5;
+  --champagne: #d6cce6;
+  --champagne-deep: #b5a4d6;
+  --sage: #7a857e;
+  --sage-soft: #e8eee9;
+  --ivory: #f9f7fc;
+  --stone: #857b96;
+  --ink: #3a3450;
   --paper: #fcfbfd;
-  --glow: rgba(122, 106, 158, 0.24);
-  --glass: rgba(252, 251, 253, 0.82);
+  --glow: rgba(155, 139, 184, 0.22);
+  --glass: rgba(252, 251, 253, 0.85);
 }
 
 * {
@@ -33,9 +33,9 @@ body {
   margin: 0;
   color: var(--ink);
   background:
-    radial-gradient(1100px 700px at 5% -10%, rgba(196, 182, 222, 0.32), transparent 55%),
-    radial-gradient(900px 560px at 100% 0%, rgba(201, 184, 212, 0.22), transparent 48%),
-    radial-gradient(720px 500px at 60% 100%, rgba(122, 106, 158, 0.1), transparent 52%),
+    radial-gradient(1100px 700px at 8% -8%, rgba(232, 224, 244, 0.7), transparent 55%),
+    radial-gradient(900px 560px at 100% 5%, rgba(243, 239, 249, 0.9), transparent 50%),
+    radial-gradient(720px 480px at 50% 100%, rgba(212, 200, 232, 0.28), transparent 52%),
     var(--ivory);
   font-family: var(--font-sans), system-ui, sans-serif;
   font-weight: 400;
@@ -146,13 +146,26 @@ img {
 }
 
 .btn-primary {
-  background: var(--rose-ink);
+  background: #6e6288;
   color: #f8f5fc;
-  box-shadow: 0 14px 34px rgba(42, 35, 56, 0.2);
+  box-shadow: 0 12px 28px rgba(110, 98, 136, 0.2);
 }
 
 .btn-primary:hover {
-  background: #3d3458;
+  background: #5a5072;
+}
+
+.brand-logo {
+  width: 2.85rem;
+  height: 2.85rem;
+  flex-shrink: 0;
+  display: block;
+  filter: drop-shadow(0 8px 18px rgba(155, 139, 184, 0.28));
+}
+
+.lang-switch a.is-active {
+  background: #6e6288;
+  color: #f8f5fc;
 }
 
 .btn-ghost {
@@ -485,17 +498,17 @@ img {
 
 .placeholder-shot.is-hero {
   background:
-    radial-gradient(ellipse at 75% 25%, rgba(150, 130, 190, 0.5), transparent 52%),
-    radial-gradient(ellipse at 12% 80%, rgba(90, 70, 130, 0.45), transparent 48%),
-    linear-gradient(155deg, #6e5b8f 0%, #3d3458 45%, #2a2338 100%);
+    radial-gradient(ellipse at 72% 28%, rgba(212, 200, 232, 0.55), transparent 52%),
+    radial-gradient(ellipse at 18% 78%, rgba(184, 168, 214, 0.35), transparent 50%),
+    linear-gradient(155deg, #c9bbe3 0%, #9b8bb8 42%, #6e6288 100%);
 }
 
 .hero-shade {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(30, 26, 40, 0.22) 0%, rgba(30, 26, 40, 0.08) 34%, rgba(30, 26, 40, 0.62) 100%),
-    linear-gradient(90deg, rgba(42, 35, 56, 0.5), transparent 58%);
+    linear-gradient(180deg, rgba(74, 63, 99, 0.15) 0%, rgba(74, 63, 99, 0.05) 36%, rgba(58, 52, 80, 0.45) 100%),
+    linear-gradient(90deg, rgba(74, 63, 99, 0.28), transparent 58%);
 }
 
 .hero-content {
@@ -784,10 +797,10 @@ img {
   padding: 3.25rem 3rem;
   border-radius: 1.75rem;
   background:
-    radial-gradient(ellipse at 100% 0%, rgba(196, 182, 222, 0.28), transparent 45%),
-    linear-gradient(135deg, #2a2338 0%, #4a3d68 55%, #7a6a9e 120%);
+    radial-gradient(ellipse at 100% 0%, rgba(232, 224, 244, 0.45), transparent 45%),
+    linear-gradient(135deg, #6e6288 0%, #9b8bb8 55%, #c9bbe3 120%);
   color: #f8f5fc;
-  box-shadow: 0 28px 60px rgba(58, 42, 50, 0.18);
+  box-shadow: 0 24px 50px rgba(110, 98, 136, 0.18);
 }
 
 .cta-panel h2 {

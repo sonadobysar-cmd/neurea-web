@@ -16,6 +16,23 @@
     "plugins": [{ "name": "next" }],
     "paths": { "@/*": ["./src/*"] }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules", "zpusy-club"]
+  "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx", "*.ts", "*.tsx", ".next/types/**/*.ts"],
+  "exclude": [
+    "node_modules",
+    "zpusy-club",
+    "chatky-na-kolech",
+    "clinic-samer",
+    "kouzlimesrobinem",
+    "kouzlimesrobinem1",
+    "kouzlimesrobinem2",
+    "kouzlimesrobinem2-work",
+    "kouzlimesrobinem3",
+    "reel-byznys-start",
+    "reel-portfolio-5",
+    "reel-summer-sale",
+    "tattoo-edit",
+    "black-red-course",
+    "atelier-showcase",
+    "public/nia"
+  ]
 }

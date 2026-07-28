@@ -1,9 +1,10 @@
 export const brand = {
-  name: "Chatky na kolech",
-  short: "CNK",
-  tagline: "Prémiové tiny houses na míru",
+  name: "FLAX",
+  short: "FLAX",
+  legal: "Tiny House FLAX",
+  tagline: "Surové dřevo. Teplý kámen. Domov na kolech.",
   phone: "+420 777 000 000",
-  email: "ahoj@chatkynakolech.cz",
+  email: "ahoj@flax.cz",
   address: "Dílna · Česká republika",
 };
 

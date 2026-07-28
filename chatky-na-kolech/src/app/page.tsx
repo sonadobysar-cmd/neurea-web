@@ -41,13 +41,13 @@ export default function HomePage() {
         <div className="hero-content">
           <p className="hero-brand">{brand.name}</p>
           <h1>
-            Život ve dřevě.
+            Surové dřevo.
             <br />
-            <em>Na kolech.</em>
+            <em>Teplý kámen.</em>
           </h1>
           <p className="hero-lead">
-            Prémiové tiny houses na míru. Homologované, celoroční, postavené v
-            české dílně — od prvního sukovitého prkna po klíčky.
+            Tiny houses s resortovým teplem — jako když vejdete do Maximus, jen
+            na kolech. Homologované, celoroční, postavené v české dílně.
           </p>
           <div className="hero-actions">
             <Link href="/konfigurator" className="btn btn-oak btn-arrow">

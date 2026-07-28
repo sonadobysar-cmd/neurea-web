@@ -1,21 +1,23 @@
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Manrope:wght@300;400;500;600;700&display=swap");
 
 :root {
-  --ink: #0d1510;
-  --ink-soft: #1a2620;
-  --mist: #e8ede6;
-  --stone: #c5ccc0;
-  --oak: #9a7b4f;
-  --moss: #3f5e48;
-  --moss-deep: #2a4032;
-  --paper: #f4f6f2;
-  --copper: #8b6a3f;
-  --line: rgba(13, 21, 16, 0.12);
-  --line-light: rgba(244, 246, 242, 0.14);
-  --glow: rgba(154, 123, 79, 0.35);
+  /* Maximus / Bali warmth: kámen, teak, espresso — ne cool forest */
+  --ink: #1c1410;
+  --ink-soft: #2a211c;
+  --mist: #e5d9c8;
+  --stone: #c9bba8;
+  --oak: #b8895a;
+  --moss: #7a654c;
+  --moss-deep: #5c4a38;
+  --paper: #ebe4d8;
+  --copper: #a67c52;
+  --sand: #f3ebe0;
+  --line: rgba(28, 20, 16, 0.12);
+  --line-light: rgba(243, 235, 224, 0.16);
+  --glow: rgba(184, 137, 90, 0.4);
 
-  --font-display: "Instrument Serif", Georgia, serif;
-  --font-sans: "Outfit", system-ui, sans-serif;
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "Manrope", system-ui, sans-serif;
 
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
@@ -380,8 +382,8 @@ p {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(13, 21, 16, 0.35) 0%, rgba(13, 21, 16, 0.15) 35%, rgba(13, 21, 16, 0.72) 100%),
-    linear-gradient(90deg, rgba(13, 21, 16, 0.55) 0%, transparent 55%);
+    linear-gradient(180deg, rgba(28, 20, 16, 0.28) 0%, rgba(28, 20, 16, 0.12) 35%, rgba(28, 20, 16, 0.78) 100%),
+    linear-gradient(90deg, rgba(28, 20, 16, 0.5) 0%, transparent 55%);
 }
 
 .hero-content {
@@ -409,7 +411,7 @@ p {
 
 .hero h1 em {
   font-style: italic;
-  color: #d6c3a0;
+  color: #e8c9a0;
 }
 
 .hero-lead {

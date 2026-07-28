@@ -8,10 +8,7 @@ export function SiteFooter() {
         <div className="footer-top">
           <div>
             <div className="footer-brand">{brand.name}</div>
-            <p>
-              Prémiové tiny houses na míru. Navrženo přírodou, postaveno mistry
-              v české dílně.
-            </p>
+            <p>{brand.tagline}</p>
           </div>
           <div className="footer-col">
             <h4>Navigace</h4>
@@ -29,8 +26,8 @@ export function SiteFooter() {
           </div>
         </div>
         <div className="footer-bottom">
-          <span>© {new Date().getFullYear()} {brand.name}</span>
-          <span>Život ve dřevě. Na kolech.</span>
+          <span>© {new Date().getFullYear()} {brand.legal ?? brand.name}</span>
+          <span>{brand.tagline}</span>
         </div>
       </div>
     </footer>

@@ -35,7 +35,7 @@ export function SiteNav({ darkHero = false }: { darkHero?: boolean }) {
             <LogoMark className="brand-mark" />
             <span className="brand-text">
               <strong>{brand.name}</strong>
-              <span>Tiny houses · Ateliér</span>
+              <span>Tiny houses · surové teplo</span>
             </span>
           </Link>
 

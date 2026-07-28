@@ -72,28 +72,30 @@ export default function HomePage() {
             fill
             priority
             sizes="100vw"
-            style={{ objectFit: "cover", objectPosition: "center 45%" }}
+            style={{ objectFit: "cover", objectPosition: "center center" }}
           />
           <div className="hero-shade" />
         </div>
         <div className="hero-content">
           <p className="hero-brand">{brand.name}</p>
           <h1>
-            Moderní tiny house
+            Precision
             <br />
-            na kolech
+            of living
+            <br />
+            on wheels
           </h1>
           <p className="hero-lead">
-            Teplé dřevo. Čistý střih. Homologovaný podvozek — bydlení, Airbnb
-            i kempy.
+            Moderní tiny house z teplého dřeva. Homologovaný podvozek. Bydlení,
+            Airbnb, kempy.
           </p>
           <div className="hero-actions">
             <Link href="/konfigurator" className="btn btn-paper btn-arrow">
-              Otevřít konfigurátor
+              Start build
               <ArrowIcon />
             </Link>
             <Link href="/#cesty" className="btn btn-ghost-light">
-              Tři cesty
+              Explore
             </Link>
           </div>
         </div>
@@ -124,8 +126,8 @@ export default function HomePage() {
           <Reveal>
             <div className="section-head wide">
               <div>
-                <p className="eyebrow">Systém</p>
-                <h2>Tři cesty. Bez typových katalogů.</h2>
+                <p className="eyebrow">System</p>
+                <h2>Three paths. No catalog models.</h2>
               </div>
               <p>
                 Neprodáváme „model A / model B“. Řešíme váš záměr — nový dům,

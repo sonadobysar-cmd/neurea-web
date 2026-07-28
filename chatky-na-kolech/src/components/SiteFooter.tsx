@@ -1,7 +1,13 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { brand, nav } from "@/data/content";
 
 export function SiteFooter() {
+  const pathname = usePathname();
+  if (pathname?.startsWith("/konfigurator")) return null;
+
   return (
     <footer className="site-footer">
       <div className="wrap">

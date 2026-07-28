@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import {
@@ -20,8 +21,15 @@ import {
   clampDim,
   round1,
 } from "@/data/configurator";
-import { HousePreview } from "./HousePreview";
 import { ArrowIcon } from "./Icons";
+
+const HouseScene3D = dynamic(
+  () => import("./HouseScene3D").then((m) => m.HouseScene3D),
+  {
+    ssr: false,
+    loading: () => <div className="house3d-loading">Načítám 3D model…</div>,
+  },
+);
 
 function formatCzk(n: number) {
   return new Intl.NumberFormat("cs-CZ", {
@@ -199,25 +207,49 @@ export function Configurator() {
 
   return (
     <div className="cfg-studio">
-      <nav className="cfg-steps" aria-label="Kroky konfigurátoru">
-        {STEPS.map((s, i) => (
+      <div className="cfg-topbar">
+        <nav className="cfg-steps" aria-label="Kroky konfigurátoru">
+          {STEPS.map((s, i) => (
+            <button
+              key={s.id}
+              type="button"
+              className={`cfg-steps-item${step === s.id ? " is-active" : ""}${
+                i < stepIndex ? " is-done" : ""
+              }`}
+              onClick={() => setStep(s.id)}
+            >
+              {s.label}
+            </button>
+          ))}
+        </nav>
+        <div className="cfg-topbar-actions">
           <button
-            key={s.id}
             type="button"
-            className={`cfg-steps-item${step === s.id ? " is-active" : ""}${
-              i < stepIndex ? " is-done" : ""
-            }`}
-            onClick={() => setStep(s.id)}
+            className="btn btn-ghost"
+            onClick={() => {
+              try {
+                localStorage.setItem("cnk-config", JSON.stringify(cfg));
+              } catch {
+                /* ignore */
+              }
+            }}
           >
-            {s.label}
+            Save design
           </button>
-        ))}
-      </nav>
+          <button
+            type="button"
+            className="btn btn-ink"
+            onClick={() => setStep("quote")}
+          >
+            Request quote
+          </button>
+        </div>
+      </div>
 
       <div className="cfg-studio-body">
         <section className="cfg-viewport" aria-label="Náhled domu">
           <div className="cfg-viewport-canvas">
-            <HousePreview
+            <HouseScene3D
               length={cfg.length}
               width={cfg.width}
               roof={cfg.roof}
@@ -246,10 +278,6 @@ export function Configurator() {
               <strong>{formatCzk(prices.total)}</strong>
             </div>
           </div>
-
-          <p className="cfg-hint">
-            Klikněte na body na modelu — otevřou příslušný krok konfigurace.
-          </p>
         </section>
 
         <aside className="cfg-sidebar">

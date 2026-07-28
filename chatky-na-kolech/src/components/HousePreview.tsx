@@ -1,39 +1,60 @@
 "use client";
 
+import type { FacadeId, LoftId, RoofId } from "@/data/configurator";
+
 type Props = {
-  cladding: string;
-  roof: string;
-  interior: string;
-  extras: string[];
+  length: number;
+  width: number;
+  roof: RoofId;
+  facade: FacadeId;
+  loft: LoftId;
+  hasBathroom: boolean;
+  hasKitchen: boolean;
 };
 
-const WALL: Record<string, string> = {
-  cedar: "#B8956A",
-  charred: "#2A2420",
-  ash: "#D4C4A8",
-  sage: "#6B7F6A",
+const WALL: Record<FacadeId, string> = {
+  smrk: "#C4A882",
+  thermo: "#5C4033",
+  modrin: "#B8956A",
+  plech: "#6B7280",
+  half: "#B8956A",
 };
 
-const ROOF: Record<string, string> = {
-  seam: "#4A5560",
-  wood: "#8B6914",
-  green: "#3F5E48",
+const WALL2: Record<FacadeId, string | null> = {
+  smrk: null,
+  thermo: null,
+  modrin: null,
+  plech: null,
+  half: "#6B7280",
 };
 
-const INTERIOR_GLOW: Record<string, string> = {
-  scandi: "#FFF4D6",
-  walnut: "#E8A060",
-  linen: "#F5E6C8",
-};
+export function HousePreview({
+  length,
+  width,
+  roof,
+  facade,
+  loft,
+  hasBathroom,
+  hasKitchen,
+}: Props) {
+  const wall = WALL[facade];
+  const wallB = WALL2[facade];
+  const hasLoft = loft !== "none";
+  const bodyH = hasLoft ? 120 : 100;
+  const bodyY = hasLoft ? 130 : 150;
+  // Visual scale from dimensions
+  const scaleX = 0.85 + ((length - 6) / 6) * 0.25;
+  const scaleY = 0.92 + ((width - 2.5) / 1.5) * 0.12;
 
-export function HousePreview({ cladding, roof, interior, extras }: Props) {
-  const wall = WALL[cladding] ?? WALL.cedar;
-  const roofFill = ROOF[roof] ?? ROOF.seam;
-  const glow = INTERIOR_GLOW[interior] ?? INTERIOR_GLOW.scandi;
-  const hasSolar = extras.includes("solar");
-  const hasStove = extras.includes("stove");
-  const hasDeck = extras.includes("deck");
-  const hasLoft = extras.includes("loft");
+  const roofPath =
+    roof === "plocha"
+      ? `M118 ${bodyY + 8} H362 V${bodyY - 8} H118 Z`
+      : roof === "kulata"
+        ? `M118 ${bodyY + 10} Q240 ${bodyY - 70} 362 ${bodyY + 10} Z`
+        : `M118 ${bodyY + 8} L240 ${bodyY - 70} L362 ${bodyY + 8} Z`;
+
+  const roofFill =
+    roof === "kulata" ? "#4A5560" : roof === "plocha" ? "#3D4654" : "#4A5560";
 
   return (
     <svg
@@ -41,31 +62,24 @@ export function HousePreview({ cladding, roof, interior, extras }: Props) {
       viewBox="0 0 480 340"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      aria-label="Náhled konfigurace tiny house"
+      aria-label={`Náhled Tiny House ${length} × ${width} m`}
+      style={{ transform: `scale(${scaleX}, ${scaleY})` }}
     >
       <defs>
         <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor="#2a4032" stopOpacity="0" />
           <stop offset="100%" stopColor="#1a2620" stopOpacity="0.9" />
         </linearGradient>
-        <filter id="soft">
-          <feGaussianBlur stdDeviation="8" />
-        </filter>
+        <linearGradient id="halfWall" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="50%" stopColor={wall} />
+          <stop offset="50%" stopColor={wallB ?? wall} />
+        </linearGradient>
       </defs>
 
-      {/* Ground */}
       <ellipse cx="240" cy="300" rx="180" ry="18" fill="#0a100c" opacity="0.45" />
       <rect x="0" y="280" width="480" height="60" fill="url(#ground)" />
 
-      {/* Deck */}
-      <g className="deck" opacity={hasDeck ? 1 : 0}>
-        <rect x="78" y="248" width="70" height="8" rx="1" fill="#6B5344" />
-        <rect x="82" y="256" width="4" height="22" fill="#4A3A30" />
-        <rect x="140" y="256" width="4" height="22" fill="#4A3A30" />
-        <path d="M78 248h70l-8-18H86z" fill="#7A6250" />
-      </g>
-
-      {/* Chassis / wheels */}
+      {/* Chassis */}
       <rect x="130" y="248" width="240" height="10" rx="2" fill="#1a1a1a" />
       <circle cx="165" cy="268" r="16" fill="#111" />
       <circle cx="165" cy="268" r="8" fill="#333" />
@@ -77,107 +91,96 @@ export function HousePreview({ cladding, roof, interior, extras }: Props) {
       <rect
         className="wall"
         x="130"
-        y="140"
+        y={bodyY}
         width="240"
-        height="110"
-        fill={wall}
+        height={bodyH}
+        fill={wallB ? "url(#halfWall)" : wall}
       />
-      {/* Wood grain lines */}
-      <g opacity="0.15" stroke="#000" strokeWidth="0.8">
-        <line x1="130" y1="165" x2="370" y2="165" />
-        <line x1="130" y1="190" x2="370" y2="190" />
-        <line x1="130" y1="215" x2="370" y2="215" />
-        <line x1="130" y1="235" x2="370" y2="235" />
+      <g opacity="0.12" stroke="#000" strokeWidth="0.8">
+        <line x1="130" y1={bodyY + 25} x2="370" y2={bodyY + 25} />
+        <line x1="130" y1={bodyY + 50} x2="370" y2={bodyY + 50} />
+        <line x1="130" y1={bodyY + 75} x2="370" y2={bodyY + 75} />
       </g>
 
       {/* Roof */}
-      <path
-        className="roof"
-        d="M118 148 L240 72 L362 148 Z"
-        fill={roofFill}
-      />
-      <path
-        d="M118 148 L240 72 L362 148"
-        fill="none"
-        stroke="rgba(0,0,0,0.25)"
-        strokeWidth="2"
-      />
-      {/* Roof ridge cap */}
-      <rect x="234" y="70" width="12" height="8" rx="1" fill="#222" opacity="0.5" />
-
-      {/* Green roof texture */}
-      {roof === "green" && (
-        <g opacity="0.55">
-          <circle cx="200" cy="120" r="6" fill="#5a7a5a" />
-          <circle cx="230" cy="105" r="7" fill="#4d6b4d" />
-          <circle cx="260" cy="118" r="6" fill="#5a7a5a" />
-          <circle cx="245" cy="95" r="5" fill="#6a8a6a" />
-          <circle cx="215" cy="100" r="5" fill="#4d6b4d" />
-        </g>
+      <path className="roof" d={roofPath} fill={roofFill} />
+      {roof === "ackova" && (
+        <rect x="234" y={bodyY - 72} width="12" height="8" rx="1" fill="#222" opacity="0.5" />
       )}
 
-      {/* Solar */}
-      <g className="solar" opacity={hasSolar ? 1 : 0}>
-        <rect x="200" y="95" width="50" height="28" rx="2" fill="#1a2744" stroke="#3a5080" strokeWidth="1" transform="rotate(-28 225 109)" />
-        <line x1="208" y1="90" x2="208" y2="118" stroke="#2a3a60" strokeWidth="0.8" transform="rotate(-28 225 109)" />
-        <line x1="218" y1="90" x2="218" y2="118" stroke="#2a3a60" strokeWidth="0.8" transform="rotate(-28 225 109)" />
-        <line x1="228" y1="90" x2="228" y2="118" stroke="#2a3a60" strokeWidth="0.8" transform="rotate(-28 225 109)" />
-        <line x1="238" y1="90" x2="238" y2="118" stroke="#2a3a60" strokeWidth="0.8" transform="rotate(-28 225 109)" />
-      </g>
-
       {/* Door */}
-      <rect x="155" y="175" width="42" height="75" rx="2" fill="#1a1512" opacity="0.85" />
-      <circle cx="188" cy="215" r="2.5" fill={glow} opacity="0.7" />
+      <rect
+        x="155"
+        y={bodyY + bodyH - 75}
+        width="42"
+        height="75"
+        rx="2"
+        fill="#1a1512"
+        opacity="0.85"
+      />
+      <circle cx="188" cy={bodyY + bodyH - 40} r="2.5" fill="#F5E6C8" opacity="0.7" />
 
       {/* Windows */}
       <g>
-        <rect x="220" y="165" width="52" height="42" rx="2" fill="#1a2220" />
+        <rect x="220" y={bodyY + 20} width="52" height={hasKitchen ? 44 : 40} rx="2" fill="#1a2220" />
         <rect
-          className="window-glow"
           x="224"
-          y="169"
+          y={bodyY + 24}
           width="44"
-          height="34"
+          height={hasKitchen ? 36 : 32}
           rx="1"
-          fill={glow}
+          fill="#FFF4D6"
           opacity="0.85"
         />
-        <line x1="246" y1="169" x2="246" y2="203" stroke="rgba(0,0,0,0.2)" strokeWidth="1.5" />
-        <line x1="224" y1="186" x2="268" y2="186" stroke="rgba(0,0,0,0.2)" strokeWidth="1.5" />
       </g>
       <g>
-        <rect x="290" y="165" width="52" height="42" rx="2" fill="#1a2220" />
         <rect
-          className="window-glow"
-          x="294"
-          y="169"
-          width="44"
-          height="34"
-          rx="1"
-          fill={glow}
-          opacity="0.75"
+          x="290"
+          y={bodyY + 20}
+          width="52"
+          height={hasBathroom ? 44 : 40}
+          rx="2"
+          fill="#1a2220"
         />
-        <line x1="316" y1="169" x2="316" y2="203" stroke="rgba(0,0,0,0.2)" strokeWidth="1.5" />
-        <line x1="294" y1="186" x2="338" y2="186" stroke="rgba(0,0,0,0.2)" strokeWidth="1.5" />
+        <rect
+          x="294"
+          y={bodyY + 24}
+          width="44"
+          height={hasBathroom ? 36 : 32}
+          rx="1"
+          fill="#E8F4FF"
+          opacity={hasBathroom ? 0.8 : 0.55}
+        />
       </g>
 
-      {/* Loft window */}
-      <g opacity={hasLoft ? 1 : 0.25}>
-        <rect x="225" y="118" width="30" height="22" rx="1" fill="#1a2220" />
-        <rect x="228" y="121" width="24" height="16" fill={glow} opacity={hasLoft ? 0.8 : 0.3} />
-      </g>
+      {/* Loft windows */}
+      {hasLoft && (
+        <g>
+          <rect x="210" y={bodyY + 4} width="28" height="18" rx="1" fill="#1a2220" />
+          <rect x="213" y={bodyY + 7} width="22" height="12" fill="#FFF4D6" opacity="0.75" />
+          {loft === "two" && (
+            <>
+              <rect x="262" y={bodyY + 4} width="28" height="18" rx="1" fill="#1a2220" />
+              <rect x="265" y={bodyY + 7} width="22" height="12" fill="#FFF4D6" opacity="0.75" />
+            </>
+          )}
+        </g>
+      )}
 
-      {/* Chimney + smoke */}
-      <g opacity={hasStove ? 1 : 0}>
-        <rect x="300" y="88" width="14" height="36" fill="#3a3530" />
-        <rect x="297" y="84" width="20" height="6" rx="1" fill="#2a2520" />
-        <ellipse className="smoke" cx="307" cy="70" rx="10" ry="14" fill="#c5ccc0" opacity="0.25" filter="url(#soft)" />
-        <ellipse className="smoke" cx="312" cy="55" rx="8" ry="12" fill="#c5ccc0" opacity="0.18" filter="url(#soft)" style={{ animationDelay: "0.8s" }} />
-      </g>
-
-      {/* Trim */}
-      <rect x="130" y="140" width="240" height="4" fill="rgba(0,0,0,0.2)" />
+      <rect x="130" y={bodyY} width="240" height="4" fill="rgba(0,0,0,0.2)" />
       <rect x="130" y="246" width="240" height="4" fill="rgba(0,0,0,0.25)" />
+
+      {/* Dimension label */}
+      <text
+        x="240"
+        y="318"
+        textAnchor="middle"
+        fill="rgba(244,246,242,0.55)"
+        fontSize="11"
+        fontFamily="Outfit, sans-serif"
+      >
+        {length.toFixed(1)} × {width.toFixed(1)} m
+      </text>
     </svg>
   );
 }

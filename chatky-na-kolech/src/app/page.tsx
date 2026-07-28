@@ -199,9 +199,8 @@ export default function HomePage() {
                 <p className="eyebrow">Konfigurátor</p>
                 <h2>Složte si dům dřív, než ho postavíme</h2>
                 <p>
-                  Model, fasáda, střecha, interiér a výbava — v reálném čase
-                  vidíte, jak se váš tiny house mění. A hned víte orientační
-                  investici.
+                  Rozměry, střecha, fasáda, koupelna, kuchyň — Tiny House FLAX
+                  konfigurátor spočítá plochy i orientační cenu v reálném čase.
                 </p>
                 <Link href="/konfigurator" className="btn btn-oak btn-arrow">
                   Otevřít konfigurátor

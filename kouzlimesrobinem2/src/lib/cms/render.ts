@@ -29,6 +29,14 @@ function safeMailto(s: string): string {
   return esc(v);
 }
 
+const SUIT_HREF: Record<string, string> = {
+  h: "#s-h",
+  d: "#s-d",
+  s: "#s-s",
+  c: "#s-c",
+};
+const RED_SUITS = new Set(["h", "d"]);
+
 export function renderLuxuryBody(content: SiteContent, template: string): string {
   const c = content;
   const card = (i: number) => c.disciplines.cards[i];
@@ -45,14 +53,18 @@ export function renderLuxuryBody(content: SiteContent, template: string): string
     const item = card(i);
     if (!item) return "";
     const back = item.back.map((li) => `<li>${esc(li)}</li>`).join("");
+    const suit = item.suit && SUIT_HREF[item.suit] ? item.suit : "s";
+    const red = RED_SUITS.has(suit) ? " red" : "";
+    const suitHref = SUIT_HREF[suit];
+    const corner = `<div class="idx${red}"><b>${esc(item.letter)}</b><svg class="suit" viewBox="0 0 24 24" aria-hidden="true"><use href="${suitHref}"/></svg></div>`;
     return `<article class="pcard" data-i="${i}" tabindex="0" role="button" aria-label="${esc(item.title)} — kliknutím otočíte kartu">
         <div class="pc-inner">
           <div class="pc-face">
-            <div class="idx"><b>${esc(item.letter)}</b><svg class="st"><use href="#star"/></svg></div>
+            ${corner}
             <div class="ph"><img src="${safeUrl(item.image)}" alt="${esc(item.imageAlt)}"></div>
             <h3>${esc(item.title)}</h3>
             <p>${esc(item.text)}</p>
-            <div class="idx flip"><b>${esc(item.letter)}</b><svg class="st"><use href="#star"/></svg></div>
+            <div class="idx flip${red}"><b>${esc(item.letter)}</b><svg class="suit" viewBox="0 0 24 24" aria-hidden="true"><use href="${suitHref}"/></svg></div>
           </div>
           <div class="pc-face pc-back">
             <svg class="st"><use href="#star"/></svg>

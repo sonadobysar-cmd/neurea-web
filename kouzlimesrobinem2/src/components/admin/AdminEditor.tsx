@@ -206,11 +206,21 @@ export function AdminEditor({ initial }: { initial: SiteContent }) {
             <h3>Karta {i + 1}</h3>
             <div className="admin-grid">
               <Field
-                label="Písmeno"
+                label="Hodnota (A/J/Q/K)"
                 value={card.letter}
                 onChange={(v) => {
                   const cards = [...content.disciplines.cards];
                   cards[i] = { ...card, letter: v };
+                  patch("disciplines", { ...content.disciplines, cards });
+                }}
+              />
+              <Field
+                label="Barva (s/h/d/c)"
+                value={card.suit || "s"}
+                onChange={(v) => {
+                  const suit = (["h", "d", "s", "c"].includes(v) ? v : "s") as "h" | "d" | "s" | "c";
+                  const cards = [...content.disciplines.cards];
+                  cards[i] = { ...card, suit };
                   patch("disciplines", { ...content.disciplines, cards });
                 }}
               />

@@ -8,6 +8,7 @@ export type GalleryImage = {
 
 export type DisciplineCard = {
   letter: string;
+  suit: "h" | "d" | "s" | "c";
   title: string;
   text: string;
   image: string;

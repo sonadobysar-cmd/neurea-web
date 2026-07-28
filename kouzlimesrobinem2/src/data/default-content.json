@@ -36,6 +36,7 @@
     "cards": [
       {
         "letter": "K",
+        "suit": "s",
         "title": "Kouzelník",
         "text": "Interaktivní kouzla plná humoru pro předškoláky, školáky i dospělé publikum.",
         "image": "/luxury/img-02.jpg",
@@ -43,7 +44,8 @@
         "back": ["Oslavy · školky · 1. stupeň ZŠ", "Děti asistují na jevišti", "Humor pro celou rodinu"]
       },
       {
-        "letter": "B",
+        "letter": "Q",
+        "suit": "h",
         "title": "Balónkář",
         "text": "Zvířátka, meče i květiny na počkání, které si každé dítě odnese domů.",
         "image": "/luxury/img-03.jpg",
@@ -51,7 +53,8 @@
         "back": ["Pejsci, meče i květiny", "Tvorba přímo před očima", "Výtvor pro každé dítě i dospěláka domů :-)"]
       },
       {
-        "letter": "M",
+        "letter": "A",
+        "suit": "c",
         "title": "Mentalista",
         "text": "Čtení myšlenek a překvapivé triky u stolu. Ideální pro firemní večírek či svatbu.",
         "image": "/luxury/img-04.jpg",

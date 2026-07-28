@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
-import { Manrope, Noto_Sans_Arabic, Syne } from "next/font/google";
+import { Figtree, Fraunces, Noto_Sans_Arabic } from "next/font/google";
 import "./globals.css";
 
-const display = Syne({
+const display = Fraunces({
   subsets: ["latin", "latin-ext"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600"],
+  style: ["normal", "italic"],
   variable: "--font-display",
   display: "swap",
 });
 
-const sans = Manrope({
+const sans = Figtree({
   subsets: ["latin", "latin-ext"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600"],
   variable: "--font-sans",
   display: "swap",
 });

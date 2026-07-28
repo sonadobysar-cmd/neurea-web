@@ -16,17 +16,17 @@ export function ClinicLogo({
     >
       <defs>
         <linearGradient id="cs-ring" x1="8" y1="6" x2="56" y2="58" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#E8DCC8" />
-          <stop offset="0.45" stopColor="#C4B4DC" />
-          <stop offset="1" stopColor="#6A5688" />
+          <stop stopColor="#E8D5C0" />
+          <stop offset="0.5" stopColor="#D4B0C2" />
+          <stop offset="1" stopColor="#9A6D84" />
         </linearGradient>
-        <linearGradient id="cs-fill" x1="16" y1="12" x2="50" y2="54" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#2F2640" />
-          <stop offset="1" stopColor="#5A4876" />
+        <linearGradient id="cs-fill" x1="14" y1="10" x2="52" y2="56" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#4A3540" />
+          <stop offset="1" stopColor="#7A5266" />
         </linearGradient>
-        <linearGradient id="cs-leaf" x1="30" y1="8" x2="48" y2="28" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#F0E6D4" />
-          <stop offset="1" stopColor="#D0BFA6" />
+        <linearGradient id="cs-petal" x1="32" y1="8" x2="52" y2="30" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#F3E4EA" />
+          <stop offset="1" stopColor="#D8C4A8" />
         </linearGradient>
       </defs>
 
@@ -34,42 +34,29 @@ export function ClinicLogo({
       <circle
         cx="32"
         cy="32"
-        r="28.2"
+        r="28"
         fill="none"
         stroke="url(#cs-ring)"
-        strokeWidth="1.4"
-        opacity="0.95"
+        strokeWidth="1.35"
       />
       <circle
         cx="32"
         cy="32"
-        r="24.5"
+        r="24.2"
         fill="none"
-        stroke="rgba(232,220,200,0.28)"
+        stroke="rgba(243,228,234,0.28)"
         strokeWidth="0.7"
       />
 
-      {/* Soft orchid petal */}
       <path
-        d="M38.5 14.5c4.2 1.1 8.2 5.2 7.6 10.2-0.5 4.2-4.1 6.8-7.8 6.2 1.8-3.4 1.5-7.8 0.2-16.4z"
-        fill="url(#cs-leaf)"
-        opacity="0.85"
-      />
-      <path
-        d="M41.2 16.8c2.6 1.4 4.6 4.2 4.2 7.1-0.3 2.4-2.1 4-4.2 4.1 0.9-2.4 0.8-5.5 0-11.2z"
-        fill="rgba(255,248,252,0.35)"
+        d="M39 13.8c4.4 1.3 8.4 5.4 7.7 10.5-.5 4-3.8 6.6-7.4 6.1 1.6-3.5 1.3-8 .0-16.6z"
+        fill="url(#cs-petal)"
+        opacity="0.9"
       />
 
-      {/* Monogram S */}
       <path
         d="M34.8 24.2c-1.1-2.3-3.5-3.5-6.4-3.5-3.9 0-6.7 2.1-6.7 5.1 0 2.6 1.9 4.1 5.8 5.1l1.7.4c2.5.6 3.5 1.3 3.5 2.7 0 1.7-1.7 2.9-4.2 2.9-2.4 0-4.2-1-5.2-2.9l-2.6 1.5c1.5 3.1 4.5 4.7 7.9 4.7 4.5 0 7.4-2.4 7.4-5.8 0-2.9-1.9-4.5-6-5.5l-1.7-.4c-2.2-.5-3.2-1.2-3.2-2.5 0-1.5 1.5-2.5 3.6-2.5 1.9 0 3.3.8 4.1 2.4l2.5-1.7z"
-        fill="#F8F5FC"
-      />
-      {/* Subtle A accent mark */}
-      <path
-        d="M42.2 41.8h-2.2l-.5 1.8h-2.5l3.4-10.2h2.7l3.4 10.2h-2.6l-.5-1.8zm-1.1-3.7l-.8 2.8h1.6l-.8-2.8z"
-        fill="#E8DCC8"
-        opacity="0.9"
+        fill="#FFF8F5"
       />
     </svg>
   );

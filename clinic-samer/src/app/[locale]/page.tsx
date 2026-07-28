@@ -15,14 +15,15 @@ export default async function HomePage({
   if (!isLocale(raw)) notFound();
   const locale = raw as Locale;
   const dict = getDictionary(locale);
-  const reviews = (await listReviews({ status: "approved" })).slice(0, 3);
+  const reviews = (await listReviews({ status: "approved" })).slice(0, 2);
+  const featured = dict.services.items.slice(0, 3);
 
   return (
     <>
       <section className="hero">
         <div className="hero-media">
           <Placeholder
-            label="Foto: ordinace / atmosféra kliniky — dodáte"
+            label="Foto: atmosféra kliniky — dodáte"
             mark=""
             className="is-hero"
           />
@@ -40,60 +41,51 @@ export default async function HomePage({
             <Link href={`/${locale}/booking`} className="btn btn-light">
               {dict.hero.ctaPrimary}
             </Link>
-            <Link href={`/${locale}/services`} className="btn btn-ghost" style={{ color: "#f8f5fc", borderColor: "rgba(248,245,252,0.35)" }}>
+            <Link href={`/${locale}/services`} className="btn btn-ghost-light">
               {dict.hero.ctaSecondary}
             </Link>
           </div>
-          <div className="hero-scroll">
-            <i />
-            {dict.hero.scroll}
-          </div>
+        </div>
+      </section>
+
+      <section className="section section-soft">
+        <div className="container">
+          <Reveal>
+            <p className="trust-line">
+              <span>{dict.trust.languages}</span>
+              <i />
+              <span>{dict.trust.newPatients}</span>
+              <i />
+              <span>{dict.trust.international}</span>
+            </p>
+          </Reveal>
         </div>
       </section>
 
       <section className="section">
         <div className="container">
           <Reveal>
-            <div className="trust-grid">
-              <div className="trust-item">
-                <h3>{dict.trust.languages}</h3>
-                <p>{dict.trust.languagesText}</p>
-              </div>
-              <div className="trust-item">
-                <h3>{dict.trust.newPatients}</h3>
-                <p>{dict.trust.newPatientsText}</p>
-              </div>
-              <div className="trust-item">
-                <h3>{dict.trust.international}</h3>
-                <p>{dict.trust.internationalText}</p>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      <section className="section" style={{ paddingTop: 0 }}>
-        <div className="container">
-          <Reveal>
-            <div className="section-head">
+            <div className="section-head section-head-wide">
               <span className="eyebrow">{dict.services.eyebrow}</span>
               <h2>{dict.services.title}</h2>
               <p className="lead">{dict.services.lead}</p>
             </div>
           </Reveal>
-          <div className="service-grid">
-            {dict.services.items.map((item, i) => (
-              <Reveal key={item.id} delay={i * 0.06}>
-                <article className="service-card">
-                  <div className="num">0{i + 1}</div>
-                  <h3>{item.title}</h3>
-                  <p>{item.text}</p>
+          <div className="feature-rows">
+            {featured.map((item, i) => (
+              <Reveal key={item.id} delay={i * 0.08}>
+                <article className="feature-row">
+                  <span className="num">0{i + 1}</span>
+                  <div>
+                    <h3>{item.title}</h3>
+                    <p>{item.text}</p>
+                  </div>
                 </article>
               </Reveal>
             ))}
           </div>
           <Reveal>
-            <div style={{ marginTop: "2rem" }}>
+            <div className="section-action">
               <Link href={`/${locale}/services`} className="btn btn-ghost">
                 {dict.services.viewAll}
               </Link>
@@ -102,49 +94,25 @@ export default async function HomePage({
         </div>
       </section>
 
-      <section className="lux-band">
-        <div className="container">
-          <Reveal>
-            <p className="lux-quote">
-              {dict.footer.mission}
-            </p>
-          </Reveal>
-        </div>
-      </section>
-
-      <section className="section" style={{ paddingTop: 0 }}>
-        <div className="container split">
+      <section className="section section-flush">
+        <div className="container split split-airy">
           <Reveal>
             <div className="split-media">
-              <Placeholder
-                label="Foto: MUDr. Samer Asad — dodáte"
-                mark="SA"
-              />
+              <Placeholder label="Foto: MUDr. Samer Asad — dodáte" mark="" />
             </div>
           </Reveal>
           <Reveal delay={0.1}>
-            <div>
+            <div className="split-copy">
               <span className="eyebrow">{dict.about.eyebrow}</span>
-              <h2
-                className="display"
-                style={{
-                  fontSize: "clamp(2.2rem, 4vw, 3.2rem)",
-                  color: "var(--rose-ink)",
-                  margin: "0.7rem 0 1rem",
-                }}
-              >
-                {dict.about.title}
-              </h2>
+              <h2 className="display">{dict.about.title}</h2>
               <p className="lead">{dict.about.lead}</p>
-              <p style={{ color: "var(--stone)", lineHeight: 1.65 }}>
-                {dict.about.doctorBio}
-              </p>
+              <p className="body-copy">{dict.about.doctorBio}</p>
               <div className="team-chip">
                 <strong>{dict.about.nurseTitle}</strong>
                 <span>{dict.about.nurseRole}</span>
               </div>
-              <div style={{ marginTop: "1.75rem" }}>
-                <Link href={`/${locale}/about`} className="btn btn-primary">
+              <div className="section-action">
+                <Link href={`/${locale}/booking`} className="btn btn-primary">
                   {dict.about.cta}
                 </Link>
               </div>
@@ -153,7 +121,7 @@ export default async function HomePage({
         </div>
       </section>
 
-      <section className="section" style={{ paddingTop: 0 }}>
+      <section className="section">
         <div className="container">
           <Reveal>
             <div className="section-head">
@@ -163,64 +131,58 @@ export default async function HomePage({
             </div>
           </Reveal>
           <Reveal>
-            <div className="gallery">
-              <Placeholder label="Foto: recepce — dodáte" mark="01" />
-              <Placeholder label="Foto: ordinace — dodáte" mark="02" />
-              <Placeholder label="Foto: detail / světlo — dodáte" mark="03" />
+            <div className="gallery gallery-warm">
+              <Placeholder label="Foto: recepce — dodáte" mark="" />
+              <Placeholder label="Foto: ordinace — dodáte" mark="" />
+              <Placeholder label="Foto: světlo — dodáte" mark="" />
             </div>
           </Reveal>
         </div>
       </section>
 
-      <section className="section" style={{ paddingTop: "2rem" }}>
-        <div className="container">
-          <Reveal>
-            <div className="section-head">
-              <span className="eyebrow">{dict.reviews.eyebrow}</span>
-              <h2>{dict.reviews.title}</h2>
-              <p className="lead">{dict.reviews.lead}</p>
-            </div>
-          </Reveal>
-          {reviews.length === 0 ? (
+      <section className="section section-soft">
+          <div className="container reviews-layout">
             <Reveal>
-              <p className="lead">{dict.reviews.empty}</p>
+              <div className="section-head">
+                <span className="eyebrow">{dict.reviews.eyebrow}</span>
+                <h2>{dict.reviews.title}</h2>
+                <p className="lead">{dict.reviews.lead}</p>
+                <Link href={`/${locale}/reviews`} className="text-link">
+                  {dict.reviews.leave}
+                </Link>
+              </div>
             </Reveal>
-          ) : (
-            <div className="reviews-grid">
-              {reviews.map((r, i) => (
-                <Reveal key={r.id} delay={i * 0.08}>
-                  <article className="review-card">
-                    <div className="stars">{"★".repeat(r.rating)}</div>
-                    <p>{r.text}</p>
-                    <cite>{r.name}</cite>
-                  </article>
+            <div className="reviews-stack">
+              {reviews.length === 0 ? (
+                <Reveal>
+                  <p className="lead">{dict.reviews.empty}</p>
                 </Reveal>
-              ))}
+              ) : (
+                reviews.map((r, i) => (
+                  <Reveal key={r.id} delay={i * 0.08}>
+                    <blockquote className="review-quote">
+                      <p>“{r.text}”</p>
+                      <cite>{r.name}</cite>
+                    </blockquote>
+                  </Reveal>
+                ))
+              )}
             </div>
-          )}
-          <Reveal>
-            <div style={{ marginTop: "1.75rem" }}>
-              <Link href={`/${locale}/reviews`} className="btn btn-ghost">
-                {dict.reviews.leave}
-              </Link>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+          </div>
+        </section>
 
-      <section className="section" style={{ paddingTop: 0 }}>
+      <section className="section">
         <div className="container">
           <Reveal>
             <div className="cta-panel">
               <div>
+                <p className="eyebrow eyebrow-on-dark">{dict.booking.eyebrow}</p>
                 <h2>{dict.booking.title}</h2>
                 <p>{dict.booking.lead}</p>
               </div>
-              <div>
-                <Link href={`/${locale}/booking`} className="btn btn-light">
-                  {dict.nav.book}
-                </Link>
-              </div>
+              <Link href={`/${locale}/booking`} className="btn btn-light">
+                {dict.nav.book}
+              </Link>
             </div>
           </Reveal>
         </div>

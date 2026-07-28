@@ -1,23 +1,24 @@
-@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Manrope:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap");
 
 :root {
-  /* Maximus / Bali warmth: kámen, teak, espresso — ne cool forest */
-  --ink: #1c1410;
-  --ink-soft: #2a211c;
-  --mist: #e5d9c8;
-  --stone: #c9bba8;
-  --oak: #b8895a;
-  --moss: #7a654c;
-  --moss-deep: #5c4a38;
-  --paper: #ebe4d8;
-  --copper: #a67c52;
-  --sand: #f3ebe0;
-  --line: rgba(28, 20, 16, 0.12);
-  --line-light: rgba(243, 235, 224, 0.16);
-  --glow: rgba(184, 137, 90, 0.4);
+  /* Warm modern luxury — stone, teak, soft ivory */
+  --ink: #161210;
+  --ink-soft: #241c16;
+  --mist: #ebe3d6;
+  --stone: #d2c4b0;
+  --oak: #c49a5c;
+  --moss: #8a7355;
+  --moss-deep: #5c4a36;
+  --paper: #f3eee6;
+  --copper: #b88955;
+  --sand: #faf6f0;
+  --line: rgba(22, 18, 16, 0.1);
+  --line-light: rgba(250, 246, 240, 0.14);
+  --glow: rgba(196, 154, 92, 0.35);
+  --muted: rgba(22, 18, 16, 0.62);
 
-  --font-display: "Fraunces", Georgia, serif;
-  --font-sans: "Manrope", system-ui, sans-serif;
+  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
 
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
@@ -72,10 +73,12 @@ h2,
 h3,
 h4 {
   font-family: var(--font-display);
-  font-weight: 400;
-  line-height: 1.05;
+  font-weight: 500;
+  font-optical-sizing: auto;
+  line-height: 1.1;
   letter-spacing: -0.02em;
   margin: 0;
+  text-wrap: balance;
 }
 
 p {
@@ -99,7 +102,7 @@ p {
   position: fixed;
   inset: 0;
   z-index: 80;
-  opacity: 0.04;
+  opacity: 0.025;
   mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
@@ -382,44 +385,55 @@ p {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(28, 20, 16, 0.28) 0%, rgba(28, 20, 16, 0.12) 35%, rgba(28, 20, 16, 0.78) 100%),
-    linear-gradient(90deg, rgba(28, 20, 16, 0.5) 0%, transparent 55%);
+    linear-gradient(180deg, rgba(36, 24, 16, 0.2) 0%, rgba(36, 24, 16, 0.08) 38%, rgba(36, 24, 16, 0.72) 100%),
+    linear-gradient(90deg, rgba(36, 24, 16, 0.42) 0%, transparent 58%);
 }
 
 .hero-content {
   position: relative;
   z-index: 1;
-  padding: calc(var(--nav-h) + 2rem) 0 3.5rem;
+  padding: calc(var(--nav-h) + 2.5rem) 0 4rem;
   width: min(100% - 2.5rem, 1400px);
   margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
 }
 
 .hero-brand {
   font-family: var(--font-display);
-  font-size: clamp(1.15rem, 2.2vw, 1.55rem);
+  font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+  font-weight: 500;
   font-style: italic;
-  letter-spacing: 0.02em;
-  margin-bottom: 1.25rem;
-  opacity: 0.9;
+  letter-spacing: 0.01em;
+  margin: 0 0 1rem;
+  color: #f3e6d4;
 }
 
 .hero h1 {
-  font-size: clamp(3.2rem, 9vw, 7.2rem);
-  max-width: 11ch;
-  margin-bottom: 1.25rem;
+  font-size: clamp(2.85rem, 7.5vw, 5.8rem);
+  max-width: 14ch;
+  margin: 0 0 1.35rem;
+  text-align: left;
+  color: #faf6f0;
 }
 
 .hero h1 em {
   font-style: italic;
-  color: #e8c9a0;
+  font-weight: 500;
+  color: #e8c4a0;
 }
 
 .hero-lead {
-  max-width: 36ch;
-  font-size: 1.05rem;
-  opacity: 0.85;
-  font-weight: 300;
-  margin-bottom: 2rem;
+  max-width: 38ch;
+  font-size: 1.08rem;
+  line-height: 1.65;
+  opacity: 0.88;
+  font-weight: 400;
+  margin: 0 0 2rem;
+  text-align: left;
+  color: #f0e6d8;
 }
 
 .hero-actions {
@@ -520,6 +534,11 @@ p {
   color: var(--paper);
 }
 
+.section-ink .section-head p,
+.section-ink .eyebrow {
+  color: rgba(250, 246, 240, 0.65);
+}
+
 .section-mist {
   background: var(--mist);
 }
@@ -548,36 +567,48 @@ p {
 }
 
 .section-head {
-  max-width: 22ch;
-  margin-bottom: 2.5rem;
+  max-width: min(100%, 38rem);
+  margin-bottom: 2.75rem;
+  text-align: left;
 }
 
 .section-head h2 {
-  font-size: clamp(2.4rem, 5.5vw, 4.2rem);
-  margin-bottom: 1rem;
+  font-size: clamp(2.2rem, 4.8vw, 3.65rem);
+  margin: 0 0 1rem;
+  max-width: 16ch;
+  text-align: left;
 }
 
 .section-head p {
   font-size: 1.05rem;
-  opacity: 0.72;
-  max-width: 42ch;
-  font-weight: 300;
+  line-height: 1.65;
+  color: var(--muted);
+  max-width: 40ch;
+  font-weight: 400;
+  margin: 0;
+  text-align: left;
 }
 
 .section-head.wide {
   max-width: none;
   display: grid;
-  gap: 1.5rem;
+  gap: 1.25rem 3rem;
 }
 
 @media (min-width: 900px) {
   .section-head.wide {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
     align-items: end;
   }
 
   .section-head.wide h2 {
-    max-width: 12ch;
+    max-width: 14ch;
+  }
+
+  .section-head.wide p {
+    max-width: 36ch;
+    justify-self: end;
+    text-align: left;
   }
 }
 
@@ -1098,18 +1129,24 @@ p {
   padding: calc(var(--nav-h) + 4rem) 0 3rem;
   background: var(--ink);
   color: var(--paper);
+  text-align: left;
 }
 
 .page-hero h1 {
-  font-size: clamp(3rem, 8vw, 5.5rem);
-  margin-bottom: 1rem;
+  font-size: clamp(2.6rem, 6.5vw, 4.5rem);
+  margin: 0 0 1rem;
+  max-width: 16ch;
+  text-align: left;
 }
 
 .page-hero p {
   max-width: 40ch;
-  opacity: 0.7;
-  font-weight: 300;
-  font-size: 1.1rem;
+  color: rgba(250, 246, 240, 0.68);
+  font-weight: 400;
+  font-size: 1.08rem;
+  line-height: 1.65;
+  margin: 0;
+  text-align: left;
 }
 
 /* ——— Gallery grid ——— */
@@ -1194,15 +1231,17 @@ p {
   position: sticky;
   top: calc(var(--nav-h) + 1rem);
   background:
-    radial-gradient(ellipse at 50% 30%, rgba(154, 123, 79, 0.18), transparent 55%),
-    linear-gradient(180deg, #1a2620, #0d1510);
-  border-radius: 1.5rem;
-  padding: 1.75rem 1.4rem 1.4rem;
-  color: var(--paper);
+    radial-gradient(ellipse 90% 70% at 50% 18%, rgba(196, 140, 90, 0.16), transparent 55%),
+    linear-gradient(165deg, #3a2c22 0%, #241910 100%);
+  border-radius: 1.15rem;
+  padding: 1.5rem 1.35rem 1.35rem;
+  color: #f6efe6;
   min-height: 26rem;
   display: flex;
   flex-direction: column;
   z-index: 2;
+  border: 1px solid rgba(232, 196, 160, 0.12);
+  box-shadow: 0 20px 50px rgba(40, 24, 12, 0.18);
 }
 
 .cfg-stage-label {
@@ -1217,8 +1256,9 @@ p {
   flex: 1;
   display: grid;
   place-items: center;
-  min-height: 16rem;
-  overflow: hidden;
+  min-height: 17rem;
+  overflow: visible;
+  padding: 0.5rem 0 0.25rem;
 }
 
 .cfg-metrics {
@@ -1646,11 +1686,12 @@ p {
 
 /* Tiny house SVG preview */
 .house-svg {
-  width: min(100%, 420px);
+  width: min(100%, 460px);
   height: auto;
-  filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.45));
+  overflow: visible;
+  filter: drop-shadow(0 18px 32px rgba(0, 0, 0, 0.38));
   transition: transform 0.5s var(--ease-out), filter 0.4s;
-  transform-origin: center center;
+  transform-origin: center bottom;
 }
 
 .house-svg .wall,
@@ -1892,15 +1933,18 @@ p {
 }
 
 .path-card-body h3 {
-  font-size: clamp(1.75rem, 3.5vw, 2.4rem);
-  margin-bottom: 0.75rem;
+  font-size: clamp(1.75rem, 3.5vw, 2.35rem);
+  margin: 0 0 0.75rem;
+  max-width: 14ch;
+  text-align: left;
 }
 
 .path-lead {
-  opacity: 0.72;
-  font-weight: 300;
-  margin-bottom: 1.15rem;
-  max-width: 42ch;
+  color: var(--muted);
+  font-weight: 400;
+  line-height: 1.6;
+  margin: 0 0 1.15rem;
+  max-width: 40ch;
 }
 
 .path-points {

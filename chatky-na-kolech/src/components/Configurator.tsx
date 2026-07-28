@@ -50,10 +50,10 @@ function formatM2(n: number) {
 type StepId = "model" | "exterior" | "interior" | "upgrade" | "quote";
 
 const STEPS: { id: StepId; label: string }[] = [
-  { id: "model", label: "Model" },
+  { id: "model", label: "Rozměry" },
   { id: "exterior", label: "Exteriér" },
   { id: "interior", label: "Interiér" },
-  { id: "upgrade", label: "Upgrade" },
+  { id: "upgrade", label: "Doplňky" },
   { id: "quote", label: "Poptávka" },
 ];
 
@@ -196,11 +196,11 @@ export function Configurator() {
       text: "Koupelna, kuchyň, loft a pokoj. Jen to, co opravdu chcete.",
     },
     upgrade: {
-      title: "Upgrade",
+      title: "Doplňky",
       text: "Podlahové topení a dodatečné zateplení — komfort na celý rok.",
     },
     quote: {
-      title: "Rekapitulace & poptávka",
+      title: "Rekapitulace a poptávka",
       text: "Orientační cena. Pošlete konfiguraci — doladíme finál bez závazku.",
     },
   };
@@ -234,14 +234,14 @@ export function Configurator() {
               }
             }}
           >
-            Save design
+            Uložit návrh
           </button>
           <button
             type="button"
             className="btn btn-oak"
             onClick={() => setStep("quote")}
           >
-            Request quote
+            Poslat poptávku
           </button>
         </div>
       </div>

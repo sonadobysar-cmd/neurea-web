@@ -209,7 +209,7 @@ export const faq = [
 ];
 
 export const media = {
-  hero: "/media/realizace/tiny-12x4-interior.jpg",
+  hero: "/media/hero/hero-forest-dusk.jpg",
   craft: "/media/atelier/obklad.jpg",
   chassis: "/media/atelier/podvozek.jpg",
   structure: "/media/atelier/konstrukce.jpg",

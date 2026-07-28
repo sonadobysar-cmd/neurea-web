@@ -68,34 +68,33 @@ export default function HomePage() {
         <div className="hero-media">
           <Image
             src={media.hero}
-            alt="Moderní tiny house na kolech — teplé dřevo, čistý střih"
+            alt="Tiny house v lese při soumraku — teplé světlo, wellness, oheň"
             fill
             priority
             sizes="100vw"
-            style={{ objectFit: "cover", objectPosition: "center center" }}
+            style={{ objectFit: "cover", objectPosition: "center 40%" }}
           />
           <div className="hero-shade" />
         </div>
         <div className="hero-content">
           <p className="hero-brand">{brand.name}</p>
           <h1>
-            Precision
+            Dům z teplého
             <br />
-            of living
+            dřeva
             <br />
-            on wheels
+            na kolech
           </h1>
           <p className="hero-lead">
-            Moderní tiny house z teplého dřeva. Homologovaný podvozek. Bydlení,
-            Airbnb, kempy.
+            Moderní tiny house. Homologovaný podvozek. Bydlení, Airbnb i kempy.
           </p>
           <div className="hero-actions">
             <Link href="/konfigurator" className="btn btn-oak btn-arrow">
-              Start build
+              Spustit konfigurátor
               <ArrowIcon />
             </Link>
             <Link href="/#cesty" className="btn btn-ghost-light">
-              Explore
+              Vybrat cestu
             </Link>
           </div>
         </div>
@@ -120,14 +119,14 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* System: 3 paths */}
+      {/* Systém: 3 cesty */}
       <section className="section section-paper" id="cesty">
         <div className="wrap">
           <Reveal>
             <div className="section-head wide">
               <div>
-                <p className="eyebrow">System</p>
-                <h2>Three paths. No catalog models.</h2>
+                <p className="eyebrow">Systém</p>
+                <h2>Tři cesty. Bez typových katalogů.</h2>
               </div>
               <p>
                 Neprodáváme „model A / model B“. Řešíme váš záměr — nový dům,

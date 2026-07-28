@@ -9,9 +9,11 @@ export function Placeholder({
 }) {
   return (
     <div className={`placeholder-shot ${className}`} data-label={label}>
-      <span className="ph-mark" aria-hidden>
-        {mark}
-      </span>
+      {mark ? (
+        <span className="ph-mark" aria-hidden>
+          {mark}
+        </span>
+      ) : null}
     </div>
   );
 }

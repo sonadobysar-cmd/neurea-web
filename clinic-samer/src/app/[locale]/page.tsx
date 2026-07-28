@@ -23,7 +23,8 @@ export default async function HomePage({
         <div className="hero-media">
           <Placeholder
             label="Foto: ordinace / atmosféra kliniky — dodáte"
-            mark="Clinic"
+            mark=""
+            className="is-hero"
           />
           <div className="hero-shade" />
         </div>

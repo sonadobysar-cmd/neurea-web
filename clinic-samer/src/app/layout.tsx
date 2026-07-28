@@ -26,6 +26,10 @@ const arabic = Noto_Sans_Arabic({
 export const metadata: Metadata = {
   title: "MUDr. Samer Asad · Gynekologie & IVF",
   description: "Diskrétní gynekologická péče a IVF v Praze.",
+  icons: {
+    icon: "/logo.svg",
+    apple: "/logo.svg",
+  },
 };
 
 export default function RootLayout({

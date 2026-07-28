@@ -3,6 +3,10 @@ import { notFound } from "next/navigation";
 import { Placeholder } from "@/components/Placeholder";
 import { Reveal } from "@/components/Reveal";
 import { getDictionary } from "@/data/i18n/dictionaries";
+import {
+  showcaseReviews,
+  ZNAMYLEKAR_URL,
+} from "@/data/showcase-reviews";
 import { isLocale, type Locale } from "@/lib/locales";
 import { listReviews } from "@/lib/store";
 
@@ -15,8 +19,20 @@ export default async function HomePage({
   if (!isLocale(raw)) notFound();
   const locale = raw as Locale;
   const dict = getDictionary(locale);
-  const reviews = (await listReviews({ status: "approved" })).slice(0, 2);
+  const approved = await listReviews({ status: "approved" });
   const featured = dict.services.items.slice(0, 3);
+  const displayReviews =
+    approved.length > 0
+      ? approved.slice(0, 4).map((r) => ({
+          name: r.name,
+          text: r.text,
+          date: "",
+          source: "own" as const,
+        }))
+      : showcaseReviews.slice(0, 4).map((r) => ({
+          ...r,
+          source: "znamylekar" as const,
+        }));
 
   return (
     <>
@@ -32,8 +48,7 @@ export default async function HomePage({
         <div className="container hero-content">
           <p className="hero-brand">{dict.brand.short}</p>
           <h1>
-            {dict.hero.title}{" "}
-            <em>{dict.hero.titleEm}</em>
+            {dict.hero.title} <em>{dict.hero.titleEm}</em>
           </h1>
           <p className="hero-lead">{dict.hero.lead}</p>
           <div className="hero-actions">
@@ -47,16 +62,22 @@ export default async function HomePage({
         </div>
       </section>
 
-      <section className="section section-soft">
-        <div className="container">
+      <section className="section welcome-band">
+        <div className="container welcome-grid">
           <Reveal>
-            <p className="trust-line">
-              <span>{dict.trust.languages}</span>
-              <i />
-              <span>{dict.trust.newPatients}</span>
-              <i />
-              <span>{dict.trust.international}</span>
-            </p>
+            <div className="welcome-media">
+              <Placeholder label={dict.welcome.photoLabel} mark="" />
+            </div>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <div className="welcome-copy">
+              <span className="eyebrow">{dict.welcome.eyebrow}</span>
+              <h2 className="display">{dict.welcome.title}</h2>
+              <p className="lead">{dict.welcome.lead}</p>
+              <Link href={`/${locale}/booking`} className="btn btn-primary">
+                {dict.welcome.cta}
+              </Link>
+            </div>
           </Reveal>
         </div>
       </section>
@@ -140,35 +161,56 @@ export default async function HomePage({
       </section>
 
       <section className="section section-soft">
-          <div className="container reviews-layout">
-            <Reveal>
-              <div className="section-head">
-                <span className="eyebrow">{dict.reviews.eyebrow}</span>
-                <h2>{dict.reviews.title}</h2>
-                <p className="lead">{dict.reviews.lead}</p>
-                <Link href={`/${locale}/reviews`} className="text-link">
-                  {dict.reviews.leave}
-                </Link>
-              </div>
-            </Reveal>
-            <div className="reviews-stack">
-              {reviews.length === 0 ? (
-                <Reveal>
-                  <p className="lead">{dict.reviews.empty}</p>
-                </Reveal>
-              ) : (
-                reviews.map((r, i) => (
-                  <Reveal key={r.id} delay={i * 0.08}>
-                    <blockquote className="review-quote">
-                      <p>“{r.text}”</p>
-                      <cite>{r.name}</cite>
-                    </blockquote>
-                  </Reveal>
-                ))
-              )}
+        <div className="container">
+          <Reveal>
+            <div className="section-head section-head-wide">
+              <span className="eyebrow">{dict.reviews.eyebrow}</span>
+              <h2>{dict.reviews.title}</h2>
+              <p className="lead">{dict.reviews.lead}</p>
+              <p className="reviews-meta">
+                <span>{dict.reviews.countHint}</span>
+                {" · "}
+                {dict.reviews.sourceLabel}{" "}
+                <a
+                  href={ZNAMYLEKAR_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {dict.reviews.sourceLink}
+                </a>
+              </p>
             </div>
+          </Reveal>
+          <div className="reviews-grid-home">
+            {displayReviews.map((r, i) => (
+              <Reveal key={`${r.name}-${i}`} delay={i * 0.06}>
+                <blockquote className="review-card-home">
+                  <p>“{r.text}”</p>
+                  <footer>
+                    <cite>{r.name}</cite>
+                    {"date" in r && r.date ? <span>{r.date}</span> : null}
+                  </footer>
+                </blockquote>
+              </Reveal>
+            ))}
           </div>
-        </section>
+          <Reveal>
+            <div className="section-action reviews-actions">
+              <Link href={`/${locale}/reviews`} className="btn btn-ghost">
+                {dict.reviews.leave}
+              </Link>
+              <a
+                className="text-link"
+                href={ZNAMYLEKAR_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {dict.reviews.sourceLink} →
+              </a>
+            </div>
+          </Reveal>
+        </div>
+      </section>
 
       <section className="section">
         <div className="container">

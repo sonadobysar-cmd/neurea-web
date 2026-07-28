@@ -35,6 +35,13 @@ export type Dictionary = {
     international: string;
     internationalText: string;
   };
+  welcome: {
+    eyebrow: string;
+    title: string;
+    lead: string;
+    cta: string;
+    photoLabel: string;
+  };
   services: {
     eyebrow: string;
     title: string;
@@ -77,6 +84,9 @@ export type Dictionary = {
     submit: string;
     success: string;
     successHint: string;
+    sourceLabel: string;
+    sourceLink: string;
+    countHint: string;
   };
   booking: {
     eyebrow: string;
@@ -162,6 +172,13 @@ const cs: Dictionary = {
     international: "Zahraniční péče",
     internationalText: "Vítáme pacientky ze zahraničí i dlouhodobě v ČR.",
   },
+  welcome: {
+    eyebrow: "Nové pacientky",
+    title: "Přijímáme nové pacientky",
+    lead: "Máme volné kapacity. Domluvte si první termín online — ozveme se s potvrzením.",
+    cta: "Chci se registrovat!",
+    photoLabel: "Foto: ordinace — dodáte",
+  },
   services: {
     eyebrow: "Služby",
     title: "Komplexní péče bez spěchu",
@@ -237,6 +254,9 @@ const cs: Dictionary = {
     submit: "Odeslat recenzi",
     success: "Děkujeme za recenzi",
     successHint: "Vaše hodnocení jsme přijali. Brzy se objeví na webu.",
+    sourceLabel: "Ukázky z",
+    sourceLink: "Známy lékař",
+    countHint: "722+ ověřených názorů",
   },
   booking: {
     eyebrow: "Rezervace",
@@ -329,6 +349,13 @@ const en: Dictionary = {
     international: "International care",
     internationalText: "We welcome patients from abroad living in or visiting Czechia.",
   },
+  welcome: {
+    eyebrow: "New patients",
+    title: "We are accepting new patients",
+    lead: "Appointments are available. Book your first visit online — we will confirm shortly.",
+    cta: "I want to register!",
+    photoLabel: "Photo: clinic — coming soon",
+  },
   services: {
     eyebrow: "Services",
     title: "Comprehensive care, unhurried",
@@ -404,6 +431,9 @@ const en: Dictionary = {
     submit: "Submit review",
     success: "Thank you for your review",
     successHint: "We have received your rating. It will appear on the site soon.",
+    sourceLabel: "Samples from",
+    sourceLink: "Známy lékař",
+    countHint: "722+ verified reviews",
   },
   booking: {
     eyebrow: "Booking",
@@ -496,6 +526,13 @@ const de: Dictionary = {
     international: "Internationale Betreuung",
     internationalText: "Wir begrüßen Patientinnen aus dem Ausland.",
   },
+  welcome: {
+    eyebrow: "Neue Patientinnen",
+    title: "Wir nehmen neue Patientinnen auf",
+    lead: "Termine sind verfügbar. Buchen Sie Ihren ersten Besuch online — wir bestätigen in Kürze.",
+    cta: "Ich möchte mich anmelden!",
+    photoLabel: "Foto: Praxis — folgt",
+  },
   services: {
     eyebrow: "Leistungen",
     title: "Umfassende Betreuung ohne Hetze",
@@ -571,6 +608,9 @@ const de: Dictionary = {
     submit: "Bewertung senden",
     success: "Danke für Ihre Bewertung",
     successHint: "Wir haben Ihre Bewertung erhalten. Sie erscheint bald auf der Website.",
+    sourceLabel: "Beispiele von",
+    sourceLink: "Známy lékař",
+    countHint: "722+ verifizierte Bewertungen",
   },
   booking: {
     eyebrow: "Termin",
@@ -663,6 +703,13 @@ const it: Dictionary = {
     international: "Cura internazionale",
     internationalText: "Benvenute pazienti dall’estero.",
   },
+  welcome: {
+    eyebrow: "Nuove pazienti",
+    title: "Accettiamo nuove pazienti",
+    lead: "Appuntamenti disponibili. Prenota la prima visita online — confermeremo a breve.",
+    cta: "Voglio registrarmi!",
+    photoLabel: "Foto: studio — in arrivo",
+  },
   services: {
     eyebrow: "Servizi",
     title: "Cure complete, senza fretta",
@@ -738,6 +785,9 @@ const it: Dictionary = {
     submit: "Invia recensione",
     success: "Grazie per la recensione",
     successHint: "Abbiamo ricevuto la valutazione. Apparirà presto sul sito.",
+    sourceLabel: "Esempi da",
+    sourceLink: "Známy lékař",
+    countHint: "722+ recensioni verificate",
   },
   booking: {
     eyebrow: "Prenotazione",
@@ -830,6 +880,13 @@ const ar: Dictionary = {
     international: "رعاية دولية",
     internationalText: "نرحب بالمريضات من الخارج.",
   },
+  welcome: {
+    eyebrow: "مريضات جدد",
+    title: "نستقبل مريضات جدداً",
+    lead: "المواعيد متاحة. احجزي زيارتك الأولى عبر الإنترنت — نؤكد قريباً.",
+    cta: "أريد التسجيل!",
+    photoLabel: "صورة: العيادة — قريباً",
+  },
   services: {
     eyebrow: "الخدمات",
     title: "رعاية شاملة بلا استعجال",
@@ -905,6 +962,9 @@ const ar: Dictionary = {
     submit: "إرسال التقييم",
     success: "شكراً على التقييم",
     successHint: "استلمنا تقييمك. سيظهر قريباً على الموقع.",
+    sourceLabel: "نماذج من",
+    sourceLink: "Známy lékař",
+    countHint: "+722 تقييماً موثّقاً",
   },
   booking: {
     eyebrow: "الحجز",

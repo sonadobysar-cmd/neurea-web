@@ -47,8 +47,8 @@ export function SiteNav({ darkHero = false }: { darkHero?: boolean }) {
             ))}
           </nav>
 
-          <Link href="/#kontakt" className="btn btn-ink nav-cta">
-            Domluvit hovor
+          <Link href="/konfigurator" className="btn btn-ink nav-cta">
+            Konfigurátor
           </Link>
 
           <button

@@ -29,7 +29,7 @@ export const paths = [
       "Homologovaný podvozek",
       "Orientační cena hned",
     ],
-    image: "/media/hero/hero-01.jpg",
+    image: "/media/realizace/tiny-12x4.jpg",
     cta: "Spustit konfigurátor",
     href: "/konfigurator",
     secondary: "Domluvit hovor",
@@ -209,7 +209,7 @@ export const faq = [
 ];
 
 export const media = {
-  hero: "/media/hero/hero-01.jpg",
+  hero: "/media/realizace/sirek.jpg",
   craft: "/media/atelier/obklad.jpg",
   chassis: "/media/atelier/podvozek.jpg",
   structure: "/media/atelier/konstrukce.jpg",

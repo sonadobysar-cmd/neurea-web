@@ -72,33 +72,29 @@ export default function HomePage() {
             fill
             priority
             sizes="100vw"
-            style={{ objectFit: "cover", objectPosition: "center 60%" }}
+            style={{ objectFit: "cover", objectPosition: "center 45%" }}
           />
           <div className="hero-shade" />
         </div>
         <div className="hero-content">
           <p className="hero-brand">{brand.name}</p>
           <h1>
-            Dům z teplého dřeva.
+            Moderní tiny house
             <br />
-            <em>Svoboda na kolech.</em>
+            na kolech
           </h1>
           <p className="hero-lead">
-            Nový tiny house, renovace stávající chatky, nebo byznys jednotky.
-            Jedna dílna — tři jasné cesty.
+            Teplé dřevo. Čistý střih. Homologovaný podvozek — bydlení, Airbnb
+            i kempy.
           </p>
           <div className="hero-actions">
-            <Link href="/konfigurator" className="btn btn-oak btn-arrow">
-              Konfigurátor nového domu
+            <Link href="/konfigurator" className="btn btn-paper btn-arrow">
+              Otevřít konfigurátor
               <ArrowIcon />
             </Link>
             <Link href="/#cesty" className="btn btn-ghost-light">
-              Vybrat cestu
+              Tři cesty
             </Link>
-          </div>
-          <div className="hero-scroll">
-            <i />
-            Systém
           </div>
         </div>
       </section>

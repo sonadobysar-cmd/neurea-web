@@ -39,6 +39,16 @@ function formatM2(n: number) {
   return `${n.toFixed(1).replace(".", ",")} m²`;
 }
 
+type StepId = "model" | "exterior" | "interior" | "upgrade" | "quote";
+
+const STEPS: { id: StepId; label: string }[] = [
+  { id: "model", label: "Model" },
+  { id: "exterior", label: "Exteriér" },
+  { id: "interior", label: "Interiér" },
+  { id: "upgrade", label: "Upgrade" },
+  { id: "quote", label: "Poptávka" },
+];
+
 function DimControl({
   label,
   value,
@@ -68,7 +78,7 @@ function DimControl({
         <button
           type="button"
           className="dim-nudge"
-          aria-label={`Snížit ${label} o ${fine} m`}
+          aria-label={`Snížit ${label}`}
           onClick={() => onChange(clampDim(value - fine, min, max, fine))}
         >
           −
@@ -90,7 +100,7 @@ function DimControl({
         <button
           type="button"
           className="dim-nudge"
-          aria-label={`Zvýšit ${label} o ${fine} m`}
+          aria-label={`Zvýšit ${label}`}
           onClick={() => onChange(clampDim(value + fine, min, max, fine))}
         >
           +
@@ -98,7 +108,6 @@ function DimControl({
       </div>
       <div className="dim-scale">
         <span>{formatM(min)}</span>
-        <span className="dim-hint">slider {step} m · jemně ±{fine} m</span>
         <span>{formatM(max)}</span>
       </div>
     </div>
@@ -107,14 +116,17 @@ function DimControl({
 
 export function Configurator() {
   const [cfg, setCfg] = useState<ConfigState>(DEFAULT_CONFIG);
+  const [step, setStep] = useState<StepId>("model");
   const [sent, setSent] = useState(false);
   const [showIncluded, setShowIncluded] = useState(false);
+  const [hotspot, setHotspot] = useState<string | null>(null);
 
   const prices = useMemo(() => calcPrices(cfg), [cfg]);
   const facade = FACADES.find((f) => f.id === cfg.facade)!;
   const showPaint = !facade.includesPaint;
   const showLofts = cfg.roof !== "kulata";
   const roundAvailable = cfg.width === 2.5;
+  const stepIndex = STEPS.findIndex((s) => s.id === step);
 
   useEffect(() => {
     if (cfg.roof === "kulata" && cfg.width !== 2.5) {
@@ -132,9 +144,23 @@ export function Configurator() {
     setCfg((c) => ({ ...c, [key]: value }));
   };
 
+  const goNext = () => {
+    if (stepIndex < STEPS.length - 1) setStep(STEPS[stepIndex + 1].id);
+  };
+  const goBack = () => {
+    if (stepIndex > 0) setStep(STEPS[stepIndex - 1].id);
+  };
+
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSent(true);
+  };
+
+  const onHotspot = (id: string) => {
+    setHotspot(id);
+    if (id === "roof" || id === "facade") setStep("exterior");
+    else if (id === "window" || id === "door") setStep("interior");
+    else if (id === "size") setStep("model");
   };
 
   const roofLabel = ROOF_TYPES.find((r) => r.id === cfg.roof)?.label ?? "";
@@ -148,628 +174,541 @@ export function Configurator() {
       ? "Ne"
       : KITCHEN_VARIANTS.find((k) => k.id === cfg.kitchenVariant)?.label ?? "Ano";
 
-  const steps = [
-    { id: "cfg-rozmery", n: "01", label: "Rozměry" },
-    { id: "cfg-strecha", n: "02", label: "Střecha" },
-    { id: "cfg-fasada", n: "03", label: "Fasáda" },
-    { id: "cfg-koupelna", n: "05", label: "Koupelna" },
-    { id: "cfg-lofty", n: "08", label: "Lofty", hide: !showLofts },
-    { id: "cfg-kuchyne", n: "09", label: "Kuchyň" },
-    { id: "cfg-poptavka", n: "→", label: "Poptávka" },
-  ].filter((s) => !("hide" in s && s.hide));
-
-  const planW = Math.min(220, 40 + cfg.length * 14);
-  const planH = Math.min(100, 28 + cfg.width * 16);
+  const titles: Record<StepId, { title: string; text: string }> = {
+    model: {
+      title: "Zvolte rozměry",
+      text: "Délka a šířka určují podlahovou plochu i základní cenu. Jemně doladíte po 0,1 m.",
+    },
+    exterior: {
+      title: "Exteriér",
+      text: "Střecha a fasáda — silueta domu. Materiály sedí na karavan, ne vedle něj.",
+    },
+    interior: {
+      title: "Interiér",
+      text: "Koupelna, kuchyň, loft a pokoj. Jen to, co opravdu chcete.",
+    },
+    upgrade: {
+      title: "Upgrade",
+      text: "Podlahové topení a dodatečné zateplení — komfort na celý rok.",
+    },
+    quote: {
+      title: "Rekapitulace & poptávka",
+      text: "Orientační cena. Pošlete konfiguraci — doladíme finál bez závazku.",
+    },
+  };
 
   return (
-    <div className="configurator">
-      <div className="cfg-progress" aria-label="Kroky konfigurátoru">
-        {steps.map((s) => (
-          <a key={s.id} href={`#${s.id}`} className="cfg-progress-item">
-            <span>{s.n}</span>
-            {s.label}
-          </a>
-        ))}
-      </div>
-
-      <aside className="cfg-stage">
-        <div className="cfg-stage-label">Živý náhled · na míru, ne typový katalog</div>
-        <div className="cfg-canvas">
-          <HousePreview
-            length={cfg.length}
-            width={cfg.width}
-            roof={cfg.roof}
-            facade={cfg.facade}
-            loft={cfg.loft}
-            hasBathroom={cfg.bathroom === "yes"}
-            hasKitchen={cfg.kitchen === "yes"}
-          />
-        </div>
-
-        <div className="cfg-plan" aria-hidden="true">
-          <div
-            className="cfg-plan-box"
-            style={{ width: planW, height: planH }}
+    <div className="cfg-studio">
+      <nav className="cfg-steps" aria-label="Kroky konfigurátoru">
+        {STEPS.map((s, i) => (
+          <button
+            key={s.id}
+            type="button"
+            className={`cfg-steps-item${step === s.id ? " is-active" : ""}${
+              i < stepIndex ? " is-done" : ""
+            }`}
+            onClick={() => setStep(s.id)}
           >
-            <span className="cfg-plan-l">{formatM(cfg.length)}</span>
-            <span className="cfg-plan-w">{formatM(cfg.width)}</span>
-          </div>
-        </div>
+            {s.label}
+          </button>
+        ))}
+      </nav>
 
-        <div className="cfg-metrics">
-          <div>
-            <span>Podlaha</span>
-            <strong>{formatM2(prices.floorArea)}</strong>
+      <div className="cfg-studio-body">
+        <section className="cfg-viewport" aria-label="Náhled domu">
+          <div className="cfg-viewport-canvas">
+            <HousePreview
+              length={cfg.length}
+              width={cfg.width}
+              roof={cfg.roof}
+              facade={cfg.facade}
+              loft={cfg.loft}
+              hasBathroom={cfg.bathroom === "yes"}
+              hasKitchen={cfg.kitchen === "yes"}
+              activeHotspot={hotspot}
+              onHotspot={onHotspot}
+            />
           </div>
-          <div>
-            <span>Stěny · {formatM(prices.wallHeight)}</span>
-            <strong>{formatM2(prices.wallArea)}</strong>
-          </div>
-          <div>
-            <span>Střecha</span>
-            <strong>{formatM2(prices.roofArea)}</strong>
-          </div>
-        </div>
 
-        <div className="cfg-summary">
-          <div>
-            <span>Orientační cena</span>
-            <strong>{formatCzk(prices.total)}</strong>
-          </div>
-          <a href="#cfg-poptavka" className="btn btn-oak btn-arrow">
-            Poslat poptávku
-            <ArrowIcon />
-          </a>
-        </div>
-      </aside>
-
-      <div className="cfg-panel">
-        <section className="cfg-block" id="cfg-rozmery">
-          <div className="cfg-step">
-            <span>01</span>
-            <h3>Rozměry</h3>
-          </div>
-          <DimControl
-            label="Délka"
-            value={cfg.length}
-            min={DIMENSIONS.length.min}
-            max={DIMENSIONS.length.max}
-            step={DIMENSIONS.length.step}
-            fine={DIMENSIONS.length.fine}
-            onChange={(n) => set("length", n)}
-          />
-          <DimControl
-            label="Šířka"
-            value={cfg.width}
-            min={DIMENSIONS.width.min}
-            max={DIMENSIONS.width.max}
-            step={DIMENSIONS.width.step}
-            fine={DIMENSIONS.width.fine}
-            onChange={(n) => set("width", round1(n))}
-          />
-          <p className="cfg-note">
-            Základní cena: do 30 m² vyšší sazba za m², nad 30 m² nižší. Výška stěn{" "}
-            {formatM(prices.wallHeight)}
-            {cfg.loft !== "none" ? " (zvýšeno kvůli loftu)" : ""}.
-          </p>
-        </section>
-
-        <section className="cfg-block" id="cfg-strecha">
-          <div className="cfg-step">
-            <span>02</span>
-            <h3>Typ střechy</h3>
-          </div>
-          <div className="cfg-options">
-            {ROOF_TYPES.map((r) => {
-              const locked = r.id === "kulata" && !roundAvailable;
-              return (
-                <button
-                  key={r.id}
-                  type="button"
-                  disabled={locked}
-                  className={`cfg-opt${cfg.roof === r.id ? " is-active" : ""}${
-                    locked ? " is-locked" : ""
-                  }`}
-                  onClick={() => !locked && set("roof", r.id)}
-                >
-                  <span className="opt-label">{r.label}</span>
-                  <span className="opt-meta">
-                    {locked
-                      ? "Dostupné jen při šířce 2,5 m"
-                      : r.surchargePerM2
-                        ? `+ ${formatCzk(r.surchargePerM2)}/m²`
-                        : r.desc}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </section>
-
-        <section className="cfg-block" id="cfg-fasada">
-          <div className="cfg-step">
-            <span>03</span>
-            <h3>Fasáda</h3>
-          </div>
-          <div className="cfg-samples">
-            {FACADES.map((f) => (
-              <button
-                key={f.id}
-                type="button"
-                className={`cfg-sample${cfg.facade === f.id ? " is-active" : ""}`}
-                onClick={() => set("facade", f.id)}
-              >
-                <span className="cfg-sample-swatch">
-                  <Image src={f.sample} alt="" width={56} height={56} />
-                </span>
-                <span className="cfg-sample-text">
-                  <span className="opt-label">{f.label}</span>
-                  <span className="opt-meta">
-                    {f.id === "half"
-                      ? "polovina dřevo + polovina plech"
-                      : f.includesPaint
-                        ? "cena včetně nátěru"
-                        : `${formatCzk(f.pricePerM2)}/m²`}
-                  </span>
-                </span>
-              </button>
-            ))}
-          </div>
-        </section>
-
-        {/* 4 Nátěr */}
-        {showPaint && (
-          <section className="cfg-block">
-            <div className="cfg-step">
-              <span>04</span>
-              <h3>Nátěr</h3>
+          <div className="cfg-viewport-meta">
+            <div className="cfg-spec">
+              <span>Rozměry</span>
+              <strong>
+                {formatM(cfg.length)} × {formatM(cfg.width)}
+              </strong>
             </div>
-            <div className="cfg-options row">
-              <button
-                type="button"
-                className={`cfg-opt${cfg.paint === "none" ? " is-active" : ""}`}
-                onClick={() => set("paint", "none")}
-              >
-                <span className="opt-label">{PAINT.none.label}</span>
-              </button>
-              <button
-                type="button"
-                className={`cfg-opt${cfg.paint === "yes" ? " is-active" : ""}`}
-                onClick={() => set("paint", "yes")}
-              >
-                <span className="opt-label">{PAINT.yes.label}</span>
-                <span className="opt-meta">
-                  + {formatCzk(PAINT.yes.pricePerM2)}/m² fasády
-                </span>
-              </button>
+            <div className="cfg-spec">
+              <span>Podlaha</span>
+              <strong>{formatM2(prices.floorArea)}</strong>
             </div>
-          </section>
-        )}
-
-        <section className="cfg-block" id="cfg-koupelna">
-          <div className="cfg-step">
-            <span>05</span>
-            <h3>Koupelna</h3>
-          </div>
-          <div className="cfg-options row">
-            <button
-              type="button"
-              className={`cfg-opt${cfg.bathroom === "none" ? " is-active" : ""}`}
-              onClick={() => set("bathroom", "none")}
-            >
-              <span className="opt-label">Ne</span>
-            </button>
-            <button
-              type="button"
-              className={`cfg-opt${cfg.bathroom === "yes" ? " is-active" : ""}`}
-              onClick={() => set("bathroom", "yes")}
-            >
-              <span className="opt-label">Ano</span>
-            </button>
-          </div>
-          {cfg.bathroom === "yes" && (
-            <div className="cfg-options cfg-sub">
-              {BATHROOM_VARIANTS.map((b) => (
-                <button
-                  key={b.id}
-                  type="button"
-                  className={`cfg-opt${cfg.bathVariant === b.id ? " is-active" : ""}`}
-                  onClick={() => set("bathVariant", b.id)}
-                >
-                  <span className="opt-label">{b.label}</span>
-                  <span className="opt-meta">
-                    {b.desc} · {formatCzk(b.price)}
-                  </span>
-                </button>
-              ))}
-            </div>
-          )}
-        </section>
-
-        {/* 6 Podlahové vytápění */}
-        <section className="cfg-block">
-          <div className="cfg-step">
-            <span>06</span>
-            <h3>Podlahové vytápění</h3>
-          </div>
-          <div className="cfg-options row">
-            <button
-              type="button"
-              className={`cfg-opt${cfg.floorHeating === "none" ? " is-active" : ""}`}
-              onClick={() => set("floorHeating", "none")}
-            >
-              <span className="opt-label">Ne</span>
-            </button>
-            <button
-              type="button"
-              className={`cfg-opt${cfg.floorHeating === "yes" ? " is-active" : ""}`}
-              onClick={() => set("floorHeating", "yes")}
-            >
-              <span className="opt-label">Ano</span>
-              <span className="opt-meta">
-                pevná cena dle plochy ({prices.floorArea <= 30 ? "do" : "nad"} 30 m²)
-              </span>
-            </button>
-          </div>
-        </section>
-
-        {/* 7 Zateplení */}
-        <section className="cfg-block">
-          <div className="cfg-step">
-            <span>07</span>
-            <h3>Dodatečné zateplení</h3>
-          </div>
-          <div className="cfg-options row">
-            <button
-              type="button"
-              className={`cfg-opt${cfg.insulation === "none" ? " is-active" : ""}`}
-              onClick={() => set("insulation", "none")}
-            >
-              <span className="opt-label">Ne</span>
-            </button>
-            <button
-              type="button"
-              className={`cfg-opt${cfg.insulation === "yes" ? " is-active" : ""}`}
-              onClick={() => set("insulation", "yes")}
-            >
-              <span className="opt-label">Ano</span>
-              <span className="opt-meta">
-                (stěny + střecha) × sazba / m²
-              </span>
-            </button>
-          </div>
-        </section>
-
-        {/* 8 Lofty */}
-        {showLofts && (
-          <section className="cfg-block" id="cfg-lofty">
-            <div className="cfg-step">
-              <span>08</span>
-              <h3>Spací lofty</h3>
-            </div>
-            <div className="cfg-options">
-              {LOFTS.map((l) => (
-                <button
-                  key={l.id}
-                  type="button"
-                  className={`cfg-opt${cfg.loft === l.id ? " is-active" : ""}`}
-                  onClick={() => set("loft", l.id)}
-                >
-                  <span className="opt-label">{l.label}</span>
-                  <span className="opt-meta">
-                    {l.count > 0
-                      ? `${formatCzk(l.price)} · výška stěn 3,5 m`
-                      : "výška stěn 2,5 m"}
-                  </span>
-                </button>
-              ))}
-            </div>
-            {cfg.loft !== "none" && (
-              <p className="cfg-note">
-                Loft automaticky zvedá obvodové stěny na 3,5 m a přepočítá fasádu,
-                nátěr i zateplení.
-              </p>
-            )}
-          </section>
-        )}
-
-        {/* 9 Kuchyň */}
-        <section className="cfg-block" id="cfg-kuchyne">
-          <div className="cfg-step">
-            <span>09</span>
-            <h3>Kuchyň</h3>
-          </div>
-          <div className="cfg-options row">
-            <button
-              type="button"
-              className={`cfg-opt${cfg.kitchen === "none" ? " is-active" : ""}`}
-              onClick={() => set("kitchen", "none")}
-            >
-              <span className="opt-label">Ne</span>
-            </button>
-            <button
-              type="button"
-              className={`cfg-opt${cfg.kitchen === "yes" ? " is-active" : ""}`}
-              onClick={() => set("kitchen", "yes")}
-            >
-              <span className="opt-label">Ano</span>
-            </button>
-          </div>
-          {cfg.kitchen === "yes" && (
-            <div className="cfg-options cfg-sub">
-              {KITCHEN_VARIANTS.map((k) => (
-                <button
-                  key={k.id}
-                  type="button"
-                  className={`cfg-opt${cfg.kitchenVariant === k.id ? " is-active" : ""}`}
-                  onClick={() => set("kitchenVariant", k.id)}
-                >
-                  <span className="opt-label">{k.label}</span>
-                  <span className="opt-meta">
-                    {k.desc} · {formatCzk(k.price)}
-                  </span>
-                </button>
-              ))}
-            </div>
-          )}
-        </section>
-
-        {/* 10 Pokoj */}
-        <section className="cfg-block">
-          <div className="cfg-step">
-            <span>10</span>
-            <h3>Samostatný pokoj</h3>
-          </div>
-          <div className="cfg-options row">
-            <button
-              type="button"
-              className={`cfg-opt${cfg.room === "none" ? " is-active" : ""}`}
-              onClick={() => set("room", "none")}
-            >
-              <span className="opt-label">Ne</span>
-            </button>
-            <button
-              type="button"
-              className={`cfg-opt${cfg.room === "yes" ? " is-active" : ""}`}
-              onClick={() => set("room", "yes")}
-            >
-              <span className="opt-label">Ano</span>
-              <span className="opt-meta">{formatCzk(ROOM.yes.price)}</span>
-            </button>
-          </div>
-        </section>
-
-        {/* Rekapitulace */}
-        <section className="cfg-block cfg-recap">
-          <div className="cfg-step">
-            <span>✓</span>
-            <h3>Rekapitulace</h3>
-          </div>
-          <dl className="recap-grid">
-            <div>
-              <dt>Rozměry</dt>
-              <dd>
-                {formatM(cfg.length)} × {formatM(cfg.width)} ·{" "}
-                {formatM2(prices.floorArea)}
-              </dd>
-            </div>
-            <div>
-              <dt>Střecha</dt>
-              <dd>{roofLabel}</dd>
-            </div>
-            <div>
-              <dt>Fasáda</dt>
-              <dd>{facade.label}</dd>
-            </div>
-            {showPaint && (
-              <div>
-                <dt>Nátěr</dt>
-                <dd>{cfg.paint === "yes" ? "S nátěrem" : "Bez nátěru"}</dd>
-              </div>
-            )}
-            <div>
-              <dt>Koupelna</dt>
-              <dd>{bathLabel}</dd>
-            </div>
-            <div>
-              <dt>Podlahové vytápění</dt>
-              <dd>{cfg.floorHeating === "yes" ? "Ano" : "Ne"}</dd>
-            </div>
-            <div>
-              <dt>Dodatečné zateplení</dt>
-              <dd>{cfg.insulation === "yes" ? "Ano" : "Ne"}</dd>
-            </div>
-            {showLofts && (
-              <div>
-                <dt>Lofty</dt>
-                <dd>{loftLabel}</dd>
-              </div>
-            )}
-            <div>
-              <dt>Kuchyň</dt>
-              <dd>{kitchenLabel}</dd>
-            </div>
-            <div>
-              <dt>Samostatný pokoj</dt>
-              <dd>{cfg.room === "yes" ? "Ano" : "Ne"}</dd>
-            </div>
-          </dl>
-
-          <div className="recap-breakdown">
-            <div>
-              <span>Základ ({formatM2(prices.floorArea)})</span>
-              <span>{formatCzk(prices.base)}</span>
-            </div>
-            {prices.roofSurcharge > 0 && (
-              <div>
-                <span>Kulatá střecha</span>
-                <span>{formatCzk(prices.roofSurcharge)}</span>
-              </div>
-            )}
-            <div>
-              <span>Fasáda</span>
-              <span>{formatCzk(prices.facade)}</span>
-            </div>
-            {prices.paint > 0 && (
-              <div>
-                <span>Nátěr</span>
-                <span>{formatCzk(prices.paint)}</span>
-              </div>
-            )}
-            {prices.bathroom > 0 && (
-              <div>
-                <span>Koupelna</span>
-                <span>{formatCzk(prices.bathroom)}</span>
-              </div>
-            )}
-            {prices.floorHeating > 0 && (
-              <div>
-                <span>Podlahové vytápění</span>
-                <span>{formatCzk(prices.floorHeating)}</span>
-              </div>
-            )}
-            {prices.insulation > 0 && (
-              <div>
-                <span>Dodatečné zateplení</span>
-                <span>{formatCzk(prices.insulation)}</span>
-              </div>
-            )}
-            {prices.loft > 0 && (
-              <div>
-                <span>Lofty</span>
-                <span>{formatCzk(prices.loft)}</span>
-              </div>
-            )}
-            {prices.kitchen > 0 && (
-              <div>
-                <span>Kuchyň</span>
-                <span>{formatCzk(prices.kitchen)}</span>
-              </div>
-            )}
-            {prices.room > 0 && (
-              <div>
-                <span>Samostatný pokoj</span>
-                <span>{formatCzk(prices.room)}</span>
-              </div>
-            )}
-            <div className="recap-total">
-              <span>Celkem orientačně</span>
+            <div className="cfg-spec cfg-spec--price">
+              <span>Orientačně</span>
               <strong>{formatCzk(prices.total)}</strong>
             </div>
           </div>
+
+          <p className="cfg-hint">
+            Klikněte na body na modelu — otevřou příslušný krok konfigurace.
+          </p>
         </section>
 
-        {/* Poptávka */}
-        <section className="cfg-block" id="cfg-poptavka">
-          <div className="cfg-step">
-            <span>→</span>
-            <h3>Hotovo? Pošlete to nám</h3>
-          </div>
-          {sent ? (
-            <p className="cfg-note" style={{ fontSize: "1.05rem" }}>
-              Konfiguraci máme. Ozveme se do 24 hodin s upřesněním a návrhem
-              dalšího kroku — konzultace, termín, případně úpravy.
+        <aside className="cfg-sidebar">
+          <header className="cfg-sidebar-head">
+            <p className="cfg-kicker">
+              Krok {String(stepIndex + 1).padStart(2, "0")} / {STEPS.length}
             </p>
-          ) : (
-            <form className="contact-form" onSubmit={onSubmit}>
-              <div className="field">
-                <label htmlFor="cfg-name">Jméno</label>
-                <input id="cfg-name" name="name" required placeholder="Jak vám máme říkat?" />
-              </div>
-              <div className="field">
-                <label htmlFor="cfg-email">E-mail</label>
-                <input
-                  id="cfg-email"
-                  name="email"
-                  type="email"
-                  required
-                  placeholder="vas@email.cz"
+            <h2>{titles[step].title}</h2>
+            <p>{titles[step].text}</p>
+          </header>
+
+          <div className="cfg-sidebar-scroll">
+            {step === "model" && (
+              <div className="cfg-stack">
+                <DimControl
+                  label="Délka"
+                  value={cfg.length}
+                  min={DIMENSIONS.length.min}
+                  max={DIMENSIONS.length.max}
+                  step={DIMENSIONS.length.step}
+                  fine={DIMENSIONS.length.fine}
+                  onChange={(n) => set("length", n)}
                 />
-              </div>
-              <div className="field">
-                <label htmlFor="cfg-phone">Telefon</label>
-                <input id="cfg-phone" name="phone" type="tel" placeholder="+420…" />
-              </div>
-              <div className="field">
-                <label htmlFor="cfg-intent">Záměr</label>
-                <select id="cfg-intent" name="intent" defaultValue="bydleni">
-                  <option value="bydleni">Vlastní bydlení</option>
-                  <option value="airbnb">Airbnb / investice</option>
-                  <option value="kemp">Kemp / výměna chatek</option>
-                  <option value="jine">Zatím nevím</option>
-                </select>
-              </div>
-              <div className="field">
-                <label htmlFor="cfg-note">Poznámka</label>
-                <textarea
-                  id="cfg-note"
-                  name="note"
-                  placeholder="Pozemek, lokalita, kapacita, termín…"
+                <DimControl
+                  label="Šířka"
+                  value={cfg.width}
+                  min={DIMENSIONS.width.min}
+                  max={DIMENSIONS.width.max}
+                  step={DIMENSIONS.width.step}
+                  fine={DIMENSIONS.width.fine}
+                  onChange={(n) => set("width", round1(n))}
                 />
+                <div className="cfg-pill-row">
+                  <span className="cfg-pill">
+                    Základ {formatCzk(prices.base)}
+                  </span>
+                  <span className="cfg-pill">
+                    Stěny {formatM(prices.wallHeight)}
+                  </span>
+                </div>
               </div>
-              <input type="hidden" name="config" value={JSON.stringify({ cfg, prices })} />
-              <button type="submit" className="btn btn-ink btn-arrow">
-                Odeslat konfiguraci a poptávku
+            )}
+
+            {step === "exterior" && (
+              <div className="cfg-stack">
+                <div>
+                  <h3 className="cfg-subhead">Střecha</h3>
+                  <div className="cfg-cards">
+                    {ROOF_TYPES.map((r) => {
+                      const locked = r.id === "kulata" && !roundAvailable;
+                      return (
+                        <button
+                          key={r.id}
+                          type="button"
+                          disabled={locked}
+                          className={`cfg-card${cfg.roof === r.id ? " is-active" : ""}`}
+                          onClick={() => !locked && set("roof", r.id)}
+                        >
+                          <strong>{r.label}</strong>
+                          <span>
+                            {locked
+                              ? "Jen při šířce 2,5 m"
+                              : r.surchargePerM2
+                                ? `+ ${formatCzk(r.surchargePerM2)}/m²`
+                                : r.desc}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="cfg-subhead">Fasáda</h3>
+                  <div className="cfg-cards cfg-cards--samples">
+                    {FACADES.map((f) => (
+                      <button
+                        key={f.id}
+                        type="button"
+                        className={`cfg-card cfg-card--sample${
+                          cfg.facade === f.id ? " is-active" : ""
+                        }`}
+                        onClick={() => set("facade", f.id)}
+                      >
+                        <span
+                          className="cfg-swatch"
+                          style={{ background: f.swatch }}
+                        >
+                          <Image src={f.sample} alt="" width={48} height={48} />
+                        </span>
+                        <span>
+                          <strong>{f.label}</strong>
+                          <span>
+                            {f.includesPaint
+                              ? "včetně nátěru"
+                              : `${formatCzk(f.pricePerM2)}/m²`}
+                          </span>
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {showPaint && (
+                  <div>
+                    <h3 className="cfg-subhead">Nátěr</h3>
+                    <div className="cfg-cards cfg-cards--row">
+                      <button
+                        type="button"
+                        className={`cfg-card${cfg.paint === "none" ? " is-active" : ""}`}
+                        onClick={() => set("paint", "none")}
+                      >
+                        <strong>{PAINT.none.label}</strong>
+                      </button>
+                      <button
+                        type="button"
+                        className={`cfg-card${cfg.paint === "yes" ? " is-active" : ""}`}
+                        onClick={() => set("paint", "yes")}
+                      >
+                        <strong>{PAINT.yes.label}</strong>
+                        <span>+ {formatCzk(PAINT.yes.pricePerM2)}/m²</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {step === "interior" && (
+              <div className="cfg-stack">
+                <div>
+                  <h3 className="cfg-subhead">Koupelna</h3>
+                  <div className="cfg-cards cfg-cards--row">
+                    <button
+                      type="button"
+                      className={`cfg-card${cfg.bathroom === "none" ? " is-active" : ""}`}
+                      onClick={() => set("bathroom", "none")}
+                    >
+                      <strong>Ne</strong>
+                    </button>
+                    <button
+                      type="button"
+                      className={`cfg-card${cfg.bathroom === "yes" ? " is-active" : ""}`}
+                      onClick={() => set("bathroom", "yes")}
+                    >
+                      <strong>Ano</strong>
+                    </button>
+                  </div>
+                  {cfg.bathroom === "yes" && (
+                    <div className="cfg-cards" style={{ marginTop: "0.65rem" }}>
+                      {BATHROOM_VARIANTS.map((b) => (
+                        <button
+                          key={b.id}
+                          type="button"
+                          className={`cfg-card${cfg.bathVariant === b.id ? " is-active" : ""}`}
+                          onClick={() => set("bathVariant", b.id)}
+                        >
+                          <strong>{b.label}</strong>
+                          <span>
+                            {b.desc} · {formatCzk(b.price)}
+                          </span>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <div>
+                  <h3 className="cfg-subhead">Kuchyň</h3>
+                  <div className="cfg-cards cfg-cards--row">
+                    <button
+                      type="button"
+                      className={`cfg-card${cfg.kitchen === "none" ? " is-active" : ""}`}
+                      onClick={() => set("kitchen", "none")}
+                    >
+                      <strong>Ne</strong>
+                    </button>
+                    <button
+                      type="button"
+                      className={`cfg-card${cfg.kitchen === "yes" ? " is-active" : ""}`}
+                      onClick={() => set("kitchen", "yes")}
+                    >
+                      <strong>Ano</strong>
+                    </button>
+                  </div>
+                  {cfg.kitchen === "yes" && (
+                    <div className="cfg-cards" style={{ marginTop: "0.65rem" }}>
+                      {KITCHEN_VARIANTS.map((k) => (
+                        <button
+                          key={k.id}
+                          type="button"
+                          className={`cfg-card${
+                            cfg.kitchenVariant === k.id ? " is-active" : ""
+                          }`}
+                          onClick={() => set("kitchenVariant", k.id)}
+                        >
+                          <strong>{k.label}</strong>
+                          <span>
+                            {k.desc} · {formatCzk(k.price)}
+                          </span>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {showLofts && (
+                  <div>
+                    <h3 className="cfg-subhead">Spací lofty</h3>
+                    <div className="cfg-cards">
+                      {LOFTS.map((l) => (
+                        <button
+                          key={l.id}
+                          type="button"
+                          className={`cfg-card${cfg.loft === l.id ? " is-active" : ""}`}
+                          onClick={() => set("loft", l.id)}
+                        >
+                          <strong>{l.label}</strong>
+                          <span>
+                            {l.count > 0
+                              ? `${formatCzk(l.price)} · stěny 3,5 m`
+                              : "stěny 2,5 m"}
+                          </span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <div>
+                  <h3 className="cfg-subhead">Samostatný pokoj</h3>
+                  <div className="cfg-cards cfg-cards--row">
+                    <button
+                      type="button"
+                      className={`cfg-card${cfg.room === "none" ? " is-active" : ""}`}
+                      onClick={() => set("room", "none")}
+                    >
+                      <strong>Ne</strong>
+                    </button>
+                    <button
+                      type="button"
+                      className={`cfg-card${cfg.room === "yes" ? " is-active" : ""}`}
+                      onClick={() => set("room", "yes")}
+                    >
+                      <strong>Ano</strong>
+                      <span>{formatCzk(ROOM.yes.price)}</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {step === "upgrade" && (
+              <div className="cfg-stack">
+                <div>
+                  <h3 className="cfg-subhead">Podlahové vytápění</h3>
+                  <div className="cfg-cards cfg-cards--row">
+                    <button
+                      type="button"
+                      className={`cfg-card${
+                        cfg.floorHeating === "none" ? " is-active" : ""
+                      }`}
+                      onClick={() => set("floorHeating", "none")}
+                    >
+                      <strong>Ne</strong>
+                    </button>
+                    <button
+                      type="button"
+                      className={`cfg-card${
+                        cfg.floorHeating === "yes" ? " is-active" : ""
+                      }`}
+                      onClick={() => set("floorHeating", "yes")}
+                    >
+                      <strong>Ano</strong>
+                      <span>
+                        sazba dle plochy ({prices.floorArea <= 30 ? "do" : "nad"}{" "}
+                        30 m²)
+                      </span>
+                    </button>
+                  </div>
+                </div>
+                <div>
+                  <h3 className="cfg-subhead">Dodatečné zateplení</h3>
+                  <div className="cfg-cards cfg-cards--row">
+                    <button
+                      type="button"
+                      className={`cfg-card${
+                        cfg.insulation === "none" ? " is-active" : ""
+                      }`}
+                      onClick={() => set("insulation", "none")}
+                    >
+                      <strong>Ne</strong>
+                    </button>
+                    <button
+                      type="button"
+                      className={`cfg-card${
+                        cfg.insulation === "yes" ? " is-active" : ""
+                      }`}
+                      onClick={() => set("insulation", "yes")}
+                    >
+                      <strong>Ano</strong>
+                      <span>stěny + střecha</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {step === "quote" && (
+              <div className="cfg-stack">
+                <dl className="cfg-recap-list">
+                  <div>
+                    <dt>Rozměry</dt>
+                    <dd>
+                      {formatM(cfg.length)} × {formatM(cfg.width)} ·{" "}
+                      {formatM2(prices.floorArea)}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Střecha</dt>
+                    <dd>{roofLabel}</dd>
+                  </div>
+                  <div>
+                    <dt>Fasáda</dt>
+                    <dd>{facade.label}</dd>
+                  </div>
+                  <div>
+                    <dt>Koupelna</dt>
+                    <dd>{bathLabel}</dd>
+                  </div>
+                  <div>
+                    <dt>Kuchyň</dt>
+                    <dd>{kitchenLabel}</dd>
+                  </div>
+                  {showLofts && (
+                    <div>
+                      <dt>Lofty</dt>
+                      <dd>{loftLabel}</dd>
+                    </div>
+                  )}
+                  <div>
+                    <dt>Topení</dt>
+                    <dd>{cfg.floorHeating === "yes" ? "Ano" : "Ne"}</dd>
+                  </div>
+                  <div>
+                    <dt>Zateplení</dt>
+                    <dd>{cfg.insulation === "yes" ? "Ano" : "Ne"}</dd>
+                  </div>
+                </dl>
+
+                <div className="cfg-price-box">
+                  <span>Orientační cena</span>
+                  <strong>{formatCzk(prices.total)}</strong>
+                </div>
+
+                {sent ? (
+                  <p className="cfg-note">
+                    Konfiguraci máme. Ozveme se do 24 hodin s návrhem dalšího
+                    kroku.
+                  </p>
+                ) : (
+                  <form className="contact-form" onSubmit={onSubmit}>
+                    <div className="field">
+                      <label htmlFor="cfg-name">Jméno</label>
+                      <input id="cfg-name" name="name" required placeholder="Vaše jméno" />
+                    </div>
+                    <div className="field">
+                      <label htmlFor="cfg-email">E-mail</label>
+                      <input
+                        id="cfg-email"
+                        name="email"
+                        type="email"
+                        required
+                        placeholder="vas@email.cz"
+                      />
+                    </div>
+                    <div className="field">
+                      <label htmlFor="cfg-phone">Telefon</label>
+                      <input id="cfg-phone" name="phone" type="tel" placeholder="+420…" />
+                    </div>
+                    <div className="field">
+                      <label htmlFor="cfg-intent">Záměr</label>
+                      <select id="cfg-intent" name="intent" defaultValue="bydleni">
+                        <option value="bydleni">Vlastní bydlení</option>
+                        <option value="airbnb">Airbnb / investice</option>
+                        <option value="kemp">Kemp / výměna chatek</option>
+                        <option value="jine">Zatím nevím</option>
+                      </select>
+                    </div>
+                    <div className="field">
+                      <label htmlFor="cfg-note">Poznámka</label>
+                      <textarea
+                        id="cfg-note"
+                        name="note"
+                        placeholder="Pozemek, lokalita, termín…"
+                      />
+                    </div>
+                    <input
+                      type="hidden"
+                      name="config"
+                      value={JSON.stringify({ cfg, prices })}
+                    />
+                    <button type="submit" className="btn btn-ink btn-arrow btn-block">
+                      Odeslat poptávku
+                      <ArrowIcon />
+                    </button>
+                  </form>
+                )}
+
+                <button
+                  type="button"
+                  className="cfg-accordion"
+                  onClick={() => setShowIncluded((v) => !v)}
+                  aria-expanded={showIncluded}
+                >
+                  <span>Co je v základní ceně</span>
+                  <span aria-hidden="true">{showIncluded ? "−" : "+"}</span>
+                </button>
+                {showIncluded && (
+                  <div className="cfg-accordion-body">
+                    <ul className="cfg-bullets">
+                      {INCLUDED.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                    <h4>Skladba stěny</h4>
+                    <ol className="cfg-layers">
+                      {WALL_LAYERS.map((layer) => (
+                        <li key={layer}>{layer}</li>
+                      ))}
+                    </ol>
+                    <h4>Dodavatelé</h4>
+                    <div className="cfg-suppliers">
+                      {SUPPLIERS.map((s) => (
+                        <span key={s}>{s}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+
+          <footer className="cfg-sidebar-foot">
+            {stepIndex > 0 ? (
+              <button type="button" className="btn btn-ghost" onClick={goBack}>
+                Zpět
+              </button>
+            ) : (
+              <span />
+            )}
+            {step !== "quote" && (
+              <button type="button" className="btn btn-ink btn-arrow" onClick={goNext}>
+                Další
                 <ArrowIcon />
               </button>
-              <p className="cfg-note">
-                Cena je orientační. Finál doladíme po krátké konzultaci — bez
-                závazku.
-              </p>
-            </form>
-          )}
-        </section>
-
-        {/* Included + construction + suppliers */}
-        <section className="cfg-block cfg-extras-info">
-          <button
-            type="button"
-            className="cfg-accordion"
-            onClick={() => setShowIncluded((v) => !v)}
-            aria-expanded={showIncluded}
-          >
-            <span>Co je v základní ceně · skladba stěny · dodavatelé</span>
-            <span aria-hidden="true">{showIncluded ? "−" : "+"}</span>
-          </button>
-          {showIncluded && (
-            <div className="cfg-accordion-body">
-              <h4>V základní ceně je zahrnuto</h4>
-              <ul className="cfg-bullets">
-                {INCLUDED.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-              <h4>Konstrukce obvodové stěny</h4>
-              <p className="cfg-note" style={{ marginBottom: "0.75rem" }}>
-                Od exteriéru do interiéru:
-              </p>
-              <ol className="cfg-layers">
-                {WALL_LAYERS.map((layer) => (
-                  <li key={layer}>{layer}</li>
-                ))}
-              </ol>
-              <h4>Dodavatelé</h4>
-              <p className="cfg-note" style={{ marginBottom: "0.75rem" }}>
-                Materiály a komponenty od ověřených partnerů:
-              </p>
-              <div className="cfg-suppliers">
-                {SUPPLIERS.map((s) => (
-                  <span key={s}>{s}</span>
-                ))}
-              </div>
-            </div>
-          )}
-        </section>
-      </div>
-
-      <div className="cfg-mobile-bar">
-        <div>
-          <span>Orientačně</span>
-          <strong>{formatCzk(prices.total)}</strong>
-        </div>
-        <a href="#cfg-poptavka" className="btn btn-oak">
-          Poslat
-        </a>
+            )}
+          </footer>
+        </aside>
       </div>
     </div>
   );

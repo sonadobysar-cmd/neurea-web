@@ -10,12 +10,12 @@ export const metadata: Metadata = {
     template: "%s · Chatky na kolech",
   },
   description:
-    "Moderní tiny house z teplého dřeva. Bydlení, Airbnb i rekonstrukce kempů. Homologovaná kola. Konfigurátor na chatkynakolech.cz.",
+    "Moderní tiny house z přírodního dřeva. Bydlení, Airbnb i rekonstrukce kempů. Homologovaná kola. Konfigurátor na chatkynakolech.cz.",
   icons: { icon: "/favicon.svg" },
   openGraph: {
     title: "Chatky na kolech · Moderní tiny house na kolech",
     description:
-      "Teplé dřevo. Moderní střih. Svoboda přemístit dům. Pro bydlení, investice i rekonstrukci kempů.",
+      "Přírodní dřevo. Moderní střih. Svoboda přemístit dům. Pro bydlení, investice i rekonstrukci kempů.",
     type: "website",
     locale: "cs_CZ",
   },

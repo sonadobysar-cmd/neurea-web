@@ -3,7 +3,7 @@ export const brand = {
   short: "CNK",
   legal: "Chatky na kolech",
   domain: "chatkynakolech.cz",
-  tagline: "Moderní tiny house. Teplé dřevo. Kola, která dávají svobodu.",
+  tagline: "Moderní tiny house. Přírodní dřevo. Kola, která dávají svobodu.",
   phone: "+420 777 000 000",
   email: "ahoj@chatkynakolech.cz",
   address: "Dílna · Česká republika",
@@ -192,7 +192,7 @@ export const realizations = [
 
 export const values = [
   {
-    title: "Teplé dřevo, čistý střih",
+    title: "Dřevo s charakterem, čistý střih",
     text: "Materiály s charakterem — a moderní dispozice. Žádný rustikální kostým.",
   },
   {

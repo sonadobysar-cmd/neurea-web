@@ -9,7 +9,7 @@ import { media, values } from "@/data/content";
 export const metadata: Metadata = {
   title: "Dílna",
   description:
-    "Kde vznikají Chatky na kolech — moderní dřevostavby s teplým interiérem a homologovaným podvozkem.",
+    "Kde vznikají Chatky na kolech — moderní dřevostavby s útulným interiérem a homologovaným podvozkem.",
 };
 
 export default function AtelierPage() {
@@ -21,7 +21,7 @@ export default function AtelierPage() {
           <p className="eyebrow">Dílna</p>
           <h1>Stavíme domy, které se smí hýbat</h1>
           <p>
-            Nejsme katalog. Jsme dílna s moderním střihem — teplé dřevo, čisté
+            Nejsme katalog. Jsme dílna s moderním střihem — přírodní dřevo, čisté
             linie, kola jako součást produktu.
           </p>
         </div>
@@ -146,7 +146,7 @@ export default function AtelierPage() {
             <Reveal delay={1}>
               <div className="split-copy">
                 <p className="eyebrow">Detail</p>
-                <h2>Teplo, které vydrží pohled zblízka</h2>
+                <h2>Dřevo, které vydrží pohled zblízka</h2>
                 <p>
                   Smrkový obklad, loft, černé rámy oken. Interiér, který fotí
                   hosté — a majitelé v něm chtějí zůstat.

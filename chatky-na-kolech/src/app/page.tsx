@@ -68,7 +68,7 @@ export default function HomePage() {
         <div className="hero-media">
           <Image
             src={media.hero}
-            alt="Tiny house v lese při soumraku — teplé světlo, wellness, oheň"
+            alt="Tiny house v lese při soumraku — zlaté světlo, wellness, oheň"
             fill
             priority
             sizes="100vw"
@@ -79,7 +79,7 @@ export default function HomePage() {
         <div className="hero-content">
           <p className="hero-brand">{brand.name}</p>
           <h1>
-            Teplý dům
+            Dřevěný dom
             <br />
             <span className="hero-accent">na kolech</span>
           </h1>

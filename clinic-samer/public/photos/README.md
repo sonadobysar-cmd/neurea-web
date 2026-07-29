@@ -4,7 +4,8 @@ Nahraďte placeholdery těmito soubory (nebo upravte cesty v kódu):
 
 | Soubor | Použití |
 |--------|---------|
-| `hero.png` | Hero pozadí (pravá strana, vlevo zůstává fialový gradient) |
+| `hero-shape.png` | Hero — ořez tvaru vpravo (ruce + symbol, průhledné pozadí) |
+| `hero.png` | Starší varianta interiéru (volitelné) |
 | `doctor.jpg` | MUDr. Samer Asad (portrait) |
 | `clinic-01.jpg` | Recepce / vstup |
 | `clinic-02.jpg` | Ordinace |

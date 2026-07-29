@@ -496,35 +496,26 @@ img {
     linear-gradient(155deg, #c9bbe3 0%, #9b8bb8 42%, #6e6288 100%);
 }
 
-/* Cropped photo insert — purple background stays full-width underneath */
-.hero-insert {
+/* Floating shape cutout — full lilac background stays visible */
+.hero-shape {
   position: absolute;
-  top: clamp(5.5rem, 14vh, 9rem);
-  right: 0;
+  right: clamp(0.25rem, 3vw, 2.5rem);
   bottom: 0;
-  width: min(44%, 34rem);
-  overflow: hidden;
-  border-radius: 1.75rem 0 0 0;
-  box-shadow: -18px 0 48px rgba(74, 63, 99, 0.12);
-}
-
-.hero-insert::after {
-  content: "";
-  position: absolute;
-  inset: 0;
   z-index: 1;
+  width: min(46vw, 26rem);
   pointer-events: none;
-  background: linear-gradient(
-    to right,
-    rgba(201, 187, 227, 0.72) 0%,
-    rgba(201, 187, 227, 0.18) 14%,
-    transparent 28%
-  );
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
 }
 
-.hero-insert-photo {
-  object-fit: cover;
-  object-position: 78% center;
+.hero-shape-img {
+  width: 100%;
+  height: auto;
+  max-height: min(82vh, 40rem);
+  object-fit: contain;
+  object-position: bottom right;
+  filter: drop-shadow(0 20px 40px rgba(74, 63, 99, 0.16));
 }
 
 .hero-shade {
@@ -533,7 +524,7 @@ img {
   pointer-events: none;
   background:
     linear-gradient(180deg, rgba(74, 63, 99, 0.15) 0%, rgba(74, 63, 99, 0.05) 36%, rgba(58, 52, 80, 0.45) 100%),
-    linear-gradient(90deg, rgba(74, 63, 99, 0.22), transparent 52%);
+    linear-gradient(90deg, rgba(74, 63, 99, 0.18), transparent 48%);
 }
 
 .hero-brand {
@@ -1564,12 +1555,14 @@ img {
     padding: 8rem 0 4rem;
   }
 
-  .hero-insert {
-    top: auto;
-    width: min(52%, 16rem);
-    height: 42%;
-    bottom: 0;
-    border-radius: 1.25rem 0 0 0;
+  .hero-shape {
+    width: min(58vw, 14rem);
+    right: 0;
+    opacity: 0.92;
+  }
+
+  .hero-shape-img {
+    max-height: min(46vh, 18rem);
   }
 
   .gallery {

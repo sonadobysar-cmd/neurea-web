@@ -41,14 +41,14 @@ export default async function HomePage({
       <section className="hero">
         <div className="hero-media">
           <div className="hero-bg" aria-hidden />
-          <div className="hero-insert" aria-hidden>
+          <div className="hero-shape" aria-hidden>
             <Image
-              src="/photos/hero.png"
+              src="/photos/hero-shape.png"
               alt=""
-              fill
+              width={720}
+              height={1305}
               priority
-              sizes="(max-width: 768px) 46vw, 520px"
-              className="hero-insert-photo"
+              className="hero-shape-img"
             />
           </div>
           <div className="hero-shade" />

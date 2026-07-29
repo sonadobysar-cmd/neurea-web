@@ -805,10 +805,16 @@ img {
 }
 
 .split-media {
+  position: relative;
   aspect-ratio: 4 / 5;
   border-radius: 1.5rem;
   overflow: hidden;
   box-shadow: 0 28px 64px rgba(58, 42, 50, 0.12);
+}
+
+.split-photo {
+  object-fit: cover;
+  object-position: center 15%;
 }
 
 .split-media .placeholder-shot {
@@ -848,6 +854,18 @@ img {
 
 .gallery > *:first-child {
   grid-row: 1 / span 2;
+}
+
+.gallery-item {
+  position: relative;
+  min-height: 280px;
+  border-radius: 1.25rem;
+  overflow: hidden;
+}
+
+.gallery-photo {
+  object-fit: cover;
+  object-position: center;
 }
 
 .gallery .placeholder-shot,

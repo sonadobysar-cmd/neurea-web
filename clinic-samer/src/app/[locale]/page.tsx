@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { Placeholder } from "@/components/Placeholder";
 import { Reveal } from "@/components/Reveal";
 import { getDictionary } from "@/data/i18n/dictionaries";
 import { ReviewsRatingSummary } from "@/components/ReviewsRatingSummary";
@@ -136,7 +135,13 @@ export default async function HomePage({
         <div className="container split split-airy">
           <Reveal>
             <div className="split-media">
-              <Placeholder label="Foto: MUDr. Samer Asad — dodáte" mark="" />
+              <Image
+                src="/photos/doctor.png"
+                alt={dict.about.doctorTitle}
+                fill
+                sizes="(max-width: 768px) 100vw, 480px"
+                className="split-photo"
+              />
             </div>
           </Reveal>
           <Reveal delay={0.1}>
@@ -170,9 +175,33 @@ export default async function HomePage({
           </Reveal>
           <Reveal>
             <div className="gallery gallery-warm">
-              <Placeholder label="Foto: recepce — dodáte" mark="" />
-              <Placeholder label="Foto: ordinace — dodáte" mark="" />
-              <Placeholder label="Foto: světlo — dodáte" mark="" />
+              <div className="gallery-item">
+                <Image
+                  src="/photos/gallery-01.png"
+                  alt={dict.about.doctorTitle}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 400px"
+                  className="gallery-photo"
+                />
+              </div>
+              <div className="gallery-item">
+                <Image
+                  src="/photos/gallery-02.png"
+                  alt={dict.about.doctorTitle}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 400px"
+                  className="gallery-photo"
+                />
+              </div>
+              <div className="gallery-item">
+                <Image
+                  src="/photos/gallery-03.png"
+                  alt={dict.about.doctorTitle}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 400px"
+                  className="gallery-photo"
+                />
+              </div>
             </div>
           </Reveal>
         </div>

@@ -1,6 +1,6 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
-import { Placeholder } from "@/components/Placeholder";
 import { Reveal } from "@/components/Reveal";
 import {
   educationCs,
@@ -38,7 +38,13 @@ export default async function AboutPage({
         <div className="container split">
           <Reveal>
             <div className="split-media">
-              <Placeholder label="Foto: lékař — dodáte" mark="SA" />
+              <Image
+                src="/photos/doctor.png"
+                alt={dict.about.doctorTitle}
+                fill
+                sizes="(max-width: 768px) 100vw, 480px"
+                className="split-photo"
+              />
             </div>
           </Reveal>
           <Reveal delay={0.08}>

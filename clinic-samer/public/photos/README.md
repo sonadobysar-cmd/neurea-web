@@ -1,15 +1,13 @@
-# Fotky k dodání
-
-Nahraďte placeholdery těmito soubory (nebo upravte cesty v kódu):
+# Fotky
 
 | Soubor | Použití |
 |--------|---------|
 | `welcome.png` | Sekce „Přijímáme nové pacientky“ |
 | `hero-shape.png` | Hero — ořez tvaru vpravo (děloha + květy) |
-| `doctor.jpg` | MUDr. Samer Asad (portrait) |
-| `clinic-01.jpg` | Recepce / vstup |
-| `clinic-02.jpg` | Ordinace |
-| `clinic-03.jpg` | Atmosféra / detail |
+| `doctor.png` | Portrét MUDr. Samer Asad (úvod + O nás) |
+| `gallery-01.png` | Galerie — s maminkou a novorozencem |
+| `gallery-02.png` | Galerie — ultrazvuk |
+| `gallery-03.png` | Galerie — s miminkem |
 | `nurse.jpg` | Sestra (volitelné) |
 
-Doporučení: světlé, teplé, diskrétní fotografie — žádné stock „klinika v fialové“.
+Fotky doktora: z profilu Známy lékař (poskytnuto klientem).

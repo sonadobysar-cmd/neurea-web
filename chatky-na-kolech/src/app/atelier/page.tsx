@@ -46,7 +46,8 @@ export default function AtelierPage() {
                 <p className="eyebrow">Přístup</p>
                 <h2>Od záměru k jednotce, která vydělává nebo bydlí</h2>
                 <p>
-                  Stavíme pro majitele pozemků, provozovatele Airbnb i kempy,
+                  Stavíme pro majitele pozemků, provozovatele Airbnb, investory
+                  i rekonstrukce kempů,
                   které chtějí vyměnit staré chatky za něco, na co jsou hosté
                   pyšní.
                 </p>

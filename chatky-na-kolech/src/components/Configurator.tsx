@@ -662,8 +662,8 @@ export function Configurator() {
                       <label htmlFor="cfg-intent">Záměr</label>
                       <select id="cfg-intent" name="intent" defaultValue="bydleni">
                         <option value="bydleni">Vlastní bydlení</option>
-                        <option value="airbnb">Airbnb / investice</option>
-                        <option value="kemp">Kemp / výměna chatek</option>
+                        <option value="byznys">Airbnb / investice</option>
+                        <option value="kempy">Rekonstrukce kempu / výměna chatek</option>
                         <option value="jine">Zatím nevím</option>
                       </select>
                     </div>

@@ -85,7 +85,7 @@ export default function HomePage() {
           </h1>
           <p className="hero-lead">
             Moderní tiny house z dřeva s charakterem. Homologovaný podvozek —
-            bydlení, Airbnb i kempy. Dům, který s vámi jede.
+            bydlení, Airbnb i rekonstrukce kempů. Dům, který s vámi jede.
           </p>
           <div className="hero-stats" aria-label="Parametry">
             <div>
@@ -123,7 +123,8 @@ export default function HomePage() {
             [
               "Nový tiny house",
               "Opravy & renovace",
-              "Airbnb & kempy",
+              "Airbnb & investice",
+              "Rekonstrukce kempů",
               "Homologovaný podvozek",
               "Přemístitelné",
               "Moderní dřevo",
@@ -136,18 +137,19 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Systém: 3 cesty */}
+      {/* Systém: 4 cesty */}
       <section className="section section-paper" id="cesty">
         <div className="wrap">
           <Reveal>
             <div className="section-head wide">
               <div>
                 <p className="eyebrow">Systém</p>
-                <h2>Tři cesty. Bez typových katalogů.</h2>
+                <h2>Čtyři cesty. Bez typových katalogů.</h2>
               </div>
               <p>
                 Neprodáváme „model A / model B“. Řešíme váš záměr — nový dům,
-                renovaci, nebo byznys. Každá cesta má jasný další krok.
+                renovaci, Airbnb investici nebo rekonstrukci kempu. Každá cesta
+                má jasný další krok.
               </p>
             </div>
           </Reveal>
@@ -405,7 +407,7 @@ export default function HomePage() {
                     marginBottom: "1.5rem",
                   }}
                 >
-                  Nový dům, renovace, byznys — vyberte v formuláři. Nebo rovnou
+                  Nový dům, renovace, byznys nebo kemp — vyberte v formuláři. Nebo rovnou
                   pošlete konfiguraci.
                 </p>
                 <p style={{ marginBottom: "0.35rem" }}>

@@ -6,9 +6,18 @@ import { ArrowIcon } from "./Icons";
 const INTENTS = [
   { value: "novy", label: "Nový tiny house" },
   { value: "renovace", label: "Opravy & renovace" },
-  { value: "byznys", label: "Pro byznys (Airbnb / kemp)" },
+  { value: "byznys", label: "Airbnb & investice" },
+  { value: "kempy", label: "Rekonstrukce kempů / výměna chatek" },
   { value: "jine", label: "Zatím nevím — chci poradit" },
 ] as const;
+
+const PLACEHOLDERS: Record<string, string> = {
+  renovace: "Stav chatky, co chcete změnit, lokalita…",
+  byznys: "Kapacita, lokalita, Airbnb / glamping, termín…",
+  kempy: "Velikost kempu, počet chatek, sezóna, co vyměnit…",
+  jine: "Stručně popište záměr…",
+  novy: "Pozemek, lokalita, termín…",
+};
 
 export function ContactForm({
   submitLabel = "Poslat a domluvit další krok",
@@ -20,10 +29,13 @@ export function ContactForm({
 
   useEffect(() => {
     const q = new URLSearchParams(window.location.search).get("zamer");
-    if (q === "renovace" || q === "byznys" || q === "novy") setIntent(q);
+    if (q === "renovace" || q === "byznys" || q === "kempy" || q === "novy") {
+      setIntent(q);
+    }
     const hash = window.location.hash;
     if (hash.includes("renovace")) setIntent("renovace");
     if (hash.includes("byznys")) setIntent("byznys");
+    if (hash.includes("kempy")) setIntent("kempy");
   }, []);
 
   if (sent) {
@@ -76,13 +88,7 @@ export function ContactForm({
           id="msg"
           name="msg"
           required
-          placeholder={
-            intent === "renovace"
-              ? "Stav chatky, co chcete změnit, lokalita…"
-              : intent === "byznys"
-                ? "Kapacita, lokalita, Airbnb / kemp, termín…"
-                : "Pozemek, lokalita, termín…"
-          }
+          placeholder={PLACEHOLDERS[intent] ?? PLACEHOLDERS.novy}
         />
       </div>
       <button type="submit" className="btn btn-ink btn-arrow">

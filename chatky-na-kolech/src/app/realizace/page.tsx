@@ -8,7 +8,7 @@ import { realizations } from "@/data/content";
 export const metadata: Metadata = {
   title: "Realizace",
   description:
-    "Tiny houses Chatky na kolech — bydlení, Airbnb i kempy. Ukázky atmosféry a připravované projekty.",
+    "Tiny houses Chatky na kolech — bydlení, Airbnb, rekonstrukce kempů. Ukázky atmosféry a připravované projekty.",
 };
 
 export default function RealizacePage() {

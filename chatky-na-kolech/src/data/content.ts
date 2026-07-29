@@ -17,7 +17,7 @@ export const nav = [
   { href: "/#kontakt", label: "Kontakt" },
 ];
 
-/** Tři systematické cesty — ne typové domy */
+/** Čtyři systematické cesty — ne typové domy */
 export const paths = [
   {
     id: "novy",
@@ -54,18 +54,34 @@ export const paths = [
   {
     id: "byznys",
     eyebrow: "03 · Pro byznys",
-    title: "Airbnb, kemp, investice",
-    text: "Jednotky i flotily. Výměna starých chatek v kempu. Short-stay, který hosté fotí — a který přesunete, když lokalita přestane dávat smysl.",
+    title: "Airbnb a investice",
+    text: "Nové jednotky pro short-stay a glamping — hosté je fotí, vy je přesunete, když lokalita přestane dávat smysl. Flotily i jednotlivé investice.",
     points: [
       "Airbnb & glamping jednotky",
-      "Rekonstrukce / výměna kempů",
+      "Opakované jednotky pro investory",
       "Počítáme s provozem, ne jen půdorysem",
     ],
-    image: "/media/realizace/sirek.jpg",
+    image: "/media/realizace/vagonek.jpg",
     cta: "Poptat byznys řešení",
     href: "/?zamer=byznys#kontakt",
     secondary: "Sestavit jednotku",
     secondaryHref: "/konfigurator",
+  },
+  {
+    id: "kempy",
+    eyebrow: "04 · Rekonstrukce kempů",
+    title: "Výměna chatek v kempu",
+    text: "Rekonstrukce areálu a postupná výměna starých chatek za moderní jednotky. Koordinace se sezónou — kemp jede dál, vy obnovujete po etapách.",
+    points: [
+      "Diagnostika stávajícího kempu",
+      "Výměna chatek po etapách",
+      "Plán prací mimo hlavní sezónu",
+    ],
+    image: "/media/realizace/sirek.jpg",
+    cta: "Poptat rekonstrukci kempu",
+    href: "/?zamer=kempy#kontakt",
+    secondary: "Domluvit konzultaci",
+    secondaryHref: "/#kontakt",
   },
 ];
 
@@ -73,12 +89,12 @@ export const process = [
   {
     n: "01",
     title: "Záměr",
-    text: "Nový dům, renovace, nebo byznys? Upřesníme pozemek, rozpočet a termín.",
+    text: "Nový dům, renovace, byznys nebo rekonstrukce kempu? Upřesníme pozemek, rozpočet a termín.",
   },
   {
     n: "02",
     title: "Návrh / konfigurace",
-    text: "U nového domu konfigurátor. U renovace a byznysu konkrétní plán prací a kapacity.",
+    text: "U nového domu konfigurátor. U renovace, byznysu i kempů konkrétní plán prací a kapacity.",
   },
   {
     n: "03",
@@ -184,15 +200,15 @@ export const values = [
     text: "Homologace a převoz jsou součást produktu. Ne poznámka pod čarou.",
   },
   {
-    title: "Tři cesty, jedna dílna",
-    text: "Nový dům, renovace i byznys. Stejná kvalita, jiný brief.",
+    title: "Čtyři cesty, jedna dílna",
+    text: "Nový dům, renovace, Airbnb i rekonstrukce kempů. Stejná kvalita, jiný brief.",
   },
 ];
 
 export const faq = [
   {
     q: "Stavíte jen nové tiny houses?",
-    a: "Ne. Nové jednotky na míru, renovace stávajících chatek/maringotek i byznys projekty (Airbnb, kempy). Vyberete cestu — my navrhneme postup.",
+    a: "Ne. Nové jednotky na míru, renovace stávajících chatek/maringotek, Airbnb investice i rekonstrukce kempů. Vyberete cestu — my navrhneme postup.",
   },
   {
     q: "Opravdu nepotřebuju stavební povolení?",
@@ -204,7 +220,7 @@ export const faq = [
   },
   {
     q: "Jak začít?",
-    a: "Nový dům → konfigurátor. Renovace nebo byznys → krátká poptávka s fotkami/záměrem. Ozveme se s dalším krokem.",
+    a: "Nový dům → konfigurátor. Renovace, byznys nebo kemp → krátká poptávka s fotkami/záměrem. Ozveme se s dalším krokem.",
   },
 ];
 

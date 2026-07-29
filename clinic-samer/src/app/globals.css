@@ -499,22 +499,23 @@ img {
 /* Floating shape cutout — full lilac background stays visible */
 .hero-shape {
   position: absolute;
-  right: clamp(0.25rem, 3vw, 2.5rem);
-  bottom: 0;
+  top: clamp(5.5rem, 11vh, 8rem);
+  right: clamp(0.5rem, 3vw, 2.5rem);
+  bottom: clamp(2rem, 5vh, 3.5rem);
   z-index: 1;
-  width: min(46vw, 26rem);
+  width: min(42vw, 23rem);
   pointer-events: none;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: flex-end;
 }
 
 .hero-shape-img {
-  width: 100%;
-  height: auto;
-  max-height: min(82vh, 40rem);
+  width: auto;
+  height: 100%;
+  max-width: 100%;
   object-fit: contain;
-  object-position: bottom right;
+  object-position: center right;
   filter: drop-shadow(0 20px 40px rgba(74, 63, 99, 0.16));
 }
 
@@ -1556,13 +1557,17 @@ img {
   }
 
   .hero-shape {
-    width: min(58vw, 14rem);
+    top: auto;
+    bottom: 1.5rem;
+    width: min(52vw, 13rem);
+    height: min(42vh, 16rem);
     right: 0;
-    opacity: 0.92;
+    opacity: 0.95;
   }
 
   .hero-shape-img {
-    max-height: min(46vh, 18rem);
+    height: 100%;
+    width: auto;
   }
 
   .gallery {

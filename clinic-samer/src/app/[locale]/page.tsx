@@ -46,19 +46,21 @@ export default async function HomePage({
           />
           <div className="hero-shade" />
         </div>
-        <div className="container hero-content">
-          <p className="hero-brand">{dict.brand.short}</p>
-          <h1>
-            {dict.hero.title} <em>{dict.hero.titleEm}</em>
-          </h1>
-          <p className="hero-lead">{dict.hero.lead}</p>
-          <div className="hero-actions">
-            <Link href={`/${locale}/booking`} className="btn btn-light">
-              {dict.hero.ctaPrimary}
-            </Link>
-            <Link href={`/${locale}/services`} className="btn btn-ghost-light">
-              {dict.hero.ctaSecondary}
-            </Link>
+        <div className="hero-content-wrap">
+          <div className="container hero-content">
+            <p className="hero-brand">{dict.brand.short}</p>
+            <h1>
+              {dict.hero.title} <em>{dict.hero.titleEm}</em>
+            </h1>
+            <p className="hero-lead">{dict.hero.lead}</p>
+            <div className="hero-actions">
+              <Link href={`/${locale}/booking`} className="btn btn-light">
+                {dict.hero.ctaPrimary}
+              </Link>
+              <Link href={`/${locale}/services`} className="btn btn-ghost-light">
+                {dict.hero.ctaSecondary}
+              </Link>
+            </div>
           </div>
         </div>
       </section>

@@ -296,11 +296,12 @@ img {
 }
 
 .brand-logo {
-  width: 3.35rem;
-  height: 2.25rem;
+  width: 2.65rem;
+  height: 2.65rem;
   flex-shrink: 0;
   display: block;
-  filter: drop-shadow(0 6px 14px rgba(155, 139, 184, 0.22));
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(155, 139, 184, 0.2));
 }
 
 .brand-lockup .brand-text {
@@ -467,6 +468,22 @@ img {
   overflow: hidden;
 }
 
+.hero-content-wrap {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 10rem 0 6.5rem;
+  color: #f8f5fc;
+  max-width: 40rem;
+  margin-inline: 0;
+  text-align: start;
+}
+
 .hero-media {
   position: absolute;
   inset: 0;
@@ -495,15 +512,7 @@ img {
   inset: 0;
   background:
     linear-gradient(180deg, rgba(74, 63, 99, 0.15) 0%, rgba(74, 63, 99, 0.05) 36%, rgba(58, 52, 80, 0.45) 100%),
-    linear-gradient(90deg, rgba(74, 63, 99, 0.28), transparent 58%);
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-  padding: 10rem 0 6.5rem;
-  color: #f8f5fc;
-  max-width: 38rem;
+    linear-gradient(90deg, rgba(74, 63, 99, 0.35), transparent 62%);
 }
 
 .hero-brand {
@@ -515,15 +524,8 @@ img {
   letter-spacing: -0.03em;
   text-transform: none;
   color: #f8f5fc;
-  margin-bottom: 1.35rem;
+  margin: 0 0 1.35rem;
   font-weight: 600;
-}
-
-.hero-brand::before {
-  content: "";
-  width: 2rem;
-  height: 1px;
-  background: linear-gradient(90deg, var(--rose-soft), transparent);
 }
 
 .hero h1 {
@@ -547,7 +549,7 @@ img {
   line-height: 1.75;
   font-weight: 350;
   color: rgba(255, 248, 245, 0.82);
-  max-width: 30rem;
+  max-width: 32rem;
   margin: 0 0 2.4rem;
 }
 

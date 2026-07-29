@@ -45,8 +45,8 @@ export default async function HomePage({
             <Image
               src="/photos/hero-shape.png"
               alt=""
-              width={980}
-              height={1490}
+              width={1186}
+              height={1063}
               priority
               className="hero-shape-img"
             />

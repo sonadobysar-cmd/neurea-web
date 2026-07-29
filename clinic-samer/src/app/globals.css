@@ -503,7 +503,7 @@ img {
   right: clamp(0.5rem, 3vw, 2.5rem);
   bottom: clamp(2rem, 5vh, 3.5rem);
   z-index: 1;
-  width: min(42vw, 23rem);
+  width: min(44vw, 26rem);
   pointer-events: none;
   display: flex;
   align-items: center;

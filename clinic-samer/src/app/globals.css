@@ -479,9 +479,7 @@ img {
   z-index: 2;
   padding: 10rem 0 6.5rem;
   color: #f8f5fc;
-  max-width: 40rem;
-  margin-inline: 0;
-  text-align: start;
+  max-width: 38rem;
 }
 
 .hero-media {
@@ -585,7 +583,7 @@ img {
   line-height: 1.75;
   font-weight: 350;
   color: rgba(255, 248, 245, 0.82);
-  max-width: 32rem;
+  max-width: 30rem;
   margin: 0 0 2.4rem;
 }
 

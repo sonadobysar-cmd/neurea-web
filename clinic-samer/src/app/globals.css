@@ -489,6 +489,42 @@ img {
   inset: 0;
 }
 
+.hero-bg-base {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 72% 28%, rgba(212, 200, 232, 0.55), transparent 52%),
+    radial-gradient(ellipse at 18% 78%, rgba(184, 168, 214, 0.35), transparent 50%),
+    linear-gradient(155deg, #c9bbe3 0%, #9b8bb8 42%, #6e6288 100%);
+}
+
+.hero-bg-photo {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(68%, 920px);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.15) 18%,
+    rgba(0, 0, 0, 0.72) 42%,
+    #000 58%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.15) 18%,
+    rgba(0, 0, 0, 0.72) 42%,
+    #000 58%
+  );
+}
+
+.hero-photo {
+  object-fit: cover;
+  object-position: 72% center;
+}
+
 .hero-media .placeholder-shot,
 .hero-media img {
   width: 100%;
@@ -511,8 +547,8 @@ img {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(74, 63, 99, 0.15) 0%, rgba(74, 63, 99, 0.05) 36%, rgba(58, 52, 80, 0.45) 100%),
-    linear-gradient(90deg, rgba(74, 63, 99, 0.35), transparent 62%);
+    linear-gradient(180deg, rgba(74, 63, 99, 0.12) 0%, rgba(74, 63, 99, 0.04) 36%, rgba(58, 52, 80, 0.42) 100%),
+    linear-gradient(90deg, rgba(74, 63, 99, 0.42) 0%, rgba(74, 63, 99, 0.18) 38%, transparent 68%);
 }
 
 .hero-brand {
@@ -1541,6 +1577,22 @@ img {
 
   .hero-content {
     padding: 8rem 0 4rem;
+  }
+
+  .hero-bg-photo {
+    width: 78%;
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(0, 0, 0, 0.25) 28%,
+      #000 62%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(0, 0, 0, 0.25) 28%,
+      #000 62%
+    );
   }
 
   .gallery {

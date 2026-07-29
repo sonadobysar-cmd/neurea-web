@@ -4,7 +4,7 @@ Nahraďte placeholdery těmito soubory (nebo upravte cesty v kódu):
 
 | Soubor | Použití |
 |--------|---------|
-| `hero.jpg` | Hero pozadí (full-bleed) |
+| `hero.png` | Hero pozadí (pravá strana, vlevo zůstává fialový gradient) |
 | `doctor.jpg` | MUDr. Samer Asad (portrait) |
 | `clinic-01.jpg` | Recepce / vstup |
 | `clinic-02.jpg` | Ordinace |

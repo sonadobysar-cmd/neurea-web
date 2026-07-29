@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Placeholder } from "@/components/Placeholder";
 import { Reveal } from "@/components/Reveal";
@@ -39,11 +40,17 @@ export default async function HomePage({
     <>
       <section className="hero">
         <div className="hero-media">
-          <Placeholder
-            label="Foto: atmosféra kliniky — dodáte"
-            mark=""
-            className="is-hero"
-          />
+          <div className="hero-bg-base" aria-hidden />
+          <div className="hero-bg-photo">
+            <Image
+              src="/photos/hero.png"
+              alt=""
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 62vw"
+              className="hero-photo"
+            />
+          </div>
           <div className="hero-shade" />
         </div>
         <div className="hero-content-wrap">

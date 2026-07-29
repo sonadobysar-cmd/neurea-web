@@ -496,27 +496,27 @@ img {
     linear-gradient(155deg, #c9bbe3 0%, #9b8bb8 42%, #6e6288 100%);
 }
 
-/* Floating shape cutout — full lilac background stays visible */
+/* Floating shape cutout — centered in the right half of hero */
 .hero-shape {
   position: absolute;
-  top: clamp(5.5rem, 11vh, 8rem);
-  right: clamp(0.5rem, 3vw, 2.5rem);
-  bottom: clamp(2rem, 5vh, 3.5rem);
+  top: 50%;
+  left: clamp(38%, 42vw, 48%);
+  right: clamp(1rem, 4vw, 3rem);
   z-index: 1;
-  width: min(44vw, 26rem);
+  height: min(76vh, 38rem);
   pointer-events: none;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
+  transform: translateY(-50%);
 }
 
 .hero-shape-img {
-  width: auto;
+  width: 100%;
   height: 100%;
-  max-width: 100%;
   object-fit: contain;
-  object-position: center right;
-  filter: drop-shadow(0 20px 40px rgba(74, 63, 99, 0.16));
+  object-position: center center;
+  filter: drop-shadow(0 24px 48px rgba(74, 63, 99, 0.18));
 }
 
 .hero-shade {
@@ -1557,17 +1557,16 @@ img {
   }
 
   .hero-shape {
-    top: auto;
-    bottom: 1.5rem;
-    width: min(52vw, 13rem);
-    height: min(42vh, 16rem);
+    top: 52%;
+    left: 52%;
     right: 0;
-    opacity: 0.95;
+    height: min(48vh, 18rem);
+    transform: translateY(-50%);
   }
 
   .hero-shape-img {
+    width: 100%;
     height: 100%;
-    width: auto;
   }
 
   .gallery {

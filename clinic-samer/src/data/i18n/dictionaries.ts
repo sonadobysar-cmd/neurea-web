@@ -87,6 +87,7 @@ export type Dictionary = {
     sourceLabel: string;
     sourceLink: string;
     countHint: string;
+    ratingScore: string;
   };
   booking: {
     eyebrow: string;
@@ -272,6 +273,7 @@ const cs: Dictionary = {
     sourceLabel: "Ukázky z",
     sourceLink: "Známy lékař",
     countHint: "722+ ověřených názorů",
+    ratingScore: "4,9",
   },
   booking: {
     eyebrow: "Rezervace",
@@ -464,6 +466,7 @@ const en: Dictionary = {
     sourceLabel: "Samples from",
     sourceLink: "Známy lékař",
     countHint: "722+ verified reviews",
+    ratingScore: "4.9",
   },
   booking: {
     eyebrow: "Booking",
@@ -656,6 +659,7 @@ const de: Dictionary = {
     sourceLabel: "Beispiele von",
     sourceLink: "Známy lékař",
     countHint: "722+ verifizierte Bewertungen",
+    ratingScore: "4,9",
   },
   booking: {
     eyebrow: "Termin",
@@ -848,6 +852,7 @@ const it: Dictionary = {
     sourceLabel: "Esempi da",
     sourceLink: "Známy lékař",
     countHint: "722+ recensioni verificate",
+    ratingScore: "4,9",
   },
   booking: {
     eyebrow: "Prenotazione",
@@ -1040,6 +1045,7 @@ const ar: Dictionary = {
     sourceLabel: "نماذج من",
     sourceLink: "Známy lékař",
     countHint: "+722 تقييماً موثّقاً",
+    ratingScore: "4,9",
   },
   booking: {
     eyebrow: "الحجز",

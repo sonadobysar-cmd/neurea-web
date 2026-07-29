@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Placeholder } from "@/components/Placeholder";
 import { Reveal } from "@/components/Reveal";
 import { getDictionary } from "@/data/i18n/dictionaries";
+import { ReviewsRatingSummary } from "@/components/ReviewsRatingSummary";
 import {
   showcaseReviews,
   ZNAMYLEKAR_URL,
@@ -167,18 +168,7 @@ export default async function HomePage({
               <span className="eyebrow">{dict.reviews.eyebrow}</span>
               <h2>{dict.reviews.title}</h2>
               <p className="lead">{dict.reviews.lead}</p>
-              <p className="reviews-meta">
-                <span>{dict.reviews.countHint}</span>
-                {" · "}
-                {dict.reviews.sourceLabel}{" "}
-                <a
-                  href={ZNAMYLEKAR_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {dict.reviews.sourceLink}
-                </a>
-              </p>
+              <ReviewsRatingSummary dict={dict} />
             </div>
           </Reveal>
           <div className="reviews-grid-home">

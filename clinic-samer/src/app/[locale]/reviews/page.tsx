@@ -2,10 +2,8 @@ import { notFound } from "next/navigation";
 import { Reveal } from "@/components/Reveal";
 import { ReviewForm } from "@/components/ReviewForm";
 import { getDictionary } from "@/data/i18n/dictionaries";
-import {
-  showcaseReviews,
-  ZNAMYLEKAR_URL,
-} from "@/data/showcase-reviews";
+import { ReviewsRatingSummary } from "@/components/ReviewsRatingSummary";
+import { showcaseReviews } from "@/data/showcase-reviews";
 import { isLocale, type Locale } from "@/lib/locales";
 import { listReviews } from "@/lib/store";
 
@@ -44,14 +42,7 @@ export default async function ReviewsPage({
             <span className="eyebrow">{dict.reviews.eyebrow}</span>
             <h1>{dict.reviews.title}</h1>
             <p className="lead">{dict.reviews.lead}</p>
-            <p className="reviews-meta" style={{ marginTop: "1rem" }}>
-              <span>{dict.reviews.countHint}</span>
-              {" · "}
-              {dict.reviews.sourceLabel}{" "}
-              <a href={ZNAMYLEKAR_URL} target="_blank" rel="noopener noreferrer">
-                {dict.reviews.sourceLink}
-              </a>
-            </p>
+            <ReviewsRatingSummary dict={dict} />
           </Reveal>
         </div>
       </section>

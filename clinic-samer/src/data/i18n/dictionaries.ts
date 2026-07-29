@@ -193,7 +193,7 @@ const cs: Dictionary = {
     title: "Přijímáme nové pacientky",
     lead: "Máme volné kapacity. Domluvte si první termín online — ozveme se s potvrzením.",
     cta: "Chci se registrovat!",
-    photoLabel: "Foto: ordinace — dodáte",
+    photoLabel: "Foto: nové pacientky v čekárně",
   },
   services: {
     eyebrow: "Služby",

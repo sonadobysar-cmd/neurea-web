@@ -78,7 +78,13 @@ export default async function HomePage({
         <div className="container welcome-grid">
           <Reveal>
             <div className="welcome-media">
-              <Placeholder label={dict.welcome.photoLabel} mark="" />
+              <Image
+                src="/photos/welcome.png"
+                alt={dict.welcome.title}
+                fill
+                sizes="(max-width: 768px) 100vw, 520px"
+                className="welcome-photo"
+              />
             </div>
           </Reveal>
           <Reveal delay={0.08}>

@@ -3,109 +3,46 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Clinic Samer — návrhy loga</title>
+    <title>Clinic Samer — luxusní logo</title>
     <style>
-      :root {
-        --lilac: #9b8bb8;
-        --lilac-light: #c9bbe3;
-        --ink: #4a3f63;
-        --bg: #f3eff9;
-      }
-      * { box-sizing: border-box; }
-      body {
-        margin: 0;
-        font-family: system-ui, sans-serif;
-        background: var(--bg);
-        color: var(--ink);
-        padding: 2rem 1.5rem 3rem;
-      }
-      h1 { font-size: 1.5rem; margin: 0 0 0.35rem; }
-      p.lead { color: #857b96; margin: 0 0 2rem; max-width: 40rem; }
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-        gap: 1.25rem;
-        max-width: 1100px;
-      }
-      .card {
-        background: #fff;
-        border-radius: 1.25rem;
-        padding: 1.5rem;
-        border: 1px solid rgba(74, 63, 99, 0.08);
-        box-shadow: 0 12px 32px rgba(110, 98, 136, 0.1);
-      }
-      .card h2 { font-size: 1rem; margin: 0 0 0.25rem; }
-      .card .tag { font-size: 0.82rem; color: #857b96; margin-bottom: 1rem; }
-      .preview {
-        display: flex;
-        align-items: center;
-        gap: 0.85rem;
-        padding: 1rem;
-        border-radius: 0.85rem;
-        margin-bottom: 0.75rem;
-      }
-      .preview.light { background: #fff; }
-      .preview.lilac { background: linear-gradient(155deg, #c9bbe3, #9b8bb8); }
-      .preview.dark { background: #4a3f63; }
-      .preview img { width: 52px; height: 52px; object-fit: contain; }
-      .preview .txt strong { display: block; font-size: 0.95rem; }
-      .preview .txt span { font-size: 0.72rem; opacity: 0.75; }
-      .preview.dark .txt { color: #f8f5fc; }
-      .large { width: 100%; max-height: 180px; object-fit: contain; margin-top: 0.5rem; }
-      .current { opacity: 0.7; }
+      :root { --ink: #4a3f63; --muted: #857b96; --bg: #f3eff9; --lilac: #9b8bb8; }
+      body { margin: 0; font-family: system-ui, sans-serif; background: var(--bg); color: var(--ink); padding: 2rem 1.5rem 3rem; }
+      h1 { margin: 0 0 0.35rem; font-size: 1.5rem; }
+      p { color: var(--muted); max-width: 42rem; }
+      .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem; max-width: 1100px; margin-top: 1.5rem; }
+      .card { background: #fff; border-radius: 1.25rem; padding: 1.5rem; border: 1px solid rgba(74,63,99,.08); box-shadow: 0 12px 32px rgba(110,98,136,.1); }
+      .card.active { outline: 2px solid var(--lilac); }
+      .card h2 { margin: 0 0 0.25rem; font-size: 1rem; }
+      .tag { font-size: 0.82rem; color: var(--muted); margin-bottom: 1rem; }
+      .nav-mock { display: flex; align-items: center; gap: 0.75rem; padding: 0.85rem 1rem; background: rgba(247,245,251,.95); border-radius: 0.85rem; margin-bottom: 0.75rem; }
+      .nav-mock img { width: 44px; height: 44px; object-fit: contain; }
+      .nav-mock strong { display: block; font-size: 0.95rem; }
+      .nav-mock span { font-size: 0.68rem; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+      .large { width: 100%; max-height: 200px; object-fit: contain; margin-top: 0.5rem; }
     </style>
   </head>
   <body>
-    <h1>Návrhy loga — Clinic Samer</h1>
-    <p class="lead">Porovnání v navigaci (světlé / lilac / tmavé pozadí). Napište A, B nebo C — nasadíme na web.</p>
+    <h1>Luxusní logo — nasazeno</h1>
+    <p>Elegantní serifové SA s jemným květem. Alternativy B a C v návrzích — napište, pokud chcete jinou.</p>
     <div class="grid">
-      <article class="card current">
-        <h2>0 · Současné</h2>
-        <p class="tag">k odstranění</p>
-        <div class="preview light">
-          <img src="0-current.png" alt="" />
-          <div class="txt"><strong>Clinic Samer</strong><span>Gynekologie · IVF · Praha</span></div>
+      <article class="card active">
+        <h2>✓ Serif SA + květ</h2>
+        <p class="tag">Aktivní logo na webu</p>
+        <div class="nav-mock">
+          <img src="../logo-mark.png" alt="" />
+          <div><strong>Clinic Samer</strong><span>Gynekologie · IVF · Praha</span></div>
         </div>
-        <img class="large" src="0-current.png" alt="" />
+        <img class="large" src="../logo-mark.png" alt="" />
       </article>
       <article class="card">
-        <h2>A · Minimal SA</h2>
-        <p class="tag">geometrické, čisté, #9B8BB8</p>
-        <div class="preview light">
-          <img src="a-minimal-sa.png" alt="" />
-          <div class="txt"><strong>Clinic Samer</strong><span>Gynekologie · IVF · Praha</span></div>
-        </div>
-        <div class="preview lilac">
-          <img src="a-minimal-sa.png" alt="" />
-          <div class="txt"><strong>Clinic Samer</strong><span>nav / hero</span></div>
-        </div>
-        <img class="large" src="a-minimal-sa.png" alt="" />
+        <h2>B · Obloukový rám</h2>
+        <p class="tag">alternativa</p>
+        <img class="large" src="luxury-b-arch.png" alt="" />
       </article>
       <article class="card">
-        <h2>B · Květ + monogram</h2>
-        <p class="tag">elegantní, femininní, květ místo symbolu</p>
-        <div class="preview light">
-          <img src="b-flower-monogram.png" alt="" />
-          <div class="txt"><strong>Clinic Samer</strong><span>Gynekologie · IVF · Praha</span></div>
-        </div>
-        <div class="preview dark">
-          <img src="b-flower-monogram.png" alt="" />
-          <div class="txt"><strong>Clinic Samer</strong><span>tmavé pozadí</span></div>
-        </div>
-        <img class="large" src="b-flower-monogram.png" alt="" />
-      </article>
-      <article class="card">
-        <h2>C · Soft badge ✓ nasazeno</h2>
-        <p class="tag">SVG s vylepšeným A — aktivní logo</p>
-        <div class="preview light">
-          <img src="c-soft-badge.png" alt="" />
-          <div class="txt"><strong>Clinic Samer</strong><span>Gynekologie · IVF · Praha</span></div>
-        </div>
-        <div class="preview lilac">
-          <img src="c-soft-badge.png" alt="" />
-          <div class="txt"><strong>Clinic Samer</strong><span>nav / hero</span></div>
-        </div>
-        <img class="large" src="c-soft-badge.png" alt="" />
+        <h2>C · Lotos</h2>
+        <p class="tag">alternativa</p>
+        <img class="large" src="luxury-c-lotus.png" alt="" />
       </article>
     </div>
   </body>

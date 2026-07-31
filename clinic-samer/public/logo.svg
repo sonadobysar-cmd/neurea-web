@@ -1,22 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 48" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 72" fill="none">
   <defs>
-    <linearGradient id="cs-plate" x1="0" y1="0" x2="72" y2="48" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#F6F2FB"/>
-      <stop offset="0.55" stop-color="#EDE6F7"/>
-      <stop offset="1" stop-color="#E2D8F2"/>
-    </linearGradient>
-    <linearGradient id="cs-ink" x1="12" y1="10" x2="60" y2="40" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#7A6B9A"/>
-      <stop offset="1" stop-color="#9B8BB8"/>
+    <linearGradient id="badge" x1="32" y1="6" x2="32" y2="64" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#d4c8e8"/>
+      <stop offset="0.45" stop-color="#b5a4d6"/>
+      <stop offset="1" stop-color="#9b8bb8"/>
     </linearGradient>
   </defs>
-  <rect x="1" y="1" width="70" height="46" rx="14" fill="url(#cs-plate)"/>
-  <rect x="1" y="1" width="70" height="46" rx="14" fill="none" stroke="rgba(181,164,214,0.45)" stroke-width="1"/>
-  <g fill="url(#cs-ink)">
-    <path d="M21.4 16.2c-.7-1.35-2.15-2.2-4.05-2.2-2.5 0-4.2 1.2-4.2 3.05 0 1.55 1.05 2.45 3.65 3.05l1.05.25c1.55.35 2.15.75 2.15 1.65 0 1-.95 1.75-2.55 1.75-1.5 0-2.65-.6-3.3-1.75l-1.9 1.05c.9 1.8 2.7 2.85 4.95 2.85 2.8 0 4.65-1.5 4.65-3.7 0-1.8-1.15-2.85-3.75-3.5l-1.05-.25c-1.35-.3-1.9-.7-1.9-1.5 0-.9.85-1.5 2.15-1.5 1.2 0 2.05.5 2.5 1.4l1.8-1.05z"/>
-    <path d="M35.6 31.2h-1.85l-.5 1.85h-1.95L35.1 16.8h2.15l3.8 16.25h-2.1l-.5-1.85zm-.95-3.5-.85 3.15h1.7l-.85-3.15z"/>
-    <rect x="33.35" y="24.15" width="4.5" height="1.35" rx="0.65"/>
-    <path d="M55.35 18.35c-.85-1.15-2.25-1.9-4-1.9-3.35 0-5.55 2.55-5.55 6.35 0 3.8 2.2 6.35 5.55 6.35 1.75 0 3.15-.75 4-1.9l-1.75-1.15c-.5.7-1.25 1.15-2.25 1.15-1.85 0-3.15-1.55-3.15-4.45s1.3-4.45 3.15-4.45c1 0 1.75.45 2.25 1.15l1.75-1.15z"/>
+  <circle cx="32" cy="8.5" r="4" fill="url(#badge)"/>
+  <path d="M32 13.8c-8.8 0-16 7.8-16 19.5 0 10.8 7.2 19.8 16 24.2 8.8-4.4 16-13.4 16-24.2 0-11.7-7.2-19.5-16-19.5z" fill="url(#badge)"/>
+  <g fill="none" stroke="#fff" stroke-width="2.15" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M28.4 29.6c-2.3 0-3.9 1.2-3.9 2.9 0 1.3 1 2.2 2.9 2.7 2.3.6 3.5 1.5 3.5 3.1 0 1.9-1.8 3.2-4.2 3.2-1.9 0-3.4-.9-4.2-2.2"/>
+    <path d="M39.3 44.2 41.45 37.8 43.6 44.2"/>
+    <path d="M40.2 41.35h3"/>
   </g>
-  <path d="M44.2 18.5l1.15 12.2" stroke="#C9BBE3" stroke-width="1.35" stroke-linecap="round" opacity="0.9"/>
 </svg>

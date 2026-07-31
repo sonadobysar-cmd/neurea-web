@@ -297,10 +297,9 @@ img {
 
 .brand-logo {
   width: 2.65rem;
-  height: 2.65rem;
+  height: 2.95rem;
   flex-shrink: 0;
   display: block;
-  object-fit: contain;
   filter: drop-shadow(0 4px 12px rgba(155, 139, 184, 0.2));
 }
 

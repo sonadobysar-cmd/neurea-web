@@ -27,8 +27,8 @@ export const metadata: Metadata = {
   title: "MUDr. Samer Asad · Gynekologie & IVF",
   description: "Diskrétní gynekologická péče a IVF v Praze.",
   icons: {
-    icon: "/logo-mark.png",
-    apple: "/logo-mark.png",
+    icon: "/logo.svg",
+    apple: "/logo.svg",
   },
 };
 

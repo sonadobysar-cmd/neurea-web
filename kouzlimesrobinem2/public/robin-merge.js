@@ -251,11 +251,12 @@
   var reward = document.getElementById("reward");
   var popBtn = document.getElementById("popBtn");
   var popCta = document.getElementById("popCta");
-  var final = document.getElementById("tfinal");
+  var resetBalloonGame = function () {};
 
   function openBalloonModal(e) {
     if (e) e.preventDefault();
     if (!balloonModal) return;
+    resetBalloonGame();
     balloonModal.hidden = false;
     balloonModal.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
@@ -281,9 +282,6 @@
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") closeBalloonModal();
   });
-  if (window.location.hash === "#balonky") {
-    openBalloonModal();
-  }
 
   if (popstage && cluster && reward) {
     var rewards = balloonData.rewards || [];
@@ -306,12 +304,18 @@
     }
     shuffle();
 
-    try {
-      localStorage.removeItem("robin-balloon-pops");
-      localStorage.removeItem("robin-balloon-last-reward");
-    } catch (e) {
-      /* ignore */
-    }
+    resetBalloonGame = function () {
+      popped = 0;
+      busy = false;
+      reward.classList.remove("show");
+      reward.innerHTML = "";
+      cluster.classList.remove("gone", "popping");
+      if (balloonPanel) balloonPanel.classList.remove("balloon-panel--done");
+      if (popBtn) popBtn.style.display = "none";
+      if (popCta) popCta.style.display = "none";
+      shuffle();
+      syncPopUi();
+    };
 
     function renderReward(pick, done) {
       if (!pick) return;
@@ -414,6 +418,10 @@
     if (popBtn) popBtn.addEventListener("click", resetPop);
 
     syncPopUi();
+
+    if (window.location.hash === "#balonky") {
+      openBalloonModal();
+    }
   }
 
   // 11) Kontaktní formulář

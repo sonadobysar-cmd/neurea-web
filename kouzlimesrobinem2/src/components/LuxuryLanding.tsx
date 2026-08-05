@@ -4,12 +4,15 @@ import { useEffect } from "react";
 
 function loadScript(id: string, src: string): Promise<void> {
   return new Promise((resolve, reject) => {
-    if (document.getElementById(id)) {
+    const existing = document.getElementById(id) as HTMLScriptElement | null;
+    if (existing?.dataset.src === src) {
       resolve();
       return;
     }
+    existing?.remove();
     const script = document.createElement("script");
     script.id = id;
+    script.dataset.src = src;
     script.src = src;
     script.async = false;
     script.onload = () => resolve();
@@ -33,7 +36,7 @@ export function LuxuryLanding({
       try {
         await loadScript("robin2-balloon-data", "/robin2-balloon-data.js");
         if (!cancelled) await loadScript("luxury-init", "/luxury.js");
-        if (!cancelled) await loadScript("robin-merge-init", "/robin-merge.js");
+        if (!cancelled) await loadScript("robin-merge-init", "/robin-merge.js?v=3");
       } catch (err) {
         console.error(err);
       }

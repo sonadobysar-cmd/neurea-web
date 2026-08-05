@@ -1,0 +1,14 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": null,
+  "outputDirectory": ".",
+  "framework": null,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/la-cantina", "destination": "/la-cantina.html" }
+  ],
+  "redirects": [
+    { "source": "/vinidelite", "destination": "/", "permanent": true }
+  ]
+}

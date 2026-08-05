@@ -916,6 +916,10 @@ body {
 }
 
 @media (max-height: 560px) and (orientation: landscape) {
+  .balloon-modal {
+    padding: 6px;
+  }
+
   .balloon-modal__panel {
     width: min(860px, calc(100vw - 16px));
     height: calc(100dvh - 12px);

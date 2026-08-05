@@ -8,9 +8,10 @@ import "./robin-merge.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kouzlimesrobinem2.vercel.app"),
-  title: "Kouzlíme s Robinem — kouzelník, balónkář a mentalista",
+  title: "Kouzelník pro děti | Robin Panuš, Mladá Boleslav",
   description:
-    "Kouzelnická show, balónková zvířátka a mentalismus pro dětské oslavy, školky i firemní akce. Robin Panuš — 16 let na jevišti.",
+    "Kouzelník Robin Panuš: interaktivní show pro dětské oslavy, školky, školy, svatby i firemní akce. Kouzla, mentalismus a balónky po celé ČR.",
+  alternates: { canonical: "/" },
   icons: {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },
@@ -22,10 +23,18 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "cs_CZ",
-    title: "Kouzlíme s Robinem — kouzelník, balónkář a mentalista",
+    url: "/",
+    siteName: "Kouzlíme s Robinem",
+    title: "Kouzelník pro děti | Robin Panuš, Mladá Boleslav",
     description:
       "Kouzelnická show, balónková zvířátka a mentalismus pro dětské oslavy, školky i firemní akce.",
     images: [{ url: "/luxury/img-01.jpg", width: 800, height: 1000, alt: "Kouzelník Robin Panuš" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Kouzelník pro děti | Robin Panuš",
+    description: "Interaktivní kouzelnická show, mentalismus a balónková zvířátka pro malé i velké.",
+    images: ["/luxury/img-01.jpg"],
   },
   robots: { index: true, follow: true },
 };

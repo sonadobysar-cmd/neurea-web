@@ -97,7 +97,7 @@ export const luxuryBodyTemplate = `<svg width="0" height="0" style="position:abs
   </div>
 </section>
 
-<div class="lightbox" id="lightbox" hidden aria-hidden="true">
+<div class="lightbox" id="lightbox" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-label="Prohlížeč fotografií">
   <button class="lightbox-close" type="button" aria-label="Zavřít">×</button>
   <button class="lightbox-prev" type="button" aria-label="Předchozí fotka">‹</button>
   <button class="lightbox-next" type="button" aria-label="Další fotka">›</button>
@@ -195,10 +195,10 @@ export const luxuryBodyTemplate = `<svg width="0" height="0" style="position:abs
     <span class="mail">{{cms.contact.email}}</span>
     <form class="contact-form" id="contactForm" novalidate>
       <input type="text" name="website" class="contact-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <input name="name" type="text" required placeholder="Jméno *" autocomplete="name" maxlength="120">
-      <input name="email" type="email" required placeholder="E-mail *" autocomplete="email" maxlength="254">
-      <input name="phone" type="tel" required placeholder="Telefon *" autocomplete="tel" maxlength="30">
-      <textarea name="message" rows="4" placeholder="Poznámka (volitelné)" maxlength="5000"></textarea>
+      <input name="name" type="text" required placeholder="Jméno *" aria-label="Jméno" autocomplete="name" maxlength="120">
+      <input name="email" type="email" required placeholder="E-mail *" aria-label="E-mail" autocomplete="email" maxlength="254">
+      <input name="phone" type="tel" required placeholder="Telefon *" aria-label="Telefon" autocomplete="tel" maxlength="30">
+      <textarea name="message" rows="4" placeholder="Poznámka (volitelné)" aria-label="Poznámka" maxlength="5000"></textarea>
       <label class="contact-consent">
         <input type="checkbox" name="consent" value="1" required>
         <span>Souhlasím se <a href="/ochrana-udaju" target="_blank" rel="noopener noreferrer">zpracováním osobních údajů</a> za účelem vyřízení poptávky. *</span>

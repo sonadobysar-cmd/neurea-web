@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Obchodní podmínky | Kouzlíme s Robinem",
   description:
     "Obchodní podmínky pro objednání vystoupení Kouzlíme s Robinem — Robin Panuš.",
+  alternates: { canonical: "/obchodni-podminky" },
   robots: { index: true, follow: true },
 };
 

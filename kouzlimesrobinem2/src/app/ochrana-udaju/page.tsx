@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Ochrana osobních údajů | Kouzlíme s Robinem",
   description:
     "Informace o zpracování osobních údajů při poptávce přes web Kouzlíme s Robinem.",
+  alternates: { canonical: "/ochrana-udaju" },
   robots: { index: true, follow: true },
 };
 

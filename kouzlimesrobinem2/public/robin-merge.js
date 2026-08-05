@@ -38,6 +38,7 @@
   var layer = document.getElementById("bubbles");
   var balloonData = window.ROBIN2_BALLOON_DATA || {};
   var balloonSrcs = balloonData.balloonSrcs || [];
+  var balloonCursor = 0;
   if (layer && !reduce) {
     var bubbles = [];
     var W = innerWidth;
@@ -47,12 +48,13 @@
       H = innerHeight;
     });
 
-    function spawnBubble(isBalloon) {
+    function spawnBubble(isBalloon, startVisible) {
       var el, size;
       if (isBalloon && balloonSrcs.length) {
         el = document.createElement("img");
         el.className = "bubble balloon-float";
-        el.src = balloonSrcs[Math.floor(Math.random() * balloonSrcs.length)];
+        el.src = balloonSrcs[balloonCursor % balloonSrcs.length];
+        balloonCursor++;
         el.alt = "";
         size = 44 + Math.random() * 30;
         el.style.height = size + "px";
@@ -67,7 +69,7 @@
       var b = {
         el: el,
         x: x,
-        y: H + size,
+        y: startVisible ? Math.random() * Math.max(1, H - size) : H + size,
         size: size,
         vy: 0.18 + Math.random() * 0.32,
         drift: (Math.random() - 0.5) * 0.32,
@@ -149,6 +151,9 @@
         spawnBubble(false);
       }, i * 400);
     }
+    for (var initialBalloon = 0; initialBalloon < Math.min(3, balloonSrcs.length); initialBalloon++) {
+      spawnBubble(true, true);
+    }
     setInterval(function () {
       if (bubbles.length < target) spawnBubble(false);
     }, 2600);
@@ -181,6 +186,7 @@
   var nextBtn = lightbox && lightbox.querySelector(".lightbox-next");
   var currentLb = -1;
   var galleryImgs = [];
+  var lightboxReturnFocus = null;
 
   function showLightboxAt(index) {
     if (!lightbox || !lightboxImg || !galleryImgs.length) return;
@@ -193,9 +199,11 @@
     lightbox.hidden = false;
     lightbox.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
+    if (closeBtn) closeBtn.focus();
   }
 
   function openLightboxFrom(group, img) {
+    lightboxReturnFocus = document.activeElement;
     galleryImgs = [];
     if (group) {
       group.querySelectorAll("figure[data-lightbox] img").forEach(function (el) {
@@ -212,6 +220,8 @@
     lightbox.setAttribute("aria-hidden", "true");
     document.body.style.overflow = "";
     currentLb = -1;
+    if (lightboxReturnFocus && lightboxReturnFocus.focus) lightboxReturnFocus.focus();
+    lightboxReturnFocus = null;
   }
 
   function stepLightbox(delta) {
@@ -220,9 +230,24 @@
   }
 
   document.querySelectorAll("[data-lb-group], #strip").forEach(function (group) {
+    group.querySelectorAll("figure[data-lightbox]").forEach(function (figure) {
+      figure.setAttribute("role", "button");
+      figure.setAttribute("tabindex", "0");
+      var figureImg = figure.querySelector("img");
+      figure.setAttribute("aria-label", "Zvětšit fotografii" + (figureImg && figureImg.alt ? ": " + figureImg.alt : ""));
+    });
     group.addEventListener("click", function (e) {
       var img = e.target.closest("figure[data-lightbox] img");
       if (img) openLightboxFrom(group, img);
+    });
+    group.addEventListener("keydown", function (e) {
+      if (e.key !== "Enter" && e.key !== " ") return;
+      var figure = e.target.closest("figure[data-lightbox]");
+      var img = figure && figure.querySelector("img");
+      if (img) {
+        e.preventDefault();
+        openLightboxFrom(group, img);
+      }
     });
   });
   if (closeBtn) closeBtn.addEventListener("click", closeLightbox);
@@ -241,6 +266,19 @@
       if (e.key === "Escape") closeLightbox();
       if (e.key === "ArrowLeft") stepLightbox(-1);
       if (e.key === "ArrowRight") stepLightbox(1);
+      if (e.key === "Tab") {
+        var controls = [closeBtn, prevBtn, nextBtn].filter(Boolean);
+        if (!controls.length) return;
+        var first = controls[0];
+        var last = controls[controls.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     });
   }
 
@@ -256,10 +294,12 @@
       ? balloonModal.querySelectorAll(".balloon-progress__dot")
       : [];
   var resetBalloonGame = function () {};
+  var balloonReturnFocus = null;
 
   function openBalloonModal(e) {
     if (e) e.preventDefault();
     if (!balloonModal) return;
+    balloonReturnFocus = e && e.currentTarget ? e.currentTarget : document.activeElement;
     resetBalloonGame();
     balloonModal.hidden = false;
     balloonModal.setAttribute("aria-hidden", "false");
@@ -273,6 +313,8 @@
     balloonModal.hidden = true;
     balloonModal.setAttribute("aria-hidden", "true");
     document.body.style.overflow = "";
+    if (balloonReturnFocus && balloonReturnFocus.focus) balloonReturnFocus.focus();
+    balloonReturnFocus = null;
   }
 
   document.querySelectorAll("[data-open-balloons]").forEach(function (el) {
@@ -285,6 +327,23 @@
   });
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") closeBalloonModal();
+    if (e.key === "Tab" && balloonModal && !balloonModal.hidden) {
+      var focusable = Array.prototype.slice.call(
+        balloonModal.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')
+      ).filter(function (el) {
+        return el.offsetParent !== null;
+      });
+      if (!focusable.length) return;
+      var first = focusable[0];
+      var last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
   });
 
   if (popstage && cluster && reward) {

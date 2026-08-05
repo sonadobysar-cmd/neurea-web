@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Observability } from "@/components/Observability";
 import "./globals.css";
 import "./luxury.css";
 import "./robin-merge.css";
@@ -56,8 +55,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           }}
         />
         {children}
-        <Analytics />
-        <SpeedInsights />
+        <Observability />
       </body>
     </html>
   );

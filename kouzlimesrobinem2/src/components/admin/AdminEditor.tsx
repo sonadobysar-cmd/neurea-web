@@ -151,6 +151,14 @@ export function AdminEditor({ initial }: { initial: SiteContent }) {
       <AdminPasswordForm />
 
       <section className="admin-section">
+        <h2>Statistiky webu</h2>
+        <p className="admin-help">
+          Návštěvnost, odkud lidé přišli a které stránky kouká nejvíc — jen pro tebe, na webu to klienti nevidí.
+          Přehled je ve Vercel Analytics (pošleme ti odkaz / přístup).
+        </p>
+      </section>
+
+      <section className="admin-section">
         <h2>Značka</h2>
         <div className="admin-grid">
           <Field label="Název" value={content.brand.name} onChange={(v) => patch("brand", { ...content.brand, name: v })} />

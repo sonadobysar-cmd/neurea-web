@@ -42,6 +42,14 @@
   line-height: 1.5;
 }
 
+.admin-help {
+  margin: 0;
+  max-width: 52ch;
+  line-height: 1.55;
+  color: rgba(248, 241, 228, 0.78);
+  font-size: 15px;
+}
+
 .admin-card label,
 .admin-field {
   display: grid;

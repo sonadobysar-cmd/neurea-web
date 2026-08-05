@@ -288,10 +288,6 @@ body {
   margin: 0;
 }
 
-.kouzla-sec--cards {
-  padding: clamp(64px, 9vh, 110px) 0 clamp(80px, 10vh, 120px);
-}
-
 .kouzla-sec .balloon-wrap {
   padding: clamp(64px, 9vh, 110px) 0 clamp(80px, 10vh, 120px);
 }
@@ -1163,7 +1159,7 @@ nav.is-open .nav-toggle span:nth-child(3) {
 }
 
 .luxury-root .moments-head h2 em {
-  color: #f4e9d3;
+  color: var(--ember, #e85a00);
 }
 
 .luxury-root .moments-viewport {

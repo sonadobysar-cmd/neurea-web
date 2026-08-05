@@ -116,6 +116,19 @@ export const luxuryBodyTemplate = `<svg width="0" height="0" style="position:abs
 </section>
 
 <section class="kouzla-sec" id="kouzla">
+  <div class="trick trick-cards">
+    <div class="wrap">
+      <div class="reveal" style="text-align:center;max-width:660px;margin:0 auto">
+        <h2>Přečtu vám <em>myšlenky.</em></h2>
+        <p class="lead">Zapamatujte si <strong style="color:var(--ivory)">jednu</strong> z šesti karet. Jen v duchu — nikam neklikejte. Soustřeďte se na ni&hellip; a pak nechte zamíchat.</p>
+      </div>
+      <div class="tcards reveal d1" id="tcards" aria-live="polite"></div>
+      <p class="trick-msg" id="tmsg"></p>
+      <div class="trick-ctas reveal d2">
+        <button class="btn btn-amber" id="tbtn" type="button">Zamíchat karty<svg class="st"><use href="#star"/></svg></button>
+      </div>
+    </div>
+  </div>
   <div class="balloon-wrap">
     <div class="wrap">
       <div class="balloon-panel reveal">
@@ -214,22 +227,6 @@ export const luxuryBodyTemplate = `<svg width="0" height="0" style="position:abs
     </form>
     <div class="contact-thanks" id="contactThanks" hidden>
       <p>{{cms.contact.thanks}}</p>
-    </div>
-  </div>
-</section>
-
-<section class="kouzla-sec kouzla-sec--cards" id="karty">
-  <div class="trick trick-cards">
-    <div class="wrap">
-      <div class="reveal" style="text-align:center;max-width:660px;margin:0 auto">
-        <h2>Přečtu vám <em>myšlenky.</em></h2>
-        <p class="lead">Zapamatujte si <strong style="color:var(--ivory)">jednu</strong> z šesti karet. Jen v duchu — nikam neklikejte. Soustřeďte se na ni&hellip; a pak nechte zamíchat.</p>
-      </div>
-      <div class="tcards reveal d1" id="tcards" aria-live="polite"></div>
-      <p class="trick-msg" id="tmsg"></p>
-      <div class="trick-ctas reveal d2">
-        <button class="btn btn-amber" id="tbtn" type="button">Zamíchat karty<svg class="st"><use href="#star"/></svg></button>
-      </div>
     </div>
   </div>
 </section>

@@ -193,12 +193,15 @@ export const luxuryBodyTemplate = `<svg width="0" height="0" style="position:abs
 </section>
 
 <section class="moments-sec" id="z-vystoupeni">
-  <div class="wrap">
-    <div class="moments-head reveal">
+  <div class="wrap moments-head reveal">
+    <div>
       <h2>{{cms.moments.titleBefore}}<em>{{cms.moments.titleEm}}</em></h2>
       <p class="lead">{{cms.moments.lead}}</p>
     </div>
-    <div class="moments-grid reveal d1" id="moments-grid" data-lb-group>
+    <p class="gal-hint">Fotky z akcí<svg class="st"><use href="#star"/></svg></p>
+  </div>
+  <div class="moments-viewport reveal d1">
+    <div class="strip strip--marquee moments-strip" id="moments-strip" data-lb-group>
       {{cms.moments.images}}
     </div>
   </div>

@@ -168,6 +168,10 @@
   if (strip && strip.classList.contains("strip--marquee")) {
     strip.innerHTML = strip.innerHTML + strip.innerHTML;
   }
+  var momentsStrip = document.getElementById("moments-strip");
+  if (momentsStrip && momentsStrip.classList.contains("strip--marquee")) {
+    momentsStrip.innerHTML = momentsStrip.innerHTML + momentsStrip.innerHTML;
+  }
 
   var lightbox = document.getElementById("lightbox");
   var lightboxImg = document.getElementById("lightbox-img");

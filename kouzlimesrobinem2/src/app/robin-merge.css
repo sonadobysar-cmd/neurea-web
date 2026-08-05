@@ -1139,95 +1139,109 @@ nav.is-open .nav-toggle span:nth-child(3) {
   }
 }
 
-/* Galerie Z vystoupení — telefonní fotky / placeholdery */
+/* Galerie Z vystoupení — pojízdný pás, jiný tvar než hlavní galerie */
 .luxury-root .moments-sec {
-  padding: clamp(72px, 10vh, 120px) 0;
-  background:
-    radial-gradient(ellipse 70% 50% at 20% 0%, rgba(238, 139, 0, 0.08), transparent 55%),
-    radial-gradient(ellipse 60% 40% at 90% 80%, rgba(196, 165, 116, 0.12), transparent 50%),
-    var(--champagne, #f3ebe0);
+  padding: clamp(72px, 10vh, 120px) 0 0;
 }
 
 .luxury-root .moments-head {
-  max-width: 560px;
-  margin: 0 auto clamp(36px, 5vw, 52px);
-  text-align: center;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
 }
 
 .luxury-root .moments-head .lead {
-  margin-left: auto;
-  margin-right: auto;
+  margin-top: 14px;
+  max-width: 42ch;
 }
 
 .luxury-root .moments-head h2 em {
   color: var(--ember, #e85a00);
 }
 
-.luxury-root .moments-grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: clamp(10px, 1.6vw, 18px);
-  align-items: stretch;
-}
-
-.luxury-root .moments-grid .mph {
-  margin: 0;
-  grid-column: span 4;
-  border-radius: 14px;
+.luxury-root .moments-viewport {
   overflow: hidden;
-  background: rgba(32, 20, 6, 0.06);
-  box-shadow: 0 18px 40px -28px rgba(32, 20, 6, 0.45);
-  transform: rotate(var(--tilt, 0deg));
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  padding-bottom: 36px;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+}
+
+.luxury-root .moments-viewport:hover .moments-strip {
+  animation-play-state: paused;
+}
+
+.luxury-root .moments-strip {
+  gap: 18px;
+  padding-top: 40px;
+  animation-duration: 58s;
+  animation-direction: reverse;
+}
+
+.luxury-root .moments-strip .mph {
+  flex: none;
+  width: 240px;
+  margin: 0;
+  padding: 10px 10px 14px;
+  border-radius: 18px;
+  background: var(--card, #fcf8ef);
+  border: 1px solid var(--hair, rgba(32, 20, 6, 0.12));
+  box-shadow: 0 16px 36px -28px rgba(32, 20, 6, 0.4);
   cursor: zoom-in;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
-.luxury-root .moments-grid .mph.wide {
-  grid-column: span 6;
+.luxury-root .moments-strip .mph:nth-child(even) {
+  margin-top: 28px;
 }
 
-.luxury-root .moments-grid .mph img {
+.luxury-root .moments-strip .mph.wide {
+  width: 320px;
+}
+
+.luxury-root .moments-strip .mph img {
   display: block;
   width: 100%;
-  height: 100%;
-  min-height: 180px;
-  object-fit: cover;
   aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 12px;
+  transition: transform 0.7s ease;
 }
 
-.luxury-root .moments-grid .mph.wide img {
-  aspect-ratio: 16 / 11;
+.luxury-root .moments-strip .mph.wide img {
+  aspect-ratio: 5 / 4;
 }
 
-.luxury-root .moments-grid .mph[data-i="0"] { --tilt: -1.4deg; }
-.luxury-root .moments-grid .mph[data-i="1"] { --tilt: 1.1deg; }
-.luxury-root .moments-grid .mph[data-i="2"] { --tilt: 0.8deg; }
-.luxury-root .moments-grid .mph[data-i="3"] { --tilt: -0.9deg; }
-.luxury-root .moments-grid .mph[data-i="4"] { --tilt: 1.3deg; }
-.luxury-root .moments-grid .mph[data-i="5"] { --tilt: -1.1deg; }
-
-.luxury-root .moments-grid .mph:hover,
-.luxury-root .moments-grid .mph:focus-within {
-  transform: rotate(0deg) translateY(-4px) scale(1.02);
-  box-shadow: 0 28px 50px -24px rgba(32, 20, 6, 0.5);
-  z-index: 2;
+.luxury-root .moments-strip .mph figcaption {
+  margin-top: 10px;
+  font: 700 10px var(--sans);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft, rgba(32, 20, 6, 0.62));
+  text-align: center;
 }
 
-@media (max-width: 900px) {
-  .luxury-root .moments-grid .mph,
-  .luxury-root .moments-grid .mph.wide {
-    grid-column: span 6;
+.luxury-root .moments-strip .mph:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 44px -26px rgba(32, 20, 6, 0.5);
+}
+
+.luxury-root .moments-strip .mph:hover img {
+  transform: scale(1.04);
+}
+
+@media (max-width: 640px) {
+  .luxury-root .moments-head {
+    align-items: flex-start;
   }
-}
 
-@media (max-width: 560px) {
-  .luxury-root .moments-grid {
-    gap: 12px;
+  .luxury-root .moments-strip .mph {
+    width: 200px;
   }
 
-  .luxury-root .moments-grid .mph,
-  .luxury-root .moments-grid .mph.wide {
-    grid-column: span 12;
-    --tilt: 0deg !important;
+  .luxury-root .moments-strip .mph.wide {
+    width: 260px;
   }
 }

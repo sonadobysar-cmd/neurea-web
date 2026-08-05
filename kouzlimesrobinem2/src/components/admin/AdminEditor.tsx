@@ -314,7 +314,7 @@ export function AdminEditor({ initial }: { initial: SiteContent }) {
       </section>
 
       <section className="admin-section">
-        <h2>Z oslav (fotky od klientů)</h2>
+        <h2>Z vystoupení (fotky od klientů)</h2>
         <div className="admin-grid">
           <Field label="Nadpis před" value={content.moments.titleBefore} onChange={(v) => patch("moments", { ...content.moments, titleBefore: v })} />
           <Field label="Zvýraznění" value={content.moments.titleEm} onChange={(v) => patch("moments", { ...content.moments, titleEm: v })} />

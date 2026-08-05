@@ -20,7 +20,7 @@ export const luxuryBodyTemplate = `<svg width="0" height="0" style="position:abs
       <a href="#top">Domů</a>
       <a href="#robin">O mně</a>
       <a href="#galerie">Ukázka představení</a>
-      <a href="#z-oslav">Z oslav</a>
+      <a href="#z-vystoupeni">Z vystoupení</a>
       <a href="#cena">Ceník</a>
       <a href="#kontakt">Kontakt</a>
     </div>
@@ -192,7 +192,7 @@ export const luxuryBodyTemplate = `<svg width="0" height="0" style="position:abs
   </div>
 </section>
 
-<section class="moments-sec" id="z-oslav">
+<section class="moments-sec" id="z-vystoupeni">
   <div class="wrap">
     <div class="moments-head reveal">
       <h2>{{cms.moments.titleBefore}}<em>{{cms.moments.titleEm}}</em></h2>

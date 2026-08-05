@@ -163,7 +163,7 @@
     requestAnimationFrame(tick);
   }
 
-  // 9) Galerie — pojízdný pás + lightbox se šipkami (i galerie Z oslav)
+  // 9) Galerie — pojízdný pás + lightbox se šipkami (i galerie Z vystoupení)
   var strip = document.getElementById("strip");
   if (strip && strip.classList.contains("strip--marquee")) {
     strip.innerHTML = strip.innerHTML + strip.innerHTML;

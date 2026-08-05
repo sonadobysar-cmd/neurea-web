@@ -14,8 +14,8 @@ export type ContactDelivery = "sent" | "mailto";
 function mailtoUrl(to: string, payload: ContactPayload) {
   const subject =
     payload.source === "configurator"
-      ? "Poptávka z konfigurátoru FLAX"
-      : "Nová poptávka z webu FLAX";
+      ? "Poptávka z konfigurátoru Chatky na kolech"
+      : "Nová poptávka z webu Chatky na kolech";
   const configuration = payload.configuration
     ? `\n\nKonfigurace:\n${JSON.stringify(payload.configuration, null, 2)}`
     : "";

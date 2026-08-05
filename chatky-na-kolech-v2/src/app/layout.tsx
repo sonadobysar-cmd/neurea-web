@@ -5,7 +5,7 @@ import { brand } from "@/data/content";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
-const title = "FLAX · Tiny houses na míru";
+const title = "Chatky na kolech · Tiny houses na míru";
 const description =
   "Navrhujeme a vyrábíme tiny houses na kolech přesně podle vašeho života, pozemku nebo podnikání. Vytvořte si vlastní zadání a orientační cenu online.";
 const ogImage = "/media/v2/flax-hero.png";
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: title,
-    template: "%s · FLAX",
+    template: "%s · Chatky na kolech",
   },
   description,
   keywords: [
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     "tiny house na kolech",
     "mobilní domek na kolech",
     "dřevostavba na kolech",
-    "FLAX tiny house",
+    "Chatky na kolech",
     "tiny house na míru",
     "tiny house konfigurátor",
     "rekonstrukce kempu",

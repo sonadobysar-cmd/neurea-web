@@ -5,4 +5,4 @@
  * it falls back to the current production Vercel URL.
  */
 export const SITE_URL =
-  process.env.SITE_URL ?? "https://flax-tiny-houses.vercel.app";
+  process.env.SITE_URL ?? "https://chatky-na-kolech-2.vercel.app";

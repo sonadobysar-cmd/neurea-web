@@ -74,7 +74,7 @@ export default function HomePage() {
         <section className="flax-hero">
           <Image
             src="/media/v2/flax-hero.png"
-            alt="Zakázkový tiny house FLAX ze dřeva, kovu a kamene při soumraku"
+            alt="Zakázkový tiny house ze dřeva, kovu a kamene při soumraku"
             fill
             priority
             sizes="100vw"
@@ -114,7 +114,7 @@ export default function HomePage() {
             </aside>
           </div>
           <a className="flax-scroll" href="#na-miru">
-            Objevit FLAX <i />
+            Objevit návrh <i />
           </a>
         </section>
 

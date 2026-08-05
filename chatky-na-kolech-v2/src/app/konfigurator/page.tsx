@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     "Sestavte si tiny house na kolech na míru. Vyberte rozměry, střechu, fasádu i výbavu a ihned uvidíte orientační cenu.",
   alternates: { canonical: "/konfigurator" },
   openGraph: {
-    title: "Konfigurátor tiny house na míru · FLAX",
+    title: "Konfigurátor tiny house na míru · Chatky na kolech",
     description:
       "Sestavte si tiny house na kolech krok za krokem — rozměry, střecha, fasáda, interiér. Orientační cena v reálném čase.",
     url: "/konfigurator",

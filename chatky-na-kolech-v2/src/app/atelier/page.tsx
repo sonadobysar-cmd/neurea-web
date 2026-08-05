@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     "Nahlédněte do výroby tiny houses na kolech. Vlastní dílna, přírodní dřevo, moderní interiér a homologovaný podvozek.",
   alternates: { canonical: "/atelier" },
   openGraph: {
-    title: "Materiály a zakázková výroba tiny house · FLAX",
+    title: "Materiály a zakázková výroba · Chatky na kolech",
     description:
       "Zakázková výroba, homologovaný podvozek a materiály, které vytvářejí přirozeně teplý interiér.",
     url: "/atelier",
@@ -34,7 +34,7 @@ export default function AtelierPage() {
           <p className="eyebrow">Materiál & řemeslo</p>
           <h1>Dobře se tu žije ještě dřív, než vejdete</h1>
           <p>
-            Dřevo, světlo, proporce a detail. Každý tiny house FLAX vzniká jako
+            Dřevo, světlo, proporce a detail. Každý tiny house vzniká jako
             jeden celek — od prvního půdorysu po poslední úchytku.
           </p>
         </div>

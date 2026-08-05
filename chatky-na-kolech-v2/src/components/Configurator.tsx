@@ -857,7 +857,7 @@ export function Configurator() {
                 {showSuppliers && (
                   <div className="cfg-accordion-body">
                     <p className="cfg-accordion-intro">
-                      Při výrobě Tiny House FLAX využíváme materiály a
+                      Při výrobě chatek na kolech využíváme materiály a
                       komponenty od ověřených dodavatelů a výrobců.
                     </p>
                     <div className="cfg-suppliers">

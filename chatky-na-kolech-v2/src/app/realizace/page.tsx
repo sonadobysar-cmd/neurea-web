@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     "Prohlédněte si realizované tiny houses na kolech — exteriéry, interiéry, ploché i kulaté střechy pro bydlení, Airbnb a glamping.",
   alternates: { canonical: "/realizace" },
   openGraph: {
-    title: "Realizace tiny houses na míru · FLAX",
+    title: "Realizace tiny houses na míru · Chatky na kolech",
     description:
       "Skutečné tiny houses z naší dílny — exteriéry, interiéry, kulaté i ploché střechy. Každý s koly.",
     url: "/realizace",

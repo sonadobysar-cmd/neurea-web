@@ -18,7 +18,7 @@ export function SiteFooter() {
             <p className="footer-note">Každý dům začíná rozhovorem, ne katalogovým číslem.</p>
           </div>
           <div className="footer-col">
-            <h4>Objevte FLAX</h4>
+            <h4>Prozkoumejte web</h4>
             {nav.map((item) => (
               <Link key={item.href} href={item.href}>
                 {item.label}

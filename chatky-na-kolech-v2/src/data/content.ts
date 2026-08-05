@@ -1,7 +1,7 @@
 export const brand = {
-  name: "FLAX",
-  short: "FLAX",
-  legal: "Tiny House FLAX",
+  name: "Chatky na kolech",
+  short: "Chatky na kolech",
+  legal: "Chatky na kolech",
   domain: "chatkynakolech.cz",
   tagline: "Tiny houses na míru. Od první skici po cestu domů.",
   phone: "+420 777 000 000",

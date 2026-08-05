@@ -4,7 +4,7 @@ import { brand } from "@/data/content";
 
 export const metadata: Metadata = {
   title: "Ochrana osobních údajů",
-  description: "Informace o zpracování osobních údajů na webu FLAX.",
+  description: "Informace o zpracování osobních údajů na webu Chatky na kolech.",
   alternates: { canonical: "/ochrana-osobnich-udaju" },
   robots: { index: false, follow: true },
 };

@@ -1,4 +1,22 @@
 import defaultContent from "@/data/default-content.json";
+import { LEGAL_DEFAULTS } from "@/data/legal-defaults";
+
+export type LegalSection = {
+  heading: string;
+  body: string;
+};
+
+export type LegalPageContent = {
+  title: string;
+  lead: string;
+  updated: string;
+  sections: LegalSection[];
+};
+
+export type LegalPagesContent = {
+  terms: LegalPageContent;
+  privacy: LegalPageContent;
+};
 
 export type GalleryImage = {
   src: string;
@@ -97,9 +115,13 @@ export type SiteContent = {
     bookingUrl: string;
   };
   footer: { copy: string };
+  legal: LegalPagesContent;
 };
 
-export const DEFAULT_CONTENT = defaultContent as SiteContent;
+export const DEFAULT_CONTENT = {
+  ...(defaultContent as Omit<SiteContent, "legal">),
+  legal: LEGAL_DEFAULTS,
+} as SiteContent;
 
 export function mergeContent(partial: unknown): SiteContent {
   if (!partial || typeof partial !== "object") return structuredClone(DEFAULT_CONTENT);

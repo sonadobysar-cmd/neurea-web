@@ -2,7 +2,7 @@
 
 import { FormEvent, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import type { SiteContent } from "@/lib/cms/types";
+import type { SiteContent, LegalPageContent } from "@/lib/cms/types";
 import { AdminPasswordForm } from "./AdminPasswordForm";
 
 function Field({
@@ -80,6 +80,62 @@ function ImageField({
         </label>
       </div>
       {error ? <p className="admin-error">{error}</p> : null}
+    </div>
+  );
+}
+
+function LegalPageEditor({
+  title,
+  page,
+  previewHref,
+  onChange,
+}: {
+  title: string;
+  page: LegalPageContent;
+  previewHref: string;
+  onChange: (page: LegalPageContent) => void;
+}) {
+  return (
+    <div className="admin-legal-block">
+      <div className="admin-legal-head">
+        <h3>{title}</h3>
+        <a href={previewHref} target="_blank" rel="noreferrer">
+          Náhled ↗
+        </a>
+      </div>
+      <div className="admin-grid">
+        <Field label="Nadpis stránky" value={page.title} onChange={(v) => onChange({ ...page, title: v })} />
+        <Field label="Poznámka dole (aktualizováno)" value={page.updated} onChange={(v) => onChange({ ...page, updated: v })} />
+      </div>
+      <Field label="Úvodní text" value={page.lead} onChange={(v) => onChange({ ...page, lead: v })} multiline />
+      <p className="admin-help">
+        U každé sekce: odstavce oddělte prázdným řádkem. Odrážky pište na samostatné řádky začínající „- “.
+        V obchodních podmínkách lze vložit odkaz na GDPR pomocí{" "}
+        <code>{"{{privacy-link}}"}</code>.
+      </p>
+      {page.sections.map((section, i) => (
+        <div className="admin-card-block" key={`${section.heading}-${i}`}>
+          <Field
+            label={`Sekce ${i + 1} — nadpis`}
+            value={section.heading}
+            onChange={(v) => {
+              const sections = [...page.sections];
+              sections[i] = { ...section, heading: v };
+              onChange({ ...page, sections });
+            }}
+          />
+          <Field
+            label="Obsah sekce"
+            value={section.body}
+            multiline
+            onChange={(v) => {
+              const sections = [...page.sections];
+              sections[i] = { ...section, body: v };
+              onChange({ ...page, sections });
+            }}
+          />
+        </div>
+      ))}
     </div>
   );
 }
@@ -413,6 +469,26 @@ export function AdminEditor({ initial }: { initial: SiteContent }) {
       <section className="admin-section">
         <h2>Patička</h2>
         <Field label="Copyright" value={content.footer.copy} onChange={(v) => patch("footer", { ...content.footer, copy: v })} />
+      </section>
+
+      <section className="admin-section">
+        <h2>Obchodní podmínky</h2>
+        <LegalPageEditor
+          title="Obchodní podmínky"
+          page={content.legal.terms}
+          previewHref="/obchodni-podminky"
+          onChange={(terms) => patch("legal", { ...content.legal, terms })}
+        />
+      </section>
+
+      <section className="admin-section">
+        <h2>Ochrana osobních údajů (GDPR)</h2>
+        <LegalPageEditor
+          title="GDPR"
+          page={content.legal.privacy}
+          previewHref="/ochrana-udaju"
+          onChange={(privacy) => patch("legal", { ...content.legal, privacy })}
+        />
       </section>
 
       <div className="admin-bottom">

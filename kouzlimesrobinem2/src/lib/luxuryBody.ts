@@ -231,6 +231,7 @@ export const luxuryBodyTemplate = `<svg width="0" height="0" style="position:abs
   <div class="wrap foot">
     <span>{{cms.footer.copy}}</span>
     <div class="foot-links">
+      <a href="/obchodni-podminky">Obchodní podmínky</a>
       <a href="/ochrana-udaju">Ochrana údajů</a>
       <a class="foot-credit" href="https://niadobysar.com" target="_blank" rel="noopener noreferrer">Web · Nia Dobyšar</a>
     </div>

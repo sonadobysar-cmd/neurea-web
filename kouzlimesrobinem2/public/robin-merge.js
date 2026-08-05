@@ -289,15 +289,8 @@
     var rewards = balloonData.rewards || [];
     var order = [];
     var MAX_POPS = 2;
-    var STORAGE_KEY = "robin-balloon-pops";
-    var STORAGE_REWARD_KEY = "robin-balloon-last-reward";
     var balloonPanel = balloonModal ? balloonModal.querySelector(".balloon-panel") : null;
     var popped = 0;
-    try {
-      popped = Math.max(0, parseInt(localStorage.getItem(STORAGE_KEY) || "0", 10) || 0);
-    } catch (e) {
-      popped = 0;
-    }
     var busy = false;
 
     function shuffle() {
@@ -313,30 +306,11 @@
     }
     shuffle();
 
-    function savePops() {
-      try {
-        localStorage.setItem(STORAGE_KEY, String(popped));
-      } catch (e) {
-        /* ignore */
-      }
-    }
-
-    function saveLastReward(index) {
-      try {
-        localStorage.setItem(STORAGE_REWARD_KEY, String(index));
-      } catch (e) {
-        /* ignore */
-      }
-    }
-
-    function loadLastReward() {
-      try {
-        var idx = parseInt(localStorage.getItem(STORAGE_REWARD_KEY) || "", 10);
-        if (!isNaN(idx) && rewards[idx]) return rewards[idx];
-      } catch (e) {
-        /* ignore */
-      }
-      return rewards[0] || null;
+    try {
+      localStorage.removeItem("robin-balloon-pops");
+      localStorage.removeItem("robin-balloon-last-reward");
+    } catch (e) {
+      /* ignore */
     }
 
     function renderReward(pick, done) {
@@ -414,8 +388,6 @@
         cluster.classList.remove("popping");
       }, 620);
       popped++;
-      savePops();
-      saveLastReward(pickIndex);
       renderReward(pick, popped >= MAX_POPS);
       syncPopUi();
       setTimeout(function () {
@@ -441,12 +413,6 @@
     });
     if (popBtn) popBtn.addEventListener("click", resetPop);
 
-    if (popped >= MAX_POPS) {
-      cluster.classList.add("gone");
-      if (reward && !reward.classList.contains("show")) {
-        renderReward(loadLastReward(), true);
-      }
-    }
     syncPopUi();
   }
 

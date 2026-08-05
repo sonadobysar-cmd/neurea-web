@@ -290,6 +290,8 @@
     var order = [];
     var MAX_POPS = 2;
     var STORAGE_KEY = "robin-balloon-pops";
+    var STORAGE_REWARD_KEY = "robin-balloon-last-reward";
+    var balloonPanel = balloonModal ? balloonModal.querySelector(".balloon-panel") : null;
     var popped = 0;
     try {
       popped = Math.max(0, parseInt(localStorage.getItem(STORAGE_KEY) || "0", 10) || 0);
@@ -319,6 +321,41 @@
       }
     }
 
+    function saveLastReward(index) {
+      try {
+        localStorage.setItem(STORAGE_REWARD_KEY, String(index));
+      } catch (e) {
+        /* ignore */
+      }
+    }
+
+    function loadLastReward() {
+      try {
+        var idx = parseInt(localStorage.getItem(STORAGE_REWARD_KEY) || "", 10);
+        if (!isNaN(idx) && rewards[idx]) return rewards[idx];
+      } catch (e) {
+        /* ignore */
+      }
+      return rewards[0] || null;
+    }
+
+    function renderReward(pick, done) {
+      if (!pick) return;
+      var label = done
+        ? "Už jsi praskl(a) 2× — teď objednej Robina naživo"
+        : "Robin ti vyrobil " + pick.lbl;
+      reward.innerHTML =
+        '<img src="' +
+        pick.src +
+        '" alt="' +
+        pick.lbl +
+        '"><span class="rlabel"><svg><use href="#star"/></svg>' +
+        label +
+        "</span>";
+      void reward.offsetWidth;
+      reward.classList.add("show");
+    }
+
     function setClusterEnabled(on) {
       if (on) {
         cluster.removeAttribute("aria-disabled");
@@ -337,10 +374,7 @@
       var done = popped >= MAX_POPS;
       if (popBtn) popBtn.style.display = done || popped === 0 ? "none" : "";
       if (popCta) popCta.style.display = done ? "" : "none";
-      if (final) {
-        if (done) final.classList.add("show");
-        else final.classList.remove("show");
-      }
+      if (balloonPanel) balloonPanel.classList.toggle("balloon-panel--done", done);
       setClusterEnabled(!done && !cluster.classList.contains("gone"));
     }
 
@@ -371,25 +405,18 @@
     function doPop() {
       if (busy || !rewards.length || popped >= MAX_POPS) return;
       busy = true;
-      var pick = rewards[order[popped % order.length]];
+      var pickIndex = order[popped % order.length];
+      var pick = rewards[pickIndex];
       starBurst();
       cluster.classList.add("popping");
       setTimeout(function () {
         cluster.classList.add("gone");
         cluster.classList.remove("popping");
       }, 620);
-      reward.innerHTML =
-        '<img src="' +
-        pick.src +
-        '" alt="' +
-        pick.lbl +
-        '"><span class="rlabel"><svg><use href="#star"/></svg>Robin ti vyrobil ' +
-        pick.lbl +
-        "</span>";
-      void reward.offsetWidth;
-      reward.classList.add("show");
       popped++;
       savePops();
+      saveLastReward(pickIndex);
+      renderReward(pick, popped >= MAX_POPS);
       syncPopUi();
       setTimeout(function () {
         busy = false;
@@ -416,10 +443,8 @@
 
     if (popped >= MAX_POPS) {
       cluster.classList.add("gone");
-      if (reward && !reward.innerHTML) {
-        reward.innerHTML =
-          '<span class="rlabel"><svg><use href="#star"/></svg>Už jsi praskl(a) 2× — teď objednej Robina naživo</span>';
-        reward.classList.add("show");
+      if (reward && !reward.classList.contains("show")) {
+        renderReward(loadLastReward(), true);
       }
     }
     syncPopUi();

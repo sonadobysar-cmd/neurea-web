@@ -288,8 +288,23 @@ body {
   margin: 0;
 }
 
-/* Rezervace — Google Calendar / Cal.com embed */
-.luxury-root .booking-sec {
+/* Rezervace — Google Calendar / Cal.com embed (uvnitř ceníku) */
+.luxury-root .price-booking {
+  margin-top: clamp(48px, 7vw, 72px);
+  padding-top: clamp(40px, 6vw, 56px);
+  border-top: 1.5px dashed var(--hair, rgba(32, 20, 6, 0.12));
+}
+
+.luxury-root .price-booking.booking-sec {
+  padding-bottom: 0;
+}
+
+.luxury-root .booking-sec,
+.luxury-root .price-booking {
+  padding: 0;
+}
+
+.luxury-root .booking-sec:not(.price-booking) {
   padding: clamp(72px, 10vh, 120px) 0;
 }
 
@@ -314,7 +329,7 @@ body {
   border-radius: 24px;
   overflow: hidden;
   box-shadow: 0 24px 60px -36px rgba(32, 20, 6, 0.35);
-  min-height: 640px;
+  min-height: min(720px, 75vh);
 }
 
 .luxury-root .booking-frame {
@@ -329,12 +344,14 @@ body {
 .luxury-root .booking-fallback {
   display: none;
   text-align: center;
-  max-width: 42ch;
+  max-width: 520px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: clamp(48px, 8vw, 72px) 24px;
+  min-height: min(420px, 55vh);
   background: var(--card, #fcf8ef);
   border: 1px solid var(--hair, rgba(32, 20, 6, 0.12));
   border-radius: 24px;
+  box-shadow: 0 24px 60px -36px rgba(32, 20, 6, 0.35);
 }
 
 .luxury-root .booking-fallback p {

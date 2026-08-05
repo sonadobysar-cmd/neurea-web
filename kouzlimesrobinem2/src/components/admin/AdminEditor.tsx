@@ -398,6 +398,16 @@ export function AdminEditor({ initial }: { initial: SiteContent }) {
           <Field label="E-mail" value={content.contact.email} onChange={(v) => patch("contact", { ...content.contact, email: v })} />
         </div>
         <Field label="Děkovací text" value={content.contact.thanks} onChange={(v) => patch("contact", { ...content.contact, thanks: v })} multiline />
+        <Field
+          label="Rezervace — odkaz na kalendář (Cal.com / Google Appointment Schedule / Calendly)"
+          value={content.contact.bookingUrl || ""}
+          onChange={(v) => patch("contact", { ...content.contact, bookingUrl: v })}
+        />
+        <p className="admin-help">
+          Napojení na Robinův Google Kalendář: nejjednodušší je Cal.com (zdarma) → propojit Google Calendar → vytvořit typ schůzky → sem vložit veřejný odkaz
+          (např. https://cal.com/…). Alternativa: v Google Kalendáři vytvořit „Appointment schedule“ a vložit booking URL.
+          Dokud je pole prázdné, na webu je u rezervace záložní výzva na kontaktní formulář.
+        </p>
       </section>
 
       <section className="admin-section">

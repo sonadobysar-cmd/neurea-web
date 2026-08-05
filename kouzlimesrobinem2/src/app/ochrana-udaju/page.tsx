@@ -101,9 +101,16 @@ export default function PrivacyPage() {
         <section>
           <h2>7. Cookies a měření</h2>
           <p>
-            Web nepoužívá reklamní ani analytické cookies třetích stran. Pro
-            ochranu formuláře může být použito bezpečnostní ověření (např.
+            Web nepoužívá reklamní cookies. Pro návštěvnost můžeme využívat
+            privátní měření hostingu (Vercel Analytics) bez reklamních profilů.
+            Pro ochranu formuláře může být použito bezpečnostní ověření (např.
             Cloudflare Turnstile).
+          </p>
+          <p>
+            Pokud využijete online rezervaci termínu, údaje o rezervaci
+            zpracovává také poskytovatel rezervačního kalendáře (např. Cal.com
+            nebo Google Calendar Appointment Schedules) podle svých podmínek —
+            typicky jméno, e-mail a zvolený termín.
           </p>
         </section>
 

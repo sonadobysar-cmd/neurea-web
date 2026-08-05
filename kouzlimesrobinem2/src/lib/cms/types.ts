@@ -94,6 +94,7 @@ export type SiteContent = {
     phoneHref: string;
     email: string;
     thanks: string;
+    bookingUrl: string;
   };
   footer: { copy: string };
 };

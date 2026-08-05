@@ -288,6 +288,74 @@ body {
   margin: 0;
 }
 
+/* Rezervace — Google Calendar / Cal.com embed */
+.luxury-root .booking-sec {
+  padding: clamp(72px, 10vh, 120px) 0;
+}
+
+.luxury-root .booking-head {
+  max-width: 560px;
+  margin: 0 auto 36px;
+  text-align: center;
+}
+
+.luxury-root .booking-head .lead {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.luxury-root .booking-head h2 em {
+  color: #f4e9d3;
+}
+
+.luxury-root .booking-embed {
+  background: var(--card, #fcf8ef);
+  border: 1px solid var(--hair, rgba(32, 20, 6, 0.12));
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px -36px rgba(32, 20, 6, 0.35);
+  min-height: 640px;
+}
+
+.luxury-root .booking-frame {
+  display: block;
+  width: 100%;
+  min-height: 720px;
+  height: 75vh;
+  border: 0;
+  background: #fff;
+}
+
+.luxury-root .booking-fallback {
+  display: none;
+  text-align: center;
+  max-width: 42ch;
+  margin: 0 auto;
+  padding: 40px 20px;
+  background: var(--card, #fcf8ef);
+  border: 1px solid var(--hair, rgba(32, 20, 6, 0.12));
+  border-radius: 24px;
+}
+
+.luxury-root .booking-fallback p {
+  margin: 0 0 22px;
+  color: var(--ink-soft, rgba(32, 20, 6, 0.72));
+  line-height: 1.55;
+}
+
+.luxury-root .booking-fallback a:not(.btn) {
+  color: var(--ember, #e85a00);
+  font-weight: 700;
+}
+
+.luxury-root .booking-sec.is-empty .booking-embed {
+  display: none;
+}
+
+.luxury-root .booking-sec.is-empty .booking-fallback {
+  display: block;
+}
+
 .balloon-modal {
   position: fixed;
   inset: 0;

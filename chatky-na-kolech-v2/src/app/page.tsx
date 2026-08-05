@@ -13,7 +13,7 @@ const intentions = [
     text: "Domov, víkendové útočiště nebo pokoj navíc. Dispozici stavíme kolem toho, jak skutečně žijete.",
     image: "/media/koncepty/koncept-luka-zapad.jpg",
     href: "/konfigurator",
-    label: "Začít vlastní návrh",
+    label: "Spustit konfigurátor",
   },
   {
     number: "02",
@@ -95,7 +95,7 @@ export default function HomePage() {
               </p>
               <div className="flax-actions">
                 <Link href="/konfigurator" className="btn btn-clay btn-arrow">
-                  Začít vlastní návrh
+                  Spustit konfigurátor
                   <ArrowIcon />
                 </Link>
                 <Link href="/realizace" className="btn btn-line-light">
@@ -229,8 +229,8 @@ export default function HomePage() {
               </div>
               <Reveal delay={1}>
                 <div className="flax-config-copy">
-                  <p className="flax-kicker dark">Interaktivní začátek</p>
-                  <h2>Nejdřív si dům zkuste představit.</h2>
+                  <p className="flax-kicker dark">Online konfigurátor</p>
+                  <h2>Sestavte si vlastní tiny house.</h2>
                   <p>
                     Zvolte rozměry, střechu, fasádu a výbavu. Uvidíte průběžnou
                     orientační cenu a na konci nám pošlete zadání, od kterého se

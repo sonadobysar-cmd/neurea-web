@@ -33,7 +33,13 @@ const HouseScene3D = dynamic(
   () => import("./HouseScene3D").then((m) => m.HouseScene3D),
   {
     ssr: false,
-    loading: () => <div className="house3d-loading">Načítám 3D model…</div>,
+    loading: () => (
+      <div className="house3d-loading" role="status" aria-live="polite">
+        <span className="house3d-loading-mark" aria-hidden="true" />
+        <strong>Připravujeme 3D náhled</strong>
+        <small>Za okamžik si dům můžete otočit a upravovat.</small>
+      </div>
+    ),
   },
 );
 
@@ -280,21 +286,24 @@ export function Configurator() {
   return (
     <div className="cfg-studio">
       <div className="cfg-topbar">
-        <nav className="cfg-steps" aria-label="Kroky konfigurátoru">
-          {STEPS.map((s, i) => (
-            <button
-              key={s.id}
-              type="button"
-              className={`cfg-steps-item${step === s.id ? " is-active" : ""}${
-                i < stepIndex ? " is-done" : ""
-              }`}
-              onClick={() => selectStep(s.id)}
-              aria-current={step === s.id ? "step" : undefined}
-            >
-              {s.label}
-            </button>
-          ))}
-        </nav>
+        <div className="cfg-topbar-main">
+          <p className="cfg-topbar-name">Konfigurátor</p>
+          <nav className="cfg-steps" aria-label="Kroky konfigurátoru">
+            {STEPS.map((s, i) => (
+              <button
+                key={s.id}
+                type="button"
+                className={`cfg-steps-item${step === s.id ? " is-active" : ""}${
+                  i < stepIndex ? " is-done" : ""
+                }`}
+                onClick={() => selectStep(s.id)}
+                aria-current={step === s.id ? "step" : undefined}
+              >
+                {s.label}
+              </button>
+            ))}
+          </nav>
+        </div>
         <div className="cfg-topbar-actions">
           <button
             type="button"

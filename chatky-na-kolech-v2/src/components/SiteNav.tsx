@@ -48,7 +48,7 @@ export function SiteNav({ darkHero = false }: { darkHero?: boolean }) {
           </nav>
 
           <Link href="/konfigurator" className="btn btn-ink nav-cta">
-            Začít návrh
+            Spustit konfigurátor
           </Link>
 
           <button
@@ -71,11 +71,18 @@ export function SiteNav({ darkHero = false }: { darkHero?: boolean }) {
         className={`nav-mobile${open ? " is-open" : ""}`}
         aria-hidden={!open}
       >
-        {nav.map((item) => (
+        {nav.filter((item) => item.href !== "/konfigurator").map((item) => (
           <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
             {item.label}
           </Link>
         ))}
+        <Link
+          href="/konfigurator"
+          className="nav-mobile-cta"
+          onClick={() => setOpen(false)}
+        >
+          Spustit konfigurátor
+        </Link>
       </div>
     </>
   );

@@ -13,7 +13,7 @@ export const nav = [
   { href: "/#na-miru", label: "Na míru" },
   { href: "/atelier", label: "Materiály" },
   { href: "/realizace", label: "Realizace" },
-  { href: "/konfigurator", label: "Váš návrh" },
+  { href: "/konfigurator", label: "Konfigurátor" },
   { href: "/#kontakt", label: "Kontakt" },
 ];
 

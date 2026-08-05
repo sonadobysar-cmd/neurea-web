@@ -280,7 +280,7 @@ p {
 }
 
 /* ========================================================================== */
-/* FLAX / návrh 02 — tactile basalt, timber and clay                         */
+/* Návrh 02 — tactile basalt, timber and clay                                */
 /* ========================================================================== */
 
 .flax-site {
@@ -406,11 +406,12 @@ p {
   line-height: 0.8;
   font-weight: 600;
   letter-spacing: 0.05em;
+  white-space: nowrap;
 }
 
 .flax-site .brand-text > span {
   margin-top: 0.42rem;
-  font-size: 0.53rem;
+  font-size: 0.6rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   opacity: 0.62;
@@ -421,7 +422,7 @@ p {
 }
 
 .flax-site .nav-links a {
-  font-size: 0.66rem;
+  font-size: 0.69rem;
   letter-spacing: 0.14em;
   opacity: 0.82;
 }
@@ -429,6 +430,7 @@ p {
 .flax-site .nav-cta {
   min-height: 2.9rem;
   padding-inline: 1.2rem;
+  white-space: nowrap;
 }
 
 .flax-site .site-nav.is-dark:not(.is-scrolled) .nav-cta {
@@ -484,7 +486,7 @@ p {
 }
 
 .flax-kicker {
-  font-size: 0.66rem;
+  font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -798,7 +800,7 @@ p {
 .flax-material span {
   display: block;
   margin-top: 0.4rem;
-  font-size: 0.57rem;
+  font-size: 0.65rem;
   line-height: 1.5;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -953,7 +955,7 @@ p {
 }
 
 .flax-work-item figcaption > span {
-  font-size: 0.55rem;
+  font-size: 0.64rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: #d79b76;
@@ -966,7 +968,7 @@ p {
 
 .flax-work-item p {
   margin-top: 0.1rem;
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   color: rgba(247, 239, 227, 0.6);
 }
 
@@ -1233,7 +1235,7 @@ p {
   border-radius: 0 7rem 0 0;
 }
 
-/* Configurator inherits its proven layout, but belongs visually to FLAX */
+/* Configurator inherits its proven layout and the visual language of design 02 */
 .flax-site .cfg-app,
 .flax-site .cfg-shell {
   background: #d8cfc1;
@@ -1562,7 +1564,19 @@ p {
   border-bottom: 1px solid var(--line-light);
 }
 
-@media (min-width: 960px) {
+.nav-mobile .nav-mobile-cta {
+  margin-top: 1rem;
+  border: 1px solid rgba(247, 239, 227, 0.4);
+  padding: 0.9rem 1rem;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+@media (min-width: 1160px) {
   .nav-links,
   .nav-cta {
     display: flex;
@@ -2536,6 +2550,7 @@ p {
 .gallery {
   display: grid;
   gap: 1.25rem;
+  min-width: 0;
 }
 
 @media (min-width: 700px) {
@@ -2550,6 +2565,9 @@ p {
 
 .gallery-item {
   position: relative;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
   border-radius: 1.1rem;
   overflow: hidden;
   aspect-ratio: 4 / 3;
@@ -2562,6 +2580,12 @@ p {
 
 .gallery-item.span-2 {
   aspect-ratio: 21 / 9;
+}
+
+@media (max-width: 699px) {
+  .gallery-item.span-2 {
+    aspect-ratio: 4 / 3;
+  }
 }
 
 .gallery-item img {
@@ -3925,7 +3949,7 @@ p {
   .cfg-sidebar {
     border-left: none;
     border-top: 1px solid var(--line);
-    scroll-margin-top: calc(var(--nav-h) + 7rem);
+    scroll-margin-top: calc(var(--nav-h) + 9.75rem);
   }
 }
 
@@ -3968,15 +3992,51 @@ p {
 }
 
 .house3d-loading {
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
   height: min(62vh, 560px);
   min-height: 320px;
   color: rgba(10, 10, 10, 0.4);
-  font-size: 0.85rem;
+  text-align: center;
+  font-size: 0.78rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   font-weight: 600;
+}
+
+.house3d-loading-mark {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-bottom: 0.25rem;
+  border: 1px solid rgba(27, 25, 22, 0.2);
+  border-top-color: var(--clay);
+  border-radius: 50%;
+  animation: cfg-loading-spin 0.9s linear infinite;
+}
+
+.house3d-loading strong {
+  color: var(--ink);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.house3d-loading small {
+  max-width: 28ch;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.55;
+  text-transform: none;
+}
+
+@keyframes cfg-loading-spin {
+  to { transform: rotate(360deg); }
 }
 
 .pin3d {
@@ -4022,7 +4082,7 @@ p {
   background: var(--sand);
   position: sticky;
   top: var(--nav-h);
-  z-index: 20;
+  z-index: 50;
 }
 
 .cfg-topbar .cfg-steps {
@@ -4031,6 +4091,24 @@ p {
   padding: 0;
   background: transparent;
   justify-content: flex-start;
+}
+
+.cfg-topbar-main {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  min-width: 0;
+}
+
+.cfg-topbar-name {
+  padding-right: 1.25rem;
+  border-right: 1px solid var(--line);
+  color: var(--copper);
+  font-size: 0.67rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .cfg-topbar-actions {
@@ -4073,6 +4151,18 @@ p {
     gap: 0.6rem;
   }
 
+  .cfg-topbar-main {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.25rem;
+  }
+
+  .cfg-topbar-name {
+    padding: 0;
+    border: 0;
+  }
+
   .cfg-topbar .cfg-steps {
     width: 100%;
     justify-content: space-between;
@@ -4086,6 +4176,7 @@ p {
 
   .cfg-steps-item {
     flex-shrink: 0;
+    min-height: 44px;
     font-size: 0.67rem;
     letter-spacing: 0.035em;
   }
@@ -4116,6 +4207,52 @@ p {
   .house3d-loading {
     height: clamp(260px, 36vh, 320px);
     min-height: 260px;
+  }
+}
+
+@media (max-width: 600px) {
+  .cfg-topbar {
+    padding: 0.75rem;
+  }
+
+  .cfg-topbar-name {
+    font-size: 0.64rem;
+  }
+
+  .cfg-topbar .cfg-steps {
+    gap: 0;
+  }
+
+  .cfg-steps-item {
+    flex: 1 0 auto;
+    padding-inline: 0.45rem;
+    font-size: 0.65rem;
+  }
+
+  .cfg-topbar-actions {
+    gap: 0.45rem;
+  }
+
+  .cfg-topbar-actions .btn {
+    padding-inline: 0.7rem;
+    letter-spacing: 0.1em;
+  }
+
+  .cfg-viewport-meta {
+    width: calc(100% - 1.5rem);
+    justify-content: space-between;
+  }
+
+  .cfg-spec span {
+    font-size: 0.62rem;
+  }
+
+  .cfg-spec strong {
+    font-size: 1.05rem;
+  }
+
+  .cfg-spec--price strong {
+    font-size: 1.15rem;
   }
 }
 

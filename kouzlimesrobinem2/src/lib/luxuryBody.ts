@@ -37,8 +37,8 @@ export const luxuryBodyTemplate = `<svg width="0" height="0" style="position:abs
       </h1>
       <p class="lead">{{cms.hero.lead}}</p>
       <div class="cta-row">
-        <a class="btn btn-ink" href="#kouzla">{{cms.hero.ctaPrimary}}<svg class="st"><use href="#star"/></svg></a>
-        <a class="btn btn-ghost" href="#disciplina">{{cms.hero.ctaSecondary}}</a>
+        <a class="btn btn-ink" href="#disciplina">{{cms.hero.ctaPrimary}}<svg class="st"><use href="#star"/></svg></a>
+        <a class="btn btn-ghost" href="#kouzla">{{cms.hero.ctaSecondary}}</a>
       </div>
     </div>
     <div class="hero-visual">

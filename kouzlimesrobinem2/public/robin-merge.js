@@ -244,13 +244,46 @@
     });
   }
 
-  // 8) Balónky — max 2 prasknutí na návštěvníka, pak CTA Objednat Robina
+  // 8) Balónky — modal po „Zkusit si kouzlo“, max 2 prasknutí, pak CTA
+  var balloonModal = document.getElementById("balloonModal");
   var popstage = document.getElementById("popstage");
   var cluster = document.getElementById("cluster");
   var reward = document.getElementById("reward");
   var popBtn = document.getElementById("popBtn");
   var popCta = document.getElementById("popCta");
   var final = document.getElementById("tfinal");
+
+  function openBalloonModal(e) {
+    if (e) e.preventDefault();
+    if (!balloonModal) return;
+    balloonModal.hidden = false;
+    balloonModal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    var closeBtn = balloonModal.querySelector(".balloon-modal__close");
+    if (closeBtn) closeBtn.focus();
+  }
+
+  function closeBalloonModal() {
+    if (!balloonModal || balloonModal.hidden) return;
+    balloonModal.hidden = true;
+    balloonModal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
+
+  document.querySelectorAll("[data-open-balloons]").forEach(function (el) {
+    el.addEventListener("click", openBalloonModal);
+  });
+  document.querySelectorAll("[data-close-balloons]").forEach(function (el) {
+    el.addEventListener("click", function () {
+      closeBalloonModal();
+    });
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") closeBalloonModal();
+  });
+  if (window.location.hash === "#balonky") {
+    openBalloonModal();
+  }
 
   if (popstage && cluster && reward) {
     var rewards = balloonData.rewards || [];

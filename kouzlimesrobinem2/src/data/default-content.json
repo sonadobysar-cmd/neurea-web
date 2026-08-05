@@ -135,6 +135,19 @@
       }
     ]
   },
+  "moments": {
+    "titleBefore": "Jak to vypadá ",
+    "titleEm": "naživo.",
+    "lead": "Fotky od rodičů a z akcí — ne ateliér, ale skutečné oslavy, smích a balónky.",
+    "images": [
+      { "src": "/luxury/moments/ph-01.svg", "alt": "Foto z oslavy — placeholder" },
+      { "src": "/luxury/moments/ph-02.svg", "alt": "Z akce — placeholder", "wide": true },
+      { "src": "/luxury/moments/ph-03.svg", "alt": "Od rodičů — placeholder" },
+      { "src": "/luxury/moments/ph-04.svg", "alt": "Naživo — placeholder" },
+      { "src": "/luxury/moments/ph-05.svg", "alt": "Balónky — placeholder", "wide": true },
+      { "src": "/luxury/moments/ph-06.svg", "alt": "Smích — placeholder" }
+    ]
+  },
   "quote": {
     "eyebrow": "Řekli o Robinovi",
     "text": "„Udržet pozornost dvaceti předškoláků celých čtyřicet pět minut — to je samo o sobě kouzlo.\"",

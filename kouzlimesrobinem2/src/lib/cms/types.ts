@@ -53,6 +53,12 @@ export type SiteContent = {
     titleEm: string;
     images: GalleryImage[];
   };
+  moments: {
+    titleBefore: string;
+    titleEm: string;
+    lead: string;
+    images: GalleryImage[];
+  };
   quote: { eyebrow: string; text: string; caption: string };
   pricing: {
     eyebrow: string;

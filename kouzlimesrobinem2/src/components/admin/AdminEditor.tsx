@@ -306,6 +306,38 @@ export function AdminEditor({ initial }: { initial: SiteContent }) {
       </section>
 
       <section className="admin-section">
+        <h2>Z oslav (fotky od klientů)</h2>
+        <div className="admin-grid">
+          <Field label="Nadpis před" value={content.moments.titleBefore} onChange={(v) => patch("moments", { ...content.moments, titleBefore: v })} />
+          <Field label="Zvýraznění" value={content.moments.titleEm} onChange={(v) => patch("moments", { ...content.moments, titleEm: v })} />
+        </div>
+        <Field label="Lead" value={content.moments.lead} onChange={(v) => patch("moments", { ...content.moments, lead: v })} multiline />
+        {content.moments.images.map((img, i) => (
+          <div className="admin-card-block" key={i}>
+            <h3>Fotka {i + 1}</h3>
+            <ImageField
+              label="Obrázek"
+              value={img.src}
+              onChange={(v) => {
+                const images = [...content.moments.images];
+                images[i] = { ...img, src: v };
+                patch("moments", { ...content.moments, images });
+              }}
+            />
+            <Field
+              label="Alt text"
+              value={img.alt}
+              onChange={(v) => {
+                const images = [...content.moments.images];
+                images[i] = { ...img, alt: v };
+                patch("moments", { ...content.moments, images });
+              }}
+            />
+          </div>
+        ))}
+      </section>
+
+      <section className="admin-section">
         <h2>Citát</h2>
         <Field label="Eyebrow" value={content.quote.eyebrow} onChange={(v) => patch("quote", { ...content.quote, eyebrow: v })} />
         <Field label="Citát" value={content.quote.text} onChange={(v) => patch("quote", { ...content.quote, text: v })} multiline />

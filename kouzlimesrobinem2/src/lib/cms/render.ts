@@ -49,6 +49,13 @@ export function renderLuxuryBody(content: SiteContent, template: string): string
     })
     .join("\n      ");
 
+  const momentsHtml = (c.moments?.images ?? [])
+    .map((img, i) => {
+      const wide = img.wide ? " wide" : "";
+      return `<figure class="mph${wide}" data-i="${i}" data-lightbox><img src="${safeUrl(img.src)}" alt="${esc(img.alt)}" loading="lazy"></figure>`;
+    })
+    .join("\n      ");
+
   const cardHtml = (i: number) => {
     const item = card(i);
     if (!item) return "";
@@ -114,6 +121,10 @@ export function renderLuxuryBody(content: SiteContent, template: string): string
     "{{cms.gallery.titleBefore}}": esc(c.gallery.titleBefore),
     "{{cms.gallery.titleEm}}": esc(c.gallery.titleEm),
     "{{cms.gallery.images}}": galleryHtml,
+    "{{cms.moments.titleBefore}}": esc(c.moments?.titleBefore ?? ""),
+    "{{cms.moments.titleEm}}": esc(c.moments?.titleEm ?? ""),
+    "{{cms.moments.lead}}": esc(c.moments?.lead ?? ""),
+    "{{cms.moments.images}}": momentsHtml,
     "{{cms.quote.eyebrow}}": esc(c.quote.eyebrow),
     "{{cms.quote.text}}": esc(c.quote.text),
     "{{cms.quote.caption}}": esc(c.quote.caption),

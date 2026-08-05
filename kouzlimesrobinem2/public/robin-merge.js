@@ -163,17 +163,10 @@
     requestAnimationFrame(tick);
   }
 
-  // 9) Galerie — pojízdný pás + lightbox se šipkami
+  // 9) Galerie — pojízdný pás + lightbox se šipkami (i galerie Z oslav)
   var strip = document.getElementById("strip");
   if (strip && strip.classList.contains("strip--marquee")) {
     strip.innerHTML = strip.innerHTML + strip.innerHTML;
-  }
-
-  var galleryImgs = [];
-  if (strip) {
-    strip.querySelectorAll("figure[data-lightbox] img").forEach(function (img) {
-      galleryImgs.push(img);
-    });
   }
 
   var lightbox = document.getElementById("lightbox");
@@ -183,6 +176,7 @@
   var prevBtn = lightbox && lightbox.querySelector(".lightbox-prev");
   var nextBtn = lightbox && lightbox.querySelector(".lightbox-next");
   var currentLb = -1;
+  var galleryImgs = [];
 
   function showLightboxAt(index) {
     if (!lightbox || !lightboxImg || !galleryImgs.length) return;
@@ -197,7 +191,13 @@
     document.body.style.overflow = "hidden";
   }
 
-  function openLightbox(img) {
+  function openLightboxFrom(group, img) {
+    galleryImgs = [];
+    if (group) {
+      group.querySelectorAll("figure[data-lightbox] img").forEach(function (el) {
+        galleryImgs.push(el);
+      });
+    }
     var idx = galleryImgs.indexOf(img);
     showLightboxAt(idx >= 0 ? idx : 0);
   }
@@ -215,12 +215,12 @@
     showLightboxAt(currentLb + delta);
   }
 
-  if (strip) {
-    strip.addEventListener("click", function (e) {
+  document.querySelectorAll("[data-lb-group], #strip").forEach(function (group) {
+    group.addEventListener("click", function (e) {
       var img = e.target.closest("figure[data-lightbox] img");
-      if (img) openLightbox(img);
+      if (img) openLightboxFrom(group, img);
     });
-  }
+  });
   if (closeBtn) closeBtn.addEventListener("click", closeLightbox);
   if (prevBtn) prevBtn.addEventListener("click", function () {
     stepLightbox(-1);

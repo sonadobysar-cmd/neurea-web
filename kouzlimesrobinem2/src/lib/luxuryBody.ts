@@ -233,8 +233,16 @@ export const luxuryBodyTemplate = `<svg width="0" height="0" style="position:abs
   <div class="balloon-modal__panel">
     <button class="balloon-modal__close" type="button" aria-label="Zavřít" data-close-balloons>×</button>
     <div class="balloon-panel">
-      <h2 id="balloonModalTitle">Praskni balonek a zjisti, <span class="balloon-em">co ti Robin vyrobil</span></h2>
-      <p class="balloon-lead">Dvakrát praskni balonek a nech se překvapit, jaké zvířátko ti Robin vykouzlí. Potom už jen objednat Robina naživo.</p>
+      <div class="balloon-copy">
+        <span class="balloon-kicker">Malé kouzlo na zkoušku</span>
+        <h2 id="balloonModalTitle">Praskni balonek a zjisti, <span class="balloon-em">co ti Robin vyrobí</span></h2>
+        <p class="balloon-lead">Máš dva pokusy. Klepni na balonky a nech se překvapit.</p>
+        <div class="balloon-progress" aria-live="polite">
+          <span class="balloon-progress__dot is-active"></span>
+          <span class="balloon-progress__dot"></span>
+          <span class="balloon-progress__label" id="balloonProgress">1. ze 2 pokusů</span>
+        </div>
+      </div>
       <div class="popstage" id="popstage">
         <div class="cluster" id="cluster" role="button" tabindex="0" aria-label="Prasknout balónky">
           <img src="/balloon-cluster.png" alt="" class="cluster-art" width="600" height="591" draggable="false">
@@ -242,9 +250,11 @@ export const luxuryBodyTemplate = `<svg width="0" height="0" style="position:abs
         </div>
         <div class="reward" id="reward"></div>
       </div>
-      <button class="btn btn-primary pop-btn" id="popBtn" style="display:none" type="button">Prasknout další<svg class="st"><use href="#star"/></svg></button>
-      <a class="btn btn-ink pop-cta" id="popCta" href="#rezervace" style="display:none" data-close-balloons>Objednat Robina<svg class="st"><use href="#star"/></svg></a>
-      <p class="trick-final" id="tfinal">A tohle všechno zažijete naživo. ✦</p>
+      <div class="balloon-actions">
+        <button class="btn btn-primary pop-btn" id="popBtn" style="display:none" type="button">Prasknout podruhé<svg class="st"><use href="#star"/></svg></button>
+        <a class="btn btn-ink pop-cta" id="popCta" href="#rezervace" style="display:none" data-close-balloons>Objednat Robina<svg class="st"><use href="#star"/></svg></a>
+        <p class="trick-final" id="tfinal">A tohle všechno zažijete naživo. ✦</p>
+      </div>
     </div>
   </div>
 </div>

@@ -250,7 +250,11 @@
   var cluster = document.getElementById("cluster");
   var reward = document.getElementById("reward");
   var popBtn = document.getElementById("popBtn");
-  var popCta = document.getElementById("popCta");
+    var popCta = document.getElementById("popCta");
+    var balloonProgress = document.getElementById("balloonProgress");
+    var progressDots = balloonModal
+      ? balloonModal.querySelectorAll(".balloon-progress__dot")
+      : [];
   var resetBalloonGame = function () {};
 
   function openBalloonModal(e) {
@@ -353,6 +357,13 @@
       if (popBtn) popBtn.style.display = done || popped === 0 ? "none" : "";
       if (popCta) popCta.style.display = done ? "" : "none";
       if (balloonPanel) balloonPanel.classList.toggle("balloon-panel--done", done);
+      if (balloonProgress) {
+        balloonProgress.textContent = done ? "Kouzlo dokončeno" : popped === 0 ? "1. ze 2 pokusů" : "2. ze 2 pokusů";
+      }
+      progressDots.forEach(function (dot, index) {
+        dot.classList.toggle("is-active", !done && index === popped);
+        dot.classList.toggle("is-done", done || index < popped);
+      });
       setClusterEnabled(!done && !cluster.classList.contains("gone"));
     }
 

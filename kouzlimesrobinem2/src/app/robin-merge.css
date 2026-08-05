@@ -288,6 +288,10 @@ body {
   margin: 0;
 }
 
+.kouzla-sec--cards {
+  padding: clamp(64px, 9vh, 110px) 0 clamp(80px, 10vh, 120px);
+}
+
 .kouzla-sec .balloon-wrap {
   padding: clamp(64px, 9vh, 110px) 0 clamp(80px, 10vh, 120px);
 }

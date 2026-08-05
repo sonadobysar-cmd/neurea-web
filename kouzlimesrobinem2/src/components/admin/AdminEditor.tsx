@@ -3,6 +3,8 @@
 import { FormEvent, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { SiteContent, LegalPageContent } from "@/lib/cms/types";
+import type { AnalyticsDashboard } from "@/lib/analytics/types";
+import { AdminAnalytics } from "./AdminAnalytics";
 import { AdminPasswordForm } from "./AdminPasswordForm";
 
 function Field({
@@ -140,7 +142,13 @@ function LegalPageEditor({
   );
 }
 
-export function AdminEditor({ initial }: { initial: SiteContent }) {
+export function AdminEditor({
+  initial,
+  analytics,
+}: {
+  initial: SiteContent;
+  analytics: AnalyticsDashboard;
+}) {
   const router = useRouter();
   const [content, setContent] = useState<SiteContent>(initial);
   const [status, setStatus] = useState("");
@@ -183,7 +191,7 @@ export function AdminEditor({ initial }: { initial: SiteContent }) {
   }
 
   return (
-    <form className="admin-shell" onSubmit={onSave}>
+    <div className="admin-shell">
       <header className="admin-top">
         <div>
           <h1>Úpravy webu</h1>
@@ -196,7 +204,7 @@ export function AdminEditor({ initial }: { initial: SiteContent }) {
           <button type="button" className="admin-ghost" onClick={logout}>
             Odhlásit
           </button>
-          <button type="submit" disabled={saving}>
+          <button type="submit" form="admin-content-form" disabled={saving}>
             {saving ? "Ukládám…" : "Uložit změny"}
           </button>
         </div>
@@ -206,14 +214,9 @@ export function AdminEditor({ initial }: { initial: SiteContent }) {
 
       <AdminPasswordForm />
 
-      <section className="admin-section">
-        <h2>Statistiky webu</h2>
-        <p className="admin-help">
-          Návštěvnost, odkud lidé přišli a které stránky kouká nejvíc — jen pro tebe, na webu to klienti nevidí.
-          Přehled je ve Vercel Analytics (pošleme ti odkaz / přístup).
-        </p>
-      </section>
+      <AdminAnalytics dashboard={analytics} />
 
+      <form id="admin-content-form" className="admin-content-form" onSubmit={onSave}>
       <section className="admin-section">
         <h2>Značka</h2>
         <div className="admin-grid">
@@ -496,6 +499,7 @@ export function AdminEditor({ initial }: { initial: SiteContent }) {
           {saving ? "Ukládám…" : "Uložit změny"}
         </button>
       </div>
-    </form>
+      </form>
+    </div>
   );
 }

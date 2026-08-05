@@ -1,5 +1,8 @@
 import type { LegalPagesContent } from "@/lib/cms/types";
 
+export const ANALYTICS_PRIVACY_NOTICE =
+  "Pro soukromý přehled v administraci web eviduje zahájení 30minutové návštěvní relace, vstupní stránku, doménu zdroje, zemi a obecný typ zařízení a prohlížeče. Neukládá jméno, kontakt ani IP adresu; IP se použije pouze krátkodobě pro odvození země a ochranu proti zneužití. Identifikátor relace zůstává jen v dočasném úložišti prohlížeče bez cookies. Anonymní technické záznamy jsou uloženy ve Vercel Blob nejdéle 90 dní.";
+
 export const LEGAL_DEFAULTS: LegalPagesContent = {
   terms: {
     title: "Obchodní podmínky",
@@ -81,7 +84,7 @@ export const LEGAL_DEFAULTS: LegalPagesContent = {
       },
       {
         heading: "7. Cookies a měření",
-        body: "Web nepoužívá reklamní cookies. Pro návštěvnost můžeme využívat privátní měření hostingu (Vercel Analytics) bez reklamních profilů. Pro ochranu formuláře může být použito bezpečnostní ověření (např. Cloudflare Turnstile).\n\nPokud využijete online rezervaci termínu, údaje o rezervaci zpracovává také Google Calendar (Appointment Schedules) nebo jiný zvolený rezervační nástroj podle svých podmínek — typicky jméno, e-mail a zvolený termín.",
+        body: `Web nepoužívá reklamní cookies. Pro návštěvnost můžeme využívat privátní měření hostingu (Vercel Analytics) bez reklamních profilů. ${ANALYTICS_PRIVACY_NOTICE}\n\nPro ochranu formuláře může být použito bezpečnostní ověření (např. Cloudflare Turnstile).\n\nPokud využijete online rezervaci termínu, údaje o rezervaci zpracovává také Google Calendar (Appointment Schedules) nebo jiný zvolený rezervační nástroj podle svých podmínek — typicky jméno, e-mail a zvolený termín.`,
       },
     ],
   },

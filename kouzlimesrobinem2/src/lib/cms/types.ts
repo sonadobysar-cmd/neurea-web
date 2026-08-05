@@ -1,5 +1,5 @@
 import defaultContent from "@/data/default-content.json";
-import { LEGAL_DEFAULTS } from "@/data/legal-defaults";
+import { ANALYTICS_PRIVACY_NOTICE, LEGAL_DEFAULTS } from "@/data/legal-defaults";
 
 export type LegalSection = {
   heading: string;
@@ -125,7 +125,14 @@ export const DEFAULT_CONTENT = {
 
 export function mergeContent(partial: unknown): SiteContent {
   if (!partial || typeof partial !== "object") return structuredClone(DEFAULT_CONTENT);
-  return deepMerge(structuredClone(DEFAULT_CONTENT), partial as Partial<SiteContent>);
+  const merged = deepMerge(structuredClone(DEFAULT_CONTENT), partial as Partial<SiteContent>);
+  const measurement = merged.legal.privacy.sections.find((section) =>
+    section.heading.toLowerCase().includes("cookies"),
+  );
+  if (measurement && !measurement.body.includes("30minutové návštěvní relace")) {
+    measurement.body = `${measurement.body}\n\n${ANALYTICS_PRIVACY_NOTICE}`;
+  }
+  return merged;
 }
 
 function deepMerge<T>(base: T, patch: unknown): T {

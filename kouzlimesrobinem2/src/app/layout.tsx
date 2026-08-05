@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Observability } from "@/components/Observability";
+import { SiteVisitTracker } from "@/components/SiteVisitTracker";
 import "./globals.css";
 import "./luxury.css";
 import "./robin-merge.css";
@@ -56,6 +57,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         />
         {children}
         <Observability />
+        <SiteVisitTracker />
       </body>
     </html>
   );

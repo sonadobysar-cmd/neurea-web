@@ -144,6 +144,22 @@ export const luxuryBodyTemplate = `<svg width="0" height="0" style="position:abs
   </div>
 </section>
 
+<section class="booking-sec{{cms.contact.bookingSecClass}}" id="rezervace">
+  <div class="wrap reveal">
+    <div class="booking-head">
+      <h2>Rezervace <em>termínu.</em></h2>
+      <p class="lead">Vyberte si volný termín. Po rezervaci přijde potvrzení e-mailem a termín se propsíše přímo do Robinova Google Kalendáře.</p>
+    </div>
+    <div class="booking-embed" id="bookingEmbed">
+      {{cms.contact.bookingEmbed}}
+    </div>
+    <div class="booking-fallback">
+      <p>Online kalendář se právě napojuje. Zatím napište přes <a href="#kontakt">kontaktní formulář</a> — ozveme se s termíny.</p>
+      <a class="btn btn-ink" href="#kontakt">Napsat Robinovi<svg class="st"><use href="#star"/></svg></a>
+    </div>
+  </div>
+</section>
+
 <section class="about" id="robin">
   <div class="wrap about-grid">
     <div class="about-visual reveal">
@@ -170,22 +186,6 @@ export const luxuryBodyTemplate = `<svg width="0" height="0" style="position:abs
   <div class="moments-viewport reveal d1">
     <div class="strip strip--marquee moments-strip" id="moments-strip" data-lb-group>
       {{cms.moments.images}}
-    </div>
-  </div>
-</section>
-
-<section class="booking-sec{{cms.contact.bookingSecClass}}" id="rezervace">
-  <div class="wrap reveal">
-    <div class="booking-head">
-      <h2>Rezervace <em>termínu.</em></h2>
-      <p class="lead">Vyberte si volný termín. Po rezervaci přijde potvrzení e-mailem a termín se propsíše přímo do Robinova Google Kalendáře.</p>
-    </div>
-    <div class="booking-embed" id="bookingEmbed">
-      {{cms.contact.bookingEmbed}}
-    </div>
-    <div class="booking-fallback">
-      <p>Online kalendář se právě napojuje. Zatím napište přes <a href="#kontakt">kontaktní formulář</a> — ozveme se s termíny.</p>
-      <a class="btn btn-ink" href="#kontakt">Napsat Robinovi<svg class="st"><use href="#star"/></svg></a>
     </div>
   </div>
 </section>

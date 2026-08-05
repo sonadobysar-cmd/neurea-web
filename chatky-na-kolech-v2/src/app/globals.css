@@ -1094,6 +1094,13 @@ p {
   align-items: start;
 }
 
+.flax-contact-grid > *,
+.flax-form-wrap,
+.flax-form-wrap .contact-form,
+.flax-form-wrap .field {
+  min-width: 0;
+}
+
 .flax-contact h2 {
   margin-top: 1rem;
   max-width: 8ch;
@@ -1133,6 +1140,8 @@ p {
 .flax-form-wrap input,
 .flax-form-wrap select,
 .flax-form-wrap textarea {
+  width: 100%;
+  max-width: 100%;
   border-radius: 0;
   border: 0;
   border-bottom: 1px solid rgba(27, 25, 22, 0.22);

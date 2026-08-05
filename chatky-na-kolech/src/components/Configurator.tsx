@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { brand } from "@/data/content";
 import {
   BATHROOM_VARIANTS,
@@ -11,7 +11,10 @@ import {
   DEFAULT_CONFIG,
   DIMENSIONS,
   FACADES,
+  FLOOR_HEATING,
+  HALF_FACADE,
   INCLUDED,
+  INSULATION,
   KITCHEN_VARIANTS,
   LOFTS,
   PAINT,
@@ -135,10 +138,16 @@ export function Configurator() {
     "idle",
   );
   const [showIncluded, setShowIncluded] = useState(false);
+  const [showSuppliers, setShowSuppliers] = useState(false);
   const [hotspot, setHotspot] = useState<string | null>(null);
+  const sidebarRef = useRef<HTMLElement>(null);
 
   const prices = useMemo(() => calcPrices(cfg), [cfg]);
   const facade = FACADES.find((f) => f.id === cfg.facade)!;
+  const facadeRate =
+    facade.id === "half"
+      ? (HALF_FACADE.woodPerM2 + HALF_FACADE.metalPerM2) / 2
+      : facade.pricePerM2;
   const showPaint = !facade.includesPaint;
   const showLofts = cfg.roof !== "kulata";
   const roundAvailable = cfg.width === 2.5;
@@ -173,11 +182,20 @@ export function Configurator() {
     setCfg((c) => ({ ...c, [key]: value }));
   };
 
+  const selectStep = (nextStep: StepId) => {
+    setStep(nextStep);
+    if (window.matchMedia("(max-width: 979px)").matches) {
+      window.requestAnimationFrame(() => {
+        sidebarRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }
+  };
+
   const goNext = () => {
-    if (stepIndex < STEPS.length - 1) setStep(STEPS[stepIndex + 1].id);
+    if (stepIndex < STEPS.length - 1) selectStep(STEPS[stepIndex + 1].id);
   };
   const goBack = () => {
-    if (stepIndex > 0) setStep(STEPS[stepIndex - 1].id);
+    if (stepIndex > 0) selectStep(STEPS[stepIndex - 1].id);
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -211,9 +229,9 @@ export function Configurator() {
 
   const onHotspot = (id: string) => {
     setHotspot(id);
-    if (id === "roof" || id === "facade") setStep("exterior");
-    else if (id === "window" || id === "door") setStep("interior");
-    else if (id === "size") setStep("model");
+    if (id === "roof" || id === "facade") selectStep("exterior");
+    else if (id === "window" || id === "door") selectStep("interior");
+    else if (id === "size") selectStep("model");
   };
 
   const roofLabel = ROOF_TYPES.find((r) => r.id === cfg.roof)?.label ?? "";
@@ -226,6 +244,15 @@ export function Configurator() {
     cfg.kitchen === "none"
       ? "Ne"
       : KITCHEN_VARIANTS.find((k) => k.id === cfg.kitchenVariant)?.label ?? "Ano";
+  const paintLabel = facade.includesPaint
+    ? "Zahrnutý v ceně fasády"
+    : cfg.paint === "yes"
+      ? "S nátěrem"
+      : "Bez nátěru";
+  const floorHeatingPrice =
+    prices.floorArea <= 30
+      ? FLOOR_HEATING.under30.priceUnder30
+      : FLOOR_HEATING.under30.priceOver30;
 
   const titles: Record<StepId, { title: string; text: string }> = {
     model: {
@@ -261,7 +288,8 @@ export function Configurator() {
               className={`cfg-steps-item${step === s.id ? " is-active" : ""}${
                 i < stepIndex ? " is-done" : ""
               }`}
-              onClick={() => setStep(s.id)}
+              onClick={() => selectStep(s.id)}
+              aria-current={step === s.id ? "step" : undefined}
             >
               {s.label}
             </button>
@@ -283,9 +311,9 @@ export function Configurator() {
           <button
             type="button"
             className="btn btn-oak"
-            onClick={() => setStep("quote")}
+            onClick={() => selectStep("quote")}
           >
-            Poslat poptávku
+            Nezávazně poptat
           </button>
         </div>
       </div>
@@ -324,7 +352,7 @@ export function Configurator() {
           </div>
         </section>
 
-        <aside className="cfg-sidebar">
+        <aside className="cfg-sidebar" ref={sidebarRef}>
           <header className="cfg-sidebar-head">
             <p className="cfg-kicker">
               Krok {String(stepIndex + 1).padStart(2, "0")} / {STEPS.length}
@@ -397,32 +425,49 @@ export function Configurator() {
                 <div>
                   <h3 className="cfg-subhead">Fasáda</h3>
                   <div className="cfg-cards cfg-cards--samples">
-                    {FACADES.map((f) => (
-                      <button
-                        key={f.id}
-                        type="button"
-                        className={`cfg-card cfg-card--sample${
-                          cfg.facade === f.id ? " is-active" : ""
-                        }`}
-                        onClick={() => set("facade", f.id)}
-                      >
-                        <span
-                          className="cfg-swatch"
-                          style={{ background: f.swatch }}
+                    {FACADES.map((f) => {
+                      const rate =
+                        f.id === "half"
+                          ? (HALF_FACADE.woodPerM2 + HALF_FACADE.metalPerM2) / 2
+                          : f.pricePerM2;
+
+                      return (
+                        <button
+                          key={f.id}
+                          type="button"
+                          className={`cfg-card cfg-card--sample${
+                            cfg.facade === f.id ? " is-active" : ""
+                          }`}
+                          onClick={() => set("facade", f.id)}
                         >
-                          <Image src={f.sample} alt="" width={48} height={48} />
-                        </span>
-                        <span>
-                          <strong>{f.label}</strong>
-                          <span>
-                            {f.includesPaint
-                              ? "včetně nátěru"
-                              : `${formatCzk(f.pricePerM2)}/m²`}
+                          <span
+                            className="cfg-swatch"
+                            style={{ background: f.swatch }}
+                          >
+                            <Image
+                              src={f.sample}
+                              alt=""
+                              width={64}
+                              height={64}
+                              sizes="64px"
+                            />
                           </span>
-                        </span>
-                      </button>
-                    ))}
+                          <span>
+                            <strong>{f.label}</strong>
+                            <span>{f.desc}</span>
+                            <span>
+                              {formatCzk(rate)}/m²
+                              {f.includesPaint ? " · nátěr v ceně" : ""}
+                            </span>
+                          </span>
+                        </button>
+                      );
+                    })}
                   </div>
+                  <p className="cfg-material-note">
+                    Vzorky jsou ilustrační. Přirozená kresba a odstín se mohou
+                    mezi jednotlivými kusy lišit.
+                  </p>
                 </div>
 
                 {showPaint && (
@@ -597,8 +642,8 @@ export function Configurator() {
                     >
                       <strong>Ano</strong>
                       <span>
-                        sazba dle plochy ({prices.floorArea <= 30 ? "do" : "nad"}{" "}
-                        30 m²)
+                        + {formatCzk(floorHeatingPrice)} · sazba {prices.floorArea <= 30 ? "do" : "nad"}{" "}
+                        30 m²
                       </span>
                     </button>
                   </div>
@@ -623,7 +668,9 @@ export function Configurator() {
                       onClick={() => set("insulation", "yes")}
                     >
                       <strong>Ano</strong>
-                      <span>stěny + střecha</span>
+                      <span>
+                        + {formatCzk(INSULATION.yes.pricePerM2)}/m² stěn a střechy
+                      </span>
                     </button>
                   </div>
                 </div>
@@ -646,7 +693,13 @@ export function Configurator() {
                   </div>
                   <div>
                     <dt>Fasáda</dt>
-                    <dd>{facade.label}</dd>
+                    <dd>
+                      {facade.label} · {formatCzk(facadeRate)}/m²
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Nátěr</dt>
+                    <dd>{paintLabel}</dd>
                   </div>
                   <div>
                     <dt>Koupelna</dt>
@@ -656,19 +709,23 @@ export function Configurator() {
                     <dt>Kuchyň</dt>
                     <dd>{kitchenLabel}</dd>
                   </div>
-                  {showLofts && (
-                    <div>
-                      <dt>Lofty</dt>
-                      <dd>{loftLabel}</dd>
-                    </div>
-                  )}
                   <div>
-                    <dt>Topení</dt>
+                    <dt>Lofty</dt>
+                    <dd>
+                      {showLofts ? loftLabel : "Bez loftu · kulatá střecha"}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Podlahové vytápění</dt>
                     <dd>{cfg.floorHeating === "yes" ? "Ano" : "Ne"}</dd>
                   </div>
                   <div>
-                    <dt>Zateplení</dt>
+                    <dt>Dodatečné zateplení</dt>
                     <dd>{cfg.insulation === "yes" ? "Ano" : "Ne"}</dd>
+                  </div>
+                  <div>
+                    <dt>Samostatný pokoj</dt>
+                    <dd>{cfg.room === "yes" ? "Ano" : "Ne"}</dd>
                   </div>
                 </dl>
 
@@ -676,6 +733,10 @@ export function Configurator() {
                   <span>Orientační cena</span>
                   <strong>{formatCzk(prices.total)}</strong>
                 </div>
+                <p className="cfg-price-note">
+                  Výsledná cena je orientační. Přesnou nabídku potvrdíme podle
+                  finálního řešení a místa realizace.
+                </p>
 
                 {deliveryStatus === "sent" || deliveryStatus === "mailto" ? (
                   <p className="cfg-note" aria-live="polite">
@@ -741,7 +802,7 @@ export function Configurator() {
                     >
                       {deliveryStatus === "sending"
                         ? "Odesílám…"
-                        : "Odeslat poptávku"}
+                        : "Odeslat nezávaznou poptávku"}
                       <ArrowIcon />
                     </button>
                     <p className="form-note">
@@ -775,13 +836,30 @@ export function Configurator() {
                         <li key={item}>{item}</li>
                       ))}
                     </ul>
-                    <h4>Skladba stěny</h4>
+                    <h4>Konstrukce obvodové stěny</h4>
                     <ol className="cfg-layers">
                       {WALL_LAYERS.map((layer) => (
                         <li key={layer}>{layer}</li>
                       ))}
                     </ol>
-                    <h4>Dodavatelé</h4>
+                  </div>
+                )}
+
+                <button
+                  type="button"
+                  className="cfg-accordion"
+                  onClick={() => setShowSuppliers((v) => !v)}
+                  aria-expanded={showSuppliers}
+                >
+                  <span>Naši dodavatelé</span>
+                  <span aria-hidden="true">{showSuppliers ? "−" : "+"}</span>
+                </button>
+                {showSuppliers && (
+                  <div className="cfg-accordion-body">
+                    <p className="cfg-accordion-intro">
+                      Při výrobě Tiny House FLAX využíváme materiály a
+                      komponenty od ověřených dodavatelů a výrobců.
+                    </p>
                     <div className="cfg-suppliers">
                       {SUPPLIERS.map((s) => (
                         <span key={s}>{s}</span>

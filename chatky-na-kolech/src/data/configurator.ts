@@ -52,7 +52,7 @@ export const FACADES = [
     includesPaint: true,
     woodShare: 1,
     metalShare: 0,
-    sample: "/media/fasady/smrk.jpg",
+    sample: "/media/fasady/vzorky/smrk-s-naterem.jpg",
     swatch: "#C4A882",
   },
   {
@@ -63,7 +63,7 @@ export const FACADES = [
     includesPaint: false,
     woodShare: 1,
     metalShare: 0,
-    sample: "/media/fasady/thermo-look.jpg",
+    sample: "/media/fasady/vzorky/thermoborovice.jpg",
     swatch: "#5C4033",
   },
   {
@@ -74,7 +74,7 @@ export const FACADES = [
     includesPaint: false,
     woodShare: 1,
     metalShare: 0,
-    sample: "/media/fasady/modrin-look.jpg",
+    sample: "/media/fasady/vzorky/modrin.jpg",
     swatch: "#B8956A",
   },
   {
@@ -85,19 +85,19 @@ export const FACADES = [
     includesPaint: false,
     woodShare: 0,
     metalShare: 1,
-    sample: "/media/fasady/thermo-look.jpg",
+    sample: "/media/fasady/vzorky/plech-antracit.jpg",
     swatch: "#6B7280",
   },
   {
     id: "half",
     label: "50 % dřevo / 50 % plech",
-    desc: "Kombinovaná fasáda",
+    desc: "Thermoborovice + antracitový plech",
     /** u half se použijí WOOD_HALF + METAL_HALF */
     pricePerM2: 0,
     includesPaint: false,
     woodShare: 0.5,
     metalShare: 0.5,
-    sample: "/media/fasady/smrk.jpg",
+    sample: "/media/fasady/vzorky/thermoborovice-plech.jpg",
     swatch: "#8B7355",
   },
 ] as const;
@@ -170,7 +170,8 @@ export const KITCHEN_VARIANTS = [
   {
     id: "m4",
     label: "4 moduly",
-    desc: "Stejná výbava + větší pracovní plocha / větší lednice / trouba",
+    desc:
+      "Výbava jako u 3 modulů + větší pracovní plocha nebo lednice, případně malá lednice a vestavná trouba",
     price: 105_000,
   },
   {
@@ -225,7 +226,7 @@ export const SUPPLIERS = [
   "SECA Borohrádek",
   "Maslen",
   "Jutadach",
-  "Přírodní stavba cz",
+  "Přírodní stavba CZ",
   "Rocko — Titanmultiplast.cz",
   "Neumann",
   "Osmo",
@@ -277,7 +278,10 @@ export type PriceBreakdown = {
 };
 
 export function calcGeometry(state: ConfigState) {
-  const loftCount = LOFTS.find((l) => l.id === state.loft)?.count ?? 0;
+  const loftCount =
+    state.roof === "kulata"
+      ? 0
+      : LOFTS.find((l) => l.id === state.loft)?.count ?? 0;
   const wallHeight = loftCount > 0 ? WALL_HEIGHT_LOFT : WALL_HEIGHT_DEFAULT;
   const floorArea = round1(state.length * state.width);
   const roofArea = floorArea;

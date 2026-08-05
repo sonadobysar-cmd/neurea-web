@@ -76,9 +76,6 @@ export function SiteNav({ darkHero = false }: { darkHero?: boolean }) {
             {item.label}
           </Link>
         ))}
-        <Link href="/#kontakt" onClick={() => setOpen(false)}>
-          Kontakt
-        </Link>
       </div>
     </>
   );

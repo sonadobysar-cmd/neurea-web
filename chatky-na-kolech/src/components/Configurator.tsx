@@ -2,7 +2,9 @@
 
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import { brand } from "@/data/content";
 import {
   BATHROOM_VARIANTS,
   type ConfigState,
@@ -21,6 +23,7 @@ import {
   clampDim,
   round1,
 } from "@/data/configurator";
+import { deliverContact } from "@/lib/contact-client";
 import { ArrowIcon } from "./Icons";
 
 const HouseScene3D = dynamic(
@@ -125,7 +128,12 @@ function DimControl({
 export function Configurator() {
   const [cfg, setCfg] = useState<ConfigState>(DEFAULT_CONFIG);
   const [step, setStep] = useState<StepId>("model");
-  const [sent, setSent] = useState(false);
+  const [deliveryStatus, setDeliveryStatus] = useState<
+    "idle" | "sending" | "sent" | "mailto"
+  >("idle");
+  const [saveStatus, setSaveStatus] = useState<"idle" | "saved" | "loaded">(
+    "idle",
+  );
   const [showIncluded, setShowIncluded] = useState(false);
   const [hotspot, setHotspot] = useState<string | null>(null);
 
@@ -135,6 +143,19 @@ export function Configurator() {
   const showLofts = cfg.roof !== "kulata";
   const roundAvailable = cfg.width === 2.5;
   const stepIndex = STEPS.findIndex((s) => s.id === step);
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("cnk-config");
+      if (!saved) return;
+      const parsed = JSON.parse(saved) as Partial<ConfigState>;
+      setCfg({ ...DEFAULT_CONFIG, ...parsed });
+      setSaveStatus("loaded");
+      window.setTimeout(() => setSaveStatus("idle"), 2_500);
+    } catch {
+      localStorage.removeItem("cnk-config");
+    }
+  }, []);
 
   useEffect(() => {
     if (cfg.roof === "kulata" && cfg.width !== 2.5) {
@@ -159,9 +180,33 @@ export function Configurator() {
     if (stepIndex > 0) setStep(STEPS[stepIndex - 1].id);
   };
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSent(true);
+    setDeliveryStatus("sending");
+    const data = new FormData(e.currentTarget);
+    const result = await deliverContact(brand.email, {
+      source: "configurator",
+      name: String(data.get("name") ?? ""),
+      email: String(data.get("email") ?? ""),
+      phone: String(data.get("phone") ?? ""),
+      intent: String(data.get("intent") ?? ""),
+      message:
+        String(data.get("note") ?? "").trim() ||
+        "Mám zájem o tuto konfiguraci a prosím o další postup.",
+      website: String(data.get("website") ?? ""),
+      configuration: { cfg, prices },
+    });
+    setDeliveryStatus(result);
+  };
+
+  const saveProposal = () => {
+    try {
+      localStorage.setItem("cnk-config", JSON.stringify(cfg));
+      setSaveStatus("saved");
+      window.setTimeout(() => setSaveStatus("idle"), 2_500);
+    } catch {
+      setSaveStatus("idle");
+    }
   };
 
   const onHotspot = (id: string) => {
@@ -189,7 +234,7 @@ export function Configurator() {
     },
     exterior: {
       title: "Exteriér",
-      text: "Střecha a fasáda — silueta domu. Materiály sedí na karavan, ne vedle něj.",
+      text: "Střecha a fasáda určují siluetu domu. Každou změnu průběžně uvidíte v 3D náhledu.",
     },
     interior: {
       title: "Interiér",
@@ -201,7 +246,7 @@ export function Configurator() {
     },
     quote: {
       title: "Rekapitulace a poptávka",
-      text: "Orientační cena. Pošlete konfiguraci — doladíme finál bez závazku.",
+      text: "Prohlédněte si orientační cenu a pošlete konfiguraci. Detaily společně doladíme bez závazku.",
     },
   };
 
@@ -226,15 +271,14 @@ export function Configurator() {
           <button
             type="button"
             className="btn btn-ghost"
-            onClick={() => {
-              try {
-                localStorage.setItem("cnk-config", JSON.stringify(cfg));
-              } catch {
-                /* ignore */
-              }
-            }}
+            onClick={saveProposal}
+            aria-live="polite"
           >
-            Uložit návrh
+            {saveStatus === "saved"
+              ? "Návrh uložen"
+              : saveStatus === "loaded"
+                ? "Uložený návrh načten"
+                : "Uložit návrh"}
           </button>
           <button
             type="button"
@@ -633,13 +677,23 @@ export function Configurator() {
                   <strong>{formatCzk(prices.total)}</strong>
                 </div>
 
-                {sent ? (
-                  <p className="cfg-note">
-                    Konfiguraci máme. Ozveme se do 24 hodin s návrhem dalšího
-                    kroku.
+                {deliveryStatus === "sent" || deliveryStatus === "mailto" ? (
+                  <p className="cfg-note" aria-live="polite">
+                    {deliveryStatus === "sent"
+                      ? "Konfiguraci máme. Ozveme se obvykle do jednoho pracovního dne s návrhem dalšího kroku."
+                      : "Připravili jsme vám e-mail s konfigurací. Zkontrolujte ho a odešlete ve svém e-mailovém programu."}
                   </p>
                 ) : (
                   <form className="contact-form" onSubmit={onSubmit}>
+                    <div className="honeypot" aria-hidden="true">
+                      <label htmlFor="cfg-website">Web</label>
+                      <input
+                        id="cfg-website"
+                        name="website"
+                        tabIndex={-1}
+                        autoComplete="off"
+                      />
+                    </div>
                     <div className="field">
                       <label htmlFor="cfg-name">Jméno</label>
                       <input id="cfg-name" name="name" required placeholder="Vaše jméno" />
@@ -680,10 +734,28 @@ export function Configurator() {
                       name="config"
                       value={JSON.stringify({ cfg, prices })}
                     />
-                    <button type="submit" className="btn btn-ink btn-arrow btn-block">
-                      Odeslat poptávku
+                    <button
+                      type="submit"
+                      className="btn btn-ink btn-arrow btn-block"
+                      disabled={deliveryStatus === "sending"}
+                    >
+                      {deliveryStatus === "sending"
+                        ? "Odesílám…"
+                        : "Odeslat poptávku"}
                       <ArrowIcon />
                     </button>
+                    <p className="form-note">
+                      Údaje použijeme pouze k vyřízení poptávky. Více v{" "}
+                      <Link href="/ochrana-osobnich-udaju">
+                        ochraně osobních údajů
+                      </Link>
+                      .
+                    </p>
+                    <p className="form-status" aria-live="polite">
+                      {deliveryStatus === "sending"
+                        ? "Odesíláme konfiguraci…"
+                        : ""}
+                    </p>
                   </form>
                 )}
 

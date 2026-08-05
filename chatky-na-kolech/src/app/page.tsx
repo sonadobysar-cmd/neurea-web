@@ -60,8 +60,25 @@ function CtaBand({
 }
 
 export default function HomePage() {
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.a,
+      },
+    })),
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <SiteNav darkHero />
 
       <section className="hero">
@@ -79,7 +96,7 @@ export default function HomePage() {
         <div className="hero-content">
           <p className="hero-brand">{brand.name}</p>
           <h1>
-            Dřevěný dom
+            Dřevěný dům{" "}
             <br />
             <span className="hero-accent">na kolech</span>
           </h1>
@@ -219,8 +236,8 @@ export default function HomePage() {
           <Reveal>
             <div className="wheel-visual mt-3">
               <Image
-                src={media.chassis}
-                alt="Homologovaný podvozek tiny house"
+                src={media.mobility}
+                alt="Hotový dřevěný tiny house na homologovaném dvounápravovém podvozku"
                 fill
                 sizes="100vw"
                 style={{ objectFit: "cover" }}
@@ -239,7 +256,8 @@ export default function HomePage() {
                 <h2>Sestavte dům. Uvidíte cenu. Pošlete poptávku.</h2>
                 <p>
                   Rozměry, střecha, fasáda, výbava — živý náhled a orientační
-                  rozpočet. Žádné typové šablony. Váš brief, vaše čísla.
+                  rozpočet. Žádné typové šablony. Váš návrh, vaše orientační
+                  cena.
                 </p>
                 <div className="hero-actions" style={{ marginBottom: 0 }}>
                   <Link href="/konfigurator" className="btn btn-oak btn-arrow">
@@ -254,7 +272,7 @@ export default function HomePage() {
               <div className="cfg-preview cfg-preview--photo">
                 <Image
                   src="/media/realizace/tiny-12x4.jpg"
-                  alt=""
+                  alt="Tiny house 12×4 m sestavený v konfigurátoru Chatky na kolech"
                   fill
                   sizes="400px"
                   style={{ objectFit: "cover", borderRadius: "1rem" }}
@@ -283,7 +301,7 @@ export default function HomePage() {
             <div className="real-strip">
               {realizations.map((r) => (
                 <figure key={r.id} className="real-card">
-                  <Image src={r.image} alt={r.title} fill sizes="380px" />
+                  <Image src={r.image} alt={r.alt} fill sizes="380px" />
                   <figcaption>
                     <div>
                       <h3>{r.title}</h3>
@@ -353,7 +371,7 @@ export default function HomePage() {
               <CtaBand
                 title="Nejste si jistí, která cesta je vaše?"
                 text="Napište jednou větou, co řešíte. Ozveme se s doporučením."
-                primary="Napsat teď"
+                primary="Popsat svůj projekt"
                 primaryHref="/#kontakt"
                 secondary="Konfigurátor"
                 secondaryHref="/konfigurator"
@@ -397,7 +415,7 @@ export default function HomePage() {
                     maxWidth: "16ch",
                   }}
                 >
-                  Napište záměr. My vrátíme další krok.
+                  Popište nám svůj záměr. Ozveme se s dalším krokem.
                 </h2>
                 <p
                   style={{
@@ -407,8 +425,8 @@ export default function HomePage() {
                     marginBottom: "1.5rem",
                   }}
                 >
-                  Nový dům, renovace, byznys nebo kemp — vyberte v formuláři. Nebo rovnou
-                  pošlete konfiguraci.
+                  Nový dům, renovace, byznys nebo kemp — vyberte ve formuláři.
+                  Nebo rovnou pošlete konfiguraci.
                 </p>
                 <p style={{ marginBottom: "0.35rem" }}>
                   <a href={`mailto:${brand.email}`}>{brand.email}</a>

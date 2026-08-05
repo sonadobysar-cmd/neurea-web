@@ -6,9 +6,22 @@ import { SiteNav } from "@/components/SiteNav";
 import { realizations } from "@/data/content";
 
 export const metadata: Metadata = {
-  title: "Realizace",
+  title: "Realizace tiny houses na kolech",
   description:
-    "Tiny houses Chatky na kolech — bydlení, Airbnb, rekonstrukce kempů. Ukázky atmosféry a připravované projekty.",
+    "Prohlédněte si realizované tiny houses na kolech — exteriéry, interiéry, ploché i kulaté střechy pro bydlení, Airbnb a glamping.",
+  alternates: { canonical: "/realizace" },
+  openGraph: {
+    title: "Realizace tiny houses na kolech · Chatky na kolech",
+    description:
+      "Skutečné tiny houses z naší dílny — exteriéry, interiéry, kulaté i ploché střechy. Každý s koly.",
+    url: "/realizace",
+    images: [{ url: "/media/realizace/tiny-12x4.jpg", width: 1600, height: 1200 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Realizace tiny houses na kolech",
+    images: ["/media/realizace/tiny-12x4.jpg"],
+  },
 };
 
 export default function RealizacePage() {
@@ -18,10 +31,10 @@ export default function RealizacePage() {
       <header className="page-hero">
         <div className="wrap">
           <p className="eyebrow">Důkaz</p>
-          <h1>Realizace</h1>
+          <h1>Realizace tiny houses na kolech</h1>
           <p>
             Skutečné domy z naší dílny — exteriéry na louce, interiéry ze smrku,
-            kulaté střechy i flat box. Každý s koly.
+            kulaté střechy i moderní domy s plochou střechou. Každý s koly.
           </p>
         </div>
       </header>
@@ -41,7 +54,7 @@ export default function RealizacePage() {
                 >
                   <Image
                     src={r.image}
-                    alt={r.title}
+                    alt={r.alt}
                     fill
                     sizes={span ? "100vw" : "(max-width:700px) 100vw, 50vw"}
                   />
@@ -82,7 +95,7 @@ export default function RealizacePage() {
                 <ArrowIcon />
               </Link>
               <Link href="/#kontakt" className="btn btn-ghost">
-                Domluvit hovor
+                Poptat konzultaci
               </Link>
             </div>
           </div>

@@ -2,6 +2,8 @@
 
 import { useEffect } from "react";
 
+const INTERACTIVE = "a, button, summary, input, select, textarea, [role='button']";
+
 export function Cursor() {
   useEffect(() => {
     const dot = document.querySelector<HTMLElement>(".cursor-dot");
@@ -27,25 +29,32 @@ export function Cursor() {
       raf = requestAnimationFrame(loop);
     };
 
-    const onEnter = () => document.body.classList.add("is-hovering");
-    const onLeave = () => document.body.classList.remove("is-hovering");
+    // Delegated hover detection instead of per-element listeners: works for
+    // any element present now or added later (route changes, configurator
+    // steps, accordions), instead of a one-time snapshot at mount.
+    const onOver = (e: MouseEvent) => {
+      if ((e.target as HTMLElement)?.closest(INTERACTIVE)) {
+        document.body.classList.add("is-hovering");
+      }
+    };
+
+    const onOut = (e: MouseEvent) => {
+      const related = e.relatedTarget as HTMLElement | null;
+      if (!related || !related.closest(INTERACTIVE)) {
+        document.body.classList.remove("is-hovering");
+      }
+    };
 
     window.addEventListener("mousemove", onMove);
+    document.addEventListener("mouseover", onOver);
+    document.addEventListener("mouseout", onOut);
     raf = requestAnimationFrame(loop);
-
-    const targets = document.querySelectorAll("a, button, summary, .cfg-opt, .cfg-check");
-    targets.forEach((el) => {
-      el.addEventListener("mouseenter", onEnter);
-      el.addEventListener("mouseleave", onLeave);
-    });
 
     return () => {
       window.removeEventListener("mousemove", onMove);
+      document.removeEventListener("mouseover", onOver);
+      document.removeEventListener("mouseout", onOut);
       cancelAnimationFrame(raf);
-      targets.forEach((el) => {
-        el.removeEventListener("mouseenter", onEnter);
-        el.removeEventListener("mouseleave", onLeave);
-      });
     };
   }, []);
 

@@ -32,7 +32,7 @@ export const paths = [
     image: "/media/realizace/tiny-12x4.jpg",
     cta: "Spustit konfigurátor",
     href: "/konfigurator",
-    secondary: "Domluvit hovor",
+    secondary: "Poptat konzultaci",
     secondaryHref: "/#kontakt",
   },
   {
@@ -55,7 +55,7 @@ export const paths = [
     id: "byznys",
     eyebrow: "03 · Pro byznys",
     title: "Airbnb a investice",
-    text: "Nové jednotky pro short-stay a glamping — hosté je fotí, vy je přesunete, když lokalita přestane dávat smysl. Flotily i jednotlivé investice.",
+    text: "Nové jednotky pro krátkodobý pronájem a glamping — hosté je fotí, vy je přesunete, když lokalita přestane dávat smysl. Flotily i jednotlivé investice.",
     points: [
       "Airbnb & glamping jednotky",
       "Opakované jednotky pro investory",
@@ -80,7 +80,7 @@ export const paths = [
     image: "/media/realizace/sirek.jpg",
     cta: "Poptat rekonstrukci kempu",
     href: "/?zamer=kempy#kontakt",
-    secondary: "Domluvit konzultaci",
+    secondary: "Poptat konzultaci",
     secondaryHref: "/#kontakt",
   },
 ];
@@ -104,7 +104,7 @@ export const process = [
   {
     n: "04",
     title: "Předání",
-    text: "Převoz, zaučení, dokumentace. Bydlíte, hostíte, nebo otvíráte sezónu.",
+    text: "Převoz, zaučení, dokumentace. Bydlíte, hostíte nebo otevíráte sezónu.",
   },
 ];
 
@@ -114,8 +114,8 @@ export const wheelPoints = [
     text: "Změna pozemku, nová lokalita pro Airbnb, sezónní kemp. Dům jede s vámi.",
   },
   {
-    title: "Bez stavebního maratonu",
-    text: "Homologovaný podvozek = přívěs. Řešíte umístění a dispozici — ne roky na úřadě.",
+    title: "Přesun bez nové stavby",
+    text: "Homologovaný podvozek usnadňuje převoz. Podmínky umístění se vždy odvíjejí od účelu, pozemku a konkrétní situace.",
   },
   {
     title: "Investice, která není přibitá",
@@ -131,6 +131,7 @@ export const realizations = [
     year: "2025",
     tag: "Nový dům",
     image: "/media/realizace/tiny-12x4.jpg",
+    alt: "Tiny house 12×4 m s plochou střechou — exteriér moderní jednotky na kolech",
   },
   {
     id: "sirek",
@@ -139,6 +140,7 @@ export const realizations = [
     year: "2025",
     tag: "Byznys",
     image: "/media/realizace/sirek.jpg",
+    alt: "Tiny house Sirek 8×3 při převozu na louku na homologovaném podvozku",
   },
   {
     id: "gajan",
@@ -147,6 +149,7 @@ export const realizations = [
     year: "2024",
     tag: "Nový dům",
     image: "/media/realizace/gajan.jpg",
+    alt: "Tiny house Gajan s kulatou střechou — exteriér dřevostavby na kolech",
   },
   {
     id: "vagonek",
@@ -155,6 +158,7 @@ export const realizations = [
     year: "2024",
     tag: "Byznys",
     image: "/media/realizace/vagonek.jpg",
+    alt: "Tiny house Vagonek pro glamping — dřevěná jednotka na kolech pro krátkodobý pronájem",
   },
   {
     id: "tiny-8x4",
@@ -163,6 +167,7 @@ export const realizations = [
     year: "2025",
     tag: "Nový dům",
     image: "/media/realizace/tiny-8x4-interior.jpg",
+    alt: "Interiér tiny house 8×4 m se spacím loftem a smrkovým obkladem",
   },
   {
     id: "tiny-9",
@@ -171,6 +176,7 @@ export const realizations = [
     year: "2025",
     tag: "Nový dům",
     image: "/media/realizace/tiny-9x34-interior.jpg",
+    alt: "Interiér tiny house 9×3,4 m se smrkovým obkladem a loftem",
   },
   {
     id: "tiny-27",
@@ -179,6 +185,7 @@ export const realizations = [
     year: "2024",
     tag: "Nový dům",
     image: "/media/realizace/tiny-27x8.jpg",
+    alt: "Kompaktní tiny house 2,7×8 m — exteriér mobilní jednotky na kolech",
   },
   {
     id: "gajan-in",
@@ -187,6 +194,7 @@ export const realizations = [
     year: "2024",
     tag: "Nový dům",
     image: "/media/realizace/gajan-interior.jpg",
+    alt: "Interiér tiny house Gajan s kulatou střechou",
   },
 ];
 
@@ -201,7 +209,7 @@ export const values = [
   },
   {
     title: "Čtyři cesty, jedna dílna",
-    text: "Nový dům, renovace, Airbnb i rekonstrukce kempů. Stejná kvalita, jiný brief.",
+    text: "Nový dům, renovace, Airbnb i rekonstrukce kempů. Stejná kvalita, jiný záměr.",
   },
 ];
 
@@ -211,8 +219,8 @@ export const faq = [
     a: "Ne. Nové jednotky na míru, renovace stávajících chatek/maringotek, Airbnb investice i rekonstrukce kempů. Vyberete cestu — my navrhneme postup.",
   },
   {
-    q: "Opravdu nepotřebuju stavební povolení?",
-    a: "U homologovaného podvozku jde legislativně o přívěs. Obvykle řešíte umístění na pozemku, ne klasické stavební řízení. Projdeme to konkrétně.",
+    q: "Co budu řešit s úřady?",
+    a: "Záleží na účelu, délce umístění a konkrétním pozemku. Homologovaný podvozek usnadňuje převoz, ale automaticky neznamená, že není potřeba povolení. Doporučíme vám ověřit záměr s příslušným stavebním úřadem.",
   },
   {
     q: "Proč jsou kola tak důležitá?",
@@ -220,7 +228,11 @@ export const faq = [
   },
   {
     q: "Jak začít?",
-    a: "Nový dům → konfigurátor. Renovace, byznys nebo kemp → krátká poptávka s fotkami/záměrem. Ozveme se s dalším krokem.",
+    a: "Nový dům → konfigurátor. Renovace, byznys nebo kemp → krátká poptávka se záměrem. Ozveme se s doporučením dalšího kroku.",
+  },
+  {
+    q: "Kolik tiny house stojí?",
+    a: "Cena se odvíjí hlavně od rozměrů, dispozice, fasády a výbavy. V konfigurátoru si sestavíte vlastní variantu a hned uvidíte orientační cenu.",
   },
 ];
 
@@ -228,6 +240,7 @@ export const media = {
   hero: "/media/hero/hero-forest-dusk.jpg",
   craft: "/media/atelier/obklad.jpg",
   chassis: "/media/atelier/podvozek.jpg",
+  mobility: "/media/atelier/tiny-house-podvozek-premium.jpg",
   structure: "/media/atelier/konstrukce.jpg",
   loft: "/media/atelier/loft-view.jpg",
   wellness: "/media/wellness/virivka.jpg",

@@ -29,6 +29,7 @@ export function SiteFooter() {
             <a href={`mailto:${brand.email}`}>{brand.email}</a>
             <a href={`tel:${brand.phone.replace(/\s/g, "")}`}>{brand.phone}</a>
             <p>{brand.address}</p>
+            <Link href="/ochrana-osobnich-udaju">Ochrana osobních údajů</Link>
           </div>
         </div>
         <div className="footer-bottom">

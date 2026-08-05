@@ -7,9 +7,22 @@ import { SiteNav } from "@/components/SiteNav";
 import { media, values } from "@/data/content";
 
 export const metadata: Metadata = {
-  title: "Dílna",
+  title: "Dílna a výroba tiny house na kolech",
   description:
-    "Kde vznikají Chatky na kolech — moderní dřevostavby s útulným interiérem a homologovaným podvozkem.",
+    "Nahlédněte do výroby tiny houses na kolech. Vlastní dílna, přírodní dřevo, moderní interiér a homologovaný podvozek.",
+  alternates: { canonical: "/atelier" },
+  openGraph: {
+    title: "Dílna a výroba tiny house na kolech · Chatky na kolech",
+    description:
+      "Stavíme domy, které se smí hýbat. Vlastní výroba, homologovaný podvozek, moderní dřevěný interiér.",
+    url: "/atelier",
+    images: [{ url: "/media/atelier/konstrukce.jpg", width: 1600, height: 1200 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Dílna a výroba tiny house na kolech",
+    images: ["/media/atelier/konstrukce.jpg"],
+  },
 };
 
 export default function AtelierPage() {
@@ -19,7 +32,7 @@ export default function AtelierPage() {
       <header className="page-hero">
         <div className="wrap">
           <p className="eyebrow">Dílna</p>
-          <h1>Stavíme domy, které se smí hýbat</h1>
+          <h1>Stavíme tiny houses, které se smí hýbat</h1>
           <p>
             Nejsme katalog. Jsme dílna s moderním střihem — přírodní dřevo, čisté
             linie, kola jako součást produktu.
@@ -47,16 +60,15 @@ export default function AtelierPage() {
                 <h2>Od záměru k jednotce, která vydělává nebo bydlí</h2>
                 <p>
                   Stavíme pro majitele pozemků, provozovatele Airbnb, investory
-                  i rekonstrukce kempů,
-                  které chtějí vyměnit staré chatky za něco, na co jsou hosté
-                  pyšní.
+                  i provozovatele kempů — pro každého, kdo chce vyměnit staré
+                  chatky za něco, na co jsou hosté pyšní.
                 </p>
                 <p>
                   Každý projekt začíná otázkou „k čemu to má sloužit“ — ne
                   „který model z PDF“.
                 </p>
                 <Link href="/#kontakt" className="btn btn-ink btn-arrow">
-                  Domluvit konzultaci
+                  Poptat konzultaci
                   <ArrowIcon />
                 </Link>
               </div>

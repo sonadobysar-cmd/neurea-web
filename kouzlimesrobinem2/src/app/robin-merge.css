@@ -546,8 +546,14 @@ body {
   stroke-width: 1;
 }
 
-.pop-btn {
+.pop-btn,
+.pop-cta {
   margin: 30px auto 0;
+  display: inline-flex;
+}
+
+.pop-cta {
+  text-decoration: none;
 }
 
 .btn-primary {

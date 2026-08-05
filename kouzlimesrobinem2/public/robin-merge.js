@@ -240,17 +240,25 @@
     });
   }
 
-  // 8) Balónky Robin2 — hra 1:1 (base64 odměny z originálu)
+  // 8) Balónky — max 2 prasknutí na návštěvníka, pak CTA Objednat Robina
   var popstage = document.getElementById("popstage");
   var cluster = document.getElementById("cluster");
   var reward = document.getElementById("reward");
   var popBtn = document.getElementById("popBtn");
+  var popCta = document.getElementById("popCta");
   var final = document.getElementById("tfinal");
 
   if (popstage && cluster && reward) {
     var rewards = balloonData.rewards || [];
     var order = [];
+    var MAX_POPS = 2;
+    var STORAGE_KEY = "robin-balloon-pops";
     var popped = 0;
+    try {
+      popped = Math.max(0, parseInt(localStorage.getItem(STORAGE_KEY) || "0", 10) || 0);
+    } catch (e) {
+      popped = 0;
+    }
     var busy = false;
 
     function shuffle() {
@@ -265,6 +273,39 @@
       }
     }
     shuffle();
+
+    function savePops() {
+      try {
+        localStorage.setItem(STORAGE_KEY, String(popped));
+      } catch (e) {
+        /* ignore */
+      }
+    }
+
+    function setClusterEnabled(on) {
+      if (on) {
+        cluster.removeAttribute("aria-disabled");
+        cluster.tabIndex = 0;
+        cluster.style.pointerEvents = "";
+        cluster.style.cursor = "";
+      } else {
+        cluster.setAttribute("aria-disabled", "true");
+        cluster.tabIndex = -1;
+        cluster.style.pointerEvents = "none";
+        cluster.style.cursor = "default";
+      }
+    }
+
+    function syncPopUi() {
+      var done = popped >= MAX_POPS;
+      if (popBtn) popBtn.style.display = done || popped === 0 ? "none" : "";
+      if (popCta) popCta.style.display = done ? "" : "none";
+      if (final) {
+        if (done) final.classList.add("show");
+        else final.classList.remove("show");
+      }
+      setClusterEnabled(!done && !cluster.classList.contains("gone"));
+    }
 
     function starBurst() {
       var r = cluster.getBoundingClientRect();
@@ -291,7 +332,7 @@
     }
 
     function doPop() {
-      if (busy || !rewards.length) return;
+      if (busy || !rewards.length || popped >= MAX_POPS) return;
       busy = true;
       var pick = rewards[order[popped % order.length]];
       starBurst();
@@ -311,19 +352,20 @@
       void reward.offsetWidth;
       reward.classList.add("show");
       popped++;
-      if (popBtn) popBtn.style.display = "";
-      if (popped >= 2 && final && !final.classList.contains("show"))
-        final.classList.add("show");
+      savePops();
+      syncPopUi();
       setTimeout(function () {
         busy = false;
       }, 400);
     }
 
     function resetPop() {
-      if (busy) return;
+      if (busy || popped >= MAX_POPS) return;
       reward.classList.remove("show");
       reward.innerHTML = "";
       cluster.classList.remove("gone", "popping");
+      setClusterEnabled(true);
+      if (popBtn) popBtn.style.display = "none";
     }
 
     cluster.addEventListener("click", doPop);
@@ -334,6 +376,16 @@
       }
     });
     if (popBtn) popBtn.addEventListener("click", resetPop);
+
+    if (popped >= MAX_POPS) {
+      cluster.classList.add("gone");
+      if (reward && !reward.innerHTML) {
+        reward.innerHTML =
+          '<span class="rlabel"><svg><use href="#star"/></svg>Už jsi praskl(a) 2× — teď objednej Robina naživo</span>';
+        reward.classList.add("show");
+      }
+    }
+    syncPopUi();
   }
 
   // 11) Kontaktní formulář

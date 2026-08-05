@@ -310,7 +310,7 @@ body {
   max-width: 34em;
   font-size: clamp(16px, 1.7vw, 18px);
   line-height: 1.55;
-  color: rgba(249, 246, 240, 0.78);
+  color: #201406;
 }
 
 /* Levý panel — cena ve stylu hlavní části vstupenky */

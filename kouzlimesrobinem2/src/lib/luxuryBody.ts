@@ -178,7 +178,7 @@ export const luxuryBodyTemplate = `<svg width="0" height="0" style="position:abs
   <div class="wrap reveal">
     <div class="booking-head">
       <h2>Rezervace <em>termínu.</em></h2>
-      <p class="lead">Vyberte si volný termín v kalendáři. Po rezervaci přijde potvrzení e-mailem — termín se propsíše do Robinova Google Kalendáře.</p>
+      <p class="lead">Vyberte si volný termín. Po rezervaci přijde potvrzení e-mailem a termín se propsíše přímo do Robinova Google Kalendáře.</p>
     </div>
     <div class="booking-embed" id="bookingEmbed">
       {{cms.contact.bookingEmbed}}

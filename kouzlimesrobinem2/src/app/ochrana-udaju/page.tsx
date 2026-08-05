@@ -108,9 +108,9 @@ export default function PrivacyPage() {
           </p>
           <p>
             Pokud využijete online rezervaci termínu, údaje o rezervaci
-            zpracovává také poskytovatel rezervačního kalendáře (např. Cal.com
-            nebo Google Calendar Appointment Schedules) podle svých podmínek —
-            typicky jméno, e-mail a zvolený termín.
+            zpracovává také Google Calendar (Appointment Schedules) nebo jiný
+            zvolený rezervační nástroj podle svých podmínek — typicky jméno,
+            e-mail a zvolený termín.
           </p>
         </section>
 

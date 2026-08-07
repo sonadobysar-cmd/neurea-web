@@ -1,6 +1,6 @@
 import { ServiceType } from "./pricing";
 
-export type DayKey = 0 | 1 | 2 | 3 | 4 | 5 | 6; // Sun-Sat
+export type DayKey = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
 export type Provider = {
   id: string;
@@ -9,6 +9,7 @@ export type Provider = {
   district: string;
   lat: number;
   lng: number;
+  photo: string;
   services: ServiceType[];
   bio: string;
   experienceYears: number;
@@ -20,7 +21,6 @@ export type Provider = {
   verified: true;
   lactationLevel?: "pa" | "laicka";
   radiusKm: number;
-  /** Hours available each weekday, e.g. ["09:00","13:00"] start times */
   weeklySlots: Partial<Record<DayKey, string[]>>;
   slotHours: number;
   reviews: { author: string; text: string; stars: number; date: string }[];
@@ -34,6 +34,7 @@ export const PROVIDERS: Provider[] = [
     district: "Vinohrady",
     lat: 50.0755,
     lng: 14.4378,
+    photo: "/media/avatar-anna.jpg",
     services: ["uleva", "dula"],
     bio: "Dvě vlastní děti, kurz poporodní duly. Přijedu, uvařím, pohlídám staršího a nechám tě vyspat.",
     experienceYears: 4,
@@ -75,6 +76,7 @@ export const PROVIDERS: Provider[] = [
     district: "Žabovřesky",
     lat: 49.2105,
     lng: 16.582,
+    photo: "/media/avatar-eliska.jpg",
     services: ["uleva"],
     bio: "Na rodičovské, ráda pomůžu jiné mámě. Úklid, vaření, sourozenci — bez dramatu.",
     experienceYears: 2,
@@ -109,6 +111,7 @@ export const PROVIDERS: Provider[] = [
     district: "Smíchov",
     lat: 50.069,
     lng: 14.4,
+    photo: "/media/avatar-petra.jpg",
     services: ["laktace", "dula"],
     bio: "Porodní asistentka a laktační poradkyně. Pomůžu s přisátím, bolestí i jistotou.",
     experienceYears: 8,
@@ -144,6 +147,7 @@ export const PROVIDERS: Provider[] = [
     district: "Poruba",
     lat: 49.826,
     lng: 18.17,
+    photo: "/media/avatar-jana.jpg",
     services: ["uleva", "dula"],
     bio: "Poporodní dula. Přijdu, když je chaos — uklidím, pohlídám, poslechnu.",
     experienceYears: 3,
@@ -178,6 +182,7 @@ export const PROVIDERS: Provider[] = [
     district: "Lochotín",
     lat: 49.766,
     lng: 13.38,
+    photo: "/media/avatar-monika.jpg",
     services: ["uleva"],
     bio: "Ráda vařím a mám trpělivost s batolaty. Ideální na dopolední úlevu.",
     experienceYears: 5,
@@ -212,8 +217,9 @@ export const PROVIDERS: Provider[] = [
     district: "centrum",
     lat: 50.2103,
     lng: 15.825,
+    photo: "/media/avatar-karolina.jpg",
     services: ["laktace"],
-    bio: "Laická laktační podpora (MAMILA). Hands-off přístup, klid a jistota.",
+    bio: "Laická laktační podpora. Klid, jistota a praktická pomoc bez tlaku.",
     experienceYears: 3,
     experiences: ["Kojení", "Šestinedělí"],
     badges: ["Ověřená totožnost", "RT OK", "Pohovor OK", "Pojištěná", "Laktační podpora"],
@@ -246,6 +252,7 @@ export const PROVIDERS: Provider[] = [
     district: "Rochlice",
     lat: 50.76,
     lng: 15.07,
+    photo: "/media/avatar-bara.jpg",
     services: ["uleva", "dula"],
     bio: "Pomoc, která přijede. Úklid, vaření, přítomnost u miminka. Ověřená, s kalendářem.",
     experienceYears: 2,
@@ -280,6 +287,7 @@ export const PROVIDERS: Provider[] = [
     district: "centrum",
     lat: 48.9745,
     lng: 14.474,
+    photo: "/media/avatar-zuzana.jpg",
     services: ["uleva"],
     bio: "Praktická pomoc pro mámy, které už nestíhají. Ráda přijedu odpoledne.",
     experienceYears: 6,
@@ -307,6 +315,7 @@ export const PROVIDERS: Provider[] = [
     district: "Nová Ulice",
     lat: 49.5938,
     lng: 17.2509,
+    photo: "/media/avatar-adela.jpg",
     services: ["dula", "laktace"],
     bio: "Dula a laktační podpora. Jemná, jasná, bez tlaku na dokonalost.",
     experienceYears: 4,
@@ -337,8 +346,8 @@ export const PROVIDERS: Provider[] = [
 ];
 
 export type BookableSlot = {
-  date: string; // YYYY-MM-DD
-  start: string; // HH:mm
+  date: string;
+  start: string;
   end: string;
   hours: number;
 };

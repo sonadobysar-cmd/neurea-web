@@ -5,14 +5,14 @@ Marketplace ověřené poporodní pomoci po celé ČR.
 ## Ceny pro maminky (veřejné)
 
 - **Úleva doma** — 449 Kč/h (min. 3 h)
-- **Dula** — 899 Kč/h (min. 2 h)
-- **Laktační poradkyně** — 1 090 Kč/h (min. 1 h)
+- **Dula** — 900 Kč/h (min. 2 h)
+- **Laktační poradkyně** — 1 500 Kč/h (min. 1 h)
 
 ## Výplata pečující (interní)
 
 - Úleva — 250 Kč/h
 - Dula — 490 Kč/h
-- Laktace — 620 Kč/h
+- Laktace — 900 Kč/h
 
 Klient nevidí fee ani rozpad. MamaSOS si nechá rozdíl na provoz, ověření, pojištění a produkt.
 

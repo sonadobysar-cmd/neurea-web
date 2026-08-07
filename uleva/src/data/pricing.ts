@@ -32,23 +32,21 @@ export const SERVICE_PRICING: Record<
   dula: {
     label: "Poporodní dula",
     shortLabel: "Dula",
-    // Trh poporodních návštěv typicky ~750–1 200 Kč/h
-    pricePerHour: 899,
+    pricePerHour: 900,
     payoutPerHour: 490,
     minHours: 2,
     description:
       "Přítomnost, rutina, emoční opora. Nezdravotní podpora v šestinedělí.",
-    marketNote: "Soukromé duly často 750–1 200 Kč/h. Výplata 490 Kč/h za hotové termíny.",
+    marketNote: "Jednotná sazba 900 Kč/h. Výplata duly 490 Kč/h.",
   },
   laktace: {
     label: "Laktační poradkyně",
     shortLabel: "Laktace",
-    // Trh ~750–1 200 Kč/h, první návštěvy často 1 100–1 700 Kč
-    pricePerHour: 1090,
-    payoutPerHour: 620,
+    pricePerHour: 1500,
+    payoutPerHour: 900,
     minHours: 1,
     description: "Podpora kojení na objednání. Podle kvalifikace jasně označená.",
-    marketNote: "LP běžně 750–1 200+ Kč/h. Výplata 620 Kč/h + stabilní poptávka.",
+    marketNote: "Jednotná sazba 1 500 Kč/h. Výplata LP 900 Kč/h.",
   },
 };
 

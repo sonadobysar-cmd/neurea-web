@@ -24,11 +24,16 @@ export const metadata: Metadata = {
   description:
     "Ověřená pečující u vás doma. Úleva, dula nebo laktace — s volným termínem.",
   metadataBase: new URL("https://mamasos.cz"),
+  icons: {
+    icon: "/brand/mamasos-icon.png",
+    apple: "/brand/mamasos-icon.png",
+  },
   openGraph: {
     title: "MamaSOS",
     description: "Pomoc, když to jako máma nestíháš.",
     locale: "cs_CZ",
     type: "website",
+    images: [{ url: "/brand/mamasos-lockup.png", width: 1200, height: 630 }],
   },
 };
 

@@ -1,51 +1,52 @@
 import Image from "next/image";
 import Link from "next/link";
-import { BrandWord } from "@/components/BrandMark";
+import { BrandLockup, BrandLogoImage, LogoMark } from "@/components/BrandMark";
 import { SERVICE_PRICING, formatCzk } from "@/data/pricing";
 
 const SERVICES = [
   {
     key: "uleva" as const,
     line: "Úklid, vaření, sourozenci — jedna návštěva.",
+    image: "/media/service-uleva.jpg",
   },
   {
     key: "dula" as const,
     line: "Přítomnost a rutina v šestinedělí.",
+    image: "/media/service-dula.jpg",
   },
   {
     key: "laktace" as const,
     line: "Podpora kojení. Jasná kvalifikace.",
+    image: "/media/service-laktace.jpg",
   },
 ];
 
 export default function HomePage() {
   return (
     <div>
-      {/* 1 — Brand campaign hero */}
+      {/* 1 — Campaign hero with brand logo */}
       <section className="relative flex min-h-[100svh] flex-col">
         <div className="absolute inset-0">
           <Image
             src="/media/hero-mama.jpg"
-            alt=""
+            alt="MamaSOS — klidný moment matky s miminkem"
             fill
             priority
-            className="img-grade object-cover object-[center_28%]"
+            className="img-grade object-cover object-[center_30%]"
             sizes="100vw"
           />
           <div className="hero-scrim absolute inset-0" />
         </div>
 
         <div className="shell relative z-10 flex min-h-[100svh] flex-col items-center justify-center px-2 pb-16 pt-28 text-center text-[#fafaf8]">
-          <p className="brand-rise text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-white/55">
-            Péče pro maminky
-          </p>
-          <h1 className="brand-rise-delay mt-8">
-            <BrandWord
-              light
-              className="block text-[clamp(3.8rem,14vw,9rem)]"
+          <div className="brand-rise w-full max-w-[min(92vw,520px)]">
+            <BrandLogoImage
+              variant="wordmark"
+              priority
+              className="brightness-0 invert"
             />
-          </h1>
-          <p className="display-soft brand-rise-late mt-8 max-w-md text-[clamp(1.35rem,3vw,1.85rem)] text-white/90">
+          </div>
+          <p className="display-soft brand-rise-delay mt-8 max-w-md text-[clamp(1.35rem,3vw,1.85rem)] text-white/90">
             Pomoc, když to jako máma nestíháš.
           </p>
           <div className="brand-rise-late mt-12">
@@ -56,9 +57,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 2 — Manifesto */}
+      {/* 2 — Manifesto + mark */}
       <section className="bg-snow">
         <div className="shell flex min-h-[70vh] flex-col items-center justify-center py-28 text-center md:py-36">
+          <LogoMark className="mb-10 h-14 w-14 text-rose" />
           <p className="display max-w-3xl text-[clamp(2rem,5vw,3.75rem)]">
             Ne katalog.
             <br />
@@ -72,7 +74,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 3 — One image story */}
+      {/* 3 — Úleva story */}
       <section className="relative min-h-[85vh] overflow-hidden">
         <Image
           src="/media/service-uleva.jpg"
@@ -81,7 +83,7 @@ export default function HomePage() {
           className="img-grade object-cover"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink/75 via-ink/20 to-ink/10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/25 to-ink/10" />
         <div className="shell relative flex min-h-[85vh] flex-col justify-end pb-16 pt-32 md:pb-24">
           <p className="eyebrow text-white/55">Úleva doma</p>
           <h2 className="display mt-4 max-w-xl text-4xl text-white md:text-6xl">
@@ -90,16 +92,19 @@ export default function HomePage() {
             odpočineš.
           </h2>
           <p className="mt-5 max-w-md text-base leading-relaxed text-white/75">
-            Jedna ověřená žena — úklid, vaření, sourozenci, přítomnost.
-            Po porodu i kdykoli jindy.
+            Jedna ověřená žena — úklid, vaření, sourozenci, přítomnost. Po
+            porodu i kdykoli jindy.
           </p>
-          <Link href="/hledat?potreby=multi,uklid,pohlidat,vareni" className="btn btn-ghost-light mt-10 w-fit">
+          <Link
+            href="/hledat?potreby=multi,uklid,pohlidat,vareni"
+            className="btn btn-ghost-light mt-10 w-fit"
+          >
             Rezervovat úlevu
           </Link>
         </div>
       </section>
 
-      {/* 4 — Services as editorial list */}
+      {/* 4 — Services with photography */}
       <section className="bg-snow">
         <div className="shell py-24 md:py-32">
           <div className="flex flex-wrap items-end justify-between gap-6 border-b border-[var(--line)] pb-10">
@@ -112,21 +117,32 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="divide-y divide-[var(--line)]">
+          <div className="mt-4 divide-y divide-[var(--line)]">
             {SERVICES.map((item) => {
               const s = SERVICE_PRICING[item.key];
               return (
                 <Link
                   key={item.key}
                   href={`/hledat?potreby=${item.key === "uleva" ? "uklid,pohlidat,vareni" : item.key}`}
-                  className="group grid grid-cols-1 items-baseline gap-3 py-10 transition md:grid-cols-[1fr_1.4fr_auto] md:gap-8"
+                  className="group grid grid-cols-1 items-center gap-6 py-10 md:grid-cols-[140px_1fr_auto] md:gap-10"
                 >
-                  <p className="display text-3xl md:text-4xl group-hover:text-rose">
-                    {s.label}
-                  </p>
-                  <p className="text-sm leading-relaxed text-ink-soft md:pt-2">
-                    {item.line}
-                  </p>
+                  <div className="relative aspect-[4/5] w-28 overflow-hidden md:w-full">
+                    <Image
+                      src={item.image}
+                      alt={s.label}
+                      fill
+                      className="img-grade object-cover transition duration-700 group-hover:scale-105"
+                      sizes="140px"
+                    />
+                  </div>
+                  <div>
+                    <p className="display text-3xl md:text-4xl group-hover:text-rose">
+                      {s.label}
+                    </p>
+                    <p className="mt-2 text-sm leading-relaxed text-ink-soft">
+                      {item.line}
+                    </p>
+                  </div>
                   <p className="display text-2xl md:text-right md:text-3xl">
                     {formatCzk(s.pricePerHour)}
                     <span className="ml-1 text-sm tracking-normal text-ink-soft">
@@ -140,10 +156,21 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 5 — Trust, one breath */}
-      <section className="bg-ink text-[#fafaf8]">
-        <div className="shell flex min-h-[50vh] flex-col items-center justify-center py-24 text-center md:py-28">
-          <p className="display-soft max-w-2xl text-[clamp(1.6rem,3.5vw,2.5rem)] text-white/90">
+      {/* 5 — Trust */}
+      <section className="relative overflow-hidden bg-ink text-[#fafaf8]">
+        <div className="absolute inset-0 opacity-40">
+          <Image
+            src="/media/trust-home.jpg"
+            alt=""
+            fill
+            className="img-grade object-cover"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-ink/70" />
+        </div>
+        <div className="shell relative flex min-h-[55vh] flex-col items-center justify-center py-24 text-center md:py-28">
+          <LogoMark className="mb-8 h-12 w-12 text-rose" />
+          <p className="display-soft max-w-2xl text-[clamp(1.6rem,3.5vw,2.5rem)] text-white/92">
             Každá pečující projde ověřením.
             <br />
             Bez aktivního kalendáře ji neuvidíš.
@@ -154,16 +181,21 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 6 — Close */}
+      {/* 6 — Close with lockup */}
       <section className="bg-fog">
         <div className="shell flex min-h-[60vh] flex-col items-center justify-center py-28 text-center">
-          <BrandWord className="text-[clamp(2.5rem,8vw,5rem)]" />
-          <p className="display-soft mt-6 text-xl text-ink-soft md:text-2xl">
+          <div className="w-full max-w-[380px]">
+            <BrandLogoImage variant="dark" />
+          </div>
+          <p className="display-soft mt-8 text-xl text-ink-soft md:text-2xl">
             Když potřebuješ, aby někdo přišel.
           </p>
           <Link href="/hledat" className="btn btn-rose mt-12">
             Najít pečující
           </Link>
+          <div className="mt-16">
+            <BrandLockup size="sm" className="opacity-40" />
+          </div>
         </div>
       </section>
     </div>

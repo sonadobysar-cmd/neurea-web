@@ -1,4 +1,4 @@
-import { PLATFORM_FEE, SERVICE_PRICING, formatCzk } from "@/data/pricing";
+import { SERVICE_PRICING, formatCzk } from "@/data/pricing";
 import {
   extractRecommendFromText,
   recommendProviders,
@@ -20,7 +20,7 @@ type Faq = {
 const FAQ: Faq[] = [
   {
     keys: ["cena", "kolik", "ceník", "stoji", "stojí", "fee", "provize", "předplat"],
-    answer: `Jednotný ceník nastavuje MamaSOS:\n• Úleva doma ${formatCzk(SERVICE_PRICING.uleva.pricePerHour)}/h (min. ${SERVICE_PRICING.uleva.minHours} h)\n• Dula ${formatCzk(SERVICE_PRICING.dula.pricePerHour)}/h (min. ${SERVICE_PRICING.dula.minHours} h)\n• Laktace ${formatCzk(SERVICE_PRICING.laktace.pricePerHour)}/h (min. ${SERVICE_PRICING.laktace.minHours} h)\n\nPlatíš jen objednané hodiny — žádné předplatné. Platforma si bere ${Math.round(PLATFORM_FEE * 100)} % fee z rezervace.`,
+    answer: `Jednotný ceník pro maminky:\n• Úleva doma ${formatCzk(SERVICE_PRICING.uleva.pricePerHour)}/h (min. ${SERVICE_PRICING.uleva.minHours} h)\n• Dula ${formatCzk(SERVICE_PRICING.dula.pricePerHour)}/h (min. ${SERVICE_PRICING.dula.minHours} h)\n• Laktace ${formatCzk(SERVICE_PRICING.laktace.pricePerHour)}/h (min. ${SERVICE_PRICING.laktace.minHours} h)\n\nPlatíš jen objednané hodiny — žádné předplatné. Cena, kterou vidíš, je cena služby.`,
     links: [{ href: "/cenik", label: "Otevřít ceník" }],
   },
   {
@@ -38,7 +38,7 @@ const FAQ: Faq[] = [
   {
     keys: ["platb", "karta", "zaplat", "výplat", "vyplat", "převod"],
     answer:
-      "Zaplatíš předem kartou za konkrétní rezervaci. MamaSOS si strhne fee a pečující dostane zbytek po dokončení návštěvy. Nevedeme peněženku s volným dobíjením.",
+      "Zaplatíš předem kartou za konkrétní rezervaci. Vidíš jen cenu služby — bez předplatného a bez peněženky s volným dobíjením.",
   },
   {
     keys: ["dula", "šestin", "sestin", "poporod"],

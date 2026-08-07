@@ -219,7 +219,7 @@ export default function HomePage() {
             {
               n: "03",
               t: "Zaplať na platformě",
-              d: "Bez předplatného. Platíš jen objednané hodiny. My si vezmeme fee, pečující zbytek.",
+              d: "Bez předplatného. Platíš jen objednané hodiny — vidíš konečnou cenu služby.",
             },
           ].map((step) => (
             <div key={step.n} className="relative border-t border-ink/10 pt-6">

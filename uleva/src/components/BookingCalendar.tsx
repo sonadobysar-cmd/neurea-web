@@ -83,12 +83,12 @@ export function BookingCalendar({
             {SERVICE_PRICING[service].label} · {formatCzk(quote.total)}
           </p>
           <p className="mt-4 rounded-2xl bg-fog px-4 py-3 text-xs leading-relaxed text-ink-soft">
-            Uloženo ve tvém účtu. Demo režim: platba kartou a výplata pečující
-            budou napojené na platební bránu. Fee {formatCzk(quote.fee)} (18 %),
-            pečující dostane {formatCzk(quote.provider)}.
+            Uloženo ve tvém účtu. Zaplatila jsi {formatCzk(quote.total)} za
+            objednaný čas — konečná cena služby. Demo: platební brána se napojí
+            později.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <Link href="/ucet" className="btn btn-rose">
+            <Link href="/ucet" className="btn btn-gold">
               Otevřít můj účet
             </Link>
             <button
@@ -205,7 +205,7 @@ export function BookingCalendar({
               <dd className="display text-2xl">{formatCzk(quote.total)}</dd>
             </div>
             <p className="mt-1 text-xs text-ink-soft">
-              Včetně zprostředkování. Žádné předplatné.
+              Konečná cena za objednané hodiny. Žádné předplatné.
             </p>
           </div>
         </dl>
@@ -213,7 +213,7 @@ export function BookingCalendar({
         {user?.role === "mom" ? (
           <button
             type="button"
-            className="btn btn-rose mt-6 w-full"
+            className="btn btn-gold mt-6 w-full"
             disabled={!selected}
             onClick={confirm}
           >
@@ -238,8 +238,8 @@ export function BookingCalendar({
 
         <p className="mt-4 flex items-start gap-2 text-xs leading-relaxed text-ink-soft">
           <Shield className="mt-0.5 h-4 w-4 shrink-0 text-moss" />
-          Stejná cena pro všechny ve stejném segmentu. Platba předem na platformě.
-          Pečující dostane výplatu po dokončení návštěvy.
+          Stejná cena pro všechny ve stejném segmentu. Platba předem na platformě
+          — vidíš jen cenu služby.
         </p>
       </aside>
     </div>

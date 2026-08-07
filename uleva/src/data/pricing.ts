@@ -1,37 +1,51 @@
 export type ServiceType = "uleva" | "dula" | "laktace";
 
-export const PLATFORM_FEE = 0.18;
-
+/**
+ * Klient vidí jen `pricePerHour`.
+ * `payoutPerHour` je interní / pro pečující — nikdy neukazovat mamince jako „fee %“.
+ */
 export const SERVICE_PRICING: Record<
   ServiceType,
   {
     label: string;
     shortLabel: string;
     pricePerHour: number;
+    payoutPerHour: number;
     minHours: number;
     description: string;
+    marketNote: string;
   }
 > = {
   uleva: {
     label: "Úleva doma",
     shortLabel: "Úleva",
     pricePerHour: 449,
+    payoutPerHour: 250,
     minHours: 3,
-    description: "Uvařit, uklidit, pohlídat sourozence, být s miminkem zatímco si odpočineš.",
+    description:
+      "Uklidit, pohlídat sourozence, uvařit, být s miminkem zatímco si odpočineš.",
+    marketNote: "Chůvy/úklid běžně 180–300 Kč/h. Výplata 250 Kč/h + přísun rezervací.",
   },
   dula: {
     label: "Poporodní dula",
     shortLabel: "Dula",
-    pricePerHour: 699,
+    // Trh poporodních návštěv typicky ~750–1 200 Kč/h
+    pricePerHour: 899,
+    payoutPerHour: 490,
     minHours: 2,
-    description: "Přítomnost, rutina, emoční opora. Nezdravotní podpora v šestinedělí.",
+    description:
+      "Přítomnost, rutina, emoční opora. Nezdravotní podpora v šestinedělí.",
+    marketNote: "Soukromé duly často 750–1 200 Kč/h. Výplata 490 Kč/h za hotové termíny.",
   },
   laktace: {
     label: "Laktační poradkyně",
     shortLabel: "Laktace",
-    pricePerHour: 899,
+    // Trh ~750–1 200 Kč/h, první návštěvy často 1 100–1 700 Kč
+    pricePerHour: 1090,
+    payoutPerHour: 620,
     minHours: 1,
     description: "Podpora kojení na objednání. Podle kvalifikace jasně označená.",
+    marketNote: "LP běžně 750–1 200+ Kč/h. Výplata 620 Kč/h + stabilní poptávka.",
   },
 };
 
@@ -39,9 +53,24 @@ export function calcBooking(service: ServiceType, hours: number) {
   const pricing = SERVICE_PRICING[service];
   const h = Math.max(hours, pricing.minHours);
   const total = pricing.pricePerHour * h;
-  const fee = Math.round(total * PLATFORM_FEE);
-  const provider = total - fee;
-  return { hours: h, total, fee, provider, pricePerHour: pricing.pricePerHour };
+  const provider = pricing.payoutPerHour * h;
+  const platform = total - provider;
+  const marginPct = total > 0 ? platform / total : 0;
+  return {
+    hours: h,
+    total,
+    provider,
+    platform,
+    marginPct,
+    pricePerHour: pricing.pricePerHour,
+    payoutPerHour: pricing.payoutPerHour,
+  };
+}
+
+/** Jen pro interní / pečující pohled — ne do UI maminky. */
+export function formatMarginLabel(service: ServiceType) {
+  const q = calcBooking(service, 1);
+  return `${Math.round(q.marginPct * 100)} % provozní marže`;
 }
 
 export function formatCzk(amount: number) {

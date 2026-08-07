@@ -336,8 +336,8 @@ export default function OfferPage() {
             ))}
             <ul className="space-y-2 text-sm text-ink-soft">
               {[
-                "Fee platformy 18 % z rezervace",
-                "Jednotné ceny podle typu služby",
+                `Výplata: Úleva ${SERVICE_PRICING.uleva.payoutPerHour} Kč/h · Dula ${SERVICE_PRICING.dula.payoutPerHour} Kč/h · Laktace ${SERVICE_PRICING.laktace.payoutPerHour} Kč/h`,
+                "Klientům ukazujeme jen cenu služby — ne rozpad výplat",
                 "Bez aktivního kalendáře nejsi ve výsledcích",
               ].map((item) => (
                 <li key={item} className="flex gap-2">

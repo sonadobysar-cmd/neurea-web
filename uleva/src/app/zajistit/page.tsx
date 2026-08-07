@@ -27,7 +27,7 @@ const ONLY_YOU = [
   },
   {
     t: "Daně a účetnictví",
-    d: "Účetní / daňový poradce pro fee platformy, DPH podle reality, fakturace pečujícím. Já umím připravit podklady, ne podat přiznání.",
+    d: "Účetní / daňový poradce pro marži platformy, DPH podle reality, výplaty pečujícím. Já umím připravit podklady, ne podat přiznání.",
   },
 ];
 

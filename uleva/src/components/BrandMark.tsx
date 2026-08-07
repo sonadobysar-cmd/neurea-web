@@ -1,29 +1,23 @@
-function MarkGlyph({ className = "" }: { className?: string }) {
+function MarkGlyph() {
   return (
-    <svg
-      className={className}
-      viewBox="0 0 32 32"
-      fill="none"
-      aria-hidden
-    >
+    <svg viewBox="0 0 32 32" fill="none" aria-hidden>
       <path
-        d="M6.5 24V9.2c0-.7.8-1.1 1.35-.7L16 14.8l8.15-6.3c.55-.4 1.35 0 1.35.7V24"
+        d="M7 23.5V9.4c0-.55.6-.88 1.05-.58L16 14.6l7.95-5.78c.45-.3 1.05.03 1.05.58v14.1"
         stroke="currentColor"
-        strokeWidth="2.35"
+        strokeWidth="1.9"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
-        d="M16 14.8V24"
+        d="M16 14.6V23.5"
         stroke="currentColor"
-        strokeWidth="2.35"
+        strokeWidth="1.9"
         strokeLinecap="round"
       />
     </svg>
   );
 }
 
-/** Crafted MamaSOS mark — soft organic vessel + M. */
 export function BrandMark({
   size = "md",
   tone = "moss",
@@ -33,23 +27,9 @@ export function BrandMark({
   tone?: "moss" | "rose" | "light" | "ink";
   className?: string;
 }) {
-  const sizeClass = {
-    sm: "brand-mark--sm",
-    md: "brand-mark--md",
-    lg: "brand-mark--lg",
-    hero: "brand-mark--hero",
-  }[size];
-
-  const toneClass = {
-    moss: "brand-mark--moss",
-    rose: "brand-mark--rose",
-    light: "brand-mark--light",
-    ink: "brand-mark--ink",
-  }[tone];
-
   return (
     <span
-      className={`brand-mark ${sizeClass} ${toneClass} ${className}`.trim()}
+      className={`brand-mark brand-mark--${size} brand-mark--${tone} ${className}`.trim()}
       aria-hidden
     >
       <MarkGlyph />
@@ -87,10 +67,10 @@ export function BrandLockup({
   const resolvedMark = markTone ?? (tone === "light" ? "light" : "rose");
   const wordClass =
     size === "lg"
-      ? "text-[2.25rem]"
+      ? "text-[2.1rem]"
       : size === "sm"
-        ? "text-[1.4rem]"
-        : "text-[1.75rem]";
+        ? "text-[1.35rem]"
+        : "text-[1.55rem]";
 
   return (
     <span className={`inline-flex items-center gap-2.5 ${className}`.trim()}>
@@ -98,10 +78,7 @@ export function BrandLockup({
         size={size === "lg" ? "lg" : size === "sm" ? "sm" : "md"}
         tone={resolvedMark}
       />
-      <BrandWord
-        light={tone === "light"}
-        className={`${wordClass} leading-none`}
-      />
+      <BrandWord light={tone === "light"} className={`${wordClass} leading-none`} />
     </span>
   );
 }

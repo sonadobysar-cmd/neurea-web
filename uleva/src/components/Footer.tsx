@@ -29,18 +29,16 @@ const LEGAL_LINKS = [
 
 export function Footer() {
   return (
-    <footer className="mt-auto border-t border-[var(--line)] bg-[#f0e9ea]">
-      <div className="shell grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-4">
+    <footer className="mt-auto border-t border-[var(--line)] bg-[#ebe3de]">
+      <div className="shell grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-4">
         <div>
           <BrandLockup size="lg" markTone="rose" />
-          <div className="lux-rule--start mt-4 max-w-[8rem]" />
-          <p className="mt-4 max-w-sm text-sm leading-relaxed text-ink-soft">
+          <p className="mt-5 max-w-sm text-sm leading-relaxed text-ink-soft">
             Péče pro maminky — ověřené pečující, reálné termíny, platba přes
-            platformu. Smlouva o péči vzniká mezi klientkou a pečující (OSVČ).
-            MamaSOS zprostředkuje rezervaci a podporu. Nejde o zdravotní službu.
+            platformu. Smlouva o péči vzniká mezi klientkou a pečující.
           </p>
-          <div className="mt-4 space-y-1 text-xs leading-relaxed text-ink-soft">
-            <p className="font-bold text-ink">{COMPANY.legalName}</p>
+          <div className="mt-5 space-y-1 text-xs leading-relaxed text-ink-soft">
+            <p className="font-semibold text-ink">{COMPANY.legalName}</p>
             <p>IČO: {COMPANY.ico}</p>
             <p>{COMPANY.seat}</p>
             <p>
@@ -48,9 +46,40 @@ export function Footer() {
                 {COMPANY.email}
               </a>
             </p>
-            <p>{COMPANY.phone}</p>
-            <p>{COMPANY.registry}</p>
-            <p>
+          </div>
+        </div>
+        <div>
+          <p className="eyebrow">Pro maminky</p>
+          <div className="mt-4 flex flex-col gap-2.5 text-sm text-ink-soft">
+            {MOM_LINKS.map((l) => (
+              <Link key={l.href} href={l.href} className="transition hover:text-ink">
+                {l.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+        <div>
+          <p className="eyebrow">Pro pečující</p>
+          <div className="mt-4 flex flex-col gap-2.5 text-sm text-ink-soft">
+            {CARE_LINKS.map((l) => (
+              <Link key={l.href} href={l.href} className="transition hover:text-ink">
+                {l.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+        <div>
+          <p className="eyebrow">Právní</p>
+          <div className="mt-4 flex flex-col gap-2.5 text-sm text-ink-soft">
+            {LEGAL_LINKS.map((l) => (
+              <Link key={l.href} href={l.href} className="transition hover:text-ink">
+                {l.label}
+              </Link>
+            ))}
+            <Link href="/kontakt" className="transition hover:text-ink">
+              Hlášení nezákonného obsahu
+            </Link>
+            <p className="pt-2 text-xs">
               ADR / ČOI:{" "}
               <a
                 href={COMPANY.coiUrl}
@@ -62,50 +91,10 @@ export function Footer() {
               </a>
             </p>
           </div>
-          <Link
-            href="/darovat-ulevu"
-            className="mt-4 inline-block text-sm font-bold text-moss hover:underline"
-          >
-            Darovat úlevu
-          </Link>
-        </div>
-        <div>
-          <p className="eyebrow">Pro maminky</p>
-          <div className="mt-3 flex flex-col gap-2 text-sm text-ink-soft">
-            {MOM_LINKS.map((l) => (
-              <Link key={l.href} href={l.href} className="hover:text-ink">
-                {l.label}
-              </Link>
-            ))}
-          </div>
-        </div>
-        <div>
-          <p className="eyebrow">Pro pečující</p>
-          <div className="mt-3 flex flex-col gap-2 text-sm text-ink-soft">
-            {CARE_LINKS.map((l) => (
-              <Link key={l.href} href={l.href} className="hover:text-ink">
-                {l.label}
-              </Link>
-            ))}
-          </div>
-        </div>
-        <div>
-          <p className="eyebrow">Právní</p>
-          <div className="mt-3 flex flex-col gap-2 text-sm text-ink-soft">
-            {LEGAL_LINKS.map((l) => (
-              <Link key={l.href} href={l.href} className="hover:text-ink">
-                {l.label}
-              </Link>
-            ))}
-            <Link href="/kontakt" className="hover:text-ink">
-              Hlášení nezákonného obsahu / služby
-            </Link>
-          </div>
         </div>
       </div>
       <div className="shell border-t border-[var(--line)] py-5 text-xs text-ink-soft">
-        © {new Date().getFullYear()} MamaSOS · mamasos.cz · provozovatel:{" "}
-        {COMPANY.legalName}
+        © {new Date().getFullYear()} MamaSOS · mamasos.cz
       </div>
     </footer>
   );

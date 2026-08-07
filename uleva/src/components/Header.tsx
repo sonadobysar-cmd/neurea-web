@@ -17,7 +17,7 @@ export function Header() {
       setSolid(true);
       return;
     }
-    const onScroll = () => setSolid(window.scrollY > 24);
+    const onScroll = () => setSolid(window.scrollY > 40);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -32,49 +32,52 @@ export function Header() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition duration-300 ${
+      className={`fixed inset-x-0 top-0 z-50 transition duration-500 ${
         light ? "bg-transparent" : "nav-blur"
       }`}
       data-solid={solid || !isHome ? "true" : "false"}
     >
-      <div className="shell flex items-center justify-between gap-4 py-4">
+      <div className="shell flex items-center justify-between gap-6 py-5">
         <Link href="/" className="group" aria-label="MamaSOS — domů">
           <BrandLockup tone={light ? "light" : "ink"} />
         </Link>
 
         <nav
-          className={`hidden items-center gap-6 text-sm font-semibold lg:flex ${
-            light ? "text-white/82" : "text-ink-soft"
+          className={`absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 text-[0.78rem] font-semibold tracking-[0.04em] lg:flex ${
+            light ? "text-white/75" : "text-ink-soft"
           }`}
         >
-          <Link href="/hledat" className="opacity-90 transition hover:opacity-100">
+          <Link href="/hledat" className="transition hover:text-current hover:opacity-100 opacity-90">
             Najít pomoc
           </Link>
-          <Link href="/asistent" className="opacity-90 transition hover:opacity-100">
-            Pomozte mi vybrat
-          </Link>
-          <Link href="/cenik" className="opacity-90 transition hover:opacity-100">
+          <Link href="/cenik" className="transition hover:opacity-100 opacity-90">
             Ceník
           </Link>
-          <Link href="/nabidnout" className="opacity-90 transition hover:opacity-100">
-            Chci nabízet pomoc
+          <Link href="/bezpecnost" className="transition hover:opacity-100 opacity-90">
+            Důvěra
+          </Link>
+          <Link href="/nabidnout" className="transition hover:opacity-100 opacity-90">
+            Pro pečující
           </Link>
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           {ready && (
             <Link
               href={accountHref}
-              className={`btn hidden !py-2.5 !text-sm sm:inline-flex ${
-                light
-                  ? "btn-ghost !border-white/25 !bg-white/10 !text-white"
-                  : "btn-ghost"
+              className={`hidden text-[0.78rem] font-semibold tracking-[0.04em] sm:inline ${
+                light ? "text-white/80" : "text-ink-soft"
               }`}
             >
-              {user ? "Můj účet" : "Přihlásit"}
+              {user ? "Účet" : "Přihlásit"}
             </Link>
           )}
-          <Link href="/hledat" className="btn btn-rose !py-2.5 !text-sm">
+          <Link
+            href="/hledat"
+            className={`btn !px-5 !py-2.5 !text-[0.8rem] ${
+              light ? "btn-ghost-light" : "btn-rose"
+            }`}
+          >
             Potřebuju úlevu
           </Link>
         </div>

@@ -1,20 +1,22 @@
 import type { Metadata } from "next";
-import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
+import { DM_Sans, Instrument_Serif } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { AiAssistant } from "@/components/AiAssistant";
 import { AuthProvider } from "@/lib/auth";
 import "./globals.css";
 
-const jakarta = Plus_Jakarta_Sans({
-  variable: "--font-jakarta",
+const dmSans = DM_Sans({
+  variable: "--font-sans-body",
   subsets: ["latin", "latin-ext"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const instrument = Instrument_Serif({
+  variable: "--font-serif",
   subsets: ["latin", "latin-ext"],
-  axes: ["SOFT", "WONK"],
+  weight: ["400"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -37,7 +39,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="cs" className={`${jakarta.variable} ${fraunces.variable} h-full`}>
+    <html
+      lang="cs"
+      className={`${dmSans.variable} ${instrument.variable} h-full`}
+    >
       <body className="flex min-h-full flex-col antialiased">
         <AuthProvider>
           <Header />

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Fraunces, Sora } from "next/font/google";
+import { Cormorant_Garamond, Sora } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { AiAssistant } from "@/components/AiAssistant";
@@ -11,15 +11,16 @@ const sora = Sora({
   subsets: ["latin", "latin-ext"],
 });
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
   subsets: ["latin", "latin-ext"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
   title: "MamaSOS — ověřená pomoc pro maminky po porodu",
   description:
-    "Najdi blízko sebe ověřenou ženu s volným termínem. Úleva doma, dula nebo laktační poradkyně. Stejná služba, stejná cena. Bez předplatného.",
+    "Najdi blízko sebe ověřenou ženu s volným termínem. Úklid, pohlídání, dula nebo laktace. Stejná služba, stejná cena. Bez předplatného.",
   metadataBase: new URL("https://mamasos.cz"),
   openGraph: {
     title: "MamaSOS — když potřebuješ úlevu teď",
@@ -36,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="cs" className={`${sora.variable} ${fraunces.variable} h-full`}>
+    <html lang="cs" className={`${sora.variable} ${cormorant.variable} h-full`}>
       <body className="flex min-h-full flex-col antialiased">
         <AuthProvider>
           <Header />

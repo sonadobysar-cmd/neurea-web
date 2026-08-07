@@ -4,44 +4,39 @@ import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { Sparkles } from "lucide-react";
-import { SERVICE_PRICING, ServiceType, formatCzk } from "@/data/pricing";
-import { CITIES } from "@/data/providers";
+import { SERVICE_PRICING, formatCzk } from "@/data/pricing";
+import { LOCATIONS, NEED_OPTIONS, NeedId } from "@/data/locations";
 import { askAssistant } from "@/lib/assistant";
 import { recommendProviders, type RecommendInput } from "@/lib/recommend";
-
-const NEEDS = [
-  { id: "vareni", label: "Vaření" },
-  { id: "uklid", label: "Úklid" },
-  { id: "sourozenci", label: "Sourozenci" },
-  { id: "miminka", label: "Miminka 0–3 m" },
-  { id: "noc", label: "Noční směna" },
-  { id: "kojeni", label: "Kojení" },
-];
+import { needsToPreferredService } from "@/lib/needs";
 
 export default function AssistantPage() {
   const [cityKey, setCityKey] = useState("praha");
-  const [service, setService] = useState<ServiceType | "all">("uleva");
-  const [needs, setNeeds] = useState<string[]>(["vareni", "sourozenci"]);
+  const [needs, setNeeds] = useState<NeedId[]>(["uklid", "pohlidat"]);
   const [babyAgeMonths, setBabyAgeMonths] = useState(2);
   const [lactationPaOnly, setLactationPaOnly] = useState(false);
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState<string | null>(null);
 
+  const service = needsToPreferredService(needs) || "all";
+
   const input: RecommendInput = useMemo(
     () => ({
       cityKey,
       service,
-      needs,
-      night: needs.includes("noc"),
+      needs: needs.map((n) =>
+        n === "pohlidat" ? "sourozenci" : n === "laktace" ? "kojeni" : n
+      ),
+      night: false,
       babyAgeMonths,
-      lactationPaOnly: service === "laktace" ? lactationPaOnly : false,
+      lactationPaOnly: needs.includes("laktace") ? lactationPaOnly : false,
     }),
     [cityKey, service, needs, babyAgeMonths, lactationPaOnly]
   );
 
   const results = useMemo(() => recommendProviders(input), [input]);
 
-  function toggleNeed(id: string) {
+  function toggleNeed(id: NeedId) {
     setNeeds((prev) =>
       prev.includes(id) ? prev.filter((n) => n !== id) : [...prev, id]
     );
@@ -74,43 +69,28 @@ export default function AssistantPage() {
                 value={cityKey}
                 onChange={(e) => setCityKey(e.target.value)}
               >
-                {Object.entries(CITIES).map(([key, c]) => (
-                  <option key={key} value={key}>
+                {Object.entries(LOCATIONS).map(([key, c]) => (
+                  <option key={key} value={c.cityKey || key}>
                     {c.label}
                   </option>
                 ))}
               </select>
             </label>
 
-            <label className="block text-sm font-semibold">
-              Typ služby
-              <select
-                className="input mt-1.5"
-                value={service}
-                onChange={(e) => setService(e.target.value as ServiceType | "all")}
-              >
-                <option value="all">Cokoli</option>
-                {(Object.keys(SERVICE_PRICING) as ServiceType[]).map((s) => (
-                  <option key={s} value={s}>
-                    {SERVICE_PRICING[s].label}
-                  </option>
-                ))}
-              </select>
-            </label>
-
             <div>
-              <p className="text-sm font-semibold">Potřebuju hlavně</p>
+              <p className="text-sm font-semibold">Co potřebuješ</p>
               <div className="mt-2 flex flex-wrap gap-2">
-                {NEEDS.map((n) => {
+                {NEED_OPTIONS.map((n) => {
                   const active = needs.includes(n.id);
                   return (
                     <button
                       key={n.id}
                       type="button"
+                      title={n.hint}
                       onClick={() => toggleNeed(n.id)}
                       className={`rounded-full px-3.5 py-2 text-sm font-semibold ${
                         active
-                          ? "bg-ink text-white"
+                          ? "bg-[var(--gold)] text-ink"
                           : "bg-white text-ink-soft ring-1 ring-[var(--line)]"
                       }`}
                     >
@@ -133,7 +113,7 @@ export default function AssistantPage() {
               />
             </label>
 
-            {service === "laktace" && (
+            {needs.includes("laktace") && (
               <label className="flex items-center gap-2 text-sm font-semibold">
                 <input
                   type="checkbox"
@@ -235,7 +215,7 @@ export default function AssistantPage() {
                       href={`/pece/${r.provider.id}${
                         service !== "all" ? `?sluzba=${service}` : ""
                       }`}
-                      className="btn btn-rose mt-4 !py-2.5 !text-sm"
+                      className="btn btn-gold mt-4 !py-2.5 !text-sm"
                     >
                       Rezervovat termín
                     </Link>

@@ -29,6 +29,9 @@ export function Footer() {
             <Link href="/zajistit" className="hover:text-ink">
               Co musím zajistit
             </Link>
+            <Link href="/rust" className="hover:text-ink">
+              Kde sehnat pečující i klientky
+            </Link>
           </div>
         </div>
         <div>

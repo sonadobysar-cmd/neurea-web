@@ -40,32 +40,33 @@ export default function HomePage() {
 
         <div className="shell relative flex min-h-[100svh] flex-col justify-end pb-10 pt-28 md:pb-14 md:pt-32">
           <div className="fade-in max-w-3xl text-white">
-            <p className="mb-4 inline-flex items-center gap-2 text-[0.72rem] font-bold uppercase tracking-[0.16em] text-white/75">
-              <span className="trust-dot !bg-white !shadow-[0_0_0_4px_rgba(255,255,255,0.18)]" />
+            <p className="mb-5 inline-flex items-center gap-2 text-[0.68rem] font-bold uppercase tracking-[0.2em] text-white/70">
+              <span className="trust-dot" />
               Celá ČR · ověřené ženy · kalendář místo chatu
             </p>
-            <h1 className="display text-[clamp(3.4rem,10vw,7rem)] leading-[0.92] text-white">
+            <h1 className="display text-[clamp(3.8rem,11vw,7.4rem)] leading-[0.9] text-white">
               MamaSOS
             </h1>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/88 md:text-xl">
-              Když už nestíháš — přijede ověřená žena. Uvaří, uklidí, pohlídá
-              sourozence, nebo přijde dula či laktační poradkyně. S volným termínem.
+            <div className="lux-rule mt-6 max-w-[12rem]" />
+            <p className="mt-6 max-w-lg text-lg leading-relaxed text-white/84 md:text-[1.2rem]">
+              Když už nestíháš — přijede ověřená žena. Úklid, pohlídání, dula nebo
+              laktace. Podle mapy. S volným termínem.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/hledat" className="btn btn-rose">
+              <Link href="/hledat" className="btn btn-gold">
                 Potřebuju úlevu
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
                 href="/jak-to-funguje"
-                className="btn btn-ghost !bg-white/10 !text-white !border-white/25"
+                className="btn btn-ghost !border-white/20 !bg-white/8 !text-white"
               >
                 Jak to funguje
               </Link>
             </div>
           </div>
 
-          <div className="fade-in-delay mt-10 max-w-4xl">
+          <div className="fade-in-delay mt-10 max-w-5xl">
             <SearchPanel tone="dark" />
           </div>
         </div>
@@ -120,8 +121,8 @@ export default function HomePage() {
             return (
               <Link
                 key={item.key}
-                href={`/hledat?sluzba=${item.key}`}
-                className="group relative overflow-hidden rounded-[1.8rem] bg-ink text-white shadow-[var(--shadow-soft)]"
+                href={`/hledat?potreby=${item.key === "uleva" ? "uklid,pohlidat,vareni" : item.key}`}
+                className="group relative overflow-hidden rounded-[1.45rem] bg-ink text-white shadow-[var(--shadow)]"
                 style={{ animationDelay: `${i * 0.08}s` }}
               >
                 <div className="relative aspect-[4/5] overflow-hidden">
@@ -161,11 +162,11 @@ export default function HomePage() {
         </div>
         <div className="shell relative grid items-center gap-10 py-20 md:grid-cols-[1.1fr_0.9fr] md:py-28">
           <div>
-            <p className="eyebrow !text-moss-soft">Proč MamaSOS</p>
-            <h2 className="display mt-2 text-4xl md:text-5xl">
-              Trust first.
+            <p className="eyebrow !text-gold">Proč MamaSOS</p>
+            <h2 className="display mt-2 text-4xl md:text-6xl">
+              Nejdřív důvěra.
               <br />
-              Potom úleva.
+              Pak úleva.
             </h2>
             <p className="mt-5 max-w-lg text-base leading-relaxed text-white/78">
               Nejsme bazar inzerátů. Každá pečující musí projít ověřením a mít
@@ -191,7 +192,7 @@ export default function HomePage() {
               Praha, Brno, Ostrava a další města. Každá s fotkou, badgeemi a
               volnými sloty k rezervaci.
             </p>
-            <Link href="/hledat" className="btn btn-rose mt-7">
+            <Link href="/hledat" className="btn btn-gold mt-7">
               Prohlédnout termíny
             </Link>
           </div>
@@ -207,8 +208,8 @@ export default function HomePage() {
           {[
             {
               n: "01",
-              t: "Řekni kde a co",
-              d: "Lokalita + typ pomoci. Ukážeme jen ověřené ženy s volnými sloty blízko tebe.",
+              t: "Kde jsi a co potřebuješ",
+              d: "GPS, město nebo PSČ na mapě + úklid, pohlídat, dula, laktace — i více najednou.",
             },
             {
               n: "02",
@@ -222,7 +223,7 @@ export default function HomePage() {
             },
           ].map((step) => (
             <div key={step.n} className="relative border-t border-ink/10 pt-6">
-              <p className="display text-5xl text-rose/80">{step.n}</p>
+              <p className="display text-5xl text-gold">{step.n}</p>
               <h3 className="mt-4 text-xl font-bold">{step.t}</h3>
               <p className="mt-2 text-sm leading-relaxed text-ink-soft">{step.d}</p>
             </div>

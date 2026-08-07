@@ -1,14 +1,27 @@
 import { SearchPanel } from "@/components/SearchPanel";
 import { ProviderCard } from "@/components/ProviderCard";
+import { LOCATIONS, NeedId } from "@/data/locations";
 import {
-  CITIES,
   PROVIDERS,
   getBookableSlots,
   haversineKm,
 } from "@/data/providers";
-import { SERVICE_PRICING, ServiceType } from "@/data/pricing";
+import {
+  needsToPreferredService,
+  parseNeeds,
+  providerMatchesNeeds,
+  scoreProviderNeeds,
+} from "@/lib/needs";
+import { NEED_OPTIONS } from "@/data/locations";
 
-type SearchParams = Promise<{ mesto?: string; sluzba?: string }>;
+type SearchParams = Promise<{
+  mesto?: string;
+  lat?: string;
+  lng?: string;
+  q?: string;
+  potreby?: string;
+  sluzba?: string;
+}>;
 
 export default async function SearchPage({
   searchParams,
@@ -16,21 +29,34 @@ export default async function SearchPage({
   searchParams: SearchParams;
 }) {
   const params = await searchParams;
-  const cityKey = params.mesto && CITIES[params.mesto] ? params.mesto : "praha";
-  const city = CITIES[cityKey];
-  const service =
-    params.sluzba && params.sluzba in SERVICE_PRICING
-      ? (params.sluzba as ServiceType)
-      : undefined;
+  const needs = parseNeeds(params.potreby);
+  const fallback = LOCATIONS.praha;
+  const lat = Number(params.lat);
+  const lng = Number(params.lng);
+  const origin = {
+    lat: Number.isFinite(lat) ? lat : fallback.lat,
+    lng: Number.isFinite(lng) ? lng : fallback.lng,
+    label: params.q || fallback.label,
+  };
+  const preferred = needsToPreferredService(needs);
 
   const results = PROVIDERS.map((p) => {
-    const distanceKm = haversineKm(city.lat, city.lng, p.lat, p.lng);
+    const distanceKm = haversineKm(origin.lat, origin.lng, p.lat, p.lng);
     const slots = getBookableSlots(p);
-    const serviceOk = !service || p.services.includes(service);
-    return { provider: p, distanceKm, slots, serviceOk };
+    const needsOk = providerMatchesNeeds(p, needs);
+    const score =
+      scoreProviderNeeds(p, needs) +
+      Math.max(0, 40 - distanceKm) +
+      p.rating * 3;
+    return { provider: p, distanceKm, slots, needsOk, score };
   })
-    .filter((r) => r.serviceOk && r.slots.length > 0 && r.distanceKm <= 80)
-    .sort((a, b) => a.distanceKm - b.distanceKm);
+    .filter((r) => r.needsOk && r.slots.length > 0 && r.distanceKm <= 80)
+    .sort((a, b) => b.score - a.score || a.distanceKm - b.distanceKm);
+
+  const needLabels = needs
+    .map((id) => NEED_OPTIONS.find((n) => n.id === id)?.label)
+    .filter(Boolean)
+    .join(", ");
 
   return (
     <div className="shell pb-16 pt-28 md:pb-24 md:pt-32">
@@ -38,19 +64,24 @@ export default async function SearchPage({
         <p className="eyebrow">Najít pomoc</p>
         <h1 className="display mt-2 text-4xl md:text-6xl">Volné termíny blízko tebe</h1>
         <p className="mt-4 text-ink-soft md:text-lg">
-          Jen ověřené ženy s aktivním kalendářem. Stejná služba — stejná cena.
+          Lokalita z mapy, GPS, města nebo PSČ. Jen ověřené ženy s aktivním
+          kalendářem.
         </p>
       </div>
 
       <div className="mt-8">
-        <SearchPanel compact />
+        <SearchPanel
+          compact
+          initialQuery={params.q || "Praha"}
+          initialNeeds={needs as NeedId[]}
+        />
       </div>
 
       <div className="mt-8 flex flex-wrap items-center justify-between gap-3">
         <p className="text-sm text-ink-soft">
           <span className="font-bold text-ink">{results.length}</span> výsledků kolem{" "}
-          <span className="font-bold text-ink">{city.label}</span>
-          {service ? <> · {SERVICE_PRICING[service].label}</> : null}
+          <span className="font-bold text-ink">{origin.label}</span>
+          {needLabels ? <> · {needLabels}</> : null}
         </p>
       </div>
 
@@ -60,17 +91,16 @@ export default async function SearchPage({
             key={provider.id}
             provider={provider}
             distanceKm={distanceKm}
-            preferredService={service}
+            preferredService={preferred}
           />
         ))}
       </div>
 
       {!results.length && (
         <div className="panel-solid mt-6 p-8 text-center">
-          <h2 className="display text-2xl">Zatím tu nikdo nemá volný termín</h2>
+          <h2 className="display text-2xl">Zatím tu nikdo nesedí na požadavky</h2>
           <p className="mx-auto mt-2 max-w-md text-sm text-ink-soft">
-            Nech si lokalitu na waitlist — ozveme se, až bude blízko tebe ověřená
-            pečující. Nebo zkus sousední město.
+            Uvolni filtry, zkus sousední PSČ, nebo nech lokalitu na waitlist.
           </p>
         </div>
       )}

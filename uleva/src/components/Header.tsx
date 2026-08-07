@@ -42,7 +42,7 @@ export function Header() {
             className={`grid h-10 w-10 place-items-center rounded-full text-[0.7rem] font-extrabold tracking-wide transition group-hover:scale-105 ${
               light
                 ? "bg-white/15 text-white ring-1 ring-white/35 backdrop-blur"
-                : "bg-ink text-[var(--gold)] shadow-[0_10px_24px_rgba(22,19,17,0.2)]"
+                : "bg-[var(--moss)] text-white shadow-[0_10px_24px_rgba(92,122,114,0.25)]"
             }`}
           >
             SOS

@@ -165,7 +165,7 @@ export function SearchPanel({
                     onClick={() => toggleNeed(n.id)}
                     className={`rounded-full px-3.5 py-2 text-sm font-semibold transition ${
                       active
-                        ? "bg-[var(--gold)] text-ink"
+                        ? "bg-rose text-white"
                         : dark
                           ? "bg-white/8 text-white/85 ring-1 ring-white/15 hover:bg-white/14"
                           : "bg-white text-ink-soft ring-1 ring-[var(--line)] hover:bg-fog"

@@ -90,7 +90,7 @@ export default function AssistantPage() {
                       onClick={() => toggleNeed(n.id)}
                       className={`rounded-full px-3.5 py-2 text-sm font-semibold ${
                         active
-                          ? "bg-[var(--gold)] text-ink"
+                          ? "bg-rose text-white"
                           : "bg-white text-ink-soft ring-1 ring-[var(--line)]"
                       }`}
                     >

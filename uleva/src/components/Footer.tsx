@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer className="mt-auto border-t border-[var(--line)] bg-[#ece7e1]">
+    <footer className="mt-auto border-t border-[var(--line)] bg-[#eef2f0]">
       <div className="shell grid gap-10 py-14 md:grid-cols-[1.45fr_1fr_1fr]">
         <div>
           <p className="display text-3xl text-ink">MamaSOS</p>

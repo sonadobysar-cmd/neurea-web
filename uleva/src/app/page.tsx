@@ -162,7 +162,7 @@ export default function HomePage() {
         </div>
         <div className="shell relative grid items-center gap-10 py-20 md:grid-cols-[1.1fr_0.9fr] md:py-28">
           <div>
-            <p className="eyebrow !text-gold">Proč MamaSOS</p>
+            <p className="eyebrow !text-moss-soft">Proč MamaSOS</p>
             <h2 className="display mt-2 text-4xl md:text-6xl">
               Nejdřív důvěra.
               <br />

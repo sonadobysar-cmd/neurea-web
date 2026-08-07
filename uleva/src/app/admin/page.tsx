@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getCityMetrics, statusLabel } from "@/data/cityStatus";
 
 export const metadata = {
@@ -52,6 +53,9 @@ export default function AdminPage() {
         <li>• Rozeslat pečujícím upozornění podle města — TODO</li>
         <li>• Kontaktovat čekající klientky po aktivaci lokality — TODO</li>
       </ul>
+      <Link href="/admin/pravni" className="btn btn-ink mt-8 inline-flex">
+        Zadání pro advokáta / daňového poradce
+      </Link>
     </div>
   );
 }

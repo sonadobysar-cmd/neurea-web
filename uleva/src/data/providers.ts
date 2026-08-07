@@ -23,6 +23,8 @@ export type Provider = {
   completedVisits: number;
   verified: true;
   lactationLevel?: "pa" | "laicka";
+  /** Czech business ID — must be shown to client before payment (marketplace model A). */
+  ico?: string;
   radiusKm: number;
   weeklySlots: Partial<Record<DayKey, string[]>>;
   slotHours: number;
@@ -422,6 +424,14 @@ export function getBookableSlots(provider: Provider, daysAhead = 14): BookableSl
 
 export function getProvider(id: string) {
   return PROVIDERS.find((p) => p.id === id);
+}
+
+/** Deterministic demo IČO until real onboarding supplies ARES-verified IČO. */
+export function getProviderIco(provider: Provider) {
+  if (provider.ico) return provider.ico;
+  let n = 0;
+  for (const c of provider.id) n = (n * 33 + c.charCodeAt(0)) % 90000000;
+  return String(10000000 + n).padStart(8, "0");
 }
 
 export function haversineKm(

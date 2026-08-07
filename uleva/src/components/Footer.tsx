@@ -1,10 +1,12 @@
 import Link from "next/link";
+import { COMPANY } from "@/data/company";
 
 const MOM_LINKS = [
   { href: "/hledat", label: "Najít pomoc" },
   { href: "/jak-to-funguje", label: "Jak to funguje" },
   { href: "/cenik", label: "Ceník" },
   { href: "/bezpecnost", label: "Bezpečnost a ověřování" },
+  { href: "/razeni", label: "Jak řadíme výsledky" },
   { href: "/faq", label: "Časté otázky" },
   { href: "/kontakt", label: "Kontakt" },
 ];
@@ -31,11 +33,37 @@ export function Footer() {
         <div>
           <p className="display text-3xl text-ink">MamaSOS</p>
           <p className="mt-3 max-w-sm text-sm leading-relaxed text-ink-soft">
-            Rezervační platforma ověřené poporodní pomoci. MamaSOS je
-            zprostředkovatel — péči poskytují samostatné podnikatelky s IČO. Nejde
-            o zdravotní službu.
+            Online tržiště ověřené poporodní pomoci. Smlouva o péči vzniká mezi
+            klientkou a pečující (OSVČ). MamaSOS zprostředkuje rezervaci, platbu
+            a podporu. Nejde o zdravotní službu.
           </p>
-          <Link href="/darovat-ulevu" className="mt-4 inline-block text-sm font-bold text-moss hover:underline">
+          <div className="mt-4 space-y-1 text-xs leading-relaxed text-ink-soft">
+            <p className="font-bold text-ink">{COMPANY.legalName}</p>
+            <p>IČO: {COMPANY.ico}</p>
+            <p>{COMPANY.seat}</p>
+            <p>
+              <a href={`mailto:${COMPANY.email}`} className="underline">
+                {COMPANY.email}
+              </a>
+            </p>
+            <p>{COMPANY.phone}</p>
+            <p>{COMPANY.registry}</p>
+            <p>
+              ADR / ČOI:{" "}
+              <a
+                href={COMPANY.coiUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="underline"
+              >
+                coi.cz
+              </a>
+            </p>
+          </div>
+          <Link
+            href="/darovat-ulevu"
+            className="mt-4 inline-block text-sm font-bold text-moss hover:underline"
+          >
             Darovat úlevu
           </Link>
         </div>
@@ -67,11 +95,15 @@ export function Footer() {
                 {l.label}
               </Link>
             ))}
+            <Link href="/kontakt" className="hover:text-ink">
+              Hlášení nezákonného obsahu / služby
+            </Link>
           </div>
         </div>
       </div>
       <div className="shell border-t border-[var(--line)] py-5 text-xs text-ink-soft">
-        © {new Date().getFullYear()} MamaSOS · mamasos.cz
+        © {new Date().getFullYear()} MamaSOS · mamasos.cz · provozovatel:{" "}
+        {COMPANY.legalName}
       </div>
     </footer>
   );

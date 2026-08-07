@@ -1,16 +1,23 @@
 import { LegalDoc, TodoNote } from "@/components/LegalDoc";
+import { MODEL_SUMMARY } from "@/data/legalModel";
 
 export default function Page() {
   return (
     <LegalDoc title="Obchodní podmínky">
       <p>
-        MamaSOS provozuje online platformu pro zprostředkování rezervací mezi
-        klientkou a samostatnou podnikatelkou (pečující). Smlouva o poskytnutí
-        služby vzniká mezi klientkou a pečující.
+        MamaSOS provozuje online tržiště / zprostředkování rezervací (
+        {MODEL_SUMMARY.label}). {MODEL_SUMMARY.careContract}.{" "}
+        {MODEL_SUMMARY.platformRole}
+      </p>
+      <p>
+        Před platbou klientka vidí totožnost a IČO pečující, službu, termín a
+        konečnou cenu. Platby mají probíhat přes licencovaného poskytovatele;
+        ostré inkaso je v demu vypnuté.
       </p>
       <TodoNote>
-        Doplnit finální právní text schválený advokátem před produkčním
-        spuštěním.
+        Finální VOP musí napsat / schválit advokát po volbě fakturačního modelu
+        (viz interní /admin/pravni). Dokud není zvolený jeden model, nelze VOP
+        považovat za finální.
       </TodoNote>
     </LegalDoc>
   );

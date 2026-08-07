@@ -8,6 +8,7 @@ import {
   PROVIDERS_ARE_DEMO,
   getBookableSlots,
   getProvider,
+  getProviderIco,
 } from "@/data/providers";
 import { SERVICE_PRICING, ServiceType } from "@/data/pricing";
 
@@ -65,7 +66,12 @@ export default async function ProviderPage({
                 </div>
                 <p className="mt-2 flex items-center gap-1.5 text-ink-soft">
                   <MapPin className="h-4 w-4" />
-                  {provider.district}, {provider.city} · dojezd do {provider.radiusKm} km
+                  {provider.district}, {provider.city} · dojezd do {provider.radiusKm}{" "}
+                  km
+                </p>
+                <p className="mt-2 text-sm text-ink-soft">
+                  Podnikatelka · IČO {getProviderIco(provider)}
+                  {PROVIDERS_ARE_DEMO ? " (ukázkové)" : ""}
                 </p>
                 <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink-soft">
                   {provider.bio}

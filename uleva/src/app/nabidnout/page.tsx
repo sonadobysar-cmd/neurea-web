@@ -128,10 +128,11 @@ export default function OfferLandingPage() {
         <div className="shell">
           <h2 className="display text-3xl md:text-4xl">Kolik si vydělám</h2>
           <p className="mt-3 max-w-2xl text-sm text-white/75">
-            Níže je <strong className="text-white">výplata pečující za hodinu</strong> —
-            částka po zprostředkování. Klientka na webu vidí vyšší cenu služby.
-            Fakturu za službu vystavuje pečující klientce / MamaSOS zúčtuje dle
-            smlouvy o zprostředkování.
+            Níže je <strong className="text-white">výplata pečující za hodinu</strong>.
+            Klientka vidí vyšší cenu služby. MamaSOS je tržiště (varianta A):
+            smlouva o péči vzniká mezi klientkou a vámi. Přesný fakturační tok
+            (kdo komu vystaví jaký doklad) musí ještě písemně schválit advokát a
+            daňový poradce — do té doby neběží ostré platby.
           </p>
           <div className="mt-8 grid gap-4 md:grid-cols-3">
             {(Object.keys(SERVICE_PRICING) as Array<keyof typeof SERVICE_PRICING>).map(

@@ -3,7 +3,12 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { Check, Shield } from "lucide-react";
-import { BookableSlot, Provider } from "@/data/providers";
+import {
+  BookableSlot,
+  PROVIDERS_ARE_DEMO,
+  Provider,
+  getProviderIco,
+} from "@/data/providers";
 import {
   SERVICE_PRICING,
   ServiceType,
@@ -11,6 +16,7 @@ import {
   formatCzk,
 } from "@/data/pricing";
 import { useAuth } from "@/lib/auth";
+import { MODEL_SUMMARY } from "@/data/legalModel";
 
 function formatDay(date: string) {
   return new Intl.DateTimeFormat("cs-CZ", {
@@ -36,6 +42,9 @@ export function BookingCalendar({
   );
   const [selected, setSelected] = useState<BookableSlot | null>(null);
   const [done, setDone] = useState(false);
+  const [acceptTerms, setAcceptTerms] = useState(false);
+  const [earlyStart, setEarlyStart] = useState(false);
+  const ico = getProviderIco(provider);
 
   const byDate = useMemo(() => {
     const map = new Map<string, BookableSlot[]>();
@@ -53,7 +62,7 @@ export function BookingCalendar({
     : calcBooking(service, hours);
 
   function confirm() {
-    if (!selected) return;
+    if (!selected || !acceptTerms || !earlyStart) return;
     if (!user || user.role !== "mom") return;
     addBooking({
       providerId: provider.id,
@@ -83,9 +92,10 @@ export function BookingCalendar({
             {SERVICE_PRICING[service].label} · {formatCzk(quote.total)}
           </p>
           <p className="mt-4 rounded-2xl bg-fog px-4 py-3 text-xs leading-relaxed text-ink-soft">
-            Uloženo ve tvém účtu. Zaplatila jsi {formatCzk(quote.total)} za
-            objednaný čas — konečná cena služby. Demo: platební brána se napojí
-            později.
+            Potvrzení objednávky (demo): smlouva o službě vzniká mezi vámi a{" "}
+            {provider.name} (IČO {ico}). MamaSOS zprostředkovala rezervaci.
+            Ostré platby jsou zablokované, dokud advokát a daňový poradce
+            neschválí fakturační a platební tok.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Link href="/ucet" className="btn btn-gold">
@@ -172,15 +182,25 @@ export function BookingCalendar({
       </section>
 
       <aside className="panel-solid h-fit p-5 md:p-6 lg:sticky lg:top-24">
-        <p className="eyebrow">Shrnutí</p>
+        <p className="eyebrow">Objednávka a platba</p>
         <h3 className="display mt-1 text-2xl">{SERVICE_PRICING[service].label}</h3>
         <p className="mt-2 text-sm leading-relaxed text-ink-soft">
           {SERVICE_PRICING[service].description}
         </p>
 
+        <div className="mt-4 rounded-2xl bg-fog p-3.5 text-xs leading-relaxed text-ink-soft">
+          <p className="font-bold text-ink">S kým uzavíráte smlouvu</p>
+          <p className="mt-1">
+            Službu poskytuje <strong className="text-ink">{provider.name}</strong>
+            , IČO {ico}
+            {PROVIDERS_ARE_DEMO ? " (ukázkové IČO)" : ""}. MamaSOS je
+            zprostředkovatel — {MODEL_SUMMARY.platformRole}
+          </p>
+        </div>
+
         <dl className="mt-5 space-y-2.5 text-sm">
           <div className="flex justify-between gap-3">
-            <dt className="text-ink-soft">Sazba</dt>
+            <dt className="text-ink-soft">Cena služby</dt>
             <dd className="font-bold">{formatCzk(quote.pricePerHour)}/h</dd>
           </div>
           <div className="flex justify-between gap-3">
@@ -201,34 +221,71 @@ export function BookingCalendar({
           )}
           <div className="border-t border-[var(--line)] pt-3">
             <div className="flex justify-between gap-3 text-base">
-              <dt className="font-bold">Zaplatíš teď</dt>
+              <dt className="font-bold">Celkem k úhradě</dt>
               <dd className="display text-2xl">{formatCzk(quote.total)}</dd>
             </div>
             <p className="mt-1 text-xs text-ink-soft">
-              Konečná cena za objednané hodiny. Žádné předplatné.
+              Konečná cena včetně DPH dle daňového režimu pečující. Bez
+              předplatného.{" "}
+              <Link href="/storno" className="font-bold underline">
+                Storno
+              </Link>
+              .
             </p>
           </div>
         </dl>
 
         {user?.role === "mom" ? (
-          <button
-            type="button"
-            className="btn btn-gold mt-6 w-full"
-            disabled={!selected}
-            onClick={confirm}
-          >
-            Zaplatit a rezervovat
-          </button>
+          <div className="mt-5 space-y-3">
+            <label className="flex items-start gap-2 text-xs text-ink-soft">
+              <input
+                type="checkbox"
+                className="mt-0.5"
+                checked={acceptTerms}
+                onChange={(e) => setAcceptTerms(e.target.checked)}
+              />
+              Souhlasím s{" "}
+              <Link href="/obchodni-podminky" className="font-bold underline">
+                podmínkami
+              </Link>
+              ,{" "}
+              <Link href="/storno" className="font-bold underline">
+                stornem
+              </Link>{" "}
+              a rozumím, že smlouva o péči vzniká s pečující ({provider.name},
+              IČO {ico}).
+            </label>
+            <label className="flex items-start gap-2 text-xs text-ink-soft">
+              <input
+                type="checkbox"
+                className="mt-0.5"
+                checked={earlyStart}
+                onChange={(e) => setEarlyStart(e.target.checked)}
+              />
+              Žádám o zahájení služby ve sjednaném termínu, i pokud nastane před
+              uplynutím 14 dnů od objednávky (poučení o odstoupení — finální
+              text schválí advokát).
+            </label>
+            <button
+              type="button"
+              className="btn btn-gold w-full"
+              disabled={!selected || !acceptTerms || !earlyStart}
+              onClick={confirm}
+            >
+              Objednat a zaplatit {formatCzk(quote.total)}
+            </button>
+            <p className="text-[0.7rem] text-ink-soft">
+              Demo režim: platba neprobíhá. Ostré inkaso až po schválení
+              platebního toku (licencovaná brána / split payments).
+            </p>
+          </div>
         ) : (
           <div className="mt-6 space-y-3">
-            <Link
-              href={`/prihlaseni`}
-              className="btn btn-rose w-full"
-            >
-              Pro rezervaci se přihlas
+            <Link href="/prihlaseni" className="btn btn-rose w-full">
+              Pro rezervaci se přihlaste
             </Link>
             <p className="text-center text-xs text-ink-soft">
-              Nemáš účet?{" "}
+              Nemáte účet?{" "}
               <Link href="/registrace" className="font-bold underline">
                 Registrace maminky
               </Link>
@@ -238,16 +295,8 @@ export function BookingCalendar({
 
         <p className="mt-4 flex items-start gap-2 text-xs leading-relaxed text-ink-soft">
           <Shield className="mt-0.5 h-4 w-4 shrink-0 text-moss" />
-          Stejná cena pro všechny ve stejném segmentu. Platba předem na platformě
-          — vidíte jen cenu služby.
-        </p>
-        <p className="mt-3 text-xs leading-relaxed text-ink-soft">
-          Když pečující nemůže přijet, pomůžeme najít náhradní termín nebo
-          vrátíme platbu podle{" "}
-          <Link href="/storno" className="font-bold underline">
-            storno podmínek
-          </Link>
-          .
+          Reklamaci služby řešíte primárně vůči pečující; MamaSOS pomáhá s
+          rezervací, platbou a podporou dle podmínek platformy.
         </p>
       </aside>
     </div>

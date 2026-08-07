@@ -1,8 +1,11 @@
 export type ServiceType = "uleva" | "dula" | "laktace";
 
 /**
- * Klient vidí jen `pricePerHour`.
- * `payoutPerHour` je interní / pro pečující — nikdy neukazovat mamince jako „fee %“.
+ * Model A (tržiště): klientka vidí `pricePerHour` = cenu služby pečující.
+ * `payoutPerHour` = odměna pečující po zúčtování zprostředkování.
+ *
+ * LEGAL/TAX BLOCKER: dokud advokát + daňový poradce nezvolí jeden fakturační
+ * tok (viz /admin/pravni · BILLING_HYPOTHESES), nepouštět ostré platby.
  */
 export const SERVICE_PRICING: Record<
   ServiceType,

@@ -4,7 +4,8 @@
   "version": "0.1.0",
   "description": "Líc — shorty s tváří, která sedí",
   "scripts": {
-    "dev": "npx --yes serve . -l 5177",
-    "start": "npx --yes serve . -l 5177"
+    "sync": "mkdir -p ../public/lic && cp index.html styles.css app.js engine.js demo-portrait.svg ../public/lic/",
+    "dev": "npm run sync && npx --yes serve ../public -l 5177",
+    "start": "npm run sync && npx --yes serve ../public -l 5177"
   }
 }

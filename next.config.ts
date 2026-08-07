@@ -19,6 +19,14 @@ const nextConfig: NextConfig = {
     return {
       beforeFiles: [
         {
+          source: "/lic",
+          destination: "/lic/index.html",
+        },
+        {
+          source: "/lic/",
+          destination: "/lic/index.html",
+        },
+        {
           source: "/",
           has: [{ type: "host", value: "rezervace.neurea.cz" }],
           destination: "/rezervace",

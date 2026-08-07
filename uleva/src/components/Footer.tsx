@@ -2,99 +2,44 @@ import Link from "next/link";
 import { BrandLockup } from "@/components/BrandMark";
 import { COMPANY } from "@/data/company";
 
-const MOM_LINKS = [
-  { href: "/hledat", label: "Najít pomoc" },
-  { href: "/jak-to-funguje", label: "Jak to funguje" },
-  { href: "/cenik", label: "Ceník" },
-  { href: "/bezpecnost", label: "Bezpečnost a ověřování" },
-  { href: "/razeni", label: "Jak řadíme výsledky" },
-  { href: "/faq", label: "Časté otázky" },
-  { href: "/kontakt", label: "Kontakt" },
-];
-
-const CARE_LINKS = [
-  { href: "/nabidnout", label: "Chci nabízet pomoc" },
-  { href: "/jak-spoluprace", label: "Jak spolupráce funguje" },
-  { href: "/pozadavky", label: "Požadavky na pečující" },
-  { href: "/prihlaseni", label: "Přihlášení" },
-];
-
-const LEGAL_LINKS = [
-  { href: "/obchodni-podminky", label: "Obchodní podmínky" },
-  { href: "/ochrana-udaju", label: "Ochrana osobních údajů" },
-  { href: "/storno", label: "Storno podmínky" },
-  { href: "/reklamace", label: "Reklamace" },
-  { href: "/cookies", label: "Cookies" },
-];
-
 export function Footer() {
   return (
-    <footer className="mt-auto border-t border-[var(--line)] bg-[#ebe3de]">
-      <div className="shell grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-4">
+    <footer className="mt-auto border-t border-[var(--line)] bg-snow">
+      <div className="shell grid gap-12 py-16 md:grid-cols-[1.2fr_1fr_1fr]">
         <div>
-          <BrandLockup size="lg" markTone="rose" />
-          <p className="mt-5 max-w-sm text-sm leading-relaxed text-ink-soft">
-            Péče pro maminky — ověřené pečující, reálné termíny, platba přes
-            platformu. Smlouva o péči vzniká mezi klientkou a pečující.
+          <BrandLockup size="lg" />
+          <p className="mt-6 max-w-xs text-sm leading-relaxed text-ink-soft">
+            Ověřená péče pro maminky. Rezervace s reálným termínem — po celé ČR.
           </p>
-          <div className="mt-5 space-y-1 text-xs leading-relaxed text-ink-soft">
-            <p className="font-semibold text-ink">{COMPANY.legalName}</p>
-            <p>IČO: {COMPANY.ico}</p>
-            <p>{COMPANY.seat}</p>
-            <p>
-              <a href={`mailto:${COMPANY.email}`} className="underline">
-                {COMPANY.email}
-              </a>
-            </p>
-          </div>
         </div>
-        <div>
-          <p className="eyebrow">Pro maminky</p>
-          <div className="mt-4 flex flex-col gap-2.5 text-sm text-ink-soft">
-            {MOM_LINKS.map((l) => (
-              <Link key={l.href} href={l.href} className="transition hover:text-ink">
-                {l.label}
-              </Link>
-            ))}
+        <div className="grid grid-cols-2 gap-8 text-sm text-ink-soft md:col-span-2 md:grid-cols-3">
+          <div className="flex flex-col gap-3">
+            <p className="eyebrow mb-1">Objevte</p>
+            <Link href="/hledat">Najít pomoc</Link>
+            <Link href="/cenik">Ceník</Link>
+            <Link href="/jak-to-funguje">Jak to funguje</Link>
+            <Link href="/bezpecnost">Ověření</Link>
           </div>
-        </div>
-        <div>
-          <p className="eyebrow">Pro pečující</p>
-          <div className="mt-4 flex flex-col gap-2.5 text-sm text-ink-soft">
-            {CARE_LINKS.map((l) => (
-              <Link key={l.href} href={l.href} className="transition hover:text-ink">
-                {l.label}
-              </Link>
-            ))}
+          <div className="flex flex-col gap-3">
+            <p className="eyebrow mb-1">Pečující</p>
+            <Link href="/nabidnout">Přidat se</Link>
+            <Link href="/jak-spoluprace">Spolupráce</Link>
+            <Link href="/kontakt">Kontakt</Link>
           </div>
-        </div>
-        <div>
-          <p className="eyebrow">Právní</p>
-          <div className="mt-4 flex flex-col gap-2.5 text-sm text-ink-soft">
-            {LEGAL_LINKS.map((l) => (
-              <Link key={l.href} href={l.href} className="transition hover:text-ink">
-                {l.label}
-              </Link>
-            ))}
-            <Link href="/kontakt" className="transition hover:text-ink">
-              Hlášení nezákonného obsahu
-            </Link>
-            <p className="pt-2 text-xs">
-              ADR / ČOI:{" "}
-              <a
-                href={COMPANY.coiUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="underline"
-              >
-                coi.cz
-              </a>
-            </p>
+          <div className="flex flex-col gap-3">
+            <p className="eyebrow mb-1">Právní</p>
+            <Link href="/obchodni-podminky">Podmínky</Link>
+            <Link href="/ochrana-udaju">Soukromí</Link>
+            <Link href="/storno">Storno</Link>
+            <Link href="/cookies">Cookies</Link>
           </div>
         </div>
       </div>
-      <div className="shell border-t border-[var(--line)] py-5 text-xs text-ink-soft">
-        © {new Date().getFullYear()} MamaSOS · mamasos.cz
+      <div className="shell flex flex-wrap items-center justify-between gap-3 border-t border-[var(--line)] py-5 text-[0.7rem] text-ink-soft">
+        <p>
+          © {new Date().getFullYear()} MamaSOS · {COMPANY.legalName}
+        </p>
+        <p>IČO {COMPANY.ico}</p>
       </div>
     </footer>
   );

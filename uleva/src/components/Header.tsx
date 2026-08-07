@@ -17,7 +17,7 @@ export function Header() {
       setSolid(true);
       return;
     }
-    const onScroll = () => setSolid(window.scrollY > 40);
+    const onScroll = () => setSolid(window.scrollY > 48);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -37,48 +37,39 @@ export function Header() {
       }`}
       data-solid={solid || !isHome ? "true" : "false"}
     >
-      <div className="shell flex items-center justify-between gap-6 py-5">
-        <Link href="/" className="group" aria-label="MamaSOS — domů">
+      <div className="shell flex items-center justify-between py-6">
+        <Link href="/" aria-label="MamaSOS — domů">
           <BrandLockup tone={light ? "light" : "ink"} />
         </Link>
 
-        <nav
-          className={`absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 text-[0.78rem] font-semibold tracking-[0.04em] lg:flex ${
-            light ? "text-white/75" : "text-ink-soft"
-          }`}
-        >
-          <Link href="/hledat" className="transition hover:text-current hover:opacity-100 opacity-90">
-            Najít pomoc
-          </Link>
-          <Link href="/cenik" className="transition hover:opacity-100 opacity-90">
-            Ceník
-          </Link>
-          <Link href="/bezpecnost" className="transition hover:opacity-100 opacity-90">
-            Důvěra
-          </Link>
-          <Link href="/nabidnout" className="transition hover:opacity-100 opacity-90">
-            Pro pečující
-          </Link>
-        </nav>
-
-        <div className="flex items-center gap-3">
-          {ready && (
-            <Link
-              href={accountHref}
-              className={`hidden text-[0.78rem] font-semibold tracking-[0.04em] sm:inline ${
-                light ? "text-white/80" : "text-ink-soft"
-              }`}
-            >
-              {user ? "Účet" : "Přihlásit"}
+        <div className="flex items-center gap-8">
+          <nav
+            className={`hidden items-center gap-8 text-[0.68rem] font-semibold uppercase tracking-[0.16em] md:flex ${
+              light ? "text-white/70" : "text-ink-soft"
+            }`}
+          >
+            <Link href="/hledat" className="transition hover:text-current hover:opacity-100">
+              Služby
             </Link>
-          )}
+            <Link href="/cenik" className="transition hover:opacity-100">
+              Ceník
+            </Link>
+            <Link href="/nabidnout" className="transition hover:opacity-100">
+              Pečující
+            </Link>
+            {ready && (
+              <Link href={accountHref} className="transition hover:opacity-100">
+                {user ? "Účet" : "Přihlásit"}
+              </Link>
+            )}
+          </nav>
           <Link
             href="/hledat"
-            className={`btn !px-5 !py-2.5 !text-[0.8rem] ${
+            className={`btn !px-5 !py-2.5 !text-[0.65rem] ${
               light ? "btn-ghost-light" : "btn-rose"
             }`}
           >
-            Potřebuju úlevu
+            Rezervovat
           </Link>
         </div>
       </div>

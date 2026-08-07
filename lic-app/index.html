@@ -63,8 +63,7 @@
             <em>Sedí.</em> Neskače.
           </h1>
           <p class="lede">
-            Nahraj video nebo fotku — beauty lock, světlo a české titulky přímo na
-            tvém obsahu.
+            Nahraj video — beauty lock, světlo, české titulky, export shortu.
           </p>
           <div class="hero-cta">
             <button class="btn btn-primary" type="button" data-go="studio">
@@ -82,17 +81,17 @@
         <div class="strip-item">
           <span class="strip-num">01</span>
           <h3>Nahraj</h3>
-          <p>Fotka nebo video — uvidíš preview hned.</p>
+          <p>Fotka nebo video — preview hned.</p>
         </div>
         <div class="strip-item">
           <span class="strip-num">02</span>
           <h3>Beauty lock</h3>
-          <p>Natural / Glow / Glam — tvář sedí, neskače.</p>
+          <p>Natural / Glow / Glam — tvář sedí.</p>
         </div>
         <div class="strip-item">
           <span class="strip-num">03</span>
-          <h3>Titulky + export</h3>
-          <p>České styly a stažení 9:16 snímku.</p>
+          <h3>Export short</h3>
+          <p>PNG nebo video klip 9:16.</p>
         </div>
       </section>
     </div>
@@ -110,12 +109,10 @@
           <button class="step" data-step="4" type="button">4 · Export</button>
         </div>
         <div class="studio-actions">
-          <button class="btn btn-ghost btn-sm" type="button" id="btn-toggle-play" hidden>
-            Přehrát
-          </button>
-          <button class="btn btn-primary btn-sm" type="button" id="btn-export">
-            Stáhnout 9:16
-          </button>
+          <button class="btn btn-ghost btn-sm" type="button" id="btn-compare">Před / po</button>
+          <button class="btn btn-ghost btn-sm" type="button" id="btn-toggle-play" hidden>Přehrát</button>
+          <button class="btn btn-secondary btn-sm" type="button" id="btn-export-png">PNG</button>
+          <button class="btn btn-primary btn-sm" type="button" id="btn-export-video">Video</button>
         </div>
       </header>
 
@@ -131,9 +128,16 @@
             </label>
             <div class="media-tools" id="media-tools" hidden>
               <label class="slider-row">
-                <span>Pozice ve videu <em id="seek-val">0:00</em></span>
-                <input type="range" id="seek" min="0" max="100" value="0" step="0.1" />
+                <span>Pozice <em id="seek-val">0:00</em></span>
+                <input type="range" id="seek" min="0" max="100" value="0" step="0.05" />
               </label>
+              <label class="slider-row">
+                <span>Délka shortu <em id="clip-len-val">6s</em></span>
+                <input type="range" id="clip-len" min="3" max="12" value="6" step="1" />
+              </label>
+              <button class="btn btn-secondary btn-sm btn-block" type="button" id="btn-scan-hooks">
+                Najít háčky
+              </button>
             </div>
             <div class="clip-list" id="clip-list"></div>
           </div>
@@ -143,7 +147,7 @@
           <div class="phone">
             <div class="phone-screen" id="phone-screen">
               <canvas id="stage-canvas" width="1080" height="1920" aria-label="Náhled shortu"></canvas>
-              <video id="source-video" playsinline muted hidden></video>
+              <video id="source-video" playsinline muted crossorigin="anonymous" hidden></video>
               <div class="stage-hud">
                 <div class="hud-pill">
                   <span class="lock-dot"></span>
@@ -154,9 +158,14 @@
               <div class="empty-stage" id="empty-stage">
                 <p>Nahraj fotku nebo video<br /><span>a uvidíš Líc na sobě</span></p>
               </div>
+              <div class="compare-tag" id="compare-tag" hidden>PŘED</div>
             </div>
           </div>
-          <p class="stage-hint" id="stage-hint">Natural · Soft light · Caption Bold</p>
+          <p class="stage-hint" id="stage-hint">Glow · Soft light · Caption Bold</p>
+          <div class="export-progress" id="export-progress" hidden>
+            <div class="export-bar"><i id="export-bar-fill"></i></div>
+            <span id="export-progress-text">Exportuji…</span>
+          </div>
         </section>
 
         <aside class="panel panel-right">
@@ -184,7 +193,6 @@
               <span>Vyhlazení <em id="smooth-val">35%</em></span>
               <input type="range" id="smooth-strength" min="0" max="70" value="35" />
             </label>
-            <p class="note">Beauty běží na canvasu — ring drží stabilní face box, neplave.</p>
           </div>
 
           <div class="panel-block" data-panel="light">
@@ -195,6 +203,10 @@
               <button class="chip" type="button" data-light="night">Night</button>
               <button class="chip" type="button" data-light="clean">Clean</button>
             </div>
+            <label class="check-row">
+              <input type="checkbox" id="chk-watermark" checked />
+              <span>Watermark Líc</span>
+            </label>
           </div>
 
           <div class="panel-block" data-panel="captions">
@@ -206,12 +218,17 @@
               <button class="chip" type="button" data-caption="minimal">Minimal</button>
             </div>
             <label class="field">
-              <span>Text</span>
+              <span>Hook (nahoře)</span>
+              <input type="text" id="hook-input" value="POČKEJ…" maxlength="28" />
+            </label>
+            <label class="field">
+              <span>Titulek</span>
               <input type="text" id="caption-input" value="tohle jsem nečekala…" maxlength="56" />
             </label>
-            <button class="btn btn-secondary btn-sm btn-block" type="button" id="btn-fix-cz">
-              Opravit češtinu
-            </button>
+            <div class="btn-row">
+              <button class="btn btn-secondary btn-sm" type="button" id="btn-fix-cz">CZ</button>
+              <button class="btn btn-secondary btn-sm" type="button" id="btn-mic">🎤 Dictation</button>
+            </div>
             <p class="note ok" id="cz-note">✓ Háčky a čárky hlídáme</p>
           </div>
         </aside>

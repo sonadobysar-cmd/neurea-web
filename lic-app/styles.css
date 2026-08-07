@@ -826,6 +826,97 @@ button[hidden] {
   margin-top: 0.75rem;
 }
 
+.btn-row {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 0.45rem;
+  margin-top: 0.75rem;
+}
+
+.btn-row .btn {
+  justify-content: center;
+}
+
+.check-row {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 0.9rem;
+  color: var(--pearl-dim);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.check-row input {
+  accent-color: var(--lime);
+  width: 1rem;
+  height: 1rem;
+}
+
+.btn.is-on {
+  border-color: var(--lime);
+  color: var(--lime);
+}
+
+.compare-tag {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(7, 8, 12, 0.72);
+  border: 1px solid var(--line);
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  font-size: 0.85rem;
+  pointer-events: none;
+}
+
+.compare-tag[hidden] {
+  display: none;
+}
+
+.export-progress {
+  margin-top: 0.85rem;
+  width: min(100%, 300px);
+  text-align: center;
+}
+
+.export-progress[hidden] {
+  display: none;
+}
+
+.export-bar {
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  margin-bottom: 0.45rem;
+}
+
+.export-bar i {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--rose), var(--lime));
+  transition: width 0.15s linear;
+}
+
+#export-progress-text {
+  font-size: 0.8rem;
+  color: var(--pearl-dim);
+}
+
+@media (max-width: 900px) {
+  .studio-actions {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+}
+
 .stage-hud {
   position: absolute;
   top: 0.75rem;

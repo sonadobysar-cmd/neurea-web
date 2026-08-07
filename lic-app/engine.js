@@ -1,5 +1,5 @@
 /**
- * Líc render engine — cover crop 9:16, beauty beauty, light, captions, face lock.
+ * Líc render engine — 9:16 cover, beauty beauty, light, captions, face lock, clip export.
  */
 window.LicEngine = (() => {
   const W = 1080;
@@ -12,9 +12,13 @@ window.LicEngine = (() => {
     light: "soft",
     captionStyle: "bold",
     captionText: "tohle jsem nečekala…",
-    face: null, // {x,y,w,h} in canvas coords — smoothed
+    hookText: "POČKEJ…",
+    watermark: true,
+    compare: false,
+    showRing: true,
+    face: null,
     hasMedia: false,
-    mediaKind: null, // image | video
+    mediaKind: null,
   };
 
   let canvas;
@@ -25,7 +29,8 @@ window.LicEngine = (() => {
   let faceDetector = null;
   let lastDetect = 0;
   let smoothFace = null;
-  const off = { blur: null, blurCtx: null };
+  let exporting = false;
+  const off = { blur: null, blurCtx: null, raw: null, rawCtx: null };
 
   const beautyBoost = { natural: 0.7, glow: 1, glam: 1.35 };
 
@@ -51,16 +56,22 @@ window.LicEngine = (() => {
       off.blur.height = H;
       off.blurCtx = off.blur.getContext("2d");
     }
+    if (!off.raw) {
+      off.raw = document.createElement("canvas");
+      off.raw.width = W;
+      off.raw.height = H;
+      off.rawCtx = off.raw.getContext("2d", { willReadFrequently: true });
+    }
   }
 
-  function setOptions( partial) {
+  function setOptions(partial) {
     Object.assign(state, partial);
     if (state.hasMedia) requestRender();
     else drawPlaceholder();
   }
 
   function getState() {
-    return { ...state, face: smoothFace };
+    return { ...state, face: smoothFace, exporting };
   }
 
   function drawPlaceholder() {
@@ -70,8 +81,6 @@ window.LicEngine = (() => {
     g.addColorStop(1, "#07080c");
     ctx.fillStyle = g;
     ctx.fillRect(0, 0, W, H);
-
-    // soft face oval
     const cx = W / 2;
     const cy = H * 0.38;
     const rg = ctx.createRadialGradient(cx - 40, cy - 80, 20, cx, cy, 280);
@@ -82,7 +91,6 @@ window.LicEngine = (() => {
     ctx.beginPath();
     ctx.ellipse(cx, cy, 220, 280, 0, 0, Math.PI * 2);
     ctx.fill();
-
     drawOverlays(defaultFaceBox());
   }
 
@@ -90,17 +98,17 @@ window.LicEngine = (() => {
     return { x: W * 0.28, y: H * 0.22, w: W * 0.44, h: H * 0.32 };
   }
 
-  function coverDraw(source, sw, sh) {
+  function coverDraw(targetCtx, source, sw, sh) {
     const scale = Math.max(W / sw, H / sh);
     const dw = sw * scale;
     const dh = sh * scale;
     const dx = (W - dw) / 2;
     const dy = (H - dh) / 2;
-    ctx.drawImage(source, dx, dy, dw, dh);
-    return { scale, dx, dy, dw, dh };
+    targetCtx.drawImage(source, dx, dy, dw, dh);
   }
 
   function filterString() {
+    if (state.compare) return "none";
     const s = (state.beautyStrength / 100) * beautyBoost[state.beauty];
     const brightness = 1 + s * 0.12;
     const contrast = state.light === "cinema" ? 1.12 : state.light === "clean" ? 1.04 : 1.07;
@@ -109,7 +117,7 @@ window.LicEngine = (() => {
   }
 
   function applySkinSmooth(face) {
-    if (!face || state.smooth <= 0) return;
+    if (state.compare || !face || state.smooth <= 0) return;
     ensureOffscreen();
     const blurPx = 6 + (state.smooth / 70) * 18;
     const octx = off.blurCtx;
@@ -117,8 +125,6 @@ window.LicEngine = (() => {
     octx.filter = `blur(${blurPx}px)`;
     octx.drawImage(canvas, 0, 0);
     octx.filter = "none";
-
-    // Soft elliptical mask over face — stable, no jittery landmarks
     ctx.save();
     ctx.beginPath();
     ctx.ellipse(
@@ -132,14 +138,13 @@ window.LicEngine = (() => {
     );
     ctx.clip();
     ctx.globalAlpha = 0.18 + (state.smooth / 70) * 0.42;
-    ctx.globalCompositeOperation = "source-over";
     ctx.drawImage(off.blur, 0, 0);
     ctx.restore();
     ctx.globalAlpha = 1;
-    ctx.globalCompositeOperation = "source-over";
   }
 
   function drawLight(face) {
+    if (state.compare) return;
     const modes = {
       soft: () => {
         const g = ctx.createLinearGradient(0, 0, 0, H);
@@ -153,10 +158,9 @@ window.LicEngine = (() => {
         const g = ctx.createLinearGradient(0, 0, W, H);
         g.addColorStop(0, "rgba(255,70,90,0.16)");
         g.addColorStop(0.5, "rgba(0,0,0,0)");
-        g.addColorStop(1, "rgba(40,60,120,0.18)");
+        g.addColorStop(1, "rgba(30,40,70,0.2)");
         ctx.fillStyle = g;
         ctx.fillRect(0, 0, W, H);
-        // vignette
         const v = ctx.createRadialGradient(W / 2, H * 0.4, H * 0.15, W / 2, H * 0.45, H * 0.75);
         v.addColorStop(0, "rgba(0,0,0,0)");
         v.addColorStop(1, "rgba(0,0,0,0.45)");
@@ -200,6 +204,7 @@ window.LicEngine = (() => {
   }
 
   function drawGlow(face) {
+    if (state.compare) return;
     const s = (state.beautyStrength / 100) * beautyBoost[state.beauty];
     if (s <= 0 || !face) return;
     const g = ctx.createRadialGradient(
@@ -230,15 +235,40 @@ window.LicEngine = (() => {
       if (ctx.measureText(test).width > maxWidth && line) {
         lines.push(line);
         line = word;
-      } else {
-        line = test;
-      }
+      } else line = test;
     }
     if (line) lines.push(line);
     return lines.slice(0, 3);
   }
 
+  function roundRect(c, x, y, w, h, r) {
+    c.beginPath();
+    c.moveTo(x + r, y);
+    c.arcTo(x + w, y, x + w, y + h, r);
+    c.arcTo(x + w, y + h, x, y + h, r);
+    c.arcTo(x, y + h, x, y, r);
+    c.arcTo(x, y, x + w, y, r);
+    c.closePath();
+  }
+
+  function drawHook() {
+    if (state.compare) return;
+    const text = (state.hookText || "").trim();
+    if (!text) return;
+    const font = `800 48px Syne, system-ui, sans-serif`;
+    ctx.font = font;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    const y = H * 0.12;
+    ctx.lineWidth = 8;
+    ctx.strokeStyle = "rgba(0,0,0,0.7)";
+    ctx.strokeText(text.toUpperCase(), W / 2, y);
+    ctx.fillStyle = "#d8ff4a";
+    ctx.fillText(text.toUpperCase(), W / 2, y);
+  }
+
   function drawCaption() {
+    if (state.compare) return;
     const text = (state.captionText || "").trim();
     if (!text) return;
     const style = state.captionStyle;
@@ -298,7 +328,6 @@ window.LicEngine = (() => {
       ctx.font = font;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-      ctx.letterSpacing = "0.06em";
       ctx.fillStyle = "rgba(255,255,255,0.92)";
       ctx.shadowColor = "rgba(0,0,0,0.6)";
       ctx.shadowBlur = 14;
@@ -307,18 +336,18 @@ window.LicEngine = (() => {
     }
   }
 
-  function roundRect(c, x, y, w, h, r) {
-    c.beginPath();
-    c.moveTo(x + r, y);
-    c.arcTo(x + w, y, x + w, y + h, r);
-    c.arcTo(x + w, y + h, x, y + h, r);
-    c.arcTo(x, y + h, x, y, r);
-    c.arcTo(x, y, x + w, y, r);
-    c.closePath();
+  function drawWatermark() {
+    if (!state.watermark || state.compare) return;
+    ctx.save();
+    ctx.font = `700 28px Syne, system-ui, sans-serif`;
+    ctx.fillStyle = "rgba(246,241,234,0.45)";
+    ctx.textAlign = "right";
+    ctx.fillText("Líc", W - 48, H - 48);
+    ctx.restore();
   }
 
   function drawFaceRing(face) {
-    if (!face) return;
+    if (!state.showRing || exporting || !face) return;
     ctx.save();
     ctx.strokeStyle = "rgba(216,255,74,0.7)";
     ctx.lineWidth = 4;
@@ -342,8 +371,10 @@ window.LicEngine = (() => {
     applySkinSmooth(face);
     drawGlow(face);
     drawLight(face);
-    drawFaceRing(face);
+    drawHook();
     drawCaption();
+    drawWatermark();
+    drawFaceRing(face);
   }
 
   function lerpFace(next) {
@@ -352,8 +383,7 @@ window.LicEngine = (() => {
       smoothFace = { ...next };
       return smoothFace;
     }
-    // Heavy smoothing = no flying ring
-    const a = 0.18;
+    const a = 0.16;
     smoothFace = {
       x: smoothFace.x + (next.x - smoothFace.x) * a,
       y: smoothFace.y + (next.y - smoothFace.y) * a,
@@ -365,18 +395,13 @@ window.LicEngine = (() => {
 
   async function detectFace() {
     const now = performance.now();
-    if (!faceDetector || now - lastDetect < 120) return smoothFace || defaultFaceBox();
+    if (!faceDetector || now - lastDetect < 100) return smoothFace || defaultFaceBox();
     lastDetect = now;
     try {
       const faces = await faceDetector.detect(canvas);
       if (faces?.[0]) {
         const b = faces[0].boundingBox;
-        return lerpFace({
-          x: b.x,
-          y: b.y,
-          w: b.width,
-          h: b.height,
-        });
+        return lerpFace({ x: b.x, y: b.y, w: b.width, h: b.height });
       }
     } catch {
       /* ignore */
@@ -389,15 +414,13 @@ window.LicEngine = (() => {
       drawPlaceholder();
       return;
     }
-
     ctx.filter = filterString();
     if (state.mediaKind === "video" && videoEl.readyState >= 2) {
-      coverDraw(videoEl, videoEl.videoWidth, videoEl.videoHeight);
+      coverDraw(ctx, videoEl, videoEl.videoWidth, videoEl.videoHeight);
     } else if (state.mediaKind === "image" && imageEl?.complete) {
-      coverDraw(imageEl, imageEl.naturalWidth, imageEl.naturalHeight);
+      coverDraw(ctx, imageEl, imageEl.naturalWidth, imageEl.naturalHeight);
     }
     ctx.filter = "none";
-
     const face = await detectFace();
     state.face = face;
     drawOverlays(face);
@@ -424,6 +447,20 @@ window.LicEngine = (() => {
     loop();
   }
 
+  function waitSeek() {
+    return new Promise((resolve) => {
+      if (!videoEl.seeking) {
+        requestAnimationFrame(() => requestAnimationFrame(resolve));
+        return;
+      }
+      const done = () => {
+        videoEl.removeEventListener("seeked", done);
+        resolve();
+      };
+      videoEl.addEventListener("seeked", done);
+    });
+  }
+
   async function loadFile(file) {
     revoke();
     const url = URL.createObjectURL(file);
@@ -439,7 +476,7 @@ window.LicEngine = (() => {
         videoEl.onerror = reject;
       });
       videoEl.pause();
-      videoEl.currentTime = Math.min(1, (videoEl.duration || 1) * 0.15);
+      videoEl.currentTime = Math.min(1, (videoEl.duration || 1) * 0.12);
       await waitSeek();
       await renderFrame();
       return { kind: "video", duration: videoEl.duration || 0, url };
@@ -454,23 +491,15 @@ window.LicEngine = (() => {
     return { kind: "image", duration: 0, url };
   }
 
-  function waitSeek() {
-    return new Promise((resolve) => {
-      if (videoEl.seeking) {
-        videoEl.onseeked = () => resolve();
-      } else {
-        // slight delay for decoder
-        requestAnimationFrame(() => resolve());
-      }
-    });
-  }
-
   async function seek(t) {
     if (state.mediaKind !== "video") return;
-    videoEl.currentTime = t;
-    await new Promise((r) => {
-      videoEl.onseeked = () => r();
-    });
+    const target = Math.max(0, Math.min(t, (videoEl.duration || 0) - 0.05));
+    if (Math.abs(videoEl.currentTime - target) < 0.02) {
+      await renderFrame();
+      return;
+    }
+    videoEl.currentTime = target;
+    await waitSeek();
     await renderFrame();
   }
 
@@ -508,65 +537,232 @@ window.LicEngine = (() => {
   }
 
   function exportPng() {
-    return new Promise((resolve) => {
-      canvas.toBlob((blob) => resolve(blob), "image/png");
-    });
+    const prevRing = state.showRing;
+    state.showRing = false;
+    return requestRender().then(
+      () =>
+        new Promise((resolve) => {
+          canvas.toBlob((blob) => {
+            state.showRing = prevRing;
+            requestRender();
+            resolve(blob);
+          }, "image/png");
+        })
+    );
   }
 
-  /** Lightweight Czech cleanup for captions */
+  function pickMime() {
+    const types = ["video/webm;codecs=vp9,opus", "video/webm;codecs=vp8,opus", "video/webm", "video/mp4"];
+    for (const t of types) {
+      if (window.MediaRecorder && MediaRecorder.isTypeSupported(t)) return t;
+    }
+    return "video/webm";
+  }
+
+  /**
+   * Export short clip as WebM/MP4 from canvas stream.
+   */
+  async function exportClip({ start = 0, duration = 6, onProgress } = {}) {
+    if (state.mediaKind !== "video") {
+      const png = await exportPng();
+      return { blob: png, ext: "png" };
+    }
+    if (!window.MediaRecorder) throw new Error("MediaRecorder není dostupný");
+
+    exporting = true;
+    state.showRing = false;
+    pause();
+    await seek(start);
+
+    const mime = pickMime();
+    const stream = canvas.captureStream(30);
+    const chunks = [];
+    const rec = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: 8_000_000 });
+    rec.ondataavailable = (e) => {
+      if (e.data?.size) chunks.push(e.data);
+    };
+
+    const ended = new Promise((resolve) => {
+      rec.onstop = () => resolve();
+    });
+
+    rec.start(100);
+    videoEl.muted = true;
+    videoEl.currentTime = start;
+    await waitSeek();
+    await videoEl.play();
+    startLoop();
+
+    const t0 = performance.now();
+    await new Promise((resolve) => {
+      const tick = () => {
+        const elapsed = (performance.now() - t0) / 1000;
+        const p = Math.min(1, elapsed / duration);
+        onProgress?.(p);
+        if (elapsed >= duration || videoEl.ended || videoEl.currentTime >= start + duration) {
+          resolve();
+          return;
+        }
+        requestAnimationFrame(tick);
+      };
+      tick();
+    });
+
+    videoEl.pause();
+    stopLoop();
+    await requestRender();
+    rec.stop();
+    await ended;
+    stream.getTracks().forEach((t) => t.stop());
+
+    exporting = false;
+    state.showRing = true;
+    await requestRender();
+
+    const blob = new Blob(chunks, { type: mime });
+    const ext = mime.includes("mp4") ? "mp4" : "webm";
+    return { blob, ext };
+  }
+
+  function frameScore(imageData) {
+    const d = imageData.data;
+    let sum = 0;
+    let sumSq = 0;
+    let n = 0;
+    // sample every 16th pixel
+    for (let i = 0; i < d.length; i += 64) {
+      const v = (d[i] + d[i + 1] + d[i + 2]) / 3;
+      sum += v;
+      sumSq += v * v;
+      n++;
+    }
+    const mean = sum / n;
+    const variance = sumSq / n - mean * mean;
+    // prefer mid brightness + some contrast (faces/talking tend to score)
+    const bright = 1 - Math.abs(mean - 118) / 118;
+    return variance * 0.04 + bright * 40;
+  }
+
+  async function scanHooks(count = 3) {
+    if (state.mediaKind !== "video") return buildClipsFromDuration(0);
+    const duration = videoEl.duration || 0;
+    if (duration < 2) return buildClipsFromDuration(duration);
+
+    ensureOffscreen();
+    const samples = Math.min(24, Math.max(8, Math.floor(duration)));
+    const scored = [];
+    const prevCompare = state.compare;
+    const prevRing = state.showRing;
+    state.compare = true;
+    state.showRing = false;
+
+    for (let i = 0; i < samples; i++) {
+      const t = (duration * (i + 0.5)) / samples;
+      videoEl.currentTime = t;
+      await waitSeek();
+      off.rawCtx.filter = "none";
+      coverDraw(off.rawCtx, videoEl, videoEl.videoWidth, videoEl.videoHeight);
+      const data = off.rawCtx.getImageData(0, 0, W, H);
+      let score = frameScore(data);
+      if (faceDetector) {
+        try {
+          const faces = await faceDetector.detect(off.raw);
+          if (faces?.[0]) score += 55 + faces[0].boundingBox.width * 0.02;
+        } catch {
+          /* ignore */
+        }
+      }
+      scored.push({ t, score });
+    }
+
+    state.compare = prevCompare;
+    state.showRing = prevRing;
+
+    scored.sort((a, b) => b.score - a.score);
+    // diversify timestamps (min 2.5s apart)
+    const picked = [];
+    for (const s of scored) {
+      if (picked.every((p) => Math.abs(p.t - s.t) > 2.5)) picked.push(s);
+      if (picked.length >= count) break;
+    }
+    picked.sort((a, b) => a.t - b.t);
+
+    const titles = ["Háček — silný start", "Punchline", "Emocionální beat", "Closer"];
+    const captions = [
+      "tohle jsem nečekala…",
+      "a přesně tohle mě změnilo",
+      "když ti dojde, že to jde",
+      "ulož si tohle",
+    ];
+
+    const clips = picked.map((p, i) => ({
+      t: p.t,
+      title: titles[i] || `Moment ${i + 1}`,
+      caption: captions[i] || "tenhle moment",
+      score: Math.min(99, Math.round(70 + p.score / 8)),
+    }));
+
+    await seek(clips[0]?.t || 0);
+    return clips.length ? clips : buildClipsFromDuration(duration);
+  }
+
   function polishCzech(input) {
-    let t = (input || "").trim();
+    let t = ` ${input || ""} `.trim();
+    t = ` ${t} `;
     const map = [
       [/necekala/gi, "nečekala"],
       [/necekal/gi, "nečekal"],
+      [/necekalas/gi, "nečekalaš"],
       [/muzu/gi, "můžu"],
       [/muzes/gi, "můžeš"],
+      [/muze/gi, "může"],
       [/prislo/gi, "přišlo"],
       [/prisel/gi, "přišel"],
+      [/prisla/gi, "přišla"],
       [/dekuju/gi, "děkuju"],
       [/dekuji/gi, "děkuji"],
       [/prosim/gi, "prosím"],
       [/jasne/gi, "jasně"],
       [/skvele/gi, "skvěle"],
+      [/skvely/gi, "skvělý"],
       [/uz /gi, "už "],
       [/ neni /gi, " není "],
       [/ jeste /gi, " ještě "],
       [/ ted /gi, " teď "],
       [/vic /gi, "víc "],
       [/pritom/gi, "přitom"],
-      [/opravdu/gi, "opravdu"],
+      [/ protoze /gi, " protože "],
+      [/ taky /gi, " taky "],
+      [/ kdyz /gi, " když "],
+      [/ jestli /gi, " jestli "],
       [/ \.\.\./g, "…"],
       [/\.\.\./g, "…"],
     ];
     for (const [re, to] of map) t = t.replace(re, to);
-    // capitalize first letter
+    t = t.trim();
     if (t) t = t.charAt(0).toLocaleLowerCase("cs-CZ") + t.slice(1);
     return t;
   }
 
   function buildClipsFromDuration(duration) {
     if (!duration || duration < 3) {
-      return [
-        { t: 0, title: "Hlavní moment", caption: "tohle je ten moment", score: 90 },
-      ];
+      return [{ t: 0, title: "Hlavní moment", caption: "tohle je ten moment", score: 90 }];
     }
     const points = [
       { r: 0.12, title: "Háček — otevření", caption: "tohle jsem nečekala…", score: 92 },
       { r: 0.45, title: "Punchline", caption: "a přesně tohle mě změnilo", score: 88 },
       { r: 0.78, title: "Emocionální moment", caption: "když ti dojde, že to jde", score: 85 },
     ];
-    return points
-      .map((p) => ({
-        t: Math.min(duration - 0.3, Math.max(0, duration * p.r)),
-        title: p.title,
-        caption: p.caption,
-        score: p.score,
-      }))
-      .filter((p) => p.t >= 0);
+    return points.map((p) => ({
+      t: Math.min(duration - 0.3, Math.max(0, duration * p.r)),
+      title: p.title,
+      caption: p.caption,
+      score: p.score,
+    }));
   }
 
   function formatTime(sec) {
-    const s = Math.max(0, Math.floor(sec));
+    const s = Math.max(0, Math.floor(sec || 0));
     const m = Math.floor(s / 60);
     const r = s % 60;
     return `${m}:${String(r).padStart(2, "0")}`;
@@ -583,6 +779,8 @@ window.LicEngine = (() => {
     isPlaying,
     getVideo,
     exportPng,
+    exportClip,
+    scanHooks,
     polishCzech,
     buildClipsFromDuration,
     formatTime,

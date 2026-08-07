@@ -2,31 +2,19 @@
 
 **Tvoje tvář. Sedí. Neskače.**
 
-Vizuální MVP studia: nahraješ fotku/video → beauty lock + světlo + CZ titulky na canvasu → stáhneš 9:16 PNG.
-
-## Spuštění
-
 ```bash
-cd lic-app
-npm run dev
+cd lic-app && npm run dev
 ```
 
-Otevři [http://127.0.0.1:5177](http://127.0.0.1:5177) nebo `#studio`.
+→ http://127.0.0.1:5177/#studio
 
-## Co umí teď
+## Features
 
-- Upload fotky / videa (drag & drop)
-- 9:16 cover crop na canvasu (1080×1920)
-- Beauty: Natural / Glow / Glam + síla + vyhlazení (stabilní face box)
-- FaceDetector API (Chrome) se smoothed trackingem — ring nelítá
-- Světlo: Soft / Cinema / Night / Clean
-- Titulky: Bold / Soft / Pop / Minimal + „Opravit češtinu“
-- U videa: seek, přehrávání, auto háčky podle délky
-- Export: stažení PNG shortu
-
-## Další krok
-
-- Skutečné ASR titulky (Whisper)
-- Auto-háčky z audio energie
-- Video export (WebCodecs / ffmpeg.wasm)
-- Silnější identity beauty (SDK / model)
+- Upload foto / video → 9:16 canvas preview
+- Beauty Natural / Glow / Glam + vyhlazení (stable face lock)
+- Před / po compare (`C`)
+- Light grades + watermark
+- Hook + CZ titulky + dictation (cs-CZ) + polish
+- Auto scan háčků (frame + face score)
+- Export PNG 1080×1920
+- Export video short (MediaRecorder WebM/MP4)

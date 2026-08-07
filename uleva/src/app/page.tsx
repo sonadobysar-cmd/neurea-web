@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, BadgeCheck, CalendarDays, ShieldCheck } from "lucide-react";
+import { BrandMark } from "@/components/BrandMark";
 import { SearchPanel } from "@/components/SearchPanel";
 import { SERVICE_PRICING, formatCzk } from "@/data/pricing";
 import { PROVIDERS } from "@/data/providers";
@@ -26,6 +27,7 @@ const SERVICES = [
 export default function HomePage() {
   return (
     <div>
+      {/* Lovebrand hero — brand, one headline, one line, CTAs. Search below fold. */}
       <section className="relative min-h-[100svh] overflow-hidden">
         <Image
           src="/media/hero-mama.jpg"
@@ -36,26 +38,26 @@ export default function HomePage() {
           sizes="100vw"
         />
         <div className="hero-scrim absolute inset-0" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(196,91,74,0.18),transparent_45%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(201,123,132,0.2),transparent_45%)]" />
 
-        <div className="shell relative flex min-h-[100svh] flex-col justify-end pb-10 pt-28 md:pb-14 md:pt-32">
-          <div className="fade-in max-w-3xl text-white">
-            <p className="mb-5 inline-flex items-center gap-2 text-[0.68rem] font-bold uppercase tracking-[0.2em] text-white/70">
-              <span className="trust-dot" />
-              Rezervace · ne katalog kontaktů
-            </p>
-            <h1 className="display text-[clamp(2.4rem,6.5vw,4.4rem)] leading-[1.02] text-white">
-              Ověřená pomoc po porodu.
-              <br />
-              Rovnou s volným termínem.
+        <div className="shell relative flex min-h-[100svh] flex-col justify-end pb-14 pt-28 md:pb-20 md:pt-32">
+          <div className="brand-rise max-w-3xl text-white">
+            <div className="mb-7 flex items-center gap-3.5">
+              <BrandMark size="hero" tone="light" />
+              <p className="display text-[clamp(2rem,5vw,3.1rem)] leading-none tracking-[-0.03em]">
+                MamaSOS
+              </p>
+            </div>
+            <h1 className="display text-[clamp(2.35rem,6.2vw,4.2rem)] leading-[1.05] text-white">
+              Pomoc, když to jako máma nestíháš.
             </h1>
-            <div className="lux-rule mt-6 max-w-[12rem]" />
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/84 md:text-[1.15rem]">
-              Vyberte, co potřebujete, najděte ověřenou pečující ve svém okolí a
-              rezervujte konkrétní termín bez obvolávání a dopisování.
+            <div className="lux-rule--start mt-7 max-w-[10rem]" />
+            <p className="mt-6 max-w-lg text-lg leading-relaxed text-white/86 md:text-[1.15rem]">
+              Ověřená pečující u vás doma — úleva, dula nebo laktace. S volným
+              termínem, bez dopisování.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/hledat" className="btn btn-gold">
+            <div className="mt-9 flex flex-wrap gap-3">
+              <Link href="/hledat" className="btn btn-rose">
                 Potřebuju úlevu
                 <ArrowRight className="h-4 w-4" />
               </Link>
@@ -66,22 +68,18 @@ export default function HomePage() {
                 Jak to funguje
               </Link>
             </div>
-            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-xs font-semibold text-white/75">
-              <span>Bez předplatného</span>
-              <span>Jednotné ceny</span>
-              <span>Platba přes platformu</span>
-              <span>Povinně ověřené pečující</span>
-            </div>
-          </div>
-
-          <div className="fade-in-delay mt-10 max-w-5xl">
-            <SearchPanel tone="dark" />
           </div>
         </div>
       </section>
 
       <section className="border-b border-[var(--line)] bg-snow">
-        <div className="shell grid gap-6 py-6 md:grid-cols-3 md:gap-0 md:divide-x md:divide-[var(--line)] md:py-7">
+        <div className="shell py-8 md:py-10">
+          <SearchPanel />
+        </div>
+      </section>
+
+      <section className="border-b border-[var(--line)] bg-white/60">
+        <div className="shell grid gap-6 py-7 md:grid-cols-3 md:gap-0 md:divide-x md:divide-[var(--line)] md:py-8">
           {[
             {
               icon: BadgeCheck,
@@ -99,7 +97,10 @@ export default function HomePage() {
               d: "Žádné dražší profily ani předplatné",
             },
           ].map((item) => (
-            <div key={item.t} className="flex items-start gap-3 md:px-6 first:md:pl-0 last:md:pr-0">
+            <div
+              key={item.t}
+              className="flex items-start gap-3 md:px-6 first:md:pl-0 last:md:pr-0"
+            >
               <item.icon className="mt-0.5 h-5 w-5 shrink-0 text-moss" />
               <div>
                 <p className="font-bold text-ink">{item.t}</p>
@@ -113,12 +114,13 @@ export default function HomePage() {
       <section className="shell py-16 md:py-20">
         <div className="panel-solid grid gap-8 p-6 md:grid-cols-[1.1fr_0.9fr] md:p-10">
           <div>
-            <p className="eyebrow">Hlavní produkt</p>
+            <p className="eyebrow">Pro maminky</p>
             <h2 className="display mt-2 text-3xl md:text-5xl">Úleva doma</h2>
+            <div className="lux-rule--start mt-5 max-w-[7rem]" />
             <p className="mt-4 text-ink-soft">
               Nemusíte hledat zvlášť uklízečku, chůvu a pomoc s vařením. Během
               jedné návštěvy pečující pomůže s tím, co je v danou chvíli
-              nejdůležitější.
+              nejdůležitější — po porodu i kdykoli jindy.
             </p>
             <Link
               href="/hledat?potreby=multi,uklid,pohlidat,vareni"
@@ -147,6 +149,7 @@ export default function HomePage() {
             <h2 className="display mt-2 text-4xl md:text-5xl">
               Víte přesně, co dostanete
             </h2>
+            <div className="lux-rule--start mt-5 max-w-[7rem]" />
           </div>
           <Link href="/cenik" className="btn btn-ghost !py-2.5 !text-sm">
             Celý ceník
@@ -160,7 +163,7 @@ export default function HomePage() {
               <Link
                 key={item.key}
                 href={`/hledat?potreby=${item.key === "uleva" ? "uklid,pohlidat,vareni" : item.key}`}
-                className="group relative overflow-hidden rounded-[1.45rem] bg-ink text-white shadow-[var(--shadow)]"
+                className="group relative overflow-hidden rounded-[1.45rem] bg-ink text-white shadow-[var(--shadow)] fade-in"
                 style={{ animationDelay: `${i * 0.08}s` }}
               >
                 <div className="relative aspect-[4/5] overflow-hidden">
@@ -177,8 +180,12 @@ export default function HomePage() {
                       {s.shortLabel}
                     </p>
                     <p className="display mt-1 text-3xl">{formatCzk(s.pricePerHour)}</p>
-                    <p className="text-sm text-white/75">za hodinu · min. {s.minHours} h</p>
-                    <p className="mt-3 text-sm leading-relaxed text-white/85">{item.tip}</p>
+                    <p className="text-sm text-white/75">
+                      za hodinu · min. {s.minHours} h
+                    </p>
+                    <p className="mt-3 text-sm leading-relaxed text-white/85">
+                      {item.tip}
+                    </p>
                   </div>
                 </div>
               </Link>
@@ -206,6 +213,7 @@ export default function HomePage() {
               <br />
               Pak úleva.
             </h2>
+            <div className="lux-rule--start mt-6 max-w-[8rem]" />
             <p className="mt-5 max-w-lg text-base leading-relaxed text-white/78">
               Nejsme bazar inzerátů. Každá pečující musí projít ověřením a mít
               aktivní kalendář — jinak ji ve výsledcích neuvidíš.
@@ -216,7 +224,10 @@ export default function HomePage() {
                 "Reálné termíny místo „napiš mi, jestli máš čas“",
                 "Jednotné ceny — žádné dražší profily",
               ].map((line) => (
-                <p key={line} className="flex items-start gap-3 text-sm text-white/88">
+                <p
+                  key={line}
+                  className="flex items-start gap-3 text-sm text-white/88"
+                >
                   <span className="mt-1.5 trust-dot" />
                   {line}
                 </p>
@@ -224,13 +235,14 @@ export default function HomePage() {
             </div>
           </div>
           <div className="floaty rounded-[1.8rem] border border-white/12 bg-white/8 p-6 backdrop-blur-md md:p-8">
+            <BrandMark size="lg" tone="light" className="mb-4" />
             <p className="display text-5xl text-white">{PROVIDERS.length}+</p>
             <p className="mt-2 text-lg font-semibold">ověřených žen v demo síti</p>
             <p className="mt-4 text-sm leading-relaxed text-white/70">
               Praha, Brno, Ostrava a další města. Každá s fotkou, badgeemi a
               volnými sloty k rezervaci.
             </p>
-            <Link href="/hledat" className="btn btn-gold mt-7">
+            <Link href="/hledat" className="btn btn-rose mt-7">
               Prohlédnout termíny
             </Link>
           </div>
@@ -241,6 +253,7 @@ export default function HomePage() {
         <div className="mb-10 max-w-2xl">
           <p className="eyebrow">Jak to funguje</p>
           <h2 className="display mt-2 text-4xl md:text-5xl">Tři kroky k úlevě</h2>
+          <div className="lux-rule--start mt-5 max-w-[7rem]" />
         </div>
         <div className="grid gap-8 md:grid-cols-3">
           {[
@@ -261,7 +274,7 @@ export default function HomePage() {
             },
           ].map((step) => (
             <div key={step.n} className="relative border-t border-ink/10 pt-6">
-              <p className="display text-5xl text-gold">{step.n}</p>
+              <p className="display text-5xl text-rose">{step.n}</p>
               <h3 className="mt-4 text-xl font-bold">{step.t}</h3>
               <p className="mt-2 text-sm leading-relaxed text-ink-soft">{step.d}</p>
             </div>
@@ -277,7 +290,8 @@ export default function HomePage() {
               <h2 className="display mt-2 text-4xl md:text-5xl">
                 Ověřené pečující připravené přijet
               </h2>
-              <p className="mt-2 text-sm text-ink-soft">
+              <div className="lux-rule--start mt-5 max-w-[7rem]" />
+              <p className="mt-3 text-sm text-ink-soft">
                 Ukázkové profily — před spuštěním nahradíme reálnými ověřenými
                 pečujícími.
               </p>
@@ -306,7 +320,10 @@ export default function HomePage() {
                 <div className="min-w-0 flex-1">
                   <p className="font-bold">{p.name}</p>
                   <p className="truncate text-sm text-ink-soft">
-                    {p.city} · {p.services.map((s) => SERVICE_PRICING[s].shortLabel).join(", ")}
+                    {p.city} ·{" "}
+                    {p.services
+                      .map((s) => SERVICE_PRICING[s].shortLabel)
+                      .join(", ")}
                   </p>
                 </div>
                 <span className="shrink-0 rounded-full bg-fog px-2.5 py-1 text-xs font-bold">

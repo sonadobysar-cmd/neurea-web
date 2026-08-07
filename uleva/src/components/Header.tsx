@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/lib/auth";
+import { BrandLockup } from "@/components/BrandMark";
 
 export function Header() {
   const pathname = usePathname();
@@ -37,23 +38,8 @@ export function Header() {
       data-solid={solid || !isHome ? "true" : "false"}
     >
       <div className="shell flex items-center justify-between gap-4 py-4">
-        <Link href="/" className="group flex items-center gap-2.5">
-          <span
-            className={`grid h-10 w-10 place-items-center rounded-full text-[0.7rem] font-extrabold tracking-wide transition group-hover:scale-105 ${
-              light
-                ? "bg-white/15 text-white ring-1 ring-white/35 backdrop-blur"
-                : "bg-[var(--moss)] text-white shadow-[0_10px_24px_rgba(92,122,114,0.25)]"
-            }`}
-          >
-            SOS
-          </span>
-          <span
-            className={`display text-[1.7rem] leading-none ${
-              light ? "text-white" : "text-ink"
-            }`}
-          >
-            MamaSOS
-          </span>
+        <Link href="/" className="group" aria-label="MamaSOS — domů">
+          <BrandLockup tone={light ? "light" : "ink"} />
         </Link>
 
         <nav

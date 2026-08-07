@@ -12,8 +12,9 @@ export default function PricingPage() {
   return (
     <div className="shell pb-16 pt-28 md:pb-24 md:pt-32">
       <div className="max-w-2xl">
-        <p className="eyebrow">Ceník</p>
+        <p className="eyebrow">Ceník MamaSOS</p>
         <h1 className="display mt-2 text-4xl md:text-6xl">Stejná služba, stejná cena</h1>
+        <div className="lux-rule--start mt-5 max-w-[8rem]" />
         <p className="mt-4 text-ink-soft md:text-lg">
           Vidíš jen cenu za hodiny, které si objednáš. Žádné předplatné, žádné
           skryté příplatky podle profilu.

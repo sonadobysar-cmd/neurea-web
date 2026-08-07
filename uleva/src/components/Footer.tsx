@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BrandLockup } from "@/components/BrandMark";
 import { COMPANY } from "@/data/company";
 
 const MOM_LINKS = [
@@ -31,11 +32,12 @@ export function Footer() {
     <footer className="mt-auto border-t border-[var(--line)] bg-[#eef2f0]">
       <div className="shell grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-4">
         <div>
-          <p className="display text-3xl text-ink">MamaSOS</p>
-          <p className="mt-3 max-w-sm text-sm leading-relaxed text-ink-soft">
-            Online tržiště ověřené poporodní pomoci. Smlouva o péči vzniká mezi
-            klientkou a pečující (OSVČ). MamaSOS zprostředkuje rezervaci, platbu
-            a podporu. Nejde o zdravotní službu.
+          <BrandLockup size="lg" markTone="rose" />
+          <div className="lux-rule--start mt-4 max-w-[8rem]" />
+          <p className="mt-4 max-w-sm text-sm leading-relaxed text-ink-soft">
+            Péče pro maminky — ověřené pečující, reálné termíny, platba přes
+            platformu. Smlouva o péči vzniká mezi klientkou a pečující (OSVČ).
+            MamaSOS zprostředkuje rezervaci a podporu. Nejde o zdravotní službu.
           </p>
           <div className="mt-4 space-y-1 text-xs leading-relaxed text-ink-soft">
             <p className="font-bold text-ink">{COMPANY.legalName}</p>

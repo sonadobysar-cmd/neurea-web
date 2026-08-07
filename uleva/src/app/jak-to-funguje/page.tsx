@@ -6,9 +6,10 @@ export default function HowItWorksPage() {
       <div className="max-w-2xl">
         <p className="eyebrow">Jak to funguje</p>
         <h1 className="display mt-2 text-4xl md:text-6xl">Jednoduše a férově</h1>
+        <div className="lux-rule--start mt-5 max-w-[8rem]" />
         <p className="mt-4 text-ink-soft md:text-lg">
           MamaSOS propojuje maminky s ověřenými podnikatelkami. Transparentně,
-          s kalendářem a jednotnými cenami.
+          s kalendářem a jednotnými cenami — po porodu i kdykoli jindy.
         </p>
       </div>
 

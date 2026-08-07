@@ -18,14 +18,14 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: "MamaSOS — ověřená pomoc pro maminky po porodu",
+  title: "MamaSOS — pomoc, když to jako máma nestíháš",
   description:
-    "Najdi blízko sebe ověřenou ženu s volným termínem. Úklid, pohlídání, dula nebo laktace. Stejná služba, stejná cena. Bez předplatného.",
+    "Ověřená pečující u vás doma. Úleva, dula nebo laktace — s volným termínem, bez dopisování a bez předplatného.",
   metadataBase: new URL("https://mamasos.cz"),
   openGraph: {
-    title: "MamaSOS — když potřebuješ úlevu teď",
+    title: "MamaSOS — pomoc, když to jako máma nestíháš",
     description:
-      "Ověřená poporodní pomoc s reálným kalendářem. Rezervace bez dopisování po celé ČR.",
+      "Ověřená péče pro maminky. Rezervace s reálným kalendářem po celé ČR.",
     locale: "cs_CZ",
     type: "website",
   },

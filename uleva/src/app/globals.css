@@ -1,7 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  /* Soft maternal care — calm, modern, gently clinical (not chalupa/gold) */
+  /*
+   * MamaSOS lovebrand
+   * — Warm maternal care (blush rose + sage moss)
+   * — Display: Fraunces · UI: Plus Jakarta Sans
+   * — Signature: M-monogram + soft rose rule + rose CTAs
+   * Tone: vřelé, klidné, důvěryhodné. Ne klinické, ne chalupa/zlato, ne „emergency SOS“.
+   */
   --ink: #243038;
   --ink-soft: #5f6b73;
   --fog: #f3f5f4;
@@ -17,6 +23,8 @@
   --gold-deep: #b0656e;
   --shadow: 0 22px 60px rgba(36, 48, 56, 0.1);
   --shadow-soft: 0 10px 28px rgba(36, 48, 56, 0.06);
+  --mark-shadow: 0 10px 24px rgba(92, 122, 114, 0.25);
+  --mark-shadow-rose: 0 10px 24px rgba(201, 123, 132, 0.28);
 }
 
 @theme inline {
@@ -282,4 +290,132 @@ img {
     rgba(201, 123, 132, 0.45),
     transparent
   );
+}
+
+.lux-rule--start {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(201, 123, 132, 0.55),
+    rgba(201, 123, 132, 0.12),
+    transparent
+  );
+}
+
+/* —— Brand mark (M monogram) —— */
+.brand-mark {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  border-radius: 999px;
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  user-select: none;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.28s ease;
+}
+
+.group:hover .brand-mark,
+.brand-mark:hover {
+  transform: scale(1.05);
+}
+
+.brand-mark--sm {
+  width: 2rem;
+  height: 2rem;
+  font-size: 0.95rem;
+}
+
+.brand-mark--md {
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.15rem;
+}
+
+.brand-mark--lg {
+  width: 3.25rem;
+  height: 3.25rem;
+  font-size: 1.45rem;
+}
+
+.brand-mark--hero {
+  width: 3.75rem;
+  height: 3.75rem;
+  font-size: 1.7rem;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
+}
+
+.brand-mark--moss {
+  background: var(--moss);
+  color: #fff;
+  box-shadow: var(--mark-shadow);
+}
+
+.brand-mark--rose {
+  background: var(--rose);
+  color: #fff;
+  box-shadow: var(--mark-shadow-rose);
+}
+
+.brand-mark--ink {
+  background: var(--ink);
+  color: #f7faf9;
+  box-shadow: 0 10px 24px rgba(36, 48, 56, 0.2);
+}
+
+.brand-mark--light {
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+  box-shadow: none;
+  outline: 1px solid rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(10px);
+}
+
+.brand-rise {
+  animation: brandRise 1.05s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes brandRise {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.verified-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 999px;
+  background: rgba(92, 122, 114, 0.11);
+  padding: 0.3rem 0.7rem 0.3rem 0.35rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--moss);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.verified-badge:hover {
+  background: rgba(92, 122, 114, 0.18);
+  transform: translateY(-1px);
+}
+
+.verified-badge__mark {
+  display: inline-grid;
+  place-items: center;
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 999px;
+  background: var(--moss);
+  color: #fff;
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-size: 0.62rem;
+  font-weight: 600;
+  line-height: 1;
 }

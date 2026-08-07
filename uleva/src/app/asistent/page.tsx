@@ -47,14 +47,15 @@ export default function AssistantPage() {
       <div className="max-w-2xl">
         <p className="eyebrow">
           <Sparkles className="h-3.5 w-3.5" />
-          AI asistentka
+          Pomozte mi vybrat
         </p>
         <h1 className="display mt-2 text-4xl md:text-6xl">
-          Doporučení podle tvých potřeb
+          Nejste si jistá, koho potřebujete?
         </h1>
         <p className="mt-4 text-ink-soft md:text-lg">
-          Řekni kde jsi a co potřebuješ — najdu nejvhodnější ověřené kandidátky s
-          volným termínem. Nebo se zeptej na cokoli o MamaSOS.
+          Popište svou situaci a doporučíme vhodný typ pomoci i dostupné pečující
+          ve vašem okolí. Doporučení vytváří AI — nejde o zdravotní poradnu ani
+          diagnózu. Při zdravotních potížích kontaktujte lékaře nebo 155.
         </p>
       </div>
 

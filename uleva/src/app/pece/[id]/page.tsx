@@ -1,9 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { BadgeCheck, MapPin, Star } from "lucide-react";
+import { MapPin, Star } from "lucide-react";
 import { BookingCalendar } from "@/components/BookingCalendar";
-import { getBookableSlots, getProvider } from "@/data/providers";
+import { VerifiedBadge } from "@/components/VerifiedBadge";
+import {
+  PROVIDERS_ARE_DEMO,
+  getBookableSlots,
+  getProvider,
+} from "@/data/providers";
 import { SERVICE_PRICING, ServiceType } from "@/data/pricing";
 
 type Params = Promise<{ id: string }>;
@@ -51,10 +56,12 @@ export default async function ProviderPage({
               <div>
                 <div className="flex flex-wrap items-center gap-2">
                   <h1 className="display text-4xl md:text-5xl">{provider.name}</h1>
-                  <span className="inline-flex items-center gap-1 rounded-full bg-[rgba(63,94,81,0.1)] px-2.5 py-1 text-[0.7rem] font-bold text-moss">
-                    <BadgeCheck className="h-3.5 w-3.5" />
-                    100% ověřená
-                  </span>
+                  <VerifiedBadge />
+                  {(provider.isDemo || PROVIDERS_ARE_DEMO) && (
+                    <span className="rounded-full bg-fog px-2.5 py-1 text-[0.7rem] font-bold text-ink-soft">
+                      Ukázkový profil
+                    </span>
+                  )}
                 </div>
                 <p className="mt-2 flex items-center gap-1.5 text-ink-soft">
                   <MapPin className="h-4 w-4" />
@@ -129,15 +136,41 @@ export default async function ProviderPage({
         />
       </div>
 
+      <div className="panel-solid mt-6 p-5 text-sm text-ink-soft">
+        <p className="font-bold text-ink">Když pečující nemůže přijet</p>
+        <p className="mt-2">
+          Pomůžeme vám najít náhradní termín nebo vrátíme platbu podle{" "}
+          <Link href="/storno" className="font-bold text-ink underline">
+            storno podmínek
+          </Link>
+          . Při problému pište na{" "}
+          <Link href="/kontakt" className="font-bold text-ink underline">
+            podporu
+          </Link>
+          .
+        </p>
+      </div>
+
       {provider.reviews.length > 0 && (
         <section className="mt-12">
-          <h2 className="display text-3xl md:text-4xl">Recenze z reálných návštěv</h2>
+          <h2 className="display text-3xl md:text-4xl">Recenze</h2>
+          {(provider.isDemo || PROVIDERS_ARE_DEMO) && (
+            <p className="mt-2 text-sm text-ink-soft">
+              Ukázkové recenze — před spuštěním nahradíme hodnoceními z dokončených
+              návštěv.
+            </p>
+          )}
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             {provider.reviews.map((r) => (
               <article key={r.author + r.date} className="panel-solid p-5">
-                <div className="flex items-center justify-between gap-3">
+                <div className="flex flex-wrap items-center justify-between gap-3">
                   <p className="font-bold">{r.author}</p>
-                  <p className="text-sm text-rose">{"★".repeat(r.stars)}</p>
+                  <div className="flex items-center gap-2">
+                    <span className="rounded-full bg-[rgba(92,122,114,0.12)] px-2 py-0.5 text-[0.65rem] font-bold text-moss">
+                      Ověřená návštěva
+                    </span>
+                    <p className="text-sm text-rose">{"★".repeat(r.stars)}</p>
+                  </div>
                 </div>
                 <p className="mt-2 text-sm leading-relaxed text-ink-soft">{r.text}</p>
                 <p className="mt-3 text-xs text-ink-soft opacity-70">{r.date}</p>
@@ -150,7 +183,7 @@ export default async function ProviderPage({
       <p className="mt-10 max-w-3xl text-xs leading-relaxed text-ink-soft">
         MamaSOS je zprostředkovatel. Službu poskytuje {provider.name} jako samostatná
         podnikatelka. Nejde o zdravotní službu ani zařízení péče o děti v denním
-        režimu. Při zdravotních potížích kontaktuj lékaře nebo 155.
+        režimu. Při zdravotních potížích kontaktujte lékaře nebo 155.
       </p>
     </div>
   );

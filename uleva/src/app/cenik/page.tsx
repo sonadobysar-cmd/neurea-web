@@ -66,14 +66,28 @@ export default function PricingPage() {
       <div className="panel-solid mt-8 p-6 md:p-8">
         <h2 className="display text-2xl md:text-3xl">Jak platba funguje</h2>
         <ul className="mt-4 space-y-2 text-sm leading-relaxed text-ink-soft">
-          <li>• Zaplatíš předem na platformě za vybraný termín.</li>
-          <li>• Cena, kterou vidíš, je cena služby — bez předplatného.</li>
-          <li>• Po návštěvě je termín uzavřený a péče dokončená.</li>
-          <li>• Stejná služba = stejná cena u všech ověřených žen.</li>
+          <li>• Zaplatíte předem na platformě za vybraný termín.</li>
+          <li>• Cena, kterou vidíte, je cena služby — bez předplatného.</li>
+          <li>• Stejná služba = stejná cena u všech ověřených pečujících.</li>
+          <li>
+            • MamaSOS je zprostředkovatel — smlouva o službě je mezi vámi a
+            pečující.
+          </li>
         </ul>
-        <Link href="/hledat" className="btn btn-gold mt-6 inline-flex">
-          Najít volný termín
-        </Link>
+        <h3 className="mt-8 font-bold">Storno a náhrada</h3>
+        <ul className="mt-3 space-y-2 text-sm leading-relaxed text-ink-soft">
+          <li>• Pečující nepřijede → náhradní termín nebo vrácení platby.</li>
+          <li>• Zrušení klientkou → dle storno podmínek.</li>
+          <li>• Služba neodpovídá objednávce → kontaktujte podporu / reklamace.</li>
+        </ul>
+        <div className="mt-6 flex flex-wrap gap-3">
+          <Link href="/hledat" className="btn btn-gold inline-flex">
+            Najít volný termín
+          </Link>
+          <Link href="/storno" className="btn btn-ghost inline-flex">
+            Storno podmínky
+          </Link>
+        </div>
       </div>
     </div>
   );

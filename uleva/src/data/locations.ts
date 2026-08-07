@@ -157,5 +157,9 @@ export const NEED_OPTIONS: {
   { id: "vareni", label: "Vaření", hint: "Oběd, večeře, nákup" },
   { id: "dula", label: "Dula", hint: "Poporodní přítomnost a rutina" },
   { id: "laktace", label: "Laktace", hint: "Podpora kojení" },
-  { id: "multi", label: "Více najednou", hint: "Kombinace služeb v jedné návštěvě" },
+  {
+    id: "multi",
+    label: "Kombinovaná úleva",
+    hint: "Úklid, vaření a pohlídání v jedné návštěvě Úlevy doma",
+  },
 ];

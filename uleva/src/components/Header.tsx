@@ -65,13 +65,13 @@ export function Header() {
             Najít pomoc
           </Link>
           <Link href="/asistent" className="opacity-90 transition hover:opacity-100">
-            AI asistentka
+            Pomozte mi vybrat
           </Link>
           <Link href="/cenik" className="opacity-90 transition hover:opacity-100">
             Ceník
           </Link>
           <Link href="/nabidnout" className="opacity-90 transition hover:opacity-100">
-            Nabídnout pomoc
+            Chci nabízet pomoc
           </Link>
         </nav>
 

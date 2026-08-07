@@ -177,7 +177,10 @@ export function SearchPanel({
               })}
             </div>
             <p className={`mt-2 text-xs ${dark ? "text-white/45" : "text-ink-soft"}`}>
-              Můžeš vybrat víc — třeba úklid + pohlídat, nebo „více najednou“.
+              Úklid, vaření a pohlídání mohou být v jedné návštěvě Úlevy doma.
+              {needs.includes("multi")
+                ? " Kombinovaná úleva = pečující pomůže s tím, co je teď nejdůležitější."
+                : " Zvolte „Kombinovaná úleva“, pokud chcete víc věcí najednou."}
             </p>
           </div>
 

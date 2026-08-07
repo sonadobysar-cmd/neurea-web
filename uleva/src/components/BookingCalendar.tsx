@@ -239,7 +239,15 @@ export function BookingCalendar({
         <p className="mt-4 flex items-start gap-2 text-xs leading-relaxed text-ink-soft">
           <Shield className="mt-0.5 h-4 w-4 shrink-0 text-moss" />
           Stejná cena pro všechny ve stejném segmentu. Platba předem na platformě
-          — vidíš jen cenu služby.
+          — vidíte jen cenu služby.
+        </p>
+        <p className="mt-3 text-xs leading-relaxed text-ink-soft">
+          Když pečující nemůže přijet, pomůžeme najít náhradní termín nebo
+          vrátíme platbu podle{" "}
+          <Link href="/storno" className="font-bold underline">
+            storno podmínek
+          </Link>
+          .
         </p>
       </aside>
     </div>

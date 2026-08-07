@@ -42,15 +42,17 @@ export default function HomePage() {
           <div className="fade-in max-w-3xl text-white">
             <p className="mb-5 inline-flex items-center gap-2 text-[0.68rem] font-bold uppercase tracking-[0.2em] text-white/70">
               <span className="trust-dot" />
-              Celá ČR · ověřené ženy · kalendář místo chatu
+              Rezervace · ne katalog kontaktů
             </p>
-            <h1 className="display text-[clamp(3.8rem,11vw,7.4rem)] leading-[0.9] text-white">
-              MamaSOS
+            <h1 className="display text-[clamp(2.4rem,6.5vw,4.4rem)] leading-[1.02] text-white">
+              Ověřená pomoc po porodu.
+              <br />
+              Rovnou s volným termínem.
             </h1>
             <div className="lux-rule mt-6 max-w-[12rem]" />
-            <p className="mt-6 max-w-lg text-lg leading-relaxed text-white/84 md:text-[1.2rem]">
-              Když už nestíháš — přijede ověřená žena. Úklid, pohlídání, dula nebo
-              laktace. Podle mapy. S volným termínem.
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/84 md:text-[1.15rem]">
+              Vyberte, co potřebujete, najděte ověřenou pečující ve svém okolí a
+              rezervujte konkrétní termín bez obvolávání a dopisování.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/hledat" className="btn btn-gold">
@@ -63,6 +65,12 @@ export default function HomePage() {
               >
                 Jak to funguje
               </Link>
+            </div>
+            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-xs font-semibold text-white/75">
+              <span>Bez předplatného</span>
+              <span>Jednotné ceny</span>
+              <span>Platba přes platformu</span>
+              <span>Povinně ověřené pečující</span>
             </div>
           </div>
 
@@ -102,12 +110,42 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="shell py-16 md:py-20">
+        <div className="panel-solid grid gap-8 p-6 md:grid-cols-[1.1fr_0.9fr] md:p-10">
+          <div>
+            <p className="eyebrow">Hlavní produkt</p>
+            <h2 className="display mt-2 text-3xl md:text-5xl">Úleva doma</h2>
+            <p className="mt-4 text-ink-soft">
+              Nemusíte hledat zvlášť uklízečku, chůvu a pomoc s vařením. Během
+              jedné návštěvy pečující pomůže s tím, co je v danou chvíli
+              nejdůležitější.
+            </p>
+            <Link
+              href="/hledat?potreby=multi,uklid,pohlidat,vareni"
+              className="btn btn-rose mt-6"
+            >
+              Rezervovat kombinovanou úlevu
+            </Link>
+          </div>
+          <div className="rounded-2xl bg-fog p-5 text-sm text-ink-soft">
+            <p className="font-bold text-ink">V jedné návštěvě může být:</p>
+            <ul className="mt-3 space-y-2">
+              <li>• jednoduché vaření</li>
+              <li>• běžný úklid a prádlo</li>
+              <li>• přítomnost u miminka</li>
+              <li>• hlídání sourozence</li>
+              <li>• drobné pochůzky</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
       <section className="shell py-20 md:py-28">
         <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
           <div className="max-w-xl">
-            <p className="eyebrow">Tři způsoby úlevy</p>
+            <p className="eyebrow">Typy pomoci</p>
             <h2 className="display mt-2 text-4xl md:text-5xl">
-              Víš přesně, co dostaneš
+              Víte přesně, co dostanete
             </h2>
           </div>
           <Link href="/cenik" className="btn btn-ghost !py-2.5 !text-sm">
@@ -237,8 +275,12 @@ export default function HomePage() {
             <div>
               <p className="eyebrow">Po celé ČR</p>
               <h2 className="display mt-2 text-4xl md:text-5xl">
-                Ověřené ženy připravené přijet
+                Ověřené pečující připravené přijet
               </h2>
+              <p className="mt-2 text-sm text-ink-soft">
+                Ukázkové profily — před spuštěním nahradíme reálnými ověřenými
+                pečujícími.
+              </p>
             </div>
             <Link href="/hledat" className="btn btn-ink !py-2.5 !text-sm">
               Prohlédnout termíny

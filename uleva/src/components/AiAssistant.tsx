@@ -20,7 +20,7 @@ export function AiAssistant() {
     {
       id: "welcome",
       role: "assistant",
-      text: "Ahoj, jsem MamaSOS asistentka. Zeptej se na cokoli — ceny, ověření, platby — nebo mi řekni co potřebuješ a doporučím kandidátku.",
+      text: "Pomohu vám vybrat typ pomoci a pečující podle lokality. Nejsem zdravotní poradna — při zdravotních potížích kontaktujte lékaře nebo 155.",
     },
   ]);
   const endRef = useRef<HTMLDivElement>(null);
@@ -57,7 +57,7 @@ export function AiAssistant() {
         aria-label="Otevřít AI asistentku"
       >
         <MessageCircle className="h-4 w-4" />
-        <span className="hidden sm:inline">AI asistentka</span>
+        <span className="hidden sm:inline">Pomozte mi vybrat</span>
         <Sparkles className="h-4 w-4 text-rose" />
       </button>
 
@@ -65,8 +65,8 @@ export function AiAssistant() {
         <div className="fixed bottom-20 right-4 z-[60] flex h-[min(640px,78svh)] w-[min(420px,calc(100vw-2rem))] flex-col overflow-hidden rounded-[1.6rem] border border-[var(--line)] bg-snow shadow-[var(--shadow)] md:bottom-24 md:right-7">
           <div className="flex items-center justify-between border-b border-[var(--line)] bg-ink px-4 py-3 text-white">
             <div>
-              <p className="text-sm font-bold">MamaSOS asistentka</p>
-              <p className="text-xs text-white/65">Otázky · doporučení · navigace</p>
+              <p className="text-sm font-bold">Pomozte mi vybrat</p>
+              <p className="text-xs text-white/65">AI doporučení · ne zdravotní poradna</p>
             </div>
             <button
               type="button"

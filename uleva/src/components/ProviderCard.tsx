@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { BadgeCheck, MapPin, Star } from "lucide-react";
-import { Provider, getBookableSlots } from "@/data/providers";
+import { MapPin, Star } from "lucide-react";
+import { Provider, PROVIDERS_ARE_DEMO, getBookableSlots } from "@/data/providers";
 import { SERVICE_PRICING, ServiceType, formatCzk } from "@/data/pricing";
+import { VerifiedBadge } from "@/components/VerifiedBadge";
 
 function formatSlotDate(date: string) {
   return new Intl.DateTimeFormat("cs-CZ", {
@@ -46,10 +47,12 @@ export function ProviderCard({
             <div>
               <div className="flex flex-wrap items-center gap-2">
                 <h2 className="display text-2xl text-ink">{provider.name}</h2>
-                <span className="inline-flex items-center gap-1 rounded-full bg-[rgba(63,94,81,0.1)] px-2.5 py-1 text-[0.7rem] font-bold text-moss">
-                  <BadgeCheck className="h-3.5 w-3.5" />
-                  Ověřená
-                </span>
+                <VerifiedBadge compact />
+                {(provider.isDemo || PROVIDERS_ARE_DEMO) && (
+                  <span className="rounded-full bg-fog px-2.5 py-1 text-[0.7rem] font-bold text-ink-soft">
+                    Ukázkový profil
+                  </span>
+                )}
               </div>
               <p className="mt-1 flex flex-wrap items-center gap-1.5 text-sm text-ink-soft">
                 <MapPin className="h-3.5 w-3.5" />

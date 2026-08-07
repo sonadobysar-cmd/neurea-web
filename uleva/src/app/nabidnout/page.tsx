@@ -1,383 +1,220 @@
-"use client";
-
-import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import { Check } from "lucide-react";
-import { SERVICE_PRICING, ServiceType } from "@/data/pricing";
-import { DayKey } from "@/data/providers";
-import { useAuth } from "@/lib/auth";
+import { CaregiverRegistrationForm } from "@/components/CaregiverRegistrationForm";
+import { SERVICE_PRICING, formatCzk } from "@/data/pricing";
 
-const EXPERIENCE_OPTS = [
-  "Miminka 0–3 m",
-  "Sourozenci",
-  "Vaření",
-  "Úklid",
-  "Noční směna",
-  "Kojení",
+const HIGHLIGHTS = [
+  "Registrace zdarma",
+  "Vlastní kalendář",
+  "Vlastní oblast dojezdu",
+  "Platby přes MamaSOS",
+  "Žádné shánění klientek",
+  "Právní a pojistná ochrana",
 ];
 
-const DAYS: { key: DayKey; label: string }[] = [
-  { key: 1, label: "Po" },
-  { key: 2, label: "Út" },
-  { key: 3, label: "St" },
-  { key: 4, label: "Čt" },
-  { key: 5, label: "Pá" },
-  { key: 6, label: "So" },
-  { key: 0, label: "Ne" },
+const WHY = [
+  "Sama si určujete, kdy máte čas.",
+  "Sama si nastavíte město a maximální vzdálenost dojezdu.",
+  "Nemusíte platit za profil ani za kontakt na klientku.",
+  "Nemusíte odpovídat na desítky zpráv.",
+  "Klientka rezervuje konkrétní volný termín.",
+  "Platba probíhá předem přes platformu.",
+  "Před přijetím objednávky znáte místo, rozsah služby a svou odměnu.",
+  "MamaSOS řeší systém rezervací, platby, pravidla a podporu.",
 ];
 
-const TIMES = ["08:00", "09:00", "10:00", "12:00", "14:00", "16:00", "18:00"];
+const STEPS = [
+  "Vyplníte základní údaje.",
+  "Zvolíte služby a oblast dojezdu.",
+  "Nastavíte dostupnost v kalendáři.",
+  "Nahrajete požadované doklady.",
+  "Absolvujete ověření a krátký pohovor.",
+];
 
-export default function OfferPage() {
-  const { registerCaregiver, user } = useAuth();
-  const router = useRouter();
-  const [step, setStep] = useState(0);
-  const [error, setError] = useState<string | null>(null);
+const FAQ = [
+  ["Musím mít IČO?", "Ano. Pečující podniká samostatně. MamaSOS je zprostředkovatel."],
+  ["Platím za registraci nebo profil?", "Ne. Registrace i vedení profilu jsou zdarma."],
+  ["Musím přijmout každou objednávku?", "Ne. Přijímáte jen termíny, které máte volné v kalendáři."],
+  ["Jak si nastavuji dostupnost?", "V týdenní šabloně kalendáře. Bez aktivního kalendáře nejste ve výsledcích."],
+  ["Jak daleko musím dojíždět?", "Maximální dojezd si nastavíte sama."],
+  ["Kdy dostanu zaplaceno?", "Po dokončení návštěvy podle výplatního cyklu platformy."],
+  ["Co když klientka objednávku zruší?", "Platí storno podmínky — detail na stránce Storno."],
+  ["Co když se v mém městě zatím neobjednává?", "Profil zůstane připravený zdarma. Upozorníme vás na poptávku."],
+  ["Jaké doklady musím dodat?", "Totožnost, IČO, výpis z RT, pojištění; u duly/LP kvalifikace."],
+  ["Jak funguje pojištění?", "Vyžadujeme aktivní pojištění odpovědnosti (vlastní nebo skupinové)."],
+  ["Mohu poskytovat více druhů služeb?", "Ano — pokud projdete ověřením pro dané segmenty."],
+  ["Jak mohu profil pozastavit?", "V účtu pečující jedním kliknutím — přestanete se zobrazovat ve výsledcích."],
+];
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [phone, setPhone] = useState("");
-  const [city, setCity] = useState("Praha");
-  const [ico, setIco] = useState("");
-  const [services, setServices] = useState<ServiceType[]>(["uleva"]);
-  const [experiences, setExperiences] = useState<string[]>(["Vaření", "Úklid"]);
-  const [bio, setBio] = useState("");
-  const [radiusKm, setRadiusKm] = useState(12);
-  const [slotHours, setSlotHours] = useState(3);
-  const [lactationLevel, setLactationLevel] = useState<"pa" | "laicka" | "">("");
-  const [weeklySlots, setWeeklySlots] = useState<Partial<Record<DayKey, string[]>>>({
-    1: ["09:00", "14:00"],
-    3: ["09:00"],
-    5: ["09:00"],
-  });
-  const [docs, setDocs] = useState({ ico: false, rt: false, insurance: false, id: false });
-
-  const progress = useMemo(() => ((step + 1) / 4) * 100, [step]);
-
-  function toggleService(s: ServiceType) {
-    setServices((prev) =>
-      prev.includes(s) ? prev.filter((x) => x !== s) : [...prev, s]
-    );
-  }
-
-  function toggleExp(e: string) {
-    setExperiences((prev) =>
-      prev.includes(e) ? prev.filter((x) => x !== e) : [...prev, e]
-    );
-  }
-
-  function toggleSlot(day: DayKey, time: string) {
-    setWeeklySlots((prev) => {
-      const current = prev[day] ?? [];
-      const next = current.includes(time)
-        ? current.filter((t) => t !== time)
-        : [...current, time].sort();
-      return { ...prev, [day]: next };
-    });
-  }
-
-  function canNext() {
-    if (step === 0)
-      return name && email && password.length >= 4 && phone && city && ico.length >= 8;
-    if (step === 1) return services.length > 0 && bio.trim().length >= 20;
-    if (step === 2)
-      return Object.values(weeklySlots).some((slots) => (slots?.length ?? 0) > 0);
-    if (step === 3) return docs.ico && docs.rt && docs.insurance && docs.id;
-    return false;
-  }
-
-  function submit() {
-    setError(null);
-    const res = registerCaregiver({
-      name,
-      email,
-      password,
-      phone,
-      city,
-      ico,
-      services,
-      experiences,
-      bio,
-      radiusKm,
-      weeklySlots,
-      slotHours,
-      lactationLevel:
-        services.includes("laktace") && lactationLevel
-          ? lactationLevel
-          : undefined,
-    });
-    if (!res.ok) {
-      setError(res.error);
-      return;
-    }
-    router.push("/ucet-pecujici");
-  }
-
-  useEffect(() => {
-    if (user?.role === "caregiver") router.replace("/ucet-pecujici");
-  }, [user, router]);
-
+export default function OfferLandingPage() {
   return (
-    <div className="shell pb-16 pt-28 md:pb-24 md:pt-32">
-      <div className="max-w-2xl">
-        <p className="eyebrow">Pro pečující</p>
-        <h1 className="display mt-2 text-4xl md:text-6xl">Registrace pečující</h1>
-        <p className="mt-4 text-ink-soft md:text-lg">
-          4 kroky: údaje → služby → kalendář → doklady. Bez kalendáře a ověření
-          nejsi ve výsledcích.
-        </p>
-      </div>
-
-      <div className="mt-8 h-2 overflow-hidden rounded-full bg-sand">
-        <div
-          className="h-full rounded-full bg-rose transition-all"
-          style={{ width: `${progress}%` }}
-        />
-      </div>
-      <p className="mt-2 text-sm text-ink-soft">Krok {step + 1} / 4</p>
-
-      <div className="panel-solid mt-6 p-5 md:p-7">
-        {step === 0 && (
-          <div className="space-y-4">
-            <h2 className="display text-2xl">Základní údaje + IČO</h2>
-            <label className="block text-sm font-semibold">
-              Jméno
-              <input className="input mt-1.5" value={name} onChange={(e) => setName(e.target.value)} />
-            </label>
-            <label className="block text-sm font-semibold">
-              E-mail
-              <input
-                type="email"
-                className="input mt-1.5"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </label>
-            <label className="block text-sm font-semibold">
-              Heslo
-              <input
-                type="password"
-                className="input mt-1.5"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                minLength={4}
-              />
-            </label>
-            <label className="block text-sm font-semibold">
-              Telefon
-              <input className="input mt-1.5" value={phone} onChange={(e) => setPhone(e.target.value)} />
-            </label>
-            <label className="block text-sm font-semibold">
-              Město
-              <input className="input mt-1.5" value={city} onChange={(e) => setCity(e.target.value)} />
-            </label>
-            <label className="block text-sm font-semibold">
-              IČO
-              <input
-                className="input mt-1.5"
-                value={ico}
-                onChange={(e) => setIco(e.target.value.replace(/\D/g, "").slice(0, 8))}
-                placeholder="12345678"
-              />
-            </label>
+    <div>
+      <section className="shell pb-12 pt-28 md:pb-16 md:pt-32">
+        <div className="max-w-3xl">
+          <p className="eyebrow">Nábor pečujících · celá ČR</p>
+          <h1 className="display mt-2 text-4xl md:text-6xl">
+            Pomáhejte maminkám ve svém okolí
+          </h1>
+          <p className="mt-5 max-w-2xl text-lg text-ink-soft">
+            Přidejte se do celorepublikové sítě ověřených pečujících MamaSOS.
+            Termíny a oblast působnosti si určujete sama. Registrace ani vedení
+            profilu vás nic nestojí.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a href="#registrace" className="btn btn-rose">
+              Chci se přidat
+            </a>
+            <Link href="/jak-spoluprace" className="btn btn-ghost">
+              Jak spolupráce funguje
+            </Link>
           </div>
-        )}
-
-        {step === 1 && (
-          <div className="space-y-4">
-            <h2 className="display text-2xl">Služby a zkušenosti</h2>
-            <div className="flex flex-wrap gap-2">
-              {(Object.keys(SERVICE_PRICING) as ServiceType[]).map((s) => (
-                <button
-                  key={s}
-                  type="button"
-                  onClick={() => toggleService(s)}
-                  className={`rounded-full px-3.5 py-2 text-sm font-semibold ${
-                    services.includes(s)
-                      ? "bg-ink text-white"
-                      : "bg-white text-ink-soft ring-1 ring-[var(--line)]"
-                  }`}
-                >
-                  {SERVICE_PRICING[s].shortLabel}
-                </button>
-              ))}
-            </div>
-            {services.includes("laktace") && (
-              <label className="block text-sm font-semibold">
-                Úroveň laktace
-                <select
-                  className="input mt-1.5"
-                  value={lactationLevel}
-                  onChange={(e) =>
-                    setLactationLevel(e.target.value as "pa" | "laicka" | "")
-                  }
-                >
-                  <option value="">Vyber</option>
-                  <option value="pa">Porodní asistentka</option>
-                  <option value="laicka">Laická podpora</option>
-                </select>
-              </label>
-            )}
-            <div className="flex flex-wrap gap-2">
-              {EXPERIENCE_OPTS.map((e) => (
-                <button
-                  key={e}
-                  type="button"
-                  onClick={() => toggleExp(e)}
-                  className={`rounded-full px-3.5 py-2 text-sm font-semibold ${
-                    experiences.includes(e)
-                      ? "bg-moss text-white"
-                      : "bg-white text-ink-soft ring-1 ring-[var(--line)]"
-                  }`}
-                >
-                  {e}
-                </button>
-              ))}
-            </div>
-            <label className="block text-sm font-semibold">
-              Bio (min. 20 znaků)
-              <textarea
-                className="input mt-1.5"
-                rows={4}
-                value={bio}
-                onChange={(e) => setBio(e.target.value)}
-                placeholder="Kdo jsi, co umíš, jak maminkám ulevíš…"
-              />
-            </label>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <label className="block text-sm font-semibold">
-                Dojezd (km)
-                <input
-                  type="number"
-                  className="input mt-1.5"
-                  value={radiusKm}
-                  onChange={(e) => setRadiusKm(Number(e.target.value))}
-                />
-              </label>
-              <label className="block text-sm font-semibold">
-                Délka slotu (h)
-                <input
-                  type="number"
-                  min={1}
-                  max={8}
-                  className="input mt-1.5"
-                  value={slotHours}
-                  onChange={(e) => setSlotHours(Number(e.target.value))}
-                />
-              </label>
-            </div>
-          </div>
-        )}
-
-        {step === 2 && (
-          <div className="space-y-4">
-            <h2 className="display text-2xl">Rezervační kalendář</h2>
-            <p className="text-sm text-ink-soft">
-              Vyber dny a časy startu slotů. Bez alespoň jednoho slotu registraci
-              nedokončíš.
-            </p>
-            <div className="space-y-4">
-              {DAYS.map((day) => (
-                <div key={day.key}>
-                  <p className="mb-2 text-sm font-bold">{day.label}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {TIMES.map((time) => {
-                      const active = (weeklySlots[day.key] ?? []).includes(time);
-                      return (
-                        <button
-                          key={time}
-                          type="button"
-                          onClick={() => toggleSlot(day.key, time)}
-                          className={`rounded-xl px-3 py-2 text-xs font-bold ${
-                            active
-                              ? "bg-ink text-white"
-                              : "bg-fog text-ink-soft"
-                          }`}
-                        >
-                          {time}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {step === 3 && (
-          <div className="space-y-4">
-            <h2 className="display text-2xl">Doklady k ověření</h2>
-            <p className="text-sm text-ink-soft">
-              V demu jen potvrď, že dokumenty máš. V produkci nahraješ skeny a
-              provozovatelka je ručně zkontroluje.
-            </p>
-            {(
-              [
-                ["ico", "Potvrzuji platné IČO a živnost"],
-                ["id", "Mám připravený doklad totožnosti"],
-                ["rt", "Mám výpis z rejstříku trestů"],
-                ["insurance", "Mám / budu mít pojištění odpovědnosti"],
-              ] as const
-            ).map(([key, label]) => (
-              <label
-                key={key}
-                className="flex items-start gap-3 rounded-2xl bg-fog px-4 py-3 text-sm font-semibold"
+          <div className="mt-8 flex flex-wrap gap-2">
+            {HIGHLIGHTS.map((h) => (
+              <span
+                key={h}
+                className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-ink ring-1 ring-[var(--line)]"
               >
-                <input
-                  type="checkbox"
-                  className="mt-0.5"
-                  checked={docs[key]}
-                  onChange={(e) => setDocs((d) => ({ ...d, [key]: e.target.checked }))}
-                />
-                {label}
-              </label>
+                <Check className="h-3.5 w-3.5 text-moss" />
+                {h}
+              </span>
             ))}
-            <ul className="space-y-2 text-sm text-ink-soft">
-              {[
-                `Výplata: Úleva ${SERVICE_PRICING.uleva.payoutPerHour} Kč/h · Dula ${SERVICE_PRICING.dula.payoutPerHour} Kč/h · Laktace ${SERVICE_PRICING.laktace.payoutPerHour} Kč/h`,
-                "Klientům ukazujeme jen cenu služby — ne rozpad výplat",
-                "Bez aktivního kalendáře nejsi ve výsledcích",
-              ].map((item) => (
-                <li key={item} className="flex gap-2">
-                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-moss" />
-                  {item}
-                </li>
-              ))}
-            </ul>
           </div>
-        )}
-
-        {error && <p className="mt-4 text-sm font-semibold text-rose">{error}</p>}
-
-        <div className="mt-8 flex flex-wrap gap-3">
-          {step > 0 && (
-            <button type="button" className="btn btn-ghost" onClick={() => setStep((s) => s - 1)}>
-              Zpět
-            </button>
-          )}
-          {step < 3 ? (
-            <button
-              type="button"
-              className="btn btn-ink"
-              disabled={!canNext()}
-              onClick={() => setStep((s) => s + 1)}
-            >
-              Pokračovat
-            </button>
-          ) : (
-            <button
-              type="button"
-              className="btn btn-rose"
-              disabled={!canNext()}
-              onClick={submit}
-            >
-              Odeslat k ověření
-            </button>
-          )}
         </div>
-      </div>
+      </section>
+
+      <section className="bg-snow py-16 md:py-20">
+        <div className="shell">
+          <h2 className="display text-3xl md:text-4xl">Proč se přidat</h2>
+          <div className="mt-8 grid gap-3 md:grid-cols-2">
+            {WHY.map((t) => (
+              <p key={t} className="flex gap-3 text-sm text-ink-soft">
+                <Check className="mt-0.5 h-4 w-4 shrink-0 text-moss" />
+                {t}
+              </p>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="shell py-16 md:py-20">
+        <h2 className="display text-3xl md:text-4xl">Koho hledáme</h2>
+        <div className="mt-8 grid gap-5 md:grid-cols-3">
+          <article className="panel-solid p-6">
+            <h3 className="display text-2xl">Úleva doma</h3>
+            <p className="mt-3 text-sm leading-relaxed text-ink-soft">
+              Pro zkušené a spolehlivé ženy, které zvládnou podle objednávky
+              kombinaci běžné pomoci: jednoduché vaření, běžný úklid, pomoc s
+              prádlem, přítomnost u miminka, hlídání sourozence, drobné pochůzky.
+            </p>
+          </article>
+          <article className="panel-solid p-6">
+            <h3 className="display text-2xl">Poporodní duly</h3>
+            <p className="mt-3 text-sm leading-relaxed text-ink-soft">
+              Požadujeme odpovídající kurz, praxi nebo uznávanou kvalifikaci. Jde
+              o nezdravotní podporu — ne o zdravotní péči ani porodní asistenci.
+            </p>
+          </article>
+          <article className="panel-solid p-6">
+            <h3 className="display text-2xl">Laktační poradkyně</h3>
+            <p className="mt-3 text-sm leading-relaxed text-ink-soft">
+              Vyžadujeme doložení konkrétní kvalifikace. Na profilu zobrazíme typ
+              vzdělání / kvalifikační úroveň (např. PA vs laická podpora).
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section className="bg-ink py-16 text-white md:py-20">
+        <div className="shell">
+          <h2 className="display text-3xl md:text-4xl">Kolik si vydělám</h2>
+          <p className="mt-3 max-w-2xl text-sm text-white/75">
+            Níže je <strong className="text-white">výplata pečující za hodinu</strong> —
+            částka po zprostředkování. Klientka na webu vidí vyšší cenu služby.
+            Fakturu za službu vystavuje pečující klientce / MamaSOS zúčtuje dle
+            smlouvy o zprostředkování.
+          </p>
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
+            {(Object.keys(SERVICE_PRICING) as Array<keyof typeof SERVICE_PRICING>).map(
+              (k) => {
+                const s = SERVICE_PRICING[k];
+                return (
+                  <div key={k} className="rounded-2xl border border-white/12 bg-white/8 p-5">
+                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-white/55">
+                      {s.shortLabel}
+                    </p>
+                    <p className="display mt-2 text-4xl">
+                      {formatCzk(s.payoutPerHour)}
+                    </p>
+                    <p className="text-sm text-white/70">/ hodina výplata pečující</p>
+                    <p className="mt-2 text-xs text-white/55">
+                      Klientka platí {formatCzk(s.pricePerHour)}/h · min. {s.minHours} h
+                    </p>
+                  </div>
+                );
+              }
+            )}
+          </div>
+          <ul className="mt-8 space-y-2 text-sm text-white/75">
+            <li>• Výplata po dokončení návštěvy (cyklus dle smlouvy).</li>
+            <li>• Doprava: TODO — sjednotit pravidlo cestovného před spuštěním.</li>
+            <li>• Storno klientkou: dle storno podmínek platformy.</li>
+            <li>• Večerní / víkendové / urgentní příplatky: TODO — zatím bez příplatků.</li>
+          </ul>
+          <p className="mt-4 rounded-2xl border border-dashed border-white/25 px-4 py-3 text-xs text-white/70">
+            TODO: Doplnit závazné znění fakturace, výplatního cyklu, dopravy a
+            příplatků před produkcí.
+          </p>
+        </div>
+      </section>
+
+      <section className="shell py-16 md:py-20">
+        <h2 className="display text-3xl md:text-4xl">Jak registrace probíhá</h2>
+        <div className="mt-8 grid gap-4 md:grid-cols-5">
+          {STEPS.map((s, i) => (
+            <div key={s} className="border-t border-ink/10 pt-4">
+              <p className="display text-3xl text-rose">{String(i + 1).padStart(2, "0")}</p>
+              <p className="mt-2 text-sm font-semibold">{s}</p>
+            </div>
+          ))}
+        </div>
+        <p className="mt-8 max-w-2xl text-sm text-ink-soft">
+          Profil zveřejníme až po dokončení ověření. Bez aktivního a pravidelně
+          potvrzovaného kalendáře se profil nezobrazuje ve výsledcích.
+        </p>
+      </section>
+
+      <section className="bg-snow py-16 md:py-20">
+        <div className="shell max-w-3xl">
+          <h2 className="display text-3xl md:text-4xl">
+            Nabíráme pečující ve všech městech České republiky
+          </h2>
+          <p className="mt-4 text-ink-soft">
+            Nemusíte být z Prahy ani z velkého města. Síť MamaSOS budujeme po
+            celé ČR. Pokud ve vašem okolí zatím není dost objednávek, váš
+            ověřený profil zůstane připravený a upozorníme vás, jakmile se
+            objeví vhodná poptávka.
+          </p>
+          <p className="mt-4 font-bold text-ink">
+            Registrace ani čekání na první objednávku vás nic nestojí.
+          </p>
+        </div>
+      </section>
+
+      <section className="shell py-16 md:py-20">
+        <h2 className="display text-3xl md:text-4xl">FAQ pro pečující</h2>
+        <div className="mt-8 grid gap-3 md:grid-cols-2">
+          {FAQ.map(([q, a]) => (
+            <article key={q} className="panel-solid p-5">
+              <h3 className="font-bold">{q}</h3>
+              <p className="mt-2 text-sm text-ink-soft">{a}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="shell pb-20">
+        <CaregiverRegistrationForm />
+      </section>
     </div>
   );
 }

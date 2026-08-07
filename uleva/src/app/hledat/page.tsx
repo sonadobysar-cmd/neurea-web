@@ -1,10 +1,14 @@
+import Link from "next/link";
 import { SearchPanel } from "@/components/SearchPanel";
 import { ProviderCard } from "@/components/ProviderCard";
+import { WaitlistForm } from "@/components/WaitlistForm";
 import { LOCATIONS, NeedId } from "@/data/locations";
+import { NEED_OPTIONS } from "@/data/locations";
 import {
   PROVIDERS,
   getBookableSlots,
   haversineKm,
+  isProviderBookable,
 } from "@/data/providers";
 import {
   needsToPreferredService,
@@ -12,7 +16,7 @@ import {
   providerMatchesNeeds,
   scoreProviderNeeds,
 } from "@/lib/needs";
-import { NEED_OPTIONS } from "@/data/locations";
+import { getCityStatus, statusLabel } from "@/data/cityStatus";
 
 type SearchParams = Promise<{
   mesto?: string;
@@ -33,24 +37,31 @@ export default async function SearchPage({
   const fallback = LOCATIONS.praha;
   const lat = Number(params.lat);
   const lng = Number(params.lng);
+  const cityKey = params.mesto && LOCATIONS[params.mesto]
+    ? LOCATIONS[params.mesto].cityKey
+    : fallback.cityKey;
   const origin = {
     lat: Number.isFinite(lat) ? lat : fallback.lat,
     lng: Number.isFinite(lng) ? lng : fallback.lng,
     label: params.q || fallback.label,
   };
   const preferred = needsToPreferredService(needs);
+  const cityStatus = getCityStatus(cityKey);
 
   const results = PROVIDERS.map((p) => {
     const distanceKm = haversineKm(origin.lat, origin.lng, p.lat, p.lng);
     const slots = getBookableSlots(p);
     const needsOk = providerMatchesNeeds(p, needs);
+    const bookable = isProviderBookable(p);
     const score =
       scoreProviderNeeds(p, needs) +
       Math.max(0, 40 - distanceKm) +
       p.rating * 3;
-    return { provider: p, distanceKm, slots, needsOk, score };
+    return { provider: p, distanceKm, slots, needsOk, bookable, score };
   })
-    .filter((r) => r.needsOk && r.slots.length > 0 && r.distanceKm <= 80)
+    .filter(
+      (r) => r.needsOk && r.bookable && r.slots.length > 0 && r.distanceKm <= 80
+    )
     .sort((a, b) => b.score - a.score || a.distanceKm - b.distanceKm);
 
   const needLabels = needs
@@ -64,8 +75,8 @@ export default async function SearchPage({
         <p className="eyebrow">Najít pomoc</p>
         <h1 className="display mt-2 text-4xl md:text-6xl">Volné termíny blízko tebe</h1>
         <p className="mt-4 text-ink-soft md:text-lg">
-          Lokalita z mapy, GPS, města nebo PSČ. Jen ověřené ženy s aktivním
-          kalendářem.
+          Lokalita z mapy, GPS, města nebo PSČ. Jen ověřené pečující s aktivním
+          kalendářem — rezervace bez dopisování.
         </p>
       </div>
 
@@ -83,6 +94,9 @@ export default async function SearchPage({
           <span className="font-bold text-ink">{origin.label}</span>
           {needLabels ? <> · {needLabels}</> : null}
         </p>
+        <p className="rounded-full bg-fog px-3 py-1 text-xs font-semibold text-moss">
+          {statusLabel(cityStatus)}
+        </p>
       </div>
 
       <div className="mt-6 grid gap-5 lg:grid-cols-2">
@@ -97,11 +111,27 @@ export default async function SearchPage({
       </div>
 
       {!results.length && (
-        <div className="panel-solid mt-6 p-8 text-center">
-          <h2 className="display text-2xl">Zatím tu nikdo nesedí na požadavky</h2>
-          <p className="mx-auto mt-2 max-w-md text-sm text-ink-soft">
-            Uvolni filtry, zkus sousední PSČ, nebo nech lokalitu na waitlist.
+        <div className="panel-solid mt-6 p-6 md:p-8">
+          <h2 className="display text-2xl md:text-3xl">
+            Ve vašem okolí zatím dokončujeme ověření prvních pečujících
+          </h2>
+          <p className="mt-3 max-w-xl text-sm text-ink-soft">
+            Nábor běží po celé ČR. Zanechte kontakt — ozveme se, jakmile bude
+            blízko vás ověřená pečující s volným termínem. Můžete také rozšířit
+            vzdálenost nebo zkusit jiný termín.
           </p>
+          <div className="mt-5 flex flex-wrap gap-3">
+            <Link href="/hledat" className="btn btn-ghost !py-2.5 !text-sm">
+              Zkusit jiné město
+            </Link>
+            <Link href="/nabidnout" className="btn btn-ink !py-2.5 !text-sm">
+              Znáte někoho, kdo by mohl pomáhat?
+            </Link>
+          </div>
+          <div className="mt-8 border-t border-[var(--line)] pt-6">
+            <h3 className="font-bold">Chci upozornění na novou pečující</h3>
+            <WaitlistForm locationLabel={origin.label} needs={needs} />
+          </div>
         </div>
       )}
     </div>

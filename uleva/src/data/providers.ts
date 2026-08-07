@@ -2,6 +2,9 @@ import { ServiceType } from "./pricing";
 
 export type DayKey = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
+export type ProfileStatus = "active" | "paused" | "hidden";
+export type VerificationStatus = "pending" | "verified" | "rejected";
+
 export type Provider = {
   id: string;
   name: string;
@@ -23,8 +26,42 @@ export type Provider = {
   radiusKm: number;
   weeklySlots: Partial<Record<DayKey, string[]>>;
   slotHours: number;
-  reviews: { author: string; text: string; stars: number; date: string }[];
+  reviews: {
+    author: string;
+    text: string;
+    stars: number;
+    date: string;
+    verifiedVisit?: boolean;
+  }[];
+  /** Demo profiles must be labeled until replaced by real caregivers. */
+  isDemo?: boolean;
+  availabilityConfirmedAt?: string;
+  profileStatus?: ProfileStatus;
+  verificationStatus?: VerificationStatus;
+  insuranceValidUntil?: string;
+  documentsValidUntil?: string;
 };
+
+/** Until real supply exists, all seed providers are demo. */
+export const PROVIDERS_ARE_DEMO = true;
+
+const CALENDAR_CONFIRM_DAYS = 21;
+
+export function isCalendarStale(provider: Provider, now = new Date()) {
+  if (!provider.availabilityConfirmedAt) return false;
+  const confirmed = new Date(provider.availabilityConfirmedAt);
+  const diff =
+    (now.getTime() - confirmed.getTime()) / (1000 * 60 * 60 * 24);
+  return diff > CALENDAR_CONFIRM_DAYS;
+}
+
+export function isProviderBookable(provider: Provider) {
+  if (provider.profileStatus === "paused" || provider.profileStatus === "hidden") {
+    return false;
+  }
+  if (isCalendarStale(provider)) return false;
+  return getBookableSlots(provider).length > 0;
+}
 
 export const PROVIDERS: Provider[] = [
   {

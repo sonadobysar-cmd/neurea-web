@@ -94,11 +94,25 @@ export default function CaregiverAccountPage() {
               </div>
             ))}
           </div>
-          <Link href="/nabidnout" className="btn btn-ink mt-5 !py-2.5 !text-sm">
+          <Link href="/nabidnout#registrace" className="btn btn-ink mt-5 !py-2.5 !text-sm">
             Upravit registraci
           </Link>
         </section>
       </div>
+
+      <section className="panel-solid mt-6 p-5">
+        <h2 className="display text-2xl">Kalendář a viditelnost</h2>
+        <p className="mt-2 text-sm text-ink-soft">
+          Jednou za 14–30 dní vás požádáme o potvrzení dostupnosti. Profil s
+          dlouho nepotvrzeným kalendářem skryjeme. Před opětovným zobrazením
+          potvrdíte termíny. Profil můžete kdykoli pozastavit — přestanete se
+          zobrazovat ve výsledcích.
+        </p>
+        <p className="mt-3 text-xs text-ink-soft">
+          Evidujeme: availability_confirmed_at, profile_status,
+          verification_status, insurance_valid_until, documents_valid_until.
+        </p>
+      </section>
     </div>
   );
 }

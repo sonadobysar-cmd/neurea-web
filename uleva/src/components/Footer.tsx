@@ -29,7 +29,7 @@ const LEGAL_LINKS = [
 
 export function Footer() {
   return (
-    <footer className="mt-auto border-t border-[var(--line)] bg-[#eef2f0]">
+    <footer className="mt-auto border-t border-[var(--line)] bg-[#f0e9ea]">
       <div className="shell grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-4">
         <div>
           <BrandLockup size="lg" markTone="rose" />

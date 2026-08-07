@@ -1,7 +1,29 @@
-/**
- * MamaSOS brand mark — M monogram.
- * Tone: warm, calm, maternal care. Not emergency "SOS", not clinical.
- */
+function MarkGlyph({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 32 32"
+      fill="none"
+      aria-hidden
+    >
+      <path
+        d="M6.5 24V9.2c0-.7.8-1.1 1.35-.7L16 14.8l8.15-6.3c.55-.4 1.35 0 1.35.7V24"
+        stroke="currentColor"
+        strokeWidth="2.35"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M16 14.8V24"
+        stroke="currentColor"
+        strokeWidth="2.35"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+/** Crafted MamaSOS mark — soft organic vessel + M. */
 export function BrandMark({
   size = "md",
   tone = "moss",
@@ -28,9 +50,25 @@ export function BrandMark({
   return (
     <span
       className={`brand-mark ${sizeClass} ${toneClass} ${className}`.trim()}
-      aria-hidden={true}
+      aria-hidden
     >
-      M
+      <MarkGlyph />
+    </span>
+  );
+}
+
+export function BrandWord({
+  className = "",
+  light = false,
+}: {
+  className?: string;
+  light?: boolean;
+}) {
+  return (
+    <span
+      className={`brand-word ${light ? "text-white" : "text-ink"} ${className}`.trim()}
+    >
+      Mama<span className="brand-sos">SOS</span>
     </span>
   );
 }
@@ -46,25 +84,24 @@ export function BrandLockup({
   markTone?: "moss" | "rose" | "light" | "ink";
   className?: string;
 }) {
-  const resolvedMark =
-    markTone ?? (tone === "light" ? "light" : "moss");
+  const resolvedMark = markTone ?? (tone === "light" ? "light" : "rose");
   const wordClass =
     size === "lg"
-      ? "text-[2.15rem]"
+      ? "text-[2.25rem]"
       : size === "sm"
-        ? "text-[1.35rem]"
-        : "text-[1.7rem]";
+        ? "text-[1.4rem]"
+        : "text-[1.75rem]";
 
   return (
     <span className={`inline-flex items-center gap-2.5 ${className}`.trim()}>
-      <BrandMark size={size === "lg" ? "lg" : size === "sm" ? "sm" : "md"} tone={resolvedMark} />
-      <span
-        className={`display leading-none ${wordClass} ${
-          tone === "light" ? "text-white" : "text-ink"
-        }`}
-      >
-        MamaSOS
-      </span>
+      <BrandMark
+        size={size === "lg" ? "lg" : size === "sm" ? "sm" : "md"}
+        tone={resolvedMark}
+      />
+      <BrandWord
+        light={tone === "light"}
+        className={`${wordClass} leading-none`}
+      />
     </span>
   );
 }

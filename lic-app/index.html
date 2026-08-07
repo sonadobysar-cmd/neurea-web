@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Líc — Tvoje tvář. Sedí. Neskače.</title>
+    <meta
+      name="description"
+      content="Z dlouhého videa hotové shorty. Stabilní beauty lock, světlo a české titulky bez chyb."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=Figtree:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="orb orb-a" aria-hidden="true"></div>
+    <div class="orb orb-b" aria-hidden="true"></div>
+
+    <!-- LANDING -->
+    <div id="view-landing" class="view view-landing is-active">
+      <header class="nav">
+        <a class="brand" href="#" data-go="landing" aria-label="Líc">
+          <span class="brand-mark">L</span>
+          <span class="brand-name">Líc</span>
+        </a>
+        <nav class="nav-links">
+          <a href="#jak">Jak to funguje</a>
+          <a href="#studio-preview">Studio</a>
+        </nav>
+        <button class="btn btn-ghost" type="button" data-go="studio">Otevřít studio</button>
+      </header>
+
+      <main class="hero">
+        <div class="hero-media" aria-hidden="true">
+          <div class="hero-frame">
+            <div class="hero-portrait" id="hero-portrait">
+              <div class="face-mesh">
+                <span></span><span></span><span></span><span></span><span></span>
+              </div>
+              <div class="beauty-veil"></div>
+              <div class="caption-demo">tohle jsem nečekala…</div>
+            </div>
+            <div class="lock-badge">
+              <span class="lock-dot"></span>
+              Face lock · 99.2%
+            </div>
+            <div class="hero-meta">
+              <span>9:16</span>
+              <span>Glow</span>
+              <span>CZ titulky</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-copy">
+          <p class="brand-signal">Líc</p>
+          <h1>
+            Tvoje tvář.<br />
+            <em>Sedí.</em> Neskače.
+          </h1>
+          <p class="lede">
+            Z dlouhého videa hotové shorty — stabilní beauty, světlo a české titulky
+            bez chyb.
+          </p>
+          <div class="hero-cta">
+            <button class="btn btn-primary" type="button" data-go="studio">
+              Vyzkoušet studio
+              <span class="btn-arrow">→</span>
+            </button>
+            <button class="btn btn-secondary" type="button" id="btn-demo-scroll">
+              Podívat se jak
+            </button>
+          </div>
+        </div>
+      </main>
+
+      <section class="strip" id="jak">
+        <div class="strip-item">
+          <span class="strip-num">01</span>
+          <h3>Long → shorty</h3>
+          <p>AI najde háčky a vystřihne 9:16 klipy.</p>
+        </div>
+        <div class="strip-item">
+          <span class="strip-num">02</span>
+          <h3>Beauty lock</h3>
+          <p>FaceApp look, který drží i při pohybu.</p>
+        </div>
+        <div class="strip-item">
+          <span class="strip-num">03</span>
+          <h3>Titulky CZ</h3>
+          <p>Styly + čeština, kterou nemusíš opravovat.</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- STUDIO -->
+    <div id="view-studio" class="view view-studio">
+      <header class="studio-bar">
+        <a class="brand brand-sm" href="#" data-go="landing">
+          <span class="brand-mark">L</span>
+          <span class="brand-name">Líc</span>
+        </a>
+        <div class="studio-steps" role="tablist" aria-label="Kroky">
+          <button class="step is-active" data-step="1" type="button">1 · Video</button>
+          <button class="step" data-step="2" type="button">2 · Beauty</button>
+          <button class="step" data-step="3" type="button">3 · Titulky</button>
+          <button class="step" data-step="4" type="button">4 · Export</button>
+        </div>
+        <button class="btn btn-primary btn-sm" type="button" id="btn-export">
+          Exportovat
+        </button>
+      </header>
+
+      <div class="studio-layout" id="studio-preview">
+        <aside class="panel panel-left">
+          <div class="panel-block">
+            <h2>Zdroj</h2>
+            <label class="upload" id="upload-zone">
+              <input type="file" id="file-input" accept="video/*,image/*" hidden />
+              <span class="upload-icon">↑</span>
+              <strong>Nahraj video nebo fotku</strong>
+              <small>MP4, MOV · až 60 min</small>
+            </label>
+            <div class="clip-list" id="clip-list">
+              <button class="clip is-active" type="button" data-clip="0">
+                <span class="clip-time">00:42</span>
+                <span class="clip-title">Háček — překvapení</span>
+                <span class="clip-score">92</span>
+              </button>
+              <button class="clip" type="button" data-clip="1">
+                <span class="clip-time">12:08</span>
+                <span class="clip-title">Punchline</span>
+                <span class="clip-score">88</span>
+              </button>
+              <button class="clip" type="button" data-clip="2">
+                <span class="clip-time">27:15</span>
+                <span class="clip-title">Emocionalní moment</span>
+                <span class="clip-score">85</span>
+              </button>
+            </div>
+          </div>
+        </aside>
+
+        <section class="stage">
+          <div class="phone">
+            <div class="phone-screen" id="phone-screen">
+              <div class="stage-portrait" id="stage-portrait">
+                <div class="beauty-layer" id="beauty-layer"></div>
+                <div class="light-layer" id="light-layer"></div>
+                <div class="face-lock-ring" id="face-ring" aria-hidden="true"></div>
+                <div class="live-caption" id="live-caption">tohle jsem nečekala…</div>
+              </div>
+              <div class="stage-hud">
+                <div class="hud-pill">
+                  <span class="lock-dot"></span>
+                  <span id="lock-text">Face lock stabilní</span>
+                </div>
+                <div class="hud-pill" id="viral-score">Score 92</div>
+              </div>
+            </div>
+          </div>
+          <p class="stage-hint" id="stage-hint">Natural · Soft light · Caption Bold</p>
+        </section>
+
+        <aside class="panel panel-right">
+          <div class="panel-block" data-panel="beauty">
+            <h2>Beauty</h2>
+            <div class="preset-grid" id="beauty-presets">
+              <button class="preset is-active" type="button" data-beauty="natural">
+                <span class="preset-swatch swatch-natural"></span>
+                Natural
+              </button>
+              <button class="preset" type="button" data-beauty="glow">
+                <span class="preset-swatch swatch-glow"></span>
+                Glow
+              </button>
+              <button class="preset" type="button" data-beauty="glam">
+                <span class="preset-swatch swatch-glam"></span>
+                Glam
+              </button>
+            </div>
+            <label class="slider-row">
+              <span>Síla <em id="beauty-val">18%</em></span>
+              <input type="range" id="beauty-strength" min="0" max="40" value="18" />
+            </label>
+            <p class="note">Max 40 % — víc = plastika a drift. Držíme tvář přesnou.</p>
+          </div>
+
+          <div class="panel-block" data-panel="light">
+            <h2>Světlo</h2>
+            <div class="chip-row" id="light-presets">
+              <button class="chip is-active" type="button" data-light="soft">Soft</button>
+              <button class="chip" type="button" data-light="cinema">Cinema</button>
+              <button class="chip" type="button" data-light="night">Night</button>
+              <button class="chip" type="button" data-light="clean">Clean</button>
+            </div>
+          </div>
+
+          <div class="panel-block" data-panel="captions">
+            <h2>Titulky CZ</h2>
+            <div class="chip-row" id="caption-styles">
+              <button class="chip is-active" type="button" data-caption="bold">Bold</button>
+              <button class="chip" type="button" data-caption="soft">Soft</button>
+              <button class="chip" type="button" data-caption="pop">Pop</button>
+              <button class="chip" type="button" data-caption="minimal">Minimal</button>
+            </div>
+            <label class="field">
+              <span>Text</span>
+              <input type="text" id="caption-input" value="tohle jsem nečekala…" maxlength="48" />
+            </label>
+            <p class="note ok">✓ Čeština bez chyb · háčky, čárky, skloňování</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" hidden></div>
+    <script src="./app.js"></script>
+  </body>
+</html>

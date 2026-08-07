@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Fraunces, Sora } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { AiAssistant } from "@/components/AiAssistant";
+import { AuthProvider } from "@/lib/auth";
 import "./globals.css";
 
 const sora = Sora({
@@ -36,9 +38,12 @@ export default function RootLayout({
   return (
     <html lang="cs" className={`${sora.variable} ${fraunces.variable} h-full`}>
       <body className="flex min-h-full flex-col antialiased">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <AuthProvider>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <AiAssistant />
+        </AuthProvider>
       </body>
     </html>
   );

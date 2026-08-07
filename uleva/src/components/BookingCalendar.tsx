@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import { Check, Shield } from "lucide-react";
 import { BookableSlot, Provider } from "@/data/providers";
@@ -9,6 +10,7 @@ import {
   calcBooking,
   formatCzk,
 } from "@/data/pricing";
+import { useAuth } from "@/lib/auth";
 
 function formatDay(date: string) {
   return new Intl.DateTimeFormat("cs-CZ", {
@@ -27,6 +29,7 @@ export function BookingCalendar({
   slots: BookableSlot[];
   initialService: ServiceType;
 }) {
+  const { user, addBooking } = useAuth();
   const availableServices = provider.services;
   const [service, setService] = useState<ServiceType>(
     availableServices.includes(initialService) ? initialService : availableServices[0]
@@ -51,6 +54,17 @@ export function BookingCalendar({
 
   function confirm() {
     if (!selected) return;
+    if (!user || user.role !== "mom") return;
+    addBooking({
+      providerId: provider.id,
+      providerName: provider.name,
+      service,
+      date: selected.date,
+      start: selected.start,
+      end: selected.end,
+      hours: quote.hours,
+      total: quote.total,
+    });
     setDone(true);
   }
 
@@ -69,20 +83,25 @@ export function BookingCalendar({
             {SERVICE_PRICING[service].label} · {formatCzk(quote.total)}
           </p>
           <p className="mt-4 rounded-2xl bg-fog px-4 py-3 text-xs leading-relaxed text-ink-soft">
-            Demo režim: platba kartou a výplata pečující budou napojené na
-            platební bránu. Fee platformy {formatCzk(quote.fee)} (18 %), pečující
-            dostane {formatCzk(quote.provider)}.
+            Uloženo ve tvém účtu. Demo režim: platba kartou a výplata pečující
+            budou napojené na platební bránu. Fee {formatCzk(quote.fee)} (18 %),
+            pečující dostane {formatCzk(quote.provider)}.
           </p>
-          <button
-            type="button"
-            className="btn btn-ghost mt-6"
-            onClick={() => {
-              setDone(false);
-              setSelected(null);
-            }}
-          >
-            Vybrat jiný termín
-          </button>
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
+            <Link href="/ucet" className="btn btn-rose">
+              Otevřít můj účet
+            </Link>
+            <button
+              type="button"
+              className="btn btn-ghost"
+              onClick={() => {
+                setDone(false);
+                setSelected(null);
+              }}
+            >
+              Vybrat jiný termín
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -191,14 +210,31 @@ export function BookingCalendar({
           </div>
         </dl>
 
-        <button
-          type="button"
-          className="btn btn-rose mt-6 w-full"
-          disabled={!selected}
-          onClick={confirm}
-        >
-          Zaplatit a rezervovat
-        </button>
+        {user?.role === "mom" ? (
+          <button
+            type="button"
+            className="btn btn-rose mt-6 w-full"
+            disabled={!selected}
+            onClick={confirm}
+          >
+            Zaplatit a rezervovat
+          </button>
+        ) : (
+          <div className="mt-6 space-y-3">
+            <Link
+              href={`/prihlaseni`}
+              className="btn btn-rose w-full"
+            >
+              Pro rezervaci se přihlas
+            </Link>
+            <p className="text-center text-xs text-ink-soft">
+              Nemáš účet?{" "}
+              <Link href="/registrace" className="font-bold underline">
+                Registrace maminky
+              </Link>
+            </p>
+          </div>
+        )}
 
         <p className="mt-4 flex items-start gap-2 text-xs leading-relaxed text-ink-soft">
           <Shield className="mt-0.5 h-4 w-4 shrink-0 text-moss" />

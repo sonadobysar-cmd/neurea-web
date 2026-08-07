@@ -3,11 +3,13 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import { useAuth } from "@/lib/auth";
 
 export function Header() {
   const pathname = usePathname();
   const isHome = pathname === "/";
   const [solid, setSolid] = useState(!isHome);
+  const { user, ready } = useAuth();
 
   useEffect(() => {
     if (!isHome) {
@@ -21,6 +23,11 @@ export function Header() {
   }, [isHome]);
 
   const light = isHome && !solid;
+  const accountHref = user
+    ? user.role === "mom"
+      ? "/ucet"
+      : "/ucet-pecujici"
+    : "/prihlaseni";
 
   return (
     <header
@@ -50,33 +57,37 @@ export function Header() {
         </Link>
 
         <nav
-          className={`hidden items-center gap-7 text-sm font-semibold md:flex ${
+          className={`hidden items-center gap-6 text-sm font-semibold lg:flex ${
             light ? "text-white/82" : "text-ink-soft"
           }`}
         >
-          <Link href="/hledat" className="hover:opacity-100 opacity-90 transition">
+          <Link href="/hledat" className="opacity-90 transition hover:opacity-100">
             Najít pomoc
           </Link>
-          <Link href="/cenik" className="hover:opacity-100 opacity-90 transition">
+          <Link href="/asistent" className="opacity-90 transition hover:opacity-100">
+            AI asistentka
+          </Link>
+          <Link href="/cenik" className="opacity-90 transition hover:opacity-100">
             Ceník
           </Link>
-          <Link href="/jak-to-funguje" className="hover:opacity-100 opacity-90 transition">
-            Jak to funguje
-          </Link>
-          <Link href="/nabidnout" className="hover:opacity-100 opacity-90 transition">
+          <Link href="/nabidnout" className="opacity-90 transition hover:opacity-100">
             Nabídnout pomoc
           </Link>
         </nav>
 
         <div className="flex items-center gap-2">
-          <Link
-            href="/nabidnout"
-            className={`btn hidden !py-2.5 !text-sm sm:inline-flex ${
-              light ? "btn-ghost !bg-white/10 !text-white !border-white/25" : "btn-ghost"
-            }`}
-          >
-            Jsem pečující
-          </Link>
+          {ready && (
+            <Link
+              href={accountHref}
+              className={`btn hidden !py-2.5 !text-sm sm:inline-flex ${
+                light
+                  ? "btn-ghost !border-white/25 !bg-white/10 !text-white"
+                  : "btn-ghost"
+              }`}
+            >
+              {user ? "Můj účet" : "Přihlásit"}
+            </Link>
+          )}
           <Link href="/hledat" className="btn btn-rose !py-2.5 !text-sm">
             Potřebuju úlevu
           </Link>

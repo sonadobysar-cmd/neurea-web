@@ -17,11 +17,17 @@ export function Footer() {
             <Link href="/hledat" className="hover:text-ink">
               Najít pomoc
             </Link>
+            <Link href="/asistent" className="hover:text-ink">
+              AI asistentka
+            </Link>
+            <Link href="/registrace" className="hover:text-ink">
+              Registrace maminky
+            </Link>
             <Link href="/cenik" className="hover:text-ink">
               Jednotný ceník
             </Link>
-            <Link href="/jak-to-funguje" className="hover:text-ink">
-              Jak to funguje
+            <Link href="/zajistit" className="hover:text-ink">
+              Co musím zajistit
             </Link>
           </div>
         </div>
@@ -29,7 +35,10 @@ export function Footer() {
           <p className="eyebrow">Pro pečující</p>
           <div className="mt-3 flex flex-col gap-2 text-sm text-ink-soft">
             <Link href="/nabidnout" className="hover:text-ink">
-              Nabídnout pomoc
+              Registrace pečující
+            </Link>
+            <Link href="/prihlaseni" className="hover:text-ink">
+              Přihlášení
             </Link>
             <p className="text-xs leading-relaxed opacity-80">
               MamaSOS je zprostředkovatel. Péči poskytují samostatné podnikatelky

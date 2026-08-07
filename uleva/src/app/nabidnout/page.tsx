@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Check } from "lucide-react";
-import { BrandMark } from "@/components/BrandMark";
 import { CaregiverRegistrationForm } from "@/components/CaregiverRegistrationForm";
 import { SERVICE_PRICING, formatCzk } from "@/data/pricing";
 
@@ -52,14 +51,10 @@ export default function OfferLandingPage() {
     <div>
       <section className="shell pb-12 pt-28 md:pb-16 md:pt-32">
         <div className="max-w-3xl">
-          <div className="mb-5 flex items-center gap-3">
-            <BrandMark size="md" tone="rose" />
-            <p className="eyebrow">Nábor pečujících · celá ČR</p>
-          </div>
-          <h1 className="display mt-2 text-4xl md:text-6xl">
+          <p className="eyebrow">Nábor pečujících · celá ČR</p>
+          <h1 className="display mt-3 text-4xl md:text-6xl">
             Pomáhejte maminkám ve svém okolí
           </h1>
-          <div className="lux-rule--start mt-5 max-w-[8rem]" />
           <p className="mt-5 max-w-2xl text-lg text-ink-soft">
             Přidejte se do sítě ověřených pečujících MamaSOS. Termíny a oblast
             působnosti si určujete sama. Registrace ani vedení profilu vás nic

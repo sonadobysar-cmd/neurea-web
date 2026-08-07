@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { BrandMark } from "@/components/BrandMark";
 
 const CHECKS = [
   {
@@ -44,14 +43,8 @@ export default function SafetyPage() {
   return (
     <div className="shell pb-16 pt-28 md:pb-24 md:pt-32">
       <div className="max-w-2xl">
-        <div className="mb-5 flex items-center gap-3">
-          <BrandMark size="md" tone="moss" />
-          <p className="eyebrow !normal-case !tracking-normal !text-ink-soft">
-            Bezpečnost a ověřování
-          </p>
-        </div>
-        <h1 className="display mt-2 text-4xl md:text-6xl">Co znamená Ověřená MamaSOS</h1>
-        <div className="lux-rule--start mt-5 max-w-[8rem]" />
+        <p className="eyebrow">Bezpečnost a ověřování</p>
+        <h1 className="display mt-3 text-4xl md:text-6xl">Co znamená Ověřená MamaSOS</h1>
         <p className="mt-4 text-ink-soft md:text-lg">
           Badge „Ověřená MamaSOS“ znamená, že pečující prošla povinným procesem
           ověření. Neznamená absolutní bezrizikovost — MamaSOS pečlivě prověřuje,

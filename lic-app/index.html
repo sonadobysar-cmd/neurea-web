@@ -21,7 +21,6 @@
     <div class="orb orb-a" aria-hidden="true"></div>
     <div class="orb orb-b" aria-hidden="true"></div>
 
-    <!-- LANDING -->
     <div id="view-landing" class="view view-landing is-active">
       <header class="nav">
         <a class="brand" href="#" data-go="landing" aria-label="Líc">
@@ -30,7 +29,7 @@
         </a>
         <nav class="nav-links">
           <a href="#jak">Jak to funguje</a>
-          <a href="#studio-preview">Studio</a>
+          <a href="#studio">Studio</a>
         </nav>
         <button class="btn btn-ghost" type="button" data-go="studio">Otevřít studio</button>
       </header>
@@ -64,8 +63,8 @@
             <em>Sedí.</em> Neskače.
           </h1>
           <p class="lede">
-            Z dlouhého videa hotové shorty — stabilní beauty, světlo a české titulky
-            bez chyb.
+            Nahraj video nebo fotku — beauty lock, světlo a české titulky přímo na
+            tvém obsahu.
           </p>
           <div class="hero-cta">
             <button class="btn btn-primary" type="button" data-go="studio">
@@ -82,23 +81,22 @@
       <section class="strip" id="jak">
         <div class="strip-item">
           <span class="strip-num">01</span>
-          <h3>Long → shorty</h3>
-          <p>AI najde háčky a vystřihne 9:16 klipy.</p>
+          <h3>Nahraj</h3>
+          <p>Fotka nebo video — uvidíš preview hned.</p>
         </div>
         <div class="strip-item">
           <span class="strip-num">02</span>
           <h3>Beauty lock</h3>
-          <p>FaceApp look, který drží i při pohybu.</p>
+          <p>Natural / Glow / Glam — tvář sedí, neskače.</p>
         </div>
         <div class="strip-item">
           <span class="strip-num">03</span>
-          <h3>Titulky CZ</h3>
-          <p>Styly + čeština, kterou nemusíš opravovat.</p>
+          <h3>Titulky + export</h3>
+          <p>České styly a stažení 9:16 snímku.</p>
         </div>
       </section>
     </div>
 
-    <!-- STUDIO -->
     <div id="view-studio" class="view view-studio">
       <header class="studio-bar">
         <a class="brand brand-sm" href="#" data-go="landing">
@@ -111,56 +109,50 @@
           <button class="step" data-step="3" type="button">3 · Titulky</button>
           <button class="step" data-step="4" type="button">4 · Export</button>
         </div>
-        <button class="btn btn-primary btn-sm" type="button" id="btn-export">
-          Exportovat
-        </button>
+        <div class="studio-actions">
+          <button class="btn btn-ghost btn-sm" type="button" id="btn-toggle-play" hidden>
+            Přehrát
+          </button>
+          <button class="btn btn-primary btn-sm" type="button" id="btn-export">
+            Stáhnout 9:16
+          </button>
+        </div>
       </header>
 
-      <div class="studio-layout" id="studio-preview">
+      <div class="studio-layout" id="studio">
         <aside class="panel panel-left">
           <div class="panel-block">
             <h2>Zdroj</h2>
             <label class="upload" id="upload-zone">
               <input type="file" id="file-input" accept="video/*,image/*" hidden />
               <span class="upload-icon">↑</span>
-              <strong>Nahraj video nebo fotku</strong>
-              <small>MP4, MOV · až 60 min</small>
+              <strong id="upload-title">Nahraj video nebo fotku</strong>
+              <small id="upload-meta">MP4, MOV, JPG, PNG</small>
             </label>
-            <div class="clip-list" id="clip-list">
-              <button class="clip is-active" type="button" data-clip="0">
-                <span class="clip-time">00:42</span>
-                <span class="clip-title">Háček — překvapení</span>
-                <span class="clip-score">92</span>
-              </button>
-              <button class="clip" type="button" data-clip="1">
-                <span class="clip-time">12:08</span>
-                <span class="clip-title">Punchline</span>
-                <span class="clip-score">88</span>
-              </button>
-              <button class="clip" type="button" data-clip="2">
-                <span class="clip-time">27:15</span>
-                <span class="clip-title">Emocionalní moment</span>
-                <span class="clip-score">85</span>
-              </button>
+            <div class="media-tools" id="media-tools" hidden>
+              <label class="slider-row">
+                <span>Pozice ve videu <em id="seek-val">0:00</em></span>
+                <input type="range" id="seek" min="0" max="100" value="0" step="0.1" />
+              </label>
             </div>
+            <div class="clip-list" id="clip-list"></div>
           </div>
         </aside>
 
         <section class="stage">
           <div class="phone">
             <div class="phone-screen" id="phone-screen">
-              <div class="stage-portrait" id="stage-portrait">
-                <div class="beauty-layer" id="beauty-layer"></div>
-                <div class="light-layer" id="light-layer"></div>
-                <div class="face-lock-ring" id="face-ring" aria-hidden="true"></div>
-                <div class="live-caption" id="live-caption">tohle jsem nečekala…</div>
-              </div>
+              <canvas id="stage-canvas" width="1080" height="1920" aria-label="Náhled shortu"></canvas>
+              <video id="source-video" playsinline muted hidden></video>
               <div class="stage-hud">
                 <div class="hud-pill">
                   <span class="lock-dot"></span>
-                  <span id="lock-text">Face lock stabilní</span>
+                  <span id="lock-text">Čekám na media</span>
                 </div>
-                <div class="hud-pill" id="viral-score">Score 92</div>
+                <div class="hud-pill" id="viral-score">Score —</div>
+              </div>
+              <div class="empty-stage" id="empty-stage">
+                <p>Nahraj fotku nebo video<br /><span>a uvidíš Líc na sobě</span></p>
               </div>
             </div>
           </div>
@@ -171,11 +163,11 @@
           <div class="panel-block" data-panel="beauty">
             <h2>Beauty</h2>
             <div class="preset-grid" id="beauty-presets">
-              <button class="preset is-active" type="button" data-beauty="natural">
+              <button class="preset" type="button" data-beauty="natural">
                 <span class="preset-swatch swatch-natural"></span>
                 Natural
               </button>
-              <button class="preset" type="button" data-beauty="glow">
+              <button class="preset is-active" type="button" data-beauty="glow">
                 <span class="preset-swatch swatch-glow"></span>
                 Glow
               </button>
@@ -188,7 +180,11 @@
               <span>Síla <em id="beauty-val">18%</em></span>
               <input type="range" id="beauty-strength" min="0" max="40" value="18" />
             </label>
-            <p class="note">Max 40 % — víc = plastika a drift. Držíme tvář přesnou.</p>
+            <label class="slider-row">
+              <span>Vyhlazení <em id="smooth-val">35%</em></span>
+              <input type="range" id="smooth-strength" min="0" max="70" value="35" />
+            </label>
+            <p class="note">Beauty běží na canvasu — ring drží stabilní face box, neplave.</p>
           </div>
 
           <div class="panel-block" data-panel="light">
@@ -211,15 +207,19 @@
             </div>
             <label class="field">
               <span>Text</span>
-              <input type="text" id="caption-input" value="tohle jsem nečekala…" maxlength="48" />
+              <input type="text" id="caption-input" value="tohle jsem nečekala…" maxlength="56" />
             </label>
-            <p class="note ok">✓ Čeština bez chyb · háčky, čárky, skloňování</p>
+            <button class="btn btn-secondary btn-sm btn-block" type="button" id="btn-fix-cz">
+              Opravit češtinu
+            </button>
+            <p class="note ok" id="cz-note">✓ Háčky a čárky hlídáme</p>
           </div>
         </aside>
       </div>
     </div>
 
     <div class="toast" id="toast" hidden></div>
+    <script src="./engine.js"></script>
     <script src="./app.js"></script>
   </body>
 </html>

@@ -75,10 +75,20 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   const h = await headers();
+  const pathname = h.get("x-pathname") || "";
+  const licApp = pathname === "/lic" || pathname.startsWith("/lic/");
   const rezervaceLanding = isRezervaceLandingHost(h);
   const testLanding = isTestLandingHost(h);
   const robinLanding = isRobinLandingHost(h);
   const landing = rezervaceLanding || testLanding || robinLanding;
+
+  if (licApp) {
+    return (
+      <html lang="cs">
+        <body style={{ margin: 0, background: "#07080c" }}>{children}</body>
+      </html>
+    );
+  }
 
   if (robinLanding) {
     return (

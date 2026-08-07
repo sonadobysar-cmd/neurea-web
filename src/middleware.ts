@@ -27,6 +27,15 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const requestHeaders = new Headers(request.headers);
+  requestHeaders.set("x-pathname", pathname);
+
+  // Líc studio — always serve static HTML (avoid /lic ↔ /lic/ redirect fights)
+  if (pathname === "/lic" || pathname === "/lic/") {
+    return NextResponse.rewrite(new URL("/lic/index.html", request.url), {
+      request: { headers: requestHeaders },
+    });
+  }
+
   if (pathname.startsWith("/robin")) {
     requestHeaders.set("x-neurea-landing", "robin");
   } else if (REZERVACE_LANDING_HOSTS.has(host)) {

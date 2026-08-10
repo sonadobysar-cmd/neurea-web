@@ -1,0 +1,36 @@
+---
+description: KNOW?HOW — aktuální zjednodušený brief (ne starší varianty s hrami)
+globs: docs/know-how/**
+alwaysApply: false
+---
+
+# KNOW?HOW — aktuální brief
+
+Při práci na KNOW?HOW (analýza, copy, produkce, hosté, monetizace) používej **pouze** aktualizovaný brief:
+
+→ `docs/know-how/BRIEF.md`
+
+Pro Claude je stejný vstup v `docs/know-how/CLAUDE.md`.
+
+## Co platí
+
+- Show o slávě, penězích a tom, co je za tím.
+- Claim: „Všichni je řeší. Já se jich ptám.“
+- Slib: „Její příběh znáte. Teď zjistíte, jak to skutečně udělala — a co z toho funguje dnes.“
+- Motor = mluvené slovo + příprava + chemie + konkrétní kroky (ne hry).
+- Struktura: 1) Příležitost → 2) Co udělala potom → 3) Co nefungovalo → 4) Co platí dnes.
+- FREE = plnohodnotná entertainment show (ne vykuchaná reklama).
+- DEEP = placená masterclass na jednu oblast, kterou hostka ovládá (bez povinných PDF).
+
+## Co neplatí (starší koncept — ignorovat)
+
+- Hypotetická hra „vezmu vám všechno / začínáte od nuly“ jako hlavní motor
+- START AGAIN jako povinný gimmick
+- Komplikované hry, rekvizity, ponižující staré fotky, „testování“ hosta
+- Povinná druhá produkce / checklisty / PDF jako hodnota DEEP
+
+## Při kritické analýze
+
+Realisticky. Bez povzbuzování i bez automatického hledání děr. Zachovej podstatu: skutečné životy, konkrétní kroky, respekt k hostům, praktický dopad, kvalitní mluvený rozhovor.
+
+Požadovaný závěr: jednovětý verdikt · 3 silné stránky · 3 rizika · max 5 změn · co nepřidávat · GO / MODIFY / NO-GO.

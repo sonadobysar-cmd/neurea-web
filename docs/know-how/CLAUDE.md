@@ -2,17 +2,16 @@
 
 ## Zdroj pravdy
 
+Hodnoť **přesně** tento text:
+
 → [`BRIEF.md`](./BRIEF.md)
 
-Hodnoť **aktuální master koncept**: FREE + DEEP + CHALLENGE + PROOF (mini reality ekosystém).
+Obsahuje koncept, částky i způsob oslovení. Claude i Cursor mají hodnotit **stejný konkrétní plán**.
 
-## Ignoruj starší varianty
+## Úkol
 
-- Hypotetické hry / START AGAIN jako hlavní motor
-- Čistý interview-only koncept bez výzvy a důkazu
+Velmi realistické zhodnocení **financování a prodeje** partnerům. Ne komplikovat koncept. Ne obecná konzultantská analýza. Ne kreativní review formátu (jen pokud přímo ovlivňuje prodejnost).
 
-## Při analýze / feedbacku
+Odpověz na všech 10 otázek v sekci „Co potřebuji kriticky vyhodnotit“.
 
-Realisticky. Bez povzbuzování i bez automatického hledání děr. Zachovej podstatu: skutečné životy, konkrétní kroky, respekt, praktický dopad, důkaz v praxi.
-
-Závěr vždy: verdikt · silné stránky · rizika · max 5 změn · co nepřidávat · GO / MODIFY / NO-GO.
+Tvrdý reality check: ceny, plnění, pravděpodobnost, že české značky zaplatí. Bez „nápad je skvělý“.

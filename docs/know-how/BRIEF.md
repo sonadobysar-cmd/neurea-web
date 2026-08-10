@@ -1,208 +1,218 @@
-# KNOW?HOW — aktualizovaný brief (zjednodušený koncept)
+# KNOW?HOW
+## Master koncept pořadu
 
-> **Platí tento brief.** Nehodnoť starší varianty s hypotetickými hrami, rekvizitami, START AGAIN / „začínáte od nuly“, THEY SAY jako gimmick ani komplikovanou druhou produkcí.
+### Jednovětý koncept
 
-Připravuji nový CZ/SK video formát KNOW?HOW a potřebuji jeho kritickou strategickou analýzu. Nechci povzbuzování ani automatické hledání problémů. Chci realisticky posoudit, zda je nový koncept dostatečně silný, atraktivní pro hosty, virální pro publikum a dlouhodobě monetizovatelný.
-
----
-
-## Co je KNOW?HOW
-
-Show o slávě, penězích a tom, co je za tím.
-
-**Hlavní claim:**
-„Všichni je řeší. Já se jich ptám.“
-
-**Obsahový slib:**
-„Její příběh znáte. Teď zjistíte, jak to skutečně udělala — a co z toho funguje dnes.“
-
-Hosty budou známé a často polarizující osobnosti z Česka a Slovenska: influencerky, reality stars, podnikatelky, zpěvačky, celebrity a ženy se silným osobním brandem.
-
-**Příklady možných hostek:** Nela Slováková, Dominique Alagia, Veronica Biasiol, Dominika Myslivcová, Zuzana Plačková, Sugar Denny, Lela Vémola, Erika Eliášová, Natálie Kočendová, Kundosaki, Cynthia Tóthová, Barbora Mlejnková, Jasmina Alagič, Rachel Karnižová, Sharlota, Taťána Makarenko nebo Bé Hà Nguyen.
-
-Nechci další podcast, ve kterém hostka pouze zopakuje svůj životní příběh, řekne, že „makala, věřila si a byla konzistentní“, a tím rozhovor skončí.
-
-Fascinují mě jejich skutečné životy, příležitosti a konkrétní rozhodnutí:
-
-- Jak přesně jejich příležitost přišla?
-- Poznaly její význam okamžitě?
-- Co udělaly během prvních dnů?
-- Jak z jedné chvíle vytvořily kariéru nebo byznys?
-- Kdo oslovil koho?
-- Kde vzaly první peníze?
-- Jak otevřely první e-shop?
-- Jak našly dodavatele?
-- Kolik objednaly prvních kusů?
-- Jak získaly první zákazníky?
-- Kdy si poprvé řekly o peníze za spolupráci?
-- Co způsobilo skutečný zlom?
-- Co byla strategie, co náhoda a co výhoda tehdejší doby?
-- Co vypadalo úspěšně, ale finančně nefungovalo?
-- Kde prodělaly peníze nebo čas?
-
-### Co koncept vědomě není
-
-Nechci koncept stavět na komplikovaných hrách, rekvizitách, nepříjemných starých fotografiích ani ponižujícím „testování“ hosta.
-
-Nechci ani umělou hypotetickou hru typu „vezmu vám všechno a začínáte od nuly“ jako hlavní motor pořadu. Zajímá mě jejich skutečná cesta, protože často dostaly jednu unikátní příležitost a dokázaly ji využít.
-
-Formát má být založený především na mluveném slovu, dobré přípravě, chemii, humoru, otevřenosti a schopnosti moderátorky dostat se od obecné odpovědi ke konkrétním krokům.
+**Známá osobnost řekne, jak se skutečně dostala nahoru, co ji to stálo a jak to ustála. Potom dá publiku přesný návod a výzvu. Vybraní lidé její KNOW?HOW použijí v praxi — a pořad ukáže, jestli opravdu funguje.**
 
 ---
 
-## Jednoduchá struktura rozhovoru
+## Základní myšlenka
 
-### 1. PŘÍLEŽITOST
+Lidé vidí výsledek: slávu, miliony, značky, dovolené, spolupráce, vlastní produkty, statisíce sledujících.
 
-Skutečný okamžik, který něco změnil: casting, reality show, virální video, první spolupráce, kontakt, produkt, kontroverze nebo jiné rozhodnutí.
+Nevidí ale: jak přesně přišla první příležitost, co s ní udělala, kolik práce/peněz/času riskovala, co nevyšlo, jaké mediální a byznysové pády ustála, co zaplatila v soukromí/vztazích/psychické pohodě, co z tehdejší cesty ještě funguje dnes.
 
-Cílem je zjistit, jak příležitost vznikla a co hostka udělala bezprostředně potom.
+KNOW?HOW ukáže obě strany úspěchu. Hostka neřekne pouze příběh. Vysvětlí konkrétní cestu, přizná cenu a dá použitelný návod pro dnešek.
 
-### 2. CO UDĚLALA POTOM
+Zásadní otázka:
 
-Konkrétní řetězec:
+> **Když dostanou stejný návod, kolik lidí ho dokáže opravdu použít?**
 
-příležitost → rozhodnutí → činnost → výsledek → další krok
-
-Moderátorka nepřijme odpověď „začala jsem tvořit kvalitnější obsah“, ale pokračuje:
-
-- Jaký obsah?
-- Kolikrát týdně?
-- Na jaké platformě?
-- Co bylo první video?
-- Kdo ho vytvořil?
-- Kolik to stálo?
-- Jaký výsledek to přineslo?
-
-### 3. CO NEFUNGOVALO A CO JI TO STÁLO
-
-Chyby, slepé uličky, špatné investice, neúspěšné projekty, cena slávy, ztráta soukromí, hate a rozhodnutí, která by dnes neopakovala.
-
-### 4. CO PLATÍ DNES
-
-Přenos skutečné zkušenosti do současnosti:
-
-- Fungovala by dnes stejná cesta?
-- Co už dnes nemá šanci?
-- Jak se dnes reálně otevírá e-shop?
-- Jak dnes začít jako influencerka?
-- Má začínající tvůrce oslovovat značky sám?
-- Na které platformě začít?
-- Jak získat první zákazníky?
-- Za co neutratit první peníze?
-- Jaká cesta je dnes realističtější než ta, kterou měla hostka?
-
-Nejde o motivační „kdyby“. Hostka zná svůj obor zevnitř a má říct, jaká je jeho současná realita.
+Pořad nekončí rozhovorem. Pokračuje reálnou výzvou, měřitelným výsledkem a mini dílem s člověkem, který know-how hostky nejlépe aplikoval.
 
 ---
 
-## FREE a DEEP
+## Hlavní claimy
 
-**FREE** epizoda má být plnohodnotná entertainment show:
-
-- známé jméno,
-- humor a chemie,
-- veřejný obraz a kontroverze,
-- skutečný příběh,
-- peníze,
-- chyby,
-- cena úspěchu,
-- několik konkrétních kroků.
-
-FREE nesmí být vykuchaná reklama na paywall.
-
-**KNOW?HOW DEEP** má být praktická placená část zaměřená na jednu oblast, kterou hostka skutečně ovládá:
-
-- Jak dnes otevřít e-shop.
-- Jak získat první placenou spolupráci.
-- Jak proměnit followery v zákazníky.
-- Jak spustit první produkt.
-- Jak vybrat dodavatele.
-- Jak nacenit spolupráci.
-- Jak vybudovat osobní brand.
-- Jak pracovat s veřejnou kontroverzí.
-
-Nechci povinně vyrábět PDF, checklisty ani komplikovanou druhou produkci. Hodnotou má být především mimořádně konkrétní placená masterclass s hostkou.
-
-Postupně by vznikala knihovna praktických masterclass od známých osobností.
+- **Značka:** Všichni je řeší. Já se jich ptám.
+- **Obsahový slib:** Chcete její život? Tady máte návod. A tady je cena.
+- **Aktivace:** Návod máte. Teď ukažte, co s ním dokážete.
+- **Proof:** Řekla nám, jak. Ona to zkusila. Tohle je výsledek.
+- **Shrnutí:** Příběh. Pravda. Návod. Důkaz.
 
 ---
 
-## Motivace pro hostku
+## Tón
 
-Hostka už často má velké publikum a další podcast sama o sobě nepotřebuje. Proto ji chci pozvat nejen jako celebritu, ale jako člověka, jehož zkušenosti mají hodnotu.
+Není korporátní byznysový rozhovor, motivační podcast ani agresivní výslech. Chytrá, živá, lehce drzá konverzace ženy, kterou hostka i její život fascinují.
 
-Nabídka má znít přibližně:
+Tón: lidský, vtipný, zvědavý, přímý, občas lehce konfrontační, bezpečný ale ne sterilní, respektující ale ne obdivně nekritický.
 
-„Nechci s Vámi natočit další rozhovor o tom, že jste pracovala a nevzdala se. Chci poprvé opravdu konkrétně rozebrat, jak jste svůj úspěch vybudovala, co se nepovedlo a co z Vašich zkušeností může dnes reálně pomoct ženám na začátku.“
+Příklady:
 
-Hostka má získat:
+> „Ty jo, tohle byl fakt masakr. Všichni tě tehdy cupovali. Jak jsi to vůbec ustála?“
 
-- možnost ukázat, co skutečně vybudovala,
-- status zkušené a schopné osobnosti, ne jen celebrity,
-- prostor vysvětlit vlastní stranu příběhu,
-- možnost pomoct lidem konkrétními zkušenostmi,
-- profesionální a vizuálně prémiový výstup,
-- fotografie a připravený short-form obsah pro vlastní sítě.
+> „Já jsem si tehdy upřímně říkala, že sis část toho průseru způsobila sama. Je to úplně mimo?“
 
-Hlavní témata a citlivé hranice bude znát předem. Nepůjde o podpásovky. Editorial control ale zůstane pořadu.
+> „Počkej. Tady mi chybí jeden krok…“
 
----
+> „Neříkej mi, že jsi byla konzistentní. Jak často? Jak dlouho?“
 
-## Moderátorka
+Hostka: „Nio, takhle to vůbec nebylo.“ → Nia: „Dobře. Tak mi řekni, jak to bylo.“
 
-Moderátorka Nia nesmí být pouze anketářka. Má vlastní pohled, opravdovou fascinaci životy hostů a schopnost ptát se dál.
-
-Nechce hosty ponižovat ani nachytávat. Chce s nimi dělat pořad s respektem a láskou, ale zároveň nepřijímat obecné PR odpovědi.
-
-Smí říct například:
-
-„Počkejte, tady mi chybí jeden krok. Měla jste nápad — a potom najednou fungující e-shop. Co přesně se stalo mezi tím?“
+Lehká konfrontace = Nia přizná pohled, ptá se dál, nechá se přesvědčit. Ne podpásovka.
 
 ---
 
-## Produkce a ekonomika
+# Formátový ekosystém
 
-- Hlavní epizoda má vycházet každý týden.
-- Produkci, střih a reels zajišťuje externí podcastová firma.
-- Moderátorka dělá přípravu, natáčení, kontrolu a publikaci.
-- Krátký samostatný formát Nii vzniká doma.
-- Celkové měsíční náklady mohou být přibližně 40 000 Kč.
-- První měsíce lze částečně financovat klientskými weby, ale dlouhodobým cílem je, aby se KNOW?HOW uživilo samo.
-- Monetizace má stát na kombinaci placené komunity, partnera pořadu, později YouTube a eventů.
-- Potenciální partneři se mají oslovovat až po potvrzení přibližně pěti prvních známých hostek.
+1. Hlavní FREE show s celebritou
+2. KNOW?HOW DEEP — detailní návod
+3. KNOW?HOW CHALLENGE — praktická výzva
+4. KNOW?HOW PROOF — mini díl s vítězkou a výsledkem
 
 ---
 
-## Co potřebuji kriticky vyhodnotit
+## 1. Hlavní FREE show
 
-1. Je tento zjednodušený koncept skutečně odlišný, nebo je to pořád jen dobře připravený celebrity podcast?
-2. Je slib „jak to opravdu udělala a co z toho funguje dnes“ dostatečně silný pro diváky?
-3. Je účast dostatečně atraktivní pro známou osobnost, která další mediální dosah nepotřebuje?
-4. Co by hostku skutečně motivovalo říct ano, aniž by se formát musel měnit v pochvalné PR?
-5. Jak velké je riziko, že se hostka sekne, bude odpovídat obecně a diferenciace zmizí?
-6. Jak toto riziko snížit bez složitých her, rekvizit a časově náročné produkce?
-7. Má formát přirozený virální potenciál, nebo mu stále chybí jasný motor?
-8. Mohou virální momenty vznikat pouze z mimořádně konkrétních odpovědí a silných názorů, nebo potřebuje pořad ještě jednoduchý opakovatelný mechanismus?
-9. Je rozdělení FREE = příběh a entertainment, DEEP = konkrétní masterclass dostatečně hodnotné a konverzní?
-10. Které části by měly zůstat zdarma, aby FREE nepůsobilo vykuchaně?
-11. Které typy hostek budou pro tento formát fungovat a které ne, přestože mají velké jméno?
-12. Je týdenní formát za přibližně 40 000 Kč měsíčně ekonomicky obhajitelný?
-13. Jaká je nejrealističtější cesta k samostatnému financování: komunita, partner, nebo jejich kombinace?
-14. Co je na konceptu stále slabé, zbytečné nebo nejasné?
-15. Kdybys investoval/a vlastní peníze, šel/šla bys do pětidílného pilotu? Za jakých konkrétních podmínek?
+Plnohodnotná entertainment show. Ne vykuchaný teaser.
+
+### Oblouk
+
+**Jak se tam dostala** — první příležitost, první hodiny/dny, kdo oslovil koho, strategie vs náhoda, jak z chvíle vznikla kariéra/byznys.
+
+**Kde se z pozornosti stal byznys** — první velké peníze, followeři ≠ byznys, co vydělávalo vs co jen vypadalo, první produkt/spolupráce, konkrétní růstové kroky.
+
+**Co se nepovedlo** — projekty, ztráty, nejhorší chyba, špatný odhad člověka/smlouvy, co už neopakovat.
+
+**Mediální a osobní pády** — nejhorší průser, co byla pravda vs výmysl, první den po, kdo řekl nepříjemnou pravdu, mlčet/omluvit se/bojovat, jak se dostala ven, obchodní dopad.
+
+**Cena za miliony a slávu** — co čekala vs zaplatila, co už nezíská, soukromí, vztahy, důvěra, moment „nechci“, šla by do toho znovu, stály miliony za cenu?
+
+### FREE musí dát i neplatícím
+
+- pochopení řetězce úspěchu
+- několik konkrétních kroků
+- jeden výrazný neúspěch
+- autentický pohled na cenu úspěchu
+- co dnes funguje / už ne
 
 ---
 
-## Požadovaný výstup analýzy
+## 2. KNOW?HOW DEEP
 
-Nakonec napiš:
+Není delší verze stejného rozhovoru. Detailní praktický návod v **jedné** oblasti, kterou hostka opravdu ovládá.
 
-- jednovětý verdikt,
-- tři nejsilnější části,
-- tři největší rizika,
-- maximálně pět konkrétních změn,
-- co už dále nepřidávat, aby se koncept nepřekombinoval,
-- a jasné doporučení **GO / MODIFY / NO-GO**.
+Příklady témat: start influencerky, první placená spolupráce, oslovení značky, nacenění, osobní brand, followeři→zákazníci, e-shop, dodavatelé, poptávka před launch, reputační krize.
 
-Prosím neposuzuj koncept podle toho, zda obsahuje dostatek her nebo televizních gimmicků. Zajímají mě změny, které zachovají jeho podstatu: skutečné životy, konkrétní kroky, respekt k hostům, praktický dopad a kvalitní mluvený rozhovor.
+Každá hostka = specifická expertiza. Nesmí se z Degenerovat v obecnou radu.
+
+Styl: konkrétní situace („19 let, 1 500 followerů, co v pondělí ráno?“) + follow-upy do detailu. Obecné rady se překládají do jednání.
+
+Výsledek DEEP = návod, který lze použít a otestovat.
+
+---
+
+## 3. KNOW?HOW CHALLENGE
+
+Na konci DEEP hostka převede návod do jednoho jasného měřitelného zadání.
+
+Signature:
+
+> Nia: „Takže návod máme. Ale teď přijde ta podstatná část. Kolik lidí ho opravdu použije?“
+> Hostka zadá výzvu.
+> Nia: **„Návod máte. Teď ukažte, co s ním dokážete.“**
+
+### Dvoustupňová výzva
+
+1. **SPRINT — 7 dní** — celé oprávněné publikum → ~3 finalistky (formulář + první signály)
+2. **PROOF PERIOD — +14 dní** — jen finalistky → po 21. dni vítězka + PROOF
+
+Později volitelný 60denní check-in (krátké video), ne povinný plný díl.
+
+### Dokumentace
+
+Před startem: výchozí metriky. Během: 5 krátkých vertikál z telefonu (start, co udělala, první reakce/hate, krize, výsledek). Bez průběžného štábu.
+
+### Ověření + výběr
+
+Bez koupených followerů, fake engagement, nedoložených tržeb, skrytého ad budgetu. Scorecard předem (splnění, použití postupu, relativní růst, absolutní výsledek, náklady, kreativita, pokračování). Pravidla soutěže + data + souhlasy před spuštěním.
+
+---
+
+## 4. KNOW?HOW PROOF
+
+~30 min mini díl s vítězkou. Ne jen cena — rozbor, zda návod fungoval bez jména/kontaktů celebrity. Vložené telefonní záběry. Remote feedback původní hostky (video/hlas) OK; může se pustit až při natáčení.
+
+Smíšený/neúspěšný výsledek je legitimní obsah.
+
+---
+
+## Hodnota stranám
+
+**Hostka:** ukáže práci, riziko, cenu, použitelné know-how; pitch „dejte návod — zjistíme, kdo ho použije“.
+
+**Divák:** život celebrity + návod + výzva + šance na díl + důkaz.
+
+**Vítězka:** odměna, publicita, feedback celebrity, důkaz exekuce.
+
+**Partner:** ne jen logo — financuje konkrétní příležitost (cena, marketing budget, tech, e-shop, focení…).
+
+---
+
+## Rytmus (cílová varianta)
+
+- **Neděle:** celebrita + DEEP + nová výzva
+- Finalistky sprintu: oznámení další neděli/pondělí
+- **Středa po 21. dni:** PROOF + feedback
+
+Pilot nejdřív ověří, zda je to admin zvládnutelné. Plná týdenní smyčka se nezamyká naslepo.
+
+---
+
+## Monetizace
+
+- Placená komunita = DEEP + challenge + přihlášení + výsledky (místo používání)
+- Partner pořadu/challenge (neřídí odpovědi ani výsledek soutěže)
+- Později: YouTube, eventy, sezonní challenge
+
+---
+
+## Guest acquisition + příprava
+
+Neprodává se jako další podcast. Prodává se jako prostor obhájit hodnotu práce + dát návod + vidět, kdo ho použije.
+
+Fact-finding call: příležitost, ochota ke konkrétnu, pády, hranice, DEEP expertiza, challenge, ochota k feedbacku. Editorial control pořadu.
+
+---
+
+## Pilot
+
+- 5 hlavních epizod, unikátní DEEP
+- Challenge u každé; plné vyhodnocení nejdřív u **1–2** nejlépe měřitelných
+- 1–2 pilotní PROOF
+- Jednoduchý formulář + jednotné dokládání
+- Rozpočtový cap
+
+### Pilot ověřuje
+
+Konkrétnost návodu, splnitelnost výzvy, účast, dokumentace, ověřitelnost, admin, PROOF jako díl, konverze membership, partner fit.
+
+### Nepřidávat
+
+Štáb u účastnic, paralelní kategorie, složité bodování, povinné druhé studio celebrity, velké ceny dlouhodobě z vlastní kapsy, hry/rekvizity v hlavním rozhovoru.
+
+---
+
+## Rizika a pojistky
+
+| Riziko | Pojistka |
+|--------|----------|
+| Obecné odpovědi | Prep call, follow-upy, casting podle expertizy |
+| Návod funguje jen díky jménu | PROOF to otevřeně testuje |
+| Manipulace výsledků | Baseline, metriky, důkazy, pravidla |
+| Zvýhodnění velké audience | Relativní + absolutní + náklady + provedení |
+| Admin overload | Formulář, limit podkladů, 1–2 plné cykly v pilotu |
+| Nulová účast | Jednoduchý 7denní sprint + jasná odměna |
+| Odpovědnost celebrity za výsledek | Transparentně: ověření zkušenosti, ne garance |
+
+---
+
+## Finální podstata
+
+Není jen celebrity podcast. Není klasická 24/7 reality show.
+
+Je to: fascinující život → otevřený rozhovor o slávě/penězích/pádech/ceně → konkrétní návod → veřejná výzva → reálná aplikace → měřitelný výsledek → další lidský příběh.
+
+> **Celebrita vám řekne, jak se skutečně dostala nahoru a co ji to stálo. Dá vám přesný návod. Vy ho použijete. A KNOW?HOW ukáže, jestli opravdu funguje.**

@@ -1,29 +1,18 @@
 # KNOW?HOW — instrukce pro Claude
 
-Tento soubor je vstup pro kritickou strategickou analýzu formátu KNOW?HOW.
-
 ## Zdroj pravdy
-
-Čti a vyhodnocuj **pouze** aktualizovaný brief:
 
 → [`BRIEF.md`](./BRIEF.md)
 
-## Důležité
+Hodnoť **aktuální master koncept**: FREE + DEEP + CHALLENGE + PROOF (mini reality ekosystém).
 
-- Hodnoť **nový zjednodušený koncept** (mluvený rozhovor, 4 bloky, FREE/DEEP).
-- **Nehodnoť** starší varianty s hypotetickými hrami, START AGAIN / „začínáte od nuly“, rekvizitami, ponižujícím testováním hosta ani gimmicky.
-- Neposuzuj kvalitu podle toho, zda formát obsahuje dostatek her nebo televizních mechanismů.
-- Nechci povzbuzování ani automatické hledání problémů. Chci realistický verdikt.
+## Ignoruj starší varianty
 
-## Požadovaný výstup
+- Hypotetické hry / START AGAIN jako hlavní motor
+- Čistý interview-only koncept bez výzvy a důkazu
 
-Odpověz na otázky v sekci „Co potřebuji kriticky vyhodnotit“ v `BRIEF.md`.
+## Při analýze / feedbacku
 
-Na konci vždy uveď:
+Realisticky. Bez povzbuzování i bez automatického hledání děr. Zachovej podstatu: skutečné životy, konkrétní kroky, respekt, praktický dopad, důkaz v praxi.
 
-1. jednovětý verdikt
-2. tři nejsilnější části
-3. tři největší rizika
-4. maximálně pět konkrétních změn (zachovajících podstatu konceptu)
-5. co už dále nepřidávat
-6. jasné doporučení: **GO / MODIFY / NO-GO**
+Závěr vždy: verdikt · silné stránky · rizika · max 5 změn · co nepřidávat · GO / MODIFY / NO-GO.

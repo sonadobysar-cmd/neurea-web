@@ -1,36 +1,26 @@
 ---
-description: KNOW?HOW — aktuální zjednodušený brief (ne starší varianty s hrami)
+description: KNOW?HOW — master koncept FREE+DEEP+CHALLENGE+PROOF
 globs: docs/know-how/**
 alwaysApply: false
 ---
 
-# KNOW?HOW — aktuální brief
+# KNOW?HOW — aktuální master
 
-Při práci na KNOW?HOW (analýza, copy, produkce, hosté, monetizace) používej **pouze** aktualizovaný brief:
+Zdroj: `docs/know-how/BRIEF.md`
 
-→ `docs/know-how/BRIEF.md`
+## Jednovětý koncept
 
-Pro Claude je stejný vstup v `docs/know-how/CLAUDE.md`.
+Známá osobnost řekne, jak se dostala nahoru, co ji to stálo a jak to ustála → dá přesný návod a výzvu → vybraní lidé to použijí → pořad ukáže, jestli to funguje.
 
-## Co platí
+## Ekosystém
 
-- Show o slávě, penězích a tom, co je za tím.
-- Claim: „Všichni je řeší. Já se jich ptám.“
-- Slib: „Její příběh znáte. Teď zjistíte, jak to skutečně udělala — a co z toho funguje dnes.“
-- Motor = mluvené slovo + příprava + chemie + konkrétní kroky (ne hry).
-- Struktura: 1) Příležitost → 2) Co udělala potom → 3) Co nefungovalo → 4) Co platí dnes.
-- FREE = plnohodnotná entertainment show (ne vykuchaná reklama).
-- DEEP = placená masterclass na jednu oblast, kterou hostka ovládá (bez povinných PDF).
+1. FREE show (entertainment + řetězec + cena)
+2. DEEP (1 expertiza, otestovatelný návod)
+3. CHALLENGE (7 dní sprint → 3 finalistky → +14 dní)
+4. PROOF (~30 min vítězka + remote feedback celebrity)
 
-## Co neplatí (starší koncept — ignorovat)
+Claim stack: Příběh. Pravda. Návod. Důkaz.
 
-- Hypotetická hra „vezmu vám všechno / začínáte od nuly“ jako hlavní motor
-- START AGAIN jako povinný gimmick
-- Komplikované hry, rekvizity, ponižující staré fotky, „testování“ hosta
-- Povinná druhá produkce / checklisty / PDF jako hodnota DEEP
+## Pilot discipline
 
-## Při kritické analýze
-
-Realisticky. Bez povzbuzování i bez automatického hledání děr. Zachovej podstatu: skutečné životy, konkrétní kroky, respekt k hostům, praktický dopad, kvalitní mluvený rozhovor.
-
-Požadovaný závěr: jednovětý verdikt · 3 silné stránky · 3 rizika · max 5 změn · co nepřidávat · GO / MODIFY / NO-GO.
+Plný weekly reality loop až po ověření adminu. Nejdřív 1–2 kompletní challenge cykly. Bez štábu u účastnic, bez her v hlavním rozhovoru, bez velkých cen z vlastní kapsy.

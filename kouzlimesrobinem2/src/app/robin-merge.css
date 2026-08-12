@@ -75,6 +75,13 @@ body {
   display: none;
 }
 
+@media (max-width: 480px) {
+  .bubble.balloon-float {
+    opacity: 0.55;
+    filter: drop-shadow(2px 3px 4px rgba(120, 60, 10, 0.14));
+  }
+}
+
 .pop {
   position: fixed;
   pointer-events: none;

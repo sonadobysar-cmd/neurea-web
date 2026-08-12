@@ -56,7 +56,7 @@
         el.src = balloonSrcs[balloonCursor % balloonSrcs.length];
         balloonCursor++;
         el.alt = "";
-        size = 44 + Math.random() * 30;
+        size = W <= 480 ? 36 + Math.random() * 18 : 44 + Math.random() * 30;
         el.style.height = size + "px";
         el.style.width = "auto";
       } else {
@@ -65,7 +65,16 @@
         size = 26 + Math.random() * 70;
         el.style.width = el.style.height = size + "px";
       }
-      var x = Math.random() * (W - size);
+      var x;
+      if (isBalloon && W <= 480) {
+        var mobileEdgeOffset = Math.random() * Math.min(18, W * 0.05);
+        x =
+          balloonCursor % 2 === 0
+            ? -size * 0.22 + mobileEdgeOffset
+            : W - size * 0.78 - mobileEdgeOffset;
+      } else {
+        x = Math.random() * (W - size);
+      }
       var b = {
         el: el,
         x: x,
@@ -151,7 +160,12 @@
         spawnBubble(false);
       }, i * 400);
     }
-    for (var initialBalloon = 0; initialBalloon < Math.min(3, balloonSrcs.length); initialBalloon++) {
+    var maxFloatingBalloons = W <= 480 ? 2 : 3;
+    for (
+      var initialBalloon = 0;
+      initialBalloon < Math.min(maxFloatingBalloons, balloonSrcs.length);
+      initialBalloon++
+    ) {
       spawnBubble(true, true);
     }
     setInterval(function () {
@@ -161,7 +175,7 @@
       if (
         bubbles.filter(function (b) {
           return b.isBalloon;
-        }).length < 3
+        }).length < maxFloatingBalloons
       )
         spawnBubble(true);
     }, 5200);

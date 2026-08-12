@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { readAnalyticsDashboard } from "@/lib/analytics/store";
 import { readBookingDashboard } from "@/lib/bookings/store";
+import { isEmailConfigured } from "@/lib/email";
 import { isTurnstileConfigured } from "@/lib/turnstile";
 
 export default async function AdminDashboardPage() {
@@ -16,6 +17,7 @@ export default async function AdminDashboardPage() {
       entry.status !== "cancelled",
   ).length;
   const turnstileReady = isTurnstileConfigured();
+  const emailReady = isEmailConfigured();
 
   return (
     <div className="admin-page-stack">
@@ -30,6 +32,12 @@ export default async function AdminDashboardPage() {
       {!turnstileReady ? (
         <div className="admin-booking-warning" role="alert">
           Cloudflare Turnstile zatím nemá produkční klíče. Veřejné formuláře zůstanou bezpečně vypnuté do jejich doplnění.
+        </div>
+      ) : null}
+
+      {!emailReady ? (
+        <div className="admin-booking-warning" role="alert">
+          E-mailová upozornění zatím nejsou v tomto prostředí aktivní. Rezervace se uloží, ale Robin ani klient nedostanou e-mail.
         </div>
       ) : null}
 
@@ -50,9 +58,11 @@ export default async function AdminDashboardPage() {
           <small>Otevřít statistiky →</small>
         </Link>
         <Link href="/admin/nastaveni" className="admin-overview-card">
-          <span>Ochrana formulářů</span>
-          <strong className="admin-overview-status">{turnstileReady ? "Aktivní" : "Doplnit"}</strong>
-          <small>Otevřít nastavení →</small>
+          <span>Provoz rezervací</span>
+          <strong className="admin-overview-status">
+            {bookings.configured && turnstileReady && emailReady ? "Připraveno" : "Doplnit"}
+          </strong>
+          <small>Databáze, e-maily a ochrana →</small>
         </Link>
       </section>
 

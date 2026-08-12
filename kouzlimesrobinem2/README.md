@@ -26,7 +26,11 @@ python3 scripts/build-kouzlimesrobinem2.py
 - **Project:** `kouzlimesrobinem2`
 - **Root:** `kouzlimesrobinem2`
 - **URL:** https://kouzlimesrobinem2.vercel.app
-- **Env:** `RESEND_API_KEY`, volitelně `EMAIL_FROM` (ověřená doména)
+- **Databáze:** Vercel Neon `robin-calendar`
+- **Obsah a analytika:** Vercel Blob `robin-cms`
+- **Env:** přehled bezpečně pojmenovaných proměnných je v `.env.example`; skutečné hodnoty patří pouze do Vercelu
+- **Rezervace:** `/admin/rezervace`
+- **Statistiky:** `/admin/statistiky`
 
 ## Lokálně
 

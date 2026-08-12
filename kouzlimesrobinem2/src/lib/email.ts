@@ -23,6 +23,10 @@ export function resolveRobinEmail(fallback?: string): string | null {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(candidate) ? candidate : null;
 }
 
+export function isEmailConfigured(): boolean {
+  return Boolean(process.env.RESEND_API_KEY?.trim());
+}
+
 export async function sendEmail({
   to,
   subject,
@@ -69,5 +73,5 @@ export async function sendEmail({
 }
 
 export function adminUrl(): string {
-  return `${getSiteUrl()}/admin#rezervace-admin`;
+  return `${getSiteUrl()}/admin/rezervace`;
 }

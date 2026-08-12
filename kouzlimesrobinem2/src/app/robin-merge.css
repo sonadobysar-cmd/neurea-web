@@ -1069,8 +1069,9 @@ body {
 }
 
 .contact-consent input {
-  width: auto;
-  margin-top: 3px;
+  width: 20px;
+  height: 20px;
+  margin-top: 1px;
   flex: none;
   accent-color: #f68544;
 }
@@ -1093,6 +1094,9 @@ body {
   color: var(--ink-soft);
   text-decoration: none;
   font: 500 13px var(--sans);
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
 }
 
 .foot-links a:hover {
@@ -1103,6 +1107,40 @@ body {
   display: flex;
   justify-content: center;
   min-height: 65px;
+}
+
+.luxury-root .skip-link {
+  position: fixed;
+  top: 10px;
+  left: 12px;
+  z-index: 10000;
+  padding: 11px 16px;
+  border-radius: 10px;
+  background: var(--ink);
+  color: var(--ivory);
+  font: 700 14px var(--sans);
+  transform: translateY(-160%);
+  transition: transform 0.2s ease;
+}
+
+.luxury-root .skip-link:focus {
+  transform: translateY(0);
+}
+
+.luxury-root :where(a, button, input, textarea, [role="button"]):focus-visible {
+  outline: 3px solid var(--saffron);
+  outline-offset: 4px;
+}
+
+.luxury-root .pcard:focus-visible .pc-face {
+  outline: 3px solid var(--saffron);
+  outline-offset: 4px;
+}
+
+.luxury-root .nav-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
 }
 
 /* Mobilní menu */
@@ -1170,17 +1208,17 @@ nav.is-open .nav-toggle span:nth-child(3) {
 
 .luxury-root .contact .big-tel,
 .luxury-root .contact .mail {
-  cursor: default;
+  cursor: pointer;
   text-decoration: none;
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 .luxury-root .contact .big-tel:hover::after {
-  transform: none;
+  transform: scaleX(1);
 }
 
 .luxury-root .contact .mail:hover {
-  color: var(--ink-soft);
+  color: var(--saffron);
 }
 
 .luxury-root .btn-amber {

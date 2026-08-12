@@ -1,4 +1,6 @@
-export const luxuryBodyTemplate = `<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+export const luxuryBodyTemplate = `<a class="skip-link" href="#main-content">Přeskočit na hlavní obsah</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <symbol id="star" viewBox="0 0 24 24"><path d="M12 0c1.2 6.8 4.9 10.6 12 12-7.1 1.4-10.8 5.2-12 12-1.2-6.8-4.9-10.6-12-12C7.1 10.6 10.8 6.8 12 0z"/></symbol>
     <symbol id="s-h" viewBox="0 0 24 24"><path d="M12 21C6 15.9 2.4 12.4 2.4 8.6 2.4 5.6 4.8 3.4 7.6 3.4c1.8 0 3.4.9 4.4 2.3 1-1.4 2.6-2.3 4.4-2.3 2.8 0 5.2 2.2 5.2 5.2 0 3.8-3.6 7.3-9.6 12.4z"/></symbol>
@@ -28,6 +30,7 @@ export const luxuryBodyTemplate = `<svg width="0" height="0" style="position:abs
   </div>
 </nav>
 
+<main id="main-content">
 <header class="hero" id="top">
   <div class="wrap hero-grid">
     <div class="hero-copy">
@@ -175,8 +178,8 @@ export const luxuryBodyTemplate = `<svg width="0" height="0" style="position:abs
 <section class="contact" id="kontakt">
   <div class="wrap reveal">
     <h2>{{cms.contact.titleBefore}}<em>{{cms.contact.titleEm}}</em></h2>
-    <span class="big-tel">{{cms.contact.phoneDisplay}}</span>
-    <span class="mail">{{cms.contact.email}}</span>
+    <a class="big-tel" href="tel:{{cms.contact.phoneHref}}" aria-label="Zavolat Robinovi na {{cms.contact.phoneDisplay}}">{{cms.contact.phoneDisplay}}</a>
+    <a class="mail" href="mailto:{{cms.contact.email}}">{{cms.contact.email}}</a>
     <form class="contact-form" id="contactForm" novalidate>
       <input type="text" name="website" class="contact-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
       <input name="name" type="text" required placeholder="Jméno *" aria-label="Jméno" autocomplete="name" maxlength="120">
@@ -190,7 +193,7 @@ export const luxuryBodyTemplate = `<svg width="0" height="0" style="position:abs
       <div class="contact-turnstile" id="contactTurnstile" aria-label="Ověření proti robotům"></div>
       <button class="btn btn-ink" type="submit">Odeslat zprávu<svg class="st"><use href="#star"/></svg></button>
     </form>
-    <div class="contact-thanks" id="contactThanks" hidden>
+    <div class="contact-thanks" id="contactThanks" role="status" aria-live="polite" hidden>
       <p>{{cms.contact.thanks}}</p>
     </div>
   </div>
@@ -243,6 +246,7 @@ export const luxuryBodyTemplate = `<svg width="0" height="0" style="position:abs
   </div>
 </div>
 
+</main>
 <footer>
   <div class="wrap foot">
     <span>{{cms.footer.copy}}</span>

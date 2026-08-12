@@ -591,6 +591,8 @@
     var err = document.createElement("p");
     err.id = "contactError";
     err.className = "contact-error";
+    err.setAttribute("role", "alert");
+    err.setAttribute("aria-live", "assertive");
     err.textContent = msg;
     if (contactForm) contactForm.insertAdjacentElement("afterend", err);
   }

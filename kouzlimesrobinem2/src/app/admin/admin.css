@@ -243,6 +243,9 @@
   font-weight: 700;
   font-size: 14px;
   text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
 }
 
 .admin-help code {
@@ -296,6 +299,12 @@
   padding: 8px 12px;
   font: 700 13px inherit;
   cursor: pointer;
+  min-height: 44px;
+}
+
+.admin-root :where(a, button, input, textarea):focus-visible {
+  outline: 3px solid #f7c26b;
+  outline-offset: 3px;
 }
 
 .admin-range button.active {

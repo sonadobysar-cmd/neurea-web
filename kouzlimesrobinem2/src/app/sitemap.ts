@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
+import { getSiteUrl } from "@/lib/siteUrl";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://kouzlimesrobinem2.vercel.app";
+  const baseUrl = getSiteUrl();
   return [
     { url: `${baseUrl}/`, changeFrequency: "weekly", priority: 1 },
     { url: `${baseUrl}/ochrana-udaju`, changeFrequency: "yearly", priority: 0.2 },

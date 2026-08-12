@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Observability } from "@/components/Observability";
 import { SiteVisitTracker } from "@/components/SiteVisitTracker";
+import { getSiteUrl } from "@/lib/siteUrl";
 import "./globals.css";
 import "./luxury.css";
 import "./robin-merge.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://kouzlimesrobinem2.vercel.app"),
+  metadataBase: new URL(getSiteUrl()),
   title: "Kouzelník pro děti | Robin Panuš, Mladá Boleslav",
   description:
     "Kouzelník Robin Panuš: interaktivní show pro dětské oslavy, školky, školy, svatby i firemní akce. Kouzla, mentalismus a balónky po celé ČR.",
@@ -51,6 +52,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="cs">
       <body>
         <script
+          id="robin-turnstile-config"
           dangerouslySetInnerHTML={{
             __html: `window.__ROBIN_TURNSTILE_SITE_KEY=${JSON.stringify(turnstileSiteKey)};`,
           }}

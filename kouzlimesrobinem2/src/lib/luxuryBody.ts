@@ -129,17 +129,66 @@ export const luxuryBodyTemplate = `<a class="skip-link" href="#main-content">Př
       {{cms.pricing.tickets}}
     </div>
 
-    <div class="price-booking booking-sec{{cms.contact.bookingSecClass}}" id="rezervace">
+    <div class="price-booking booking-sec" id="rezervace">
       <div class="booking-head reveal">
         <h2>Rezervace <em>termínu.</em></h2>
-        <p class="lead">Vyberte si volný termín. Po rezervaci přijde potvrzení e-mailem a termín se propsíše přímo do Robinova Google Kalendáře.</p>
+        <p class="lead">Pošlete Robinovi žádost o termín. Vybraný čas se dočasně podrží a Robin vám ho po kontrole potvrdí e-mailem.</p>
       </div>
-      <div class="booking-embed reveal d1" id="bookingEmbed">
-        {{cms.contact.bookingEmbed}}
-      </div>
-      <div class="booking-fallback reveal d1">
-        <p>Online kalendář se právě napojuje. Zatím napište přes <a href="#kontakt">kontaktní formulář</a> — ozveme se s termíny.</p>
-        <a class="btn btn-ink" href="#kontakt">Napsat Robinovi<svg class="st"><use href="#star"/></svg></a>
+      <form class="booking-form reveal d1" id="bookingForm" novalidate>
+        <input type="text" name="website" class="contact-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="booking-step-head">
+          <span>1</span>
+          <div><strong>Kdy a kam?</strong><small>Termín zatím není závazně potvrzený.</small></div>
+        </div>
+        <div class="booking-grid">
+          <label><span>Datum *</span><input name="date" type="date" required></label>
+          <label><span>Začátek *</span><input name="time" type="time" min="07:00" max="23:00" step="900" required></label>
+          <label><span>Délka rezervace *</span><select name="duration" required>
+            <option value="60">1 hodina</option>
+            <option value="90">1,5 hodiny</option>
+            <option value="120" selected>2 hodiny</option>
+            <option value="180">3 hodiny</option>
+            <option value="240">4 hodiny</option>
+            <option value="360">6 hodin</option>
+          </select></label>
+          <label><span>Typ akce *</span><select name="eventType" required>
+            <option value="">Vyberte…</option>
+            <option>Narozeninová oslava</option>
+            <option>Škola nebo školka</option>
+            <option>Veřejná akce</option>
+            <option>Firemní akce</option>
+            <option>Svatba</option>
+            <option>Jiná akce</option>
+          </select></label>
+          <label class="booking-wide"><span>Místo konání *</span><input name="location" type="text" maxlength="180" autocomplete="street-address" placeholder="Město nebo adresa" required></label>
+        </div>
+        <div class="booking-availability" id="bookingAvailability" role="status" aria-live="polite"></div>
+
+        <div class="booking-step-head">
+          <span>2</span>
+          <div><strong>Kontakt na vás</strong><small>Aby Robin mohl termín potvrdit.</small></div>
+        </div>
+        <div class="booking-grid">
+          <label><span>Jméno *</span><input name="name" type="text" maxlength="120" autocomplete="name" required></label>
+          <label><span>E-mail *</span><input name="email" type="email" maxlength="254" autocomplete="email" required></label>
+          <label><span>Telefon *</span><input name="phone" type="tel" maxlength="30" autocomplete="tel" required></label>
+          <label><span>Počet hostů</span><input name="guestCount" type="number" min="1" max="100000" inputmode="numeric"></label>
+          <label class="booking-wide"><span>Poznámka</span><textarea name="message" rows="3" maxlength="3000" placeholder="Co by měl Robin o akci vědět?"></textarea></label>
+        </div>
+        <label class="contact-consent booking-consent">
+          <input type="checkbox" name="consent" value="1" required>
+          <span>Souhlasím se <a href="/ochrana-udaju" target="_blank" rel="noopener noreferrer">zpracováním osobních údajů</a> za účelem vyřízení rezervace. *</span>
+        </label>
+        <div class="contact-turnstile" id="bookingTurnstile" aria-label="Ověření proti robotům"></div>
+        <div class="booking-submit-row">
+          <button class="btn btn-ink" type="submit">Odeslat žádost o termín<svg class="st"><use href="#star"/></svg></button>
+          <p>Robin žádost nejdřív zkontroluje. Potvrzení vám přijde e-mailem.</p>
+        </div>
+      </form>
+      <div class="booking-success" id="bookingSuccess" role="status" aria-live="polite" tabindex="-1" hidden>
+        <span>✓</span>
+        <h3>Žádost je u Robina</h3>
+        <p>Termín je teď dočasně podržený. Robin ho zkontroluje a pošle vám schválení nebo odpověď e-mailem.</p>
       </div>
     </div>
   </div>
@@ -182,10 +231,10 @@ export const luxuryBodyTemplate = `<a class="skip-link" href="#main-content">Př
     <a class="mail" href="mailto:{{cms.contact.email}}">{{cms.contact.email}}</a>
     <form class="contact-form" id="contactForm" novalidate>
       <input type="text" name="website" class="contact-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <input name="name" type="text" required placeholder="Jméno *" aria-label="Jméno" autocomplete="name" maxlength="120">
-      <input name="email" type="email" required placeholder="E-mail *" aria-label="E-mail" autocomplete="email" maxlength="254">
-      <input name="phone" type="tel" required placeholder="Telefon *" aria-label="Telefon" autocomplete="tel" maxlength="30">
-      <textarea name="message" rows="4" placeholder="Poznámka (volitelné)" aria-label="Poznámka" maxlength="5000"></textarea>
+      <label class="contact-field"><span>Jméno *</span><input name="name" type="text" required autocomplete="name" maxlength="120"></label>
+      <label class="contact-field"><span>E-mail *</span><input name="email" type="email" required autocomplete="email" maxlength="254"></label>
+      <label class="contact-field"><span>Telefon *</span><input name="phone" type="tel" required autocomplete="tel" maxlength="30"></label>
+      <label class="contact-field"><span>Poznámka <small>(volitelné)</small></span><textarea name="message" rows="4" maxlength="5000"></textarea></label>
       <label class="contact-consent">
         <input type="checkbox" name="consent" value="1" required>
         <span>Souhlasím se <a href="/ochrana-udaju" target="_blank" rel="noopener noreferrer">zpracováním osobních údajů</a> za účelem vyřízení poptávky. *</span>
@@ -193,7 +242,7 @@ export const luxuryBodyTemplate = `<a class="skip-link" href="#main-content">Př
       <div class="contact-turnstile" id="contactTurnstile" aria-label="Ověření proti robotům"></div>
       <button class="btn btn-ink" type="submit">Odeslat zprávu<svg class="st"><use href="#star"/></svg></button>
     </form>
-    <div class="contact-thanks" id="contactThanks" role="status" aria-live="polite" hidden>
+    <div class="contact-thanks" id="contactThanks" role="status" aria-live="polite" tabindex="-1" hidden>
       <p>{{cms.contact.thanks}}</p>
     </div>
   </div>

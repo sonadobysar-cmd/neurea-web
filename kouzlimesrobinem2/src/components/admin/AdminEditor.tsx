@@ -4,7 +4,9 @@ import { FormEvent, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { SiteContent, LegalPageContent } from "@/lib/cms/types";
 import type { AnalyticsDashboard } from "@/lib/analytics/types";
+import type { BookingDashboard } from "@/lib/bookings/types";
 import { AdminAnalytics } from "./AdminAnalytics";
+import { AdminBookings } from "./AdminBookings";
 import { AdminPasswordForm } from "./AdminPasswordForm";
 
 function Field({
@@ -145,9 +147,13 @@ function LegalPageEditor({
 export function AdminEditor({
   initial,
   analytics,
+  bookings,
+  turnstileConfigured,
 }: {
   initial: SiteContent;
   analytics: AnalyticsDashboard;
+  bookings: BookingDashboard;
+  turnstileConfigured: boolean;
 }) {
   const router = useRouter();
   const [content, setContent] = useState<SiteContent>(initial);
@@ -211,6 +217,14 @@ export function AdminEditor({
       </header>
 
       {status ? <p className="admin-status">{status}</p> : null}
+
+      {!turnstileConfigured ? (
+        <div className="admin-booking-warning" role="alert">
+          Cloudflare Turnstile nemá produkční klíče. Kontaktní i rezervační formulář zůstávají bezpečně vypnuté, dokud se klíče nedoplní.
+        </div>
+      ) : null}
+
+      <AdminBookings initial={bookings} />
 
       <AdminPasswordForm />
 
@@ -512,15 +526,8 @@ export function AdminEditor({
           <Field label="E-mail" value={content.contact.email} onChange={(v) => patch("contact", { ...content.contact, email: v })} />
         </div>
         <Field label="Děkovací text" value={content.contact.thanks} onChange={(v) => patch("contact", { ...content.contact, thanks: v })} multiline />
-        <Field
-          label="Rezervace — odkaz (Google Appointment Schedule)"
-          value={content.contact.bookingUrl || ""}
-          onChange={(v) => patch("contact", { ...content.contact, bookingUrl: v })}
-        />
         <p className="admin-help">
-          Doporučeno přes Robinův Google Kalendář (EU): calendar.google.com → Vytvořit → Rozvrh schůzek / Appointment schedule → nastavit dostupnost →
-          zkopírovat odkaz na rezervační stránku (nebo Embed → Inline) a vložit sem.
-          Funguje i Calendly. Cal.com v EU často nejde. Dokud je pole prázdné, na webu je záložní výzva na kontakt.
+          Rezervace, jejich schválení a blokace vlastních termínů jsou nahoře v sekci „Rezervace a kalendář“.
         </p>
       </section>
 

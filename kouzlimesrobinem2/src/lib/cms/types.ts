@@ -118,7 +118,6 @@ export type SiteContent = {
     phoneHref: string;
     email: string;
     thanks: string;
-    bookingUrl: string;
   };
   footer: { copy: string };
   legal: LegalPagesContent;
@@ -138,6 +137,14 @@ export function mergeContent(partial: unknown): SiteContent {
   );
   if (measurement && !measurement.body.includes("30minutové návštěvní relace")) {
     measurement.body = `${measurement.body}\n\n${ANALYTICS_PRIVACY_NOTICE}`;
+  }
+  if (measurement?.body.includes("Google Calendar (Appointment Schedules)")) {
+    const replacement = LEGAL_DEFAULTS.privacy.sections.find((section) =>
+      section.heading.toLowerCase().includes("cookies"),
+    );
+    if (replacement) measurement.body = replacement.body;
+    merged.legal.privacy.lead = LEGAL_DEFAULTS.privacy.lead;
+    merged.legal.privacy.updated = LEGAL_DEFAULTS.privacy.updated;
   }
   return merged;
 }

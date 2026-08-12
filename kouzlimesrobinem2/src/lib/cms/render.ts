@@ -29,30 +29,6 @@ function safeMailto(s: string): string {
   return esc(v);
 }
 
-/** Booking widgets: Cal.com, Calendly, Google Appointment Schedules, TidyCal */
-function safeBookingUrl(s: string): string {
-  const v = s.trim();
-  if (!v) return "";
-  try {
-    const u = new URL(v);
-    if (u.protocol !== "https:") return "";
-    const host = u.hostname.toLowerCase();
-    const allowed =
-      host === "cal.com" ||
-      host.endsWith(".cal.com") ||
-      host === "calendly.com" ||
-      host.endsWith(".calendly.com") ||
-      host === "calendar.google.com" ||
-      host === "calendar.app.google" ||
-      host.endsWith(".calendar.app.google") ||
-      host === "tidycal.com" ||
-      host.endsWith(".tidycal.com");
-    return allowed ? esc(u.toString()) : "";
-  } catch {
-    return "";
-  }
-}
-
 const SUIT_HREF: Record<string, string> = {
   h: "#s-h",
   d: "#s-d",
@@ -203,15 +179,8 @@ export function renderLuxuryBody(content: SiteContent, template: string): string
     "{{cms.contact.phoneHref}}": safeTel(c.contact.phoneHref),
     "{{cms.contact.email}}": safeMailto(c.contact.email),
     "{{cms.contact.thanks}}": esc(c.contact.thanks),
-    "{{cms.contact.bookingUrl}}": safeBookingUrl(c.contact.bookingUrl ?? ""),
     "{{cms.footer.copy}}": esc(c.footer.copy),
   };
-
-  const bookingUrl = safeBookingUrl(c.contact.bookingUrl ?? "");
-  replacements["{{cms.contact.bookingEmbed}}"] = bookingUrl
-    ? `<iframe class="booking-frame" src="${bookingUrl}" title="Rezervace termínu" loading="lazy" allow="fullscreen"></iframe>`
-    : "";
-  replacements["{{cms.contact.bookingSecClass}}"] = bookingUrl ? "" : " is-empty";
 
   for (const [key, value] of Object.entries(replacements)) {
     html = html.split(key).join(value);

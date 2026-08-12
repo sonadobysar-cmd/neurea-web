@@ -11,7 +11,7 @@ const contentSecurityPolicy = [
   "img-src 'self' data: blob: https:",
   "font-src 'self' data:",
   "connect-src 'self' https://challenges.cloudflare.com https://vitals.vercel-insights.com",
-  "frame-src https://challenges.cloudflare.com https://calendar.google.com https://calendar.app.google https://*.calendar.app.google https://cal.com https://*.cal.com https://calendly.com https://*.calendly.com https://tidycal.com https://*.tidycal.com",
+  "frame-src https://challenges.cloudflare.com",
   "worker-src 'self' blob:",
   "upgrade-insecure-requests",
 ].join("; ");

@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
 import { readSiteContent } from "@/lib/cms/store";
+import { escapeEmailHtml, resolveEmailFrom } from "@/lib/email";
+import { getClientIp, isSameOrigin } from "@/lib/request";
+import { turnstileError, verifyTurnstile } from "@/lib/turnstile";
 
 const RATE_LIMIT_MAX = 5;
 const RATE_LIMIT_WINDOW_MS = 60_000;
@@ -12,57 +15,6 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 type RateEntry = { count: number; resetAt: number };
 
 const rateLimitStore = new Map<string, RateEntry>();
-
-function escapeHtml(s: string): string {
-  return s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-}
-
-function resolveFrom(): string {
-  return (
-    process.env.EMAIL_FROM?.trim() ||
-    process.env.RESEND_FROM_EMAIL?.trim() ||
-    "Kouzlíme s Robinem <onboarding@resend.dev>"
-  );
-}
-
-function getClientIp(request: Request): string {
-  const vercelIp = request.headers.get("x-vercel-forwarded-for")?.split(",")[0]?.trim();
-  if (vercelIp) return vercelIp;
-  return (
-    request.headers.get("x-real-ip")?.trim() ||
-    request.headers.get("x-forwarded-for")?.split(",").pop()?.trim() ||
-    "unknown"
-  );
-}
-
-async function verifyTurnstile(token: string, ip: string): Promise<boolean> {
-  const secret = process.env.TURNSTILE_SECRET_KEY?.trim();
-  if (!secret) {
-    if (process.env.NODE_ENV === "production") return false;
-    return true;
-  }
-
-  if (!token) return false;
-
-  const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams({
-      secret,
-      response: token,
-      remoteip: ip,
-    }),
-  });
-
-  if (!res.ok) return false;
-
-  const data = (await res.json()) as { success?: boolean };
-  return data.success === true;
-}
 
 function isRateLimited(ip: string): boolean {
   const now = Date.now();
@@ -98,12 +50,19 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
+  if (!isSameOrigin(request)) {
+    return NextResponse.json({ ok: false, error: "Neplatný požadavek." }, { status: 403 });
+  }
   const ip = getClientIp(request);
   if (isRateLimited(ip)) {
     return NextResponse.json(
       { ok: false, error: "Příliš mnoho odeslání. Zkuste to prosím za chvíli." },
       { status: 429 },
     );
+  }
+  const contentLength = Number(request.headers.get("content-length") ?? 0);
+  if (Number.isFinite(contentLength) && contentLength > 32_000) {
+    return NextResponse.json({ ok: false, error: "Požadavek je příliš velký." }, { status: 413 });
   }
 
   let body: unknown;
@@ -139,25 +98,15 @@ export async function POST(request: Request) {
     );
   }
 
-  const turnstileSecret = process.env.TURNSTILE_SECRET_KEY?.trim();
-  if (process.env.NODE_ENV === "production" && !turnstileSecret) {
-    return NextResponse.json(
-      {
-        ok: false,
-        error: "Formulář je dočasně nedostupný. Zkuste to prosím později.",
-      },
-      { status: 503 },
-    );
-  }
-
-  if (turnstileSecret || process.env.NODE_ENV === "production") {
-    const valid = await verifyTurnstile(turnstileToken, ip);
-    if (!valid) {
-      return NextResponse.json(
-        { ok: false, error: "Ověření proti robotům se nepovedlo. Zkuste to prosím znovu." },
-        { status: 403 },
-      );
-    }
+  const turnstile = await verifyTurnstile({
+    token: turnstileToken,
+    ip,
+    expectedAction: "contact",
+    expectedHostname: new URL(request.url).hostname,
+  });
+  if (!turnstile.ok) {
+    const error = turnstileError(turnstile);
+    return NextResponse.json({ ok: false, error: error.message }, { status: error.status });
   }
 
   if (!name) {
@@ -205,11 +154,11 @@ export async function POST(request: Request) {
 
   const html = `
     <h2>Nová zpráva z webu Kouzlíme s Robinem</h2>
-    <p><strong>Jméno:</strong> ${escapeHtml(name)}</p>
-    <p><strong>E-mail:</strong> ${escapeHtml(email)}</p>
-    <p><strong>Telefon:</strong> ${escapeHtml(phone)}</p>
+    <p><strong>Jméno:</strong> ${escapeEmailHtml(name)}</p>
+    <p><strong>E-mail:</strong> ${escapeEmailHtml(email)}</p>
+    <p><strong>Telefon:</strong> ${escapeEmailHtml(phone)}</p>
     <p><strong>Poznámka:</strong></p>
-    <p>${escapeHtml(message || "(bez poznámky)").replace(/\n/g, "<br>")}</p>
+    <p>${escapeEmailHtml(message || "(bez poznámky)").replace(/\n/g, "<br>")}</p>
   `;
 
   const res = await fetch("https://api.resend.com/emails", {
@@ -219,7 +168,7 @@ export async function POST(request: Request) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: resolveFrom(),
+      from: resolveEmailFrom(),
       to: [TO_EMAIL],
       reply_to: email,
       subject: `[Kouzlíme s Robinem] Zpráva od ${sanitizeSubjectPart(name)}`,

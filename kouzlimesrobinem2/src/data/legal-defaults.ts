@@ -55,8 +55,8 @@ export const LEGAL_DEFAULTS: LegalPagesContent = {
   privacy: {
     title: "Ochrana osobních údajů",
     lead:
-      "Tyto informace popisují, jak zpracováváme osobní údaje, které nám dobrovolně poskytnete přes kontaktní formulář na webu Kouzlíme s Robinem.",
-    updated: "Aktualizováno: červenec 2026",
+      "Tyto informace popisují, jak zpracováváme osobní údaje, které nám dobrovolně poskytnete přes kontaktní nebo rezervační formulář na webu Kouzlíme s Robinem.",
+    updated: "Aktualizováno: srpen 2026",
     sections: [
       {
         heading: "1. Správce údajů",
@@ -64,15 +64,15 @@ export const LEGAL_DEFAULTS: LegalPagesContent = {
       },
       {
         heading: "2. Jaké údaje zpracováváme",
-        body: "Z kontaktního formuláře můžeme zpracovat:\n\n- jméno\n- e-mailovou adresu\n- telefonní číslo\n- obsah zprávy / poznámky\n- technické údaje nezbytné pro ochranu formuláře (např. IP při limitech a anti-spam)",
+        body: "Z kontaktního a rezervačního formuláře můžeme zpracovat:\n\n- jméno\n- e-mailovou adresu\n- telefonní číslo\n- požadovaný termín, typ a místo akce, případně počet hostů\n- obsah zprávy / poznámky\n- technické údaje nezbytné pro ochranu formuláře (např. IP při limitech a anti-spam)",
       },
       {
         heading: "3. Účel a právní důvod",
-        body: "Údaje zpracováváme za účelem vyřízení vaší poptávky a odpovědi na ni. Právním důvodem je váš souhlas (čl. 6 odst. 1 písm. a GDPR) a také oprávněný zájem na komunikaci s potenciálním klientem (čl. 6 odst. 1 písm. f GDPR), pokud je to vhodné.",
+        body: "Údaje zpracováváme za účelem vyřízení poptávky, posouzení a správy rezervace a navazující komunikace. Právním důvodem je provedení opatření před uzavřením smlouvy na vaši žádost (čl. 6 odst. 1 písm. b GDPR), případně váš souhlas a oprávněný zájem na bezpečné komunikaci a ochraně formuláře.",
       },
       {
         heading: "4. Komu údaje předáváme",
-        body: "Údaje používáme primárně my. Pro provoz webu a odesílání e-mailů můžeme využívat zpracovatele (hosting a e-mailová služba), kteří údaje zpracovávají pouze podle našich pokynů a pro uvedené účely.",
+        body: "Údaje používáme primárně my. Pro hosting využíváme Vercel, pro databázi rezervací Neon a pro transakční e-maily Resend. Tito zpracovatelé údaje zpracovávají pro provoz služby podle příslušných smluvních a bezpečnostních podmínek.",
       },
       {
         heading: "5. Doba uložení",
@@ -84,7 +84,7 @@ export const LEGAL_DEFAULTS: LegalPagesContent = {
       },
       {
         heading: "7. Cookies a měření",
-        body: `Web nepoužívá reklamní cookies. Pro návštěvnost můžeme využívat privátní měření hostingu (Vercel Analytics) bez reklamních profilů. ${ANALYTICS_PRIVACY_NOTICE}\n\nPro ochranu formuláře může být použito bezpečnostní ověření (např. Cloudflare Turnstile).\n\nPokud využijete online rezervaci termínu, údaje o rezervaci zpracovává také Google Calendar (Appointment Schedules) nebo jiný zvolený rezervační nástroj podle svých podmínek — typicky jméno, e-mail a zvolený termín.`,
+        body: `Web nepoužívá reklamní cookies. Pro návštěvnost můžeme využívat privátní měření hostingu (Vercel Analytics) bez reklamních profilů. ${ANALYTICS_PRIVACY_NOTICE}\n\nPro ochranu kontaktního a rezervačního formuláře používáme Cloudflare Turnstile. Cloudflare při ověření zpracovává nezbytné technické údaje za účelem ochrany proti automatizovanému zneužití.`,
       },
     ],
   },

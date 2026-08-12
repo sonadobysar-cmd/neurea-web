@@ -288,7 +288,7 @@ body {
   margin: 0;
 }
 
-/* Rezervace — Google Calendar / Cal.com embed (uvnitř ceníku) */
+/* Vlastní rezervační kalendář (uvnitř ceníku) */
 .luxury-root .price-booking {
   margin-top: clamp(48px, 7vw, 72px);
   padding-top: clamp(40px, 6vw, 56px);
@@ -323,54 +323,165 @@ body {
   color: #f4e9d3;
 }
 
-.luxury-root .booking-embed {
-  background: var(--card, #fcf8ef);
-  border: 1px solid var(--hair, rgba(32, 20, 6, 0.12));
-  border-radius: 24px;
-  overflow: hidden;
-  box-shadow: 0 24px 60px -36px rgba(32, 20, 6, 0.35);
-  min-height: min(720px, 75vh);
-}
-
-.luxury-root .booking-frame {
-  display: block;
-  width: 100%;
-  min-height: 720px;
-  height: 75vh;
-  border: 0;
-  background: #fff;
-}
-
-.luxury-root .booking-fallback {
-  display: none;
-  text-align: center;
-  max-width: 520px;
+.luxury-root .booking-form,
+.luxury-root .booking-success {
+  width: min(820px, 100%);
   margin: 0 auto;
-  padding: clamp(48px, 8vw, 72px) 24px;
-  min-height: min(420px, 55vh);
-  background: var(--card, #fcf8ef);
+  padding: clamp(22px, 4vw, 38px);
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 100% 0, rgba(247, 194, 107, 0.2), transparent 34%),
+    var(--card, #fcf8ef);
   border: 1px solid var(--hair, rgba(32, 20, 6, 0.12));
-  border-radius: 24px;
-  box-shadow: 0 24px 60px -36px rgba(32, 20, 6, 0.35);
+  border-radius: clamp(18px, 3vw, 28px);
+  box-shadow: 0 28px 70px -42px rgba(32, 20, 6, 0.5);
 }
 
-.luxury-root .booking-fallback p {
-  margin: 0 0 22px;
-  color: var(--ink-soft, rgba(32, 20, 6, 0.72));
-  line-height: 1.55;
+.luxury-root .booking-form {
+  display: grid;
+  gap: 20px;
+  text-align: left;
 }
 
-.luxury-root .booking-fallback a:not(.btn) {
-  color: var(--ember, #e85a00);
-  font-weight: 700;
+.luxury-root .booking-step-head {
+  display: flex;
+  gap: 12px;
+  align-items: center;
 }
 
-.luxury-root .booking-sec.is-empty .booking-embed {
-  display: none;
+.luxury-root .booking-step-head > span {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  flex: none;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--ivory);
+  font: 800 14px var(--sans);
 }
 
-.luxury-root .booking-sec.is-empty .booking-fallback {
-  display: block;
+.luxury-root .booking-step-head > div {
+  display: grid;
+  gap: 2px;
+}
+
+.luxury-root .booking-step-head strong {
+  font: 600 21px var(--serif);
+}
+
+.luxury-root .booking-step-head small {
+  color: var(--ink-soft);
+  font: 500 12px/1.4 var(--sans);
+}
+
+.luxury-root .booking-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.luxury-root .booking-grid label {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  color: var(--ink-soft);
+  font: 700 12px var(--sans);
+}
+
+.luxury-root .booking-grid input,
+.luxury-root .booking-grid select,
+.luxury-root .booking-grid textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 11px 13px;
+  color: var(--ink);
+  background: #fffdf8;
+  border: 1.5px solid rgba(32, 20, 6, 0.22);
+  border-radius: 11px;
+  font: 500 16px var(--sans);
+}
+
+.luxury-root .booking-grid textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.luxury-root .booking-grid input:focus,
+.luxury-root .booking-grid select:focus,
+.luxury-root .booking-grid textarea:focus {
+  outline: 3px solid rgba(246, 133, 68, 0.28);
+  border-color: var(--saffron);
+}
+
+.luxury-root .booking-wide {
+  grid-column: 1 / -1;
+}
+
+.luxury-root .booking-availability {
+  min-height: 0;
+  margin-top: -6px;
+  font: 600 13px/1.5 var(--sans);
+}
+
+.luxury-root .booking-availability:not(:empty) {
+  padding: 11px 13px;
+  border-radius: 10px;
+  background: rgba(247, 194, 107, 0.16);
+  border: 1px solid rgba(246, 133, 68, 0.24);
+}
+
+.luxury-root .booking-consent {
+  margin-top: -3px;
+}
+
+.luxury-root .booking-submit-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+}
+
+.luxury-root .booking-submit-row p {
+  max-width: 35ch;
+  margin: 0;
+  color: var(--ink-soft);
+  font: 500 12px/1.5 var(--sans);
+  text-align: right;
+}
+
+.luxury-root .booking-success {
+  text-align: center;
+}
+
+.luxury-root .booking-success > span {
+  display: grid;
+  width: 54px;
+  height: 54px;
+  margin: 0 auto 14px;
+  place-items: center;
+  border-radius: 50%;
+  background: #2b7a42;
+  color: white;
+  font: 800 24px var(--sans);
+}
+
+.luxury-root .booking-success h3 {
+  margin: 0 0 8px;
+  font: 600 clamp(27px, 4vw, 38px) var(--serif);
+}
+
+.luxury-root .booking-success p {
+  max-width: 54ch;
+  margin: 0 auto;
+  color: var(--ink-soft);
+  font: 500 15px/1.6 var(--sans);
+}
+
+.luxury-root .booking-form .contact-error {
+  max-width: none;
+  width: 100%;
+  margin: 0;
 }
 
 .balloon-modal {
@@ -1021,6 +1132,17 @@ body {
   text-align: left;
 }
 
+.contact-field {
+  display: grid;
+  gap: 6px;
+  color: var(--ink-soft);
+  font: 700 12px var(--sans);
+}
+
+.contact-field small {
+  font-weight: 500;
+}
+
 .contact-hp {
   position: absolute;
   width: 1px;
@@ -1107,6 +1229,12 @@ body {
   display: flex;
   justify-content: center;
   min-height: 65px;
+}
+
+.contact-thanks:focus,
+.booking-success:focus {
+  outline: 3px solid var(--saffron);
+  outline-offset: 5px;
 }
 
 .luxury-root .skip-link {
@@ -1360,6 +1488,22 @@ nav.is-open .nav-toggle span:nth-child(3) {
 }
 
 @media (max-width: 720px) {
+  .luxury-root .booking-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .luxury-root .booking-wide {
+    grid-column: auto;
+  }
+
+  .luxury-root .booking-submit-row {
+    display: grid;
+  }
+
+  .luxury-root .booking-submit-row p {
+    text-align: left;
+  }
+
   .lightbox-prev {
     left: 8px;
   }

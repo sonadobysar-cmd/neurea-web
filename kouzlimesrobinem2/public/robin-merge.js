@@ -494,11 +494,14 @@
     }
   }
 
-  // 11) Kontaktní formulář
+  // 11) Formuláře + samostatné Cloudflare tokeny pro každý účel
   var contactForm = document.getElementById("contactForm");
   var contactThanks = document.getElementById("contactThanks");
+  var bookingForm = document.getElementById("bookingForm");
+  var bookingSuccess = document.getElementById("bookingSuccess");
+  var bookingAvailability = document.getElementById("bookingAvailability");
   var turnstileSiteKey = window.__ROBIN_TURNSTILE_SITE_KEY || "";
-  var turnstileWidgetId = null;
+  var turnstileWidgets = { contact: null, booking: null };
 
   function loadTurnstileScript() {
     return new Promise(function (resolve) {
@@ -526,28 +529,35 @@
     });
   }
 
-  function renderTurnstileWidget() {
-    var mount = document.getElementById("contactTurnstile");
-    if (!mount || !turnstileSiteKey || !window.turnstile || turnstileWidgetId != null) {
+  function renderTurnstileWidget(name, mountId, action) {
+    var mount = document.getElementById(mountId);
+    if (!mount || !turnstileSiteKey || !window.turnstile || turnstileWidgets[name] != null) {
       return;
     }
-    turnstileWidgetId = window.turnstile.render(mount, {
+    turnstileWidgets[name] = window.turnstile.render(mount, {
       sitekey: turnstileSiteKey,
       theme: "light",
+      action: action,
     });
   }
 
-  function resetTurnstileWidget() {
-    if (window.turnstile && turnstileWidgetId != null) {
-      window.turnstile.reset(turnstileWidgetId);
+  function resetTurnstileWidget(name) {
+    if (window.turnstile && turnstileWidgets[name] != null) {
+      window.turnstile.reset(turnstileWidgets[name]);
     }
   }
 
-  function getTurnstileToken() {
+  function getTurnstileToken(name) {
     if (!turnstileSiteKey) return "";
-    if (!window.turnstile || turnstileWidgetId == null) return "";
-    return window.turnstile.getResponse(turnstileWidgetId) || "";
+    if (!window.turnstile || turnstileWidgets[name] == null) return "";
+    return window.turnstile.getResponse(turnstileWidgets[name]) || "";
   }
+
+  loadTurnstileScript().then(function (ok) {
+    if (!ok) return;
+    renderTurnstileWidget("contact", "contactTurnstile", "contact");
+    renderTurnstileWidget("booking", "bookingTurnstile", "booking");
+  });
 
   // Mobilní menu
   var navEl = document.querySelector("nav");
@@ -598,10 +608,6 @@
   }
 
   if (contactForm) {
-    loadTurnstileScript().then(function (ok) {
-      if (ok) renderTurnstileWidget();
-    });
-
     contactForm.addEventListener("submit", function (e) {
       e.preventDefault();
       var fd = new FormData(contactForm);
@@ -628,7 +634,7 @@
         return;
       }
 
-      var turnstileToken = getTurnstileToken();
+      var turnstileToken = getTurnstileToken("contact");
       if (turnstileSiteKey && !turnstileToken) {
         showContactError("Potvrďte prosím, že nejste robot.");
         return;
@@ -663,22 +669,196 @@
           var err = document.getElementById("contactError");
           if (err) err.remove();
           contactForm.reset();
-          resetTurnstileWidget();
+          resetTurnstileWidget("contact");
           if (btn) {
             btn.disabled = true;
             btn.textContent = "Odesláno";
           }
-          if (contactThanks) contactThanks.hidden = false;
+          if (contactThanks) {
+            contactThanks.hidden = false;
+            contactThanks.focus();
+          }
         })
         .catch(function (err) {
           showContactError(
             err.message ||
               "Zprávu se nepodařilo odeslat. Napište prosím na kouzlimesrobinem@email.cz.",
           );
-          resetTurnstileWidget();
+          resetTurnstileWidget("contact");
           if (btn) {
             btn.disabled = false;
             btn.innerHTML = btnHtml;
+          }
+        });
+      });
+  }
+
+  function showBookingError(msg) {
+    var existing = document.getElementById("bookingError");
+    if (existing) existing.remove();
+    var err = document.createElement("p");
+    err.id = "bookingError";
+    err.className = "contact-error";
+    err.setAttribute("role", "alert");
+    err.setAttribute("aria-live", "assertive");
+    err.textContent = msg;
+    var submitRow = bookingForm && bookingForm.querySelector(".booking-submit-row");
+    if (submitRow) submitRow.insertAdjacentElement("beforebegin", err);
+  }
+
+  function localDateValue(date) {
+    var year = date.getFullYear();
+    var month = String(date.getMonth() + 1).padStart(2, "0");
+    var day = String(date.getDate()).padStart(2, "0");
+    return year + "-" + month + "-" + day;
+  }
+
+  function updateAvailability() {
+    if (!bookingForm || !bookingAvailability) return;
+    var dateInput = bookingForm.querySelector('input[name="date"]');
+    var value = dateInput && dateInput.value;
+    if (!value) {
+      bookingAvailability.textContent = "";
+      return;
+    }
+    var from = new Date(value + "T00:00:00");
+    var to = new Date(from.getTime() + 24 * 60 * 60 * 1000);
+    bookingAvailability.textContent = "Kontroluji obsazené časy…";
+    fetch(
+      "/api/bookings/availability?from=" +
+        encodeURIComponent(from.toISOString()) +
+        "&to=" +
+        encodeURIComponent(to.toISOString()),
+    )
+      .then(function (response) {
+        return response.json().then(function (data) {
+          return { ok: response.ok, data: data };
+        });
+      })
+      .then(function (result) {
+        if (!result.ok || !result.data.configured) {
+          bookingAvailability.textContent =
+            "Online kalendář se právě dokončuje. Termín můžete zatím domluvit v kontaktním formuláři níže.";
+          return;
+        }
+        var busy = result.data.busy || [];
+        if (!busy.length) {
+          bookingAvailability.textContent = "Tento den zatím nemá Robin v kalendáři žádný obsazený čas.";
+          return;
+        }
+        var tf = new Intl.DateTimeFormat("cs-CZ", {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+        bookingAvailability.textContent =
+          "Obsazené časy: " +
+          busy
+            .map(function (item) {
+              return tf.format(new Date(item.startAt)) + "–" + tf.format(new Date(item.endAt));
+            })
+            .join(", ") +
+          ".";
+      })
+      .catch(function () {
+        bookingAvailability.textContent = "Obsazenost se teď nepodařilo načíst. Termín se ověří při odeslání.";
+      });
+  }
+
+  if (bookingForm) {
+    var bookingDate = bookingForm.querySelector('input[name="date"]');
+    if (bookingDate) {
+      bookingDate.min = localDateValue(new Date());
+      bookingDate.addEventListener("change", updateAvailability);
+    }
+
+    bookingForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var fd = new FormData(bookingForm);
+      if (String(fd.get("website") || "").trim()) return;
+
+      var date = String(fd.get("date") || "");
+      var time = String(fd.get("time") || "");
+      var duration = Number(fd.get("duration") || 0);
+      var start = new Date(date + "T" + time + ":00");
+      var end = new Date(start.getTime() + duration * 60 * 1000);
+      var name = String(fd.get("name") || "").trim().slice(0, 120);
+      var email = String(fd.get("email") || "").trim().slice(0, 254);
+      var phone = String(fd.get("phone") || "").trim().slice(0, 30);
+      var eventType = String(fd.get("eventType") || "").trim().slice(0, 80);
+      var location = String(fd.get("location") || "").trim().slice(0, 180);
+
+      if (!date || !time || !duration || isNaN(start.getTime())) {
+        showBookingError("Vyberte prosím datum, čas a délku rezervace.");
+        return;
+      }
+      if (!eventType || !location) {
+        showBookingError("Vyberte typ akce a zadejte místo konání.");
+        return;
+      }
+      if (!name || !email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showBookingError("Zadejte prosím jméno a platný e-mail.");
+        return;
+      }
+      if (!phone || phone.replace(/\D/g, "").length < 9) {
+        showBookingError("Zadejte prosím platné telefonní číslo.");
+        return;
+      }
+      if (!fd.get("consent")) {
+        showBookingError("Pro odeslání je potřeba souhlas se zpracováním údajů.");
+        return;
+      }
+
+      var turnstileToken = getTurnstileToken("booking");
+      if (turnstileSiteKey && !turnstileToken) {
+        showBookingError("Potvrďte prosím, že nejste robot.");
+        return;
+      }
+
+      var button = bookingForm.querySelector('button[type="submit"]');
+      var buttonHtml = button ? button.innerHTML : "";
+      if (button) {
+        button.disabled = true;
+        button.textContent = "Odesílám žádost…";
+      }
+
+      fetch("/api/bookings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          startAt: start.toISOString(),
+          endAt: end.toISOString(),
+          name: name,
+          email: email,
+          phone: phone,
+          eventType: eventType,
+          location: location,
+          guestCount: fd.get("guestCount"),
+          message: String(fd.get("message") || "").trim().slice(0, 3000),
+          consent: true,
+          turnstileToken: turnstileToken,
+        }),
+      })
+        .then(function (response) {
+          return response.json().then(function (data) {
+            return { ok: response.ok, data: data };
+          });
+        })
+        .then(function (result) {
+          if (!result.ok) throw new Error(result.data.error || "Žádost se nepodařilo odeslat.");
+          var error = document.getElementById("bookingError");
+          if (error) error.remove();
+          bookingForm.hidden = true;
+          if (bookingSuccess) {
+            bookingSuccess.hidden = false;
+            bookingSuccess.focus();
+          }
+        })
+        .catch(function (error) {
+          showBookingError(error.message || "Žádost se nepodařilo odeslat. Zkuste to prosím znovu.");
+          resetTurnstileWidget("booking");
+          if (button) {
+            button.disabled = false;
+            button.innerHTML = buttonHtml;
           }
         });
     });

@@ -2054,7 +2054,7 @@ p {
   border-top-color: var(--line-light);
 }
 
-/* ——— Path cards (4 systematické cesty) ——— */
+/* ——— Path cards (4 cesty na míru) ——— */
 .path-stack {
   display: grid;
   gap: 1.5rem;

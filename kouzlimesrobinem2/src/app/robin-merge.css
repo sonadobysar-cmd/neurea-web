@@ -443,6 +443,27 @@ body {
 }
 
 /* Levý panel — cena ve stylu hlavní části vstupenky */
+.luxury-root .price-tickets {
+  gap: clamp(24px, 3vw, 34px);
+}
+
+.luxury-root .price-tickets .tk-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(250px, 0.9fr);
+  align-items: center;
+  gap: clamp(30px, 4vw, 58px);
+}
+
+.luxury-root .price-tickets .tk-audience {
+  margin: 0;
+}
+
+.luxury-root .price-tickets .tk-audience h3 {
+  margin: 0;
+  font-size: clamp(28px, 3.1vw, 42px);
+  line-height: 1.08;
+}
+
 .luxury-root .tk-main .tk-price-block--main .from {
   font: 700 10.5px var(--sans);
   letter-spacing: 0.22em;
@@ -1407,7 +1428,15 @@ nav.is-open .nav-toggle span:nth-child(3) {
   }
 
   .luxury-root .ticket {
+    margin-top: 0;
+  }
+
+  .luxury-root .price-tickets {
     margin-top: clamp(28px, 5vh, 40px);
+  }
+
+  .luxury-root .price-tickets .tk-main {
+    grid-template-columns: 1fr;
   }
 
   .luxury-root .tk-main,

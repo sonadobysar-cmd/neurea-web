@@ -42,9 +42,9 @@
         "image": "/luxury/img-02.jpg",
         "imageAlt": "Robin při kouzelnickém triku se šátky",
         "back": [
-          "Oslavy · školky · 1. stupeň ZŠ",
-          "Děti asistují na jevišti",
-          "Humor pro celou rodinu"
+          "Interaktivní vystoupení — každý účastník se zapojí",
+          "Hromada humoru a překvapení",
+          "Vše zakončené tvarováním balónků"
         ]
       },
       {
@@ -55,9 +55,9 @@
         "image": "/luxury/img-03.jpg",
         "imageAlt": "Robin tvoří modrého balónkového pejska",
         "back": [
-          "Pejsci, meče i květiny",
-          "Tvorba přímo před očima",
-          "Výtvor pro každé dítě i dospěláka domů :-)"
+          "Stálé balónkové stanoviště",
+          "Interaktivní chůze areálem",
+          "Výběr z balónkového menu"
         ]
       },
       {
@@ -68,9 +68,9 @@
         "image": "/luxury/img-04.jpg",
         "imageAlt": "Robin předvádí mentalismus",
         "back": [
-          "Firemní večírky a svatby",
-          "Mikromagie u stolu",
-          "Čtení myšlenek naživo"
+          "Myslíte si, že máte své myšlenky pod kontrolou?",
+          "Iluze svobodné vůle",
+          "Odhalení neverbálních signálů"
         ]
       }
     ]
@@ -140,12 +140,12 @@
     "titleEm": "naživo.",
     "lead": "Fotky od rodičů a z akcí — ne ateliér, ale skutečná vystoupení, smích a balónky.",
     "images": [
-      { "src": "/luxury/moments/ph-01.svg", "alt": "Foto z vystoupení — placeholder" },
-      { "src": "/luxury/moments/ph-02.svg", "alt": "Z akce — placeholder", "wide": true },
-      { "src": "/luxury/moments/ph-03.svg", "alt": "Od rodičů — placeholder" },
-      { "src": "/luxury/moments/ph-04.svg", "alt": "Naživo — placeholder" },
-      { "src": "/luxury/moments/ph-05.svg", "alt": "Balónky — placeholder", "wide": true },
-      { "src": "/luxury/moments/ph-06.svg", "alt": "Smích — placeholder" }
+      { "src": "/luxury/moments/robin-oslava-1.webp", "alt": "Robin zahajuje kouzelnické vystoupení na dětské oslavě" },
+      { "src": "/luxury/moments/robin-oslava-2.webp", "alt": "Malá návštěvnice pomáhá Robinovi s kouzelnickým trikem" },
+      { "src": "/luxury/moments/robin-oslava-3.webp", "alt": "Robin předává oslavenkyni balónkový klobouk" },
+      { "src": "/luxury/moments/robin-oslava-4.webp", "alt": "Robin předává dítěti zeleného balónkového pejska" },
+      { "src": "/luxury/moments/robin-oslava-5.webp", "alt": "Radost z balónkového pejska na narozeninové oslavě" },
+      { "src": "/luxury/moments/robin-oslava-6.webp", "alt": "Robin s dětmi a balónkovými zvířátky po vystoupení" }
     ]
   },
   "quote": {
@@ -158,16 +158,50 @@
     "titleBefore": "Vaše ",
     "titleEm": "„vstupenka“.",
     "lead": "„Moje vystoupení není jen o kouzlech. Je o atmosféře, smíchu a vzpomínkách, které vám zůstanou ještě dlouho po potlesku.“",
-    "priceLabel": "Cena",
-    "priceAmount": "6 000",
-    "priceCurrency": "Kč",
-    "pricePer": "za vystoupení · 30–45 minut",
-    "priceNote": "V ceně je tvarování zvířátek z balonků pro 15 dětí, další děti navíc dle dohody.\nFinální cenu je možné upravit podle typu akce.",
-    "travelLabel": "Doprava",
-    "travelAmount": "12",
-    "travelUnit": "Kč/km",
-    "travelPer": "výjezd z Mladé Boleslavi",
-    "travelNote": "Účtuji si pouze tolik, kolik opravdu projedu."
+    "tickets": [
+      {
+        "audienceLabel": "Vstupenka platná pro",
+        "audience": "Narozeninové oslavy, školy a školky",
+        "priceLabel": "Cena",
+        "priceAmount": "6 000",
+        "priceCurrency": "Kč",
+        "pricePer": "vystoupení 30–45 minut",
+        "priceNote": "V ceně je tvarování zvířátek z balonků pro 15 dětí, další děti navíc dle dohody.\nFinální cenu je možné upravit podle typu akce.",
+        "travelLabel": "Doprava",
+        "travelAmount": "12",
+        "travelUnit": "Kč/km",
+        "travelPer": "výjezd z Mladé Boleslavi",
+        "travelNote": "Účtuji si pouze tolik, kolik opravdu projedu."
+      },
+      {
+        "audienceLabel": "Vstupenka platná pro",
+        "audience": "Veřejné akce",
+        "priceLabel": "Cena",
+        "priceAmount": "6–20 000",
+        "priceCurrency": "Kč",
+        "pricePer": "dle délky vystoupení a případné náročnosti požadavků",
+        "priceNote": "",
+        "travelLabel": "Doprava",
+        "travelAmount": "12",
+        "travelUnit": "Kč/km",
+        "travelPer": "výjezd z Mladé Boleslavi",
+        "travelNote": "Účtuji si pouze tolik, kolik opravdu projedu."
+      },
+      {
+        "audienceLabel": "Vstupenka platná pro",
+        "audience": "Exponované termíny",
+        "priceLabel": "Cena",
+        "priceAmount": "10–50 000",
+        "priceCurrency": "Kč",
+        "pricePer": "dle délky vystoupení a náročnosti poptávky",
+        "priceNote": "Vánoce, Nový rok, sváteční dny, sezónní špičky apod.",
+        "travelLabel": "Doprava",
+        "travelAmount": "12",
+        "travelUnit": "Kč/km",
+        "travelPer": "výjezd z Mladé Boleslavi",
+        "travelNote": "Účtuji si pouze tolik, kolik opravdu projedu."
+      }
+    ]
   },
   "about": {
     "eyebrow": "O Robinovi",

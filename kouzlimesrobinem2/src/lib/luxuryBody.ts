@@ -122,24 +122,8 @@ export const luxuryBodyTemplate = `<svg width="0" height="0" style="position:abs
       <h2>{{cms.pricing.titleBefore}}<em>{{cms.pricing.titleEm}}</em></h2>
       <p class="lead" style="margin-left:auto;margin-right:auto">{{cms.pricing.lead}}</p>
     </div>
-    <div class="ticket reveal d1">
-      <div class="tk-main">
-        <div class="tk-price-block tk-price-block--main">
-          <span class="from">{{cms.pricing.priceLabel}}</span>
-          <div class="amt">{{cms.pricing.priceAmount}} <small>{{cms.pricing.priceCurrency}}</small></div>
-          <span class="per">{{cms.pricing.pricePer}}</span>
-          <p class="tk-note">{{cms.pricing.priceNote}}</p>
-        </div>
-      </div>
-      <div class="tk-side">
-        <div class="tk-price-row">
-          <span class="from">{{cms.pricing.travelLabel}}</span>
-          <div class="amt amt-sm">{{cms.pricing.travelAmount}} <small>{{cms.pricing.travelUnit}}</small></div>
-          <span class="per">{{cms.pricing.travelPer}}</span>
-          <p class="tk-side-note">{{cms.pricing.travelNote}}</p>
-        </div>
-        <a class="btn btn-ink" href="#rezervace">Rezervovat termín<svg class="st"><use href="#star"/></svg></a>
-      </div>
+    <div class="price-tickets">
+      {{cms.pricing.tickets}}
     </div>
 
     <div class="price-booking booking-sec{{cms.contact.bookingSecClass}}" id="rezervace">

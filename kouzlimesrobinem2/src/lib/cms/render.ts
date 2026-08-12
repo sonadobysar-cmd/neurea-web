@@ -80,6 +80,37 @@ export function renderLuxuryBody(content: SiteContent, template: string): string
     })
     .join("\n      ");
 
+  const pricingTicketsHtml = c.pricing.tickets
+    .map((ticket, index) => {
+      const note = ticket.priceNote
+        ? `<p class="tk-note">${esc(ticket.priceNote).replace(/\n/g, "<br>")}</p>`
+        : "";
+      return `<div class="ticket reveal d${Math.min(index + 1, 3)}">
+        <div class="tk-main">
+          <div class="tk-audience">
+            <span class="tk-tag">${esc(ticket.audienceLabel)}</span>
+            <h3>${esc(ticket.audience)}</h3>
+          </div>
+          <div class="tk-price-block tk-price-block--main">
+            <span class="from">${esc(ticket.priceLabel)}</span>
+            <div class="amt">${esc(ticket.priceAmount)} <small>${esc(ticket.priceCurrency)}</small></div>
+            <span class="per">${esc(ticket.pricePer)}</span>
+            ${note}
+          </div>
+        </div>
+        <div class="tk-side">
+          <div class="tk-price-row">
+            <span class="from">${esc(ticket.travelLabel)}</span>
+            <div class="amt amt-sm">${esc(ticket.travelAmount)} <small>${esc(ticket.travelUnit)}</small></div>
+            <span class="per">${esc(ticket.travelPer)}</span>
+            <p class="tk-side-note">${esc(ticket.travelNote)}</p>
+          </div>
+          <a class="btn btn-ink" href="#rezervace">Rezervovat termín<svg class="st"><use href="#star"/></svg></a>
+        </div>
+      </div>`;
+    })
+    .join("\n      ");
+
   const cardHtml = (i: number) => {
     const item = card(i);
     if (!item) return "";
@@ -156,16 +187,7 @@ export function renderLuxuryBody(content: SiteContent, template: string): string
     "{{cms.pricing.titleBefore}}": esc(c.pricing.titleBefore),
     "{{cms.pricing.titleEm}}": esc(c.pricing.titleEm),
     "{{cms.pricing.lead}}": esc(c.pricing.lead),
-    "{{cms.pricing.priceLabel}}": esc(c.pricing.priceLabel),
-    "{{cms.pricing.priceAmount}}": esc(c.pricing.priceAmount),
-    "{{cms.pricing.priceCurrency}}": esc(c.pricing.priceCurrency),
-    "{{cms.pricing.pricePer}}": esc(c.pricing.pricePer),
-    "{{cms.pricing.priceNote}}": esc(c.pricing.priceNote),
-    "{{cms.pricing.travelLabel}}": esc(c.pricing.travelLabel),
-    "{{cms.pricing.travelAmount}}": esc(c.pricing.travelAmount),
-    "{{cms.pricing.travelUnit}}": esc(c.pricing.travelUnit),
-    "{{cms.pricing.travelPer}}": esc(c.pricing.travelPer),
-    "{{cms.pricing.travelNote}}": esc(c.pricing.travelNote),
+    "{{cms.pricing.tickets}}": pricingTicketsHtml,
     "{{cms.about.eyebrow}}": esc(c.about.eyebrow),
     "{{cms.about.titleBefore}}": esc(c.about.titleBefore),
     "{{cms.about.titleEm}}": esc(c.about.titleEm),

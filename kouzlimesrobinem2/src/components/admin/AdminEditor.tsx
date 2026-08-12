@@ -419,18 +419,73 @@ export function AdminEditor({
           <Field label="Zvýraznění" value={content.pricing.titleEm} onChange={(v) => patch("pricing", { ...content.pricing, titleEm: v })} />
         </div>
         <Field label="Textace u ceníku" value={content.pricing.lead} onChange={(v) => patch("pricing", { ...content.pricing, lead: v })} multiline />
-        <div className="admin-grid">
-          <Field label="Cena — popisek" value={content.pricing.priceLabel} onChange={(v) => patch("pricing", { ...content.pricing, priceLabel: v })} />
-          <Field label="Cena — částka" value={content.pricing.priceAmount} onChange={(v) => patch("pricing", { ...content.pricing, priceAmount: v })} />
-          <Field label="Měna" value={content.pricing.priceCurrency} onChange={(v) => patch("pricing", { ...content.pricing, priceCurrency: v })} />
-          <Field label="Pod cenou" value={content.pricing.pricePer} onChange={(v) => patch("pricing", { ...content.pricing, pricePer: v })} />
-          <Field label="Doprava — popisek" value={content.pricing.travelLabel} onChange={(v) => patch("pricing", { ...content.pricing, travelLabel: v })} />
-          <Field label="Doprava — částka" value={content.pricing.travelAmount} onChange={(v) => patch("pricing", { ...content.pricing, travelAmount: v })} />
-          <Field label="Jednotka dopravy" value={content.pricing.travelUnit} onChange={(v) => patch("pricing", { ...content.pricing, travelUnit: v })} />
-          <Field label="Popis dopravy" value={content.pricing.travelPer} onChange={(v) => patch("pricing", { ...content.pricing, travelPer: v })} />
-        </div>
-        <Field label="Poznámka k ceně" value={content.pricing.priceNote} onChange={(v) => patch("pricing", { ...content.pricing, priceNote: v })} multiline />
-        <Field label="Poznámka k dopravě" value={content.pricing.travelNote} onChange={(v) => patch("pricing", { ...content.pricing, travelNote: v })} multiline />
+        {content.pricing.tickets.map((ticket, i) => (
+          <div className="admin-card-block" key={i}>
+            <h3>Vstupenka {i + 1}</h3>
+            <div className="admin-grid">
+              <Field label="Platná pro — popisek" value={ticket.audienceLabel} onChange={(v) => {
+                const tickets = [...content.pricing.tickets];
+                tickets[i] = { ...ticket, audienceLabel: v };
+                patch("pricing", { ...content.pricing, tickets });
+              }} />
+              <Field label="Platná pro" value={ticket.audience} onChange={(v) => {
+                const tickets = [...content.pricing.tickets];
+                tickets[i] = { ...ticket, audience: v };
+                patch("pricing", { ...content.pricing, tickets });
+              }} />
+              <Field label="Cena — popisek" value={ticket.priceLabel} onChange={(v) => {
+                const tickets = [...content.pricing.tickets];
+                tickets[i] = { ...ticket, priceLabel: v };
+                patch("pricing", { ...content.pricing, tickets });
+              }} />
+              <Field label="Cena — částka" value={ticket.priceAmount} onChange={(v) => {
+                const tickets = [...content.pricing.tickets];
+                tickets[i] = { ...ticket, priceAmount: v };
+                patch("pricing", { ...content.pricing, tickets });
+              }} />
+              <Field label="Měna" value={ticket.priceCurrency} onChange={(v) => {
+                const tickets = [...content.pricing.tickets];
+                tickets[i] = { ...ticket, priceCurrency: v };
+                patch("pricing", { ...content.pricing, tickets });
+              }} />
+              <Field label="Pod cenou" value={ticket.pricePer} onChange={(v) => {
+                const tickets = [...content.pricing.tickets];
+                tickets[i] = { ...ticket, pricePer: v };
+                patch("pricing", { ...content.pricing, tickets });
+              }} />
+              <Field label="Doprava — popisek" value={ticket.travelLabel} onChange={(v) => {
+                const tickets = [...content.pricing.tickets];
+                tickets[i] = { ...ticket, travelLabel: v };
+                patch("pricing", { ...content.pricing, tickets });
+              }} />
+              <Field label="Doprava — částka" value={ticket.travelAmount} onChange={(v) => {
+                const tickets = [...content.pricing.tickets];
+                tickets[i] = { ...ticket, travelAmount: v };
+                patch("pricing", { ...content.pricing, tickets });
+              }} />
+              <Field label="Jednotka dopravy" value={ticket.travelUnit} onChange={(v) => {
+                const tickets = [...content.pricing.tickets];
+                tickets[i] = { ...ticket, travelUnit: v };
+                patch("pricing", { ...content.pricing, tickets });
+              }} />
+              <Field label="Popis dopravy" value={ticket.travelPer} onChange={(v) => {
+                const tickets = [...content.pricing.tickets];
+                tickets[i] = { ...ticket, travelPer: v };
+                patch("pricing", { ...content.pricing, tickets });
+              }} />
+            </div>
+            <Field label="Poznámka k ceně" value={ticket.priceNote} onChange={(v) => {
+              const tickets = [...content.pricing.tickets];
+              tickets[i] = { ...ticket, priceNote: v };
+              patch("pricing", { ...content.pricing, tickets });
+            }} multiline />
+            <Field label="Poznámka k dopravě" value={ticket.travelNote} onChange={(v) => {
+              const tickets = [...content.pricing.tickets];
+              tickets[i] = { ...ticket, travelNote: v };
+              patch("pricing", { ...content.pricing, tickets });
+            }} multiline />
+          </div>
+        ))}
       </section>
 
       <section className="admin-section">

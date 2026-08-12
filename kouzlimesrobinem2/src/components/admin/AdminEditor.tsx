@@ -3,11 +3,31 @@
 import { FormEvent, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { SiteContent, LegalPageContent } from "@/lib/cms/types";
-import type { AnalyticsDashboard } from "@/lib/analytics/types";
-import type { BookingDashboard } from "@/lib/bookings/types";
-import { AdminAnalytics } from "./AdminAnalytics";
-import { AdminBookings } from "./AdminBookings";
-import { AdminPasswordForm } from "./AdminPasswordForm";
+
+type AdminEditorView = "content" | "media" | "pricing" | "legal";
+
+const viewCopy: Record<AdminEditorView, { kicker: string; title: string; description: string }> = {
+  content: {
+    kicker: "Texty a kontakty",
+    title: "Obsah webu",
+    description: "Úvodní stránka, nabídka služeb, informace o Robinovi a kontaktní údaje.",
+  },
+  media: {
+    kicker: "Obrázky",
+    title: "Fotky a galerie",
+    description: "Hlavní galerie a autentické fotografie z vystoupení.",
+  },
+  pricing: {
+    kicker: "Nabídka",
+    title: "Ceník",
+    description: "Ceny jednotlivých typů akcí, doprava a doprovodný citát.",
+  },
+  legal: {
+    kicker: "Povinné informace",
+    title: "Právní texty",
+    description: "Obchodní podmínky a informace o ochraně osobních údajů.",
+  },
+};
 
 function Field({
   label,
@@ -146,14 +166,10 @@ function LegalPageEditor({
 
 export function AdminEditor({
   initial,
-  analytics,
-  bookings,
-  turnstileConfigured,
+  view,
 }: {
   initial: SiteContent;
-  analytics: AnalyticsDashboard;
-  bookings: BookingDashboard;
-  turnstileConfigured: boolean;
+  view: AdminEditorView;
 }) {
   const router = useRouter();
   const [content, setContent] = useState<SiteContent>(initial);
@@ -190,26 +206,17 @@ export function AdminEditor({
     }
   }
 
-  async function logout() {
-    await fetch("/api/cms/auth", { method: "DELETE" });
-    router.replace("/admin/login");
-    router.refresh();
-  }
+  const copy = viewCopy[view];
 
   return (
-    <div className="admin-shell">
-      <header className="admin-top">
+    <div className="admin-page-stack">
+      <header className="admin-page-header">
         <div>
-          <h1>Úpravy webu</h1>
-          <p>Texty, ceny, kontakt a fotky. Po uložení se web hned aktualizuje.</p>
+          <span className="admin-page-kicker">{copy.kicker}</span>
+          <h1>{copy.title}</h1>
+          <p>{copy.description}</p>
         </div>
-        <div className="admin-top-actions">
-          <a href="/" target="_blank" rel="noreferrer">
-            Otevřít web
-          </a>
-          <button type="button" className="admin-ghost" onClick={logout}>
-            Odhlásit
-          </button>
+        <div className="admin-page-actions">
           <button type="submit" form="admin-content-form" disabled={saving}>
             {saving ? "Ukládám…" : "Uložit změny"}
           </button>
@@ -218,19 +225,9 @@ export function AdminEditor({
 
       {status ? <p className="admin-status">{status}</p> : null}
 
-      {!turnstileConfigured ? (
-        <div className="admin-booking-warning" role="alert">
-          Cloudflare Turnstile nemá produkční klíče. Kontaktní i rezervační formulář zůstávají bezpečně vypnuté, dokud se klíče nedoplní.
-        </div>
-      ) : null}
-
-      <AdminBookings initial={bookings} />
-
-      <AdminPasswordForm />
-
-      <AdminAnalytics dashboard={analytics} />
-
       <form id="admin-content-form" className="admin-content-form" onSubmit={onSave}>
+      {view === "content" ? (
+      <>
       <section className="admin-section">
         <h2>Značka</h2>
         <div className="admin-grid">
@@ -354,6 +351,11 @@ export function AdminEditor({
         ))}
       </section>
 
+      </>
+      ) : null}
+
+      {view === "media" ? (
+      <>
       <section className="admin-section">
         <h2>Galerie</h2>
         <div className="admin-grid">
@@ -418,6 +420,11 @@ export function AdminEditor({
         ))}
       </section>
 
+      </>
+      ) : null}
+
+      {view === "pricing" ? (
+      <>
       <section className="admin-section">
         <h2>Citát</h2>
         <Field label="Eyebrow" value={content.quote.eyebrow} onChange={(v) => patch("quote", { ...content.quote, eyebrow: v })} />
@@ -426,7 +433,7 @@ export function AdminEditor({
       </section>
 
       <section className="admin-section">
-        <h2>Ceník</h2>
+        <h2>Vstupenky a ceny</h2>
         <div className="admin-grid">
           <Field label="Eyebrow" value={content.pricing.eyebrow} onChange={(v) => patch("pricing", { ...content.pricing, eyebrow: v })} />
           <Field label="Nadpis před" value={content.pricing.titleBefore} onChange={(v) => patch("pricing", { ...content.pricing, titleBefore: v })} />
@@ -502,6 +509,11 @@ export function AdminEditor({
         ))}
       </section>
 
+      </>
+      ) : null}
+
+      {view === "content" ? (
+      <>
       <section className="admin-section">
         <h2>O Robinovi</h2>
         <div className="admin-grid">
@@ -527,7 +539,7 @@ export function AdminEditor({
         </div>
         <Field label="Děkovací text" value={content.contact.thanks} onChange={(v) => patch("contact", { ...content.contact, thanks: v })} multiline />
         <p className="admin-help">
-          Rezervace, jejich schválení a blokace vlastních termínů jsou nahoře v sekci „Rezervace a kalendář“.
+          Rezervace, jejich schválení a blokace vlastních termínů najdete na samostatné stránce „Rezervace“.
         </p>
       </section>
 
@@ -536,6 +548,11 @@ export function AdminEditor({
         <Field label="Copyright" value={content.footer.copy} onChange={(v) => patch("footer", { ...content.footer, copy: v })} />
       </section>
 
+      </>
+      ) : null}
+
+      {view === "legal" ? (
+      <>
       <section className="admin-section">
         <h2>Obchodní podmínky</h2>
         <LegalPageEditor
@@ -555,6 +572,9 @@ export function AdminEditor({
           onChange={(privacy) => patch("legal", { ...content.legal, privacy })}
         />
       </section>
+
+      </>
+      ) : null}
 
       <div className="admin-bottom">
         <button type="submit" disabled={saving}>

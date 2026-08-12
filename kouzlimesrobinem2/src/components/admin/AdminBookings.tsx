@@ -44,7 +44,13 @@ function toIso(value: string): string | null {
   return Number.isNaN(date.getTime()) ? null : date.toISOString();
 }
 
-export function AdminBookings({ initial }: { initial: BookingDashboard }) {
+export function AdminBookings({
+  initial,
+  showTitle = true,
+}: {
+  initial: BookingDashboard;
+  showTitle?: boolean;
+}) {
   const [dashboard, setDashboard] = useState(initial);
   const [busyId, setBusyId] = useState("");
   const [notice, setNotice] = useState("");
@@ -196,7 +202,7 @@ export function AdminBookings({ initial }: { initial: BookingDashboard }) {
       <div className="admin-booking-head">
         <div>
           <div className="admin-booking-title">
-            <h2>Rezervace a kalendář</h2>
+            {showTitle ? <h2>Rezervace a kalendář</h2> : null}
             {dashboard.pendingCount > 0 ? (
               <span className="admin-booking-badge" aria-label={`${dashboard.pendingCount} rezervací čeká`}>
                 {dashboard.pendingCount} nové

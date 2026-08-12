@@ -28,7 +28,13 @@ function Breakdown({ title, items }: { title: string; items: AnalyticsBreakdownI
   );
 }
 
-export function AdminAnalytics({ dashboard }: { dashboard: AnalyticsDashboard }) {
+export function AdminAnalytics({
+  dashboard,
+  showTitle = true,
+}: {
+  dashboard: AnalyticsDashboard;
+  showTitle?: boolean;
+}) {
   const router = useRouter();
   const [range, setRange] = useState<7 | 30>(30);
   const period = range === 7 ? dashboard.week : dashboard.month;
@@ -42,13 +48,19 @@ export function AdminAnalytics({ dashboard }: { dashboard: AnalyticsDashboard })
   return (
     <section className="admin-section admin-analytics">
       <div className="admin-stat-head">
-        <div>
-          <h2>Statistiky webu</h2>
+        {showTitle ? (
+          <div>
+            <h2>Statistiky webu</h2>
+            <p className="admin-help">
+              Soukromý anonymní přehled. Počítá návštěvy po 30minutových relacích, neukládá IP adresy,
+              jména, kontakty ani cookies.
+            </p>
+          </div>
+        ) : (
           <p className="admin-help">
-            Soukromý anonymní přehled. Počítá návštěvy po 30minutových relacích, neukládá IP adresy,
-            jména, kontakty ani cookies.
+            Anonymní měření po 30minutových relacích — bez IP adres, osobních údajů a cookies.
           </p>
-        </div>
+        )}
         <div className="admin-stat-actions">
           <div className="admin-range" aria-label="Období statistik">
             <button type="button" className={range === 7 ? "active" : ""} onClick={() => setRange(7)}>

@@ -2054,7 +2054,7 @@ p {
   border-top-color: var(--line-light);
 }
 
-/* ——— Path cards (3 systematické cesty) ——— */
+/* ——— Path cards (4 systematické cesty) ——— */
 .path-stack {
   display: grid;
   gap: 1.5rem;
@@ -2075,7 +2075,7 @@ p {
     min-height: 22rem;
   }
 
-  .path-card:nth-child(even) .path-card-media {
+  .path-card.is-reverse .path-card-media {
     order: 2;
   }
 }
@@ -2084,12 +2084,26 @@ p {
   position: relative;
   min-height: 14rem;
   aspect-ratio: 4 / 3;
+  margin: 0.8rem 0.8rem 0;
+  overflow: hidden;
+  border-radius: 5.5rem 0.35rem 0.35rem 0.35rem;
+}
+
+.path-card.is-reverse .path-card-media {
+  border-radius: 0.35rem 5.5rem 0.35rem 0.35rem;
 }
 
 @media (min-width: 900px) {
   .path-card-media {
     aspect-ratio: auto;
-    min-height: 100%;
+    min-height: calc(100% - 2rem);
+    margin: 1rem 0 1rem 1rem;
+    border-radius: clamp(6rem, 10vw, 9rem) 0.35rem 0.35rem 0.35rem;
+  }
+
+  .path-card.is-reverse .path-card-media {
+    margin: 1rem 1rem 1rem 0;
+    border-radius: 0.35rem clamp(6rem, 10vw, 9rem) 0.35rem 0.35rem;
   }
 }
 

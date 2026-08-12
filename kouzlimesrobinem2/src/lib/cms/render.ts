@@ -76,7 +76,7 @@ export function renderLuxuryBody(content: SiteContent, template: string): string
   const momentsHtml = (c.moments?.images ?? [])
     .map((img, i) => {
       const wide = img.wide ? " wide" : "";
-      return `<figure class="mph${wide}" data-i="${i}" data-lightbox><img src="${safeUrl(img.src)}" alt="${esc(img.alt)}" loading="lazy"><figcaption>${esc(img.alt.replace(/\s*[—–-]\s*placeholder$/i, ""))}</figcaption></figure>`;
+      return `<figure class="mph${wide}" data-i="${i}" data-lightbox><img src="${safeUrl(img.src)}" alt="${esc(img.alt)}" loading="lazy"></figure>`;
     })
     .join("\n      ");
 

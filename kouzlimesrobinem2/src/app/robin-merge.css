@@ -1615,7 +1615,10 @@ nav.is-open .nav-toggle span:nth-child(3) {
   flex: none;
   width: 240px;
   margin: 0;
-  padding: 10px 10px 14px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 18px;
   background: var(--card, #fcf8ef);
   border: 1px solid var(--hair, rgba(32, 20, 6, 0.12));
@@ -1625,7 +1628,7 @@ nav.is-open .nav-toggle span:nth-child(3) {
 }
 
 .luxury-root .moments-strip .mph:nth-child(even) {
-  margin-top: 28px;
+  margin-top: 0;
 }
 
 .luxury-root .moments-strip .mph.wide {
@@ -1637,21 +1640,13 @@ nav.is-open .nav-toggle span:nth-child(3) {
   width: 100%;
   aspect-ratio: 4 / 5;
   object-fit: cover;
+  object-position: center center;
   border-radius: 12px;
   transition: transform 0.7s ease;
 }
 
 .luxury-root .moments-strip .mph.wide img {
   aspect-ratio: 5 / 4;
-}
-
-.luxury-root .moments-strip .mph figcaption {
-  margin-top: 10px;
-  font: 700 10px var(--sans);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ink-soft, rgba(32, 20, 6, 0.62));
-  text-align: center;
 }
 
 .luxury-root .moments-strip .mph:hover {

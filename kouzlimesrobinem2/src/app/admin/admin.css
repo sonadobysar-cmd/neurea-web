@@ -820,6 +820,345 @@
   color: rgba(248, 241, 228, 0.65);
 }
 
+.admin-calendar-visual {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.65fr);
+  gap: 14px;
+}
+
+.admin-month-panel,
+.admin-day-panel {
+  min-width: 0;
+  padding: 17px;
+  border-radius: 15px;
+  background: #17120c;
+  border: 1px solid rgba(248, 241, 228, 0.11);
+}
+
+.admin-month-toolbar,
+.admin-month-controls,
+.admin-calendar-legend,
+.admin-day-panel-head,
+.admin-day-events article {
+  display: flex;
+  align-items: center;
+}
+
+.admin-month-toolbar,
+.admin-day-panel-head {
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.admin-calendar-kicker {
+  display: block;
+  margin-bottom: 4px;
+  color: #f68544;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.admin-month-toolbar h3,
+.admin-day-panel h3 {
+  margin: 0;
+  font: 400 27px/1.1 "Instrument Serif", Georgia, serif;
+  text-transform: capitalize;
+}
+
+.admin-month-controls {
+  gap: 6px;
+}
+
+.admin-month-controls button {
+  min-width: 44px;
+  height: 44px;
+  border: 1px solid rgba(248, 241, 228, 0.16);
+  border-radius: 999px;
+  background: #2a2117;
+  color: #f8f1e4;
+  font: 700 21px/1 inherit;
+  cursor: pointer;
+}
+
+.admin-month-controls .admin-month-today {
+  width: auto;
+  padding: 0 13px;
+  color: #f7c26b;
+  font-size: 12px;
+}
+
+.admin-calendar-legend {
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 15px 0 13px;
+  color: rgba(248, 241, 228, 0.64);
+  font-size: 11px;
+}
+
+.admin-calendar-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.admin-calendar-legend i,
+.admin-month-day-dots i {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.admin-calendar-legend i.is-free,
+.admin-month-day-dots i.is-free {
+  background: #77be84;
+}
+
+.admin-calendar-legend i.is-pending,
+.admin-month-day-dots i.is-pending {
+  background: #f7c26b;
+}
+
+.admin-calendar-legend i.is-busy,
+.admin-month-day-dots i.is-busy {
+  background: #f68544;
+}
+
+.admin-calendar-legend i.is-blocked,
+.admin-month-day-dots i.is-blocked {
+  background: #ff9b8c;
+}
+
+.admin-month-weekdays,
+.admin-month-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.admin-month-weekdays {
+  margin-bottom: 6px;
+}
+
+.admin-month-weekdays span {
+  padding: 4px;
+  color: rgba(248, 241, 228, 0.4);
+  font-size: 10px;
+  font-weight: 800;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.admin-month-day {
+  position: relative;
+  min-width: 0;
+  min-height: 76px;
+  padding: 9px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border: 1px solid rgba(248, 241, 228, 0.09);
+  border-radius: 11px;
+  background: #231b13;
+  color: #f8f1e4;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 150ms ease, background 150ms ease, transform 150ms ease;
+}
+
+.admin-month-day:hover {
+  transform: translateY(-1px);
+  border-color: rgba(247, 194, 107, 0.42);
+}
+
+.admin-month-day.is-selected {
+  border-color: #f7c26b;
+  background: linear-gradient(145deg, #352719, #241b12);
+  box-shadow: 0 0 0 1px rgba(247, 194, 107, 0.24);
+}
+
+.admin-month-day.is-today .admin-month-day-number {
+  display: grid;
+  place-items: center;
+  width: 25px;
+  height: 25px;
+  margin: -3px 0 1px -3px;
+  border-radius: 50%;
+  background: #f68544;
+  color: #17120c;
+}
+
+.admin-month-day.is-outside {
+  opacity: 0.34;
+}
+
+.admin-month-day.is-past:not(.is-selected) {
+  color: rgba(248, 241, 228, 0.52);
+}
+
+.admin-month-day.is-unavailable {
+  opacity: 0.58;
+}
+
+.admin-month-day-number {
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.admin-month-day-state {
+  width: 100%;
+  margin-top: auto;
+  overflow: hidden;
+  color: rgba(248, 241, 228, 0.48);
+  font-size: 9px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-month-day-dots {
+  min-height: 8px;
+  margin-top: 5px;
+  display: flex;
+  gap: 3px;
+}
+
+.admin-day-panel {
+  align-self: start;
+}
+
+.admin-day-today {
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: rgba(246, 133, 68, 0.15);
+  color: #f7c26b;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.admin-day-summary {
+  min-height: 42px;
+  margin: 11px 0 14px;
+  color: rgba(248, 241, 228, 0.62);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.admin-slot-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 5px;
+}
+
+.admin-time-slot {
+  min-width: 0;
+  min-height: 47px;
+  padding: 7px;
+  display: grid;
+  align-content: center;
+  gap: 3px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: #2a2117;
+}
+
+.admin-time-slot strong {
+  font-size: 11px;
+}
+
+.admin-time-slot span {
+  overflow: hidden;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.admin-time-slot.is-free {
+  border-color: rgba(119, 190, 132, 0.24);
+  background: rgba(119, 190, 132, 0.08);
+  color: #a8d8b0;
+}
+
+.admin-time-slot.is-pending {
+  border-color: rgba(247, 194, 107, 0.42);
+  background: rgba(247, 194, 107, 0.13);
+  color: #f7c26b;
+}
+
+.admin-time-slot.is-busy {
+  border-color: rgba(246, 133, 68, 0.46);
+  background: rgba(246, 133, 68, 0.14);
+  color: #ffad7e;
+}
+
+.admin-time-slot.is-blocked {
+  border-color: rgba(255, 155, 140, 0.42);
+  background: rgba(255, 155, 140, 0.11);
+  color: #ffb4a8;
+}
+
+.admin-time-slot.is-past,
+.admin-time-slot.is-unavailable {
+  color: rgba(248, 241, 228, 0.3);
+  background: rgba(248, 241, 228, 0.025);
+}
+
+.admin-day-events {
+  margin-top: 14px;
+  display: grid;
+  gap: 7px;
+}
+
+.admin-day-events article {
+  gap: 9px;
+  padding: 10px;
+  border-left: 3px solid #f68544;
+  border-radius: 9px;
+  background: #2a2117;
+}
+
+.admin-day-events article.is-pending {
+  border-left-color: #f7c26b;
+}
+
+.admin-day-events article.is-blocked {
+  border-left-color: #ff9b8c;
+}
+
+.admin-day-events time {
+  flex: none;
+  color: #f7c26b;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.admin-day-events div {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.admin-day-events strong,
+.admin-day-events span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-day-events strong {
+  font-size: 11px;
+}
+
+.admin-day-events span {
+  color: rgba(248, 241, 228, 0.5);
+  font-size: 9px;
+}
+
 .admin-block-form {
   display: grid;
   grid-template-columns: 1.2fr 1fr 1fr;
@@ -1123,6 +1462,14 @@
   .admin-overview-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .admin-calendar-visual {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-day-panel {
+    width: 100%;
+  }
 }
 
 @media (max-width: 720px) {
@@ -1155,6 +1502,11 @@
 
   .admin-calendar-event {
     grid-template-columns: 90px minmax(0, 1fr) auto;
+  }
+
+  .admin-month-day {
+    min-height: 68px;
+    padding: 7px;
   }
 }
 
@@ -1213,6 +1565,61 @@
 
   .admin-booking-add {
     justify-self: start;
+  }
+
+  .admin-month-panel,
+  .admin-day-panel {
+    padding: 13px;
+  }
+
+  .admin-month-toolbar {
+    align-items: flex-start;
+  }
+
+  .admin-month-toolbar h3,
+  .admin-day-panel h3 {
+    font-size: 23px;
+  }
+
+  .admin-month-controls {
+    display: grid;
+    grid-template-columns: 44px 44px;
+  }
+
+  .admin-month-controls .admin-month-today {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .admin-calendar-legend {
+    gap: 9px 12px;
+  }
+
+  .admin-month-weekdays,
+  .admin-month-grid {
+    gap: 3px;
+  }
+
+  .admin-month-day {
+    min-height: 58px;
+    padding: 6px;
+    border-radius: 8px;
+  }
+
+  .admin-month-day-state {
+    display: none;
+  }
+
+  .admin-month-day-number {
+    font-size: 12px;
+  }
+
+  .admin-month-day-dots {
+    margin-top: auto;
+  }
+
+  .admin-slot-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .admin-calendar-event {

@@ -15,14 +15,107 @@ const PRAGUE_TIME = new Intl.DateTimeFormat("cs-CZ", {
   hour: "2-digit",
   minute: "2-digit",
 });
+const PRAGUE_MONTH = new Intl.DateTimeFormat("cs-CZ", {
+  timeZone: "Europe/Prague",
+  month: "long",
+  year: "numeric",
+});
+const PRAGUE_PARTS = new Intl.DateTimeFormat("en-CA", {
+  timeZone: "Europe/Prague",
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+  hour: "2-digit",
+  minute: "2-digit",
+  second: "2-digit",
+  hourCycle: "h23",
+});
+const WEEKDAYS = ["Po", "Út", "St", "Čt", "Pá", "So", "Ne"];
+const CALENDAR_START_MINUTES = 7 * 60;
+const CALENDAR_END_MINUTES = 23 * 60;
+const SLOT_MINUTES = 30;
 
-function dateKey(value: string) {
+function dateKey(value: string | Date) {
   return new Intl.DateTimeFormat("en-CA", {
     timeZone: "Europe/Prague",
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
-  }).format(new Date(value));
+  }).format(typeof value === "string" ? new Date(value) : value);
+}
+
+function keyParts(key: string) {
+  const [year, month, day] = key.split("-").map(Number);
+  return { year, month, day };
+}
+
+function addDays(key: string, amount: number) {
+  const { year, month, day } = keyParts(key);
+  const next = new Date(Date.UTC(year, month - 1, day + amount));
+  return `${next.getUTCFullYear()}-${String(next.getUTCMonth() + 1).padStart(2, "0")}-${String(next.getUTCDate()).padStart(2, "0")}`;
+}
+
+function shiftMonth(monthKey: string, amount: number) {
+  const [year, month] = monthKey.split("-").map(Number);
+  const next = new Date(Date.UTC(year, month - 1 + amount, 1));
+  return `${next.getUTCFullYear()}-${String(next.getUTCMonth() + 1).padStart(2, "0")}`;
+}
+
+function pragueInstant(key: string, minutes = 0) {
+  const { year, month, day } = keyParts(key);
+  const target = Date.UTC(year, month - 1, day, Math.floor(minutes / 60), minutes % 60);
+  let guess = target;
+
+  for (let iteration = 0; iteration < 2; iteration += 1) {
+    const parts = Object.fromEntries(
+      PRAGUE_PARTS.formatToParts(new Date(guess))
+        .filter((part) => part.type !== "literal")
+        .map((part) => [part.type, Number(part.value)]),
+    );
+    const represented = Date.UTC(
+      parts.year,
+      parts.month - 1,
+      parts.day,
+      parts.hour,
+      parts.minute,
+      parts.second,
+    );
+    guess += target - represented;
+  }
+
+  return new Date(guess);
+}
+
+function calendarDays(monthKey: string) {
+  const firstKey = `${monthKey}-01`;
+  const { year, month } = keyParts(firstKey);
+  const mondayOffset = (new Date(Date.UTC(year, month - 1, 1)).getUTCDay() + 6) % 7;
+  const gridStart = addDays(firstKey, -mondayOffset);
+  return Array.from({ length: 42 }, (_, index) => addDays(gridStart, index));
+}
+
+function entriesForDay(entries: CalendarEntry[], key: string) {
+  const start = pragueInstant(key).getTime();
+  const end = pragueInstant(addDays(key, 1)).getTime();
+  return entries
+    .filter((entry) => new Date(entry.startAt).getTime() < end && new Date(entry.endAt).getTime() > start)
+    .sort((a, b) => a.startAt.localeCompare(b.startAt));
+}
+
+function entryTone(entry: CalendarEntry) {
+  if (entry.status === "pending") return "pending";
+  if (entry.entryType === "block") return "blocked";
+  return "busy";
+}
+
+function eventCountLabel(count: number) {
+  if (count === 1) return "1 termín";
+  if (count > 1 && count < 5) return `${count} termíny`;
+  return `${count} termínů`;
+}
+
+function slotTime(minutes: number) {
+  return `${String(Math.floor(minutes / 60)).padStart(2, "0")}:${String(minutes % 60).padStart(2, "0")}`;
 }
 
 function range(entry: CalendarEntry) {
@@ -56,6 +149,9 @@ export function AdminBookings({
   const [notice, setNotice] = useState("");
   const [notes, setNotes] = useState<Record<string, string>>({});
   const [blockOpen, setBlockOpen] = useState(false);
+  const todayKey = dateKey(new Date());
+  const [visibleMonth, setVisibleMonth] = useState(todayKey.slice(0, 7));
+  const [selectedDate, setSelectedDate] = useState(todayKey);
 
   const active = useMemo(
     () =>
@@ -67,6 +163,32 @@ export function AdminBookings({
     [dashboard.entries],
   );
   const pending = active.filter((entry) => entry.status === "pending");
+  const calendarEntries = useMemo(
+    () => dashboard.entries.filter((entry) => entry.status === "pending" || entry.status === "approved"),
+    [dashboard.entries],
+  );
+  const monthDays = useMemo(() => calendarDays(visibleMonth), [visibleMonth]);
+  const selectedEntries = useMemo(
+    () => entriesForDay(calendarEntries, selectedDate),
+    [calendarEntries, selectedDate],
+  );
+  const slots = useMemo(
+    () =>
+      Array.from(
+        { length: (CALENDAR_END_MINUTES - CALENDAR_START_MINUTES) / SLOT_MINUTES },
+        (_, index) => {
+          const minutes = CALENDAR_START_MINUTES + index * SLOT_MINUTES;
+          const start = pragueInstant(selectedDate, minutes).getTime();
+          const end = pragueInstant(selectedDate, minutes + SLOT_MINUTES).getTime();
+          const entry = selectedEntries.find(
+            (candidate) =>
+              new Date(candidate.startAt).getTime() < end && new Date(candidate.endAt).getTime() > start,
+          );
+          return { minutes, entry, past: end <= Date.now() };
+        },
+      ),
+    [selectedDate, selectedEntries],
+  );
   const grouped = useMemo(() => {
     const groups = new Map<string, CalendarEntry[]>();
     for (const entry of active) {
@@ -75,6 +197,17 @@ export function AdminBookings({
     }
     return [...groups.entries()].sort(([a], [b]) => a.localeCompare(b));
   }, [active]);
+
+  function selectCalendarDay(key: string) {
+    setSelectedDate(key);
+    if (key.slice(0, 7) !== visibleMonth) setVisibleMonth(key.slice(0, 7));
+  }
+
+  function moveMonth(amount: number) {
+    const nextMonth = shiftMonth(visibleMonth, amount);
+    setVisibleMonth(nextMonth);
+    setSelectedDate(nextMonth === todayKey.slice(0, 7) ? todayKey : `${nextMonth}-01`);
+  }
 
   function replaceEntry(updated: CalendarEntry) {
     setDashboard((current) => {
@@ -227,18 +360,18 @@ export function AdminBookings({
       {notice ? <div className="admin-booking-notice" role="status">{notice}</div> : null}
 
       {blockOpen ? (
-        <form className="admin-block-form" onSubmit={addBlock}>
+        <form className="admin-block-form" onSubmit={addBlock} key={selectedDate}>
           <label>
             <span>Název blokace *</span>
             <input name="title" required maxLength={160} placeholder="Např. soukromá akce" />
           </label>
           <label>
             <span>Začátek *</span>
-            <input name="startAt" type="datetime-local" required />
+            <input name="startAt" type="datetime-local" required defaultValue={`${selectedDate}T10:00`} />
           </label>
           <label>
             <span>Konec *</span>
-            <input name="endAt" type="datetime-local" required />
+            <input name="endAt" type="datetime-local" required defaultValue={`${selectedDate}T12:00`} />
           </label>
           <label className="admin-block-wide">
             <span>Soukromá poznámka</span>
@@ -249,6 +382,129 @@ export function AdminBookings({
           </button>
         </form>
       ) : null}
+
+      <div className="admin-calendar-visual">
+        <div className="admin-month-panel">
+          <div className="admin-month-toolbar">
+            <div>
+              <span className="admin-calendar-kicker">Měsíční přehled</span>
+              <h3>{PRAGUE_MONTH.format(pragueInstant(`${visibleMonth}-01`, 12 * 60))}</h3>
+            </div>
+            <div className="admin-month-controls">
+              <button type="button" onClick={() => moveMonth(-1)} aria-label="Předchozí měsíc">‹</button>
+              <button type="button" className="admin-month-today" onClick={() => selectCalendarDay(todayKey)}>
+                Dnes
+              </button>
+              <button type="button" onClick={() => moveMonth(1)} aria-label="Následující měsíc">›</button>
+            </div>
+          </div>
+
+          <div className="admin-calendar-legend" aria-label="Legenda kalendáře">
+            <span><i className="is-free" />Volno</span>
+            <span><i className="is-pending" />Čeká</span>
+            <span><i className="is-busy" />Potvrzeno</span>
+            <span><i className="is-blocked" />Blokováno</span>
+          </div>
+
+          <div className="admin-month-weekdays" aria-hidden="true">
+            {WEEKDAYS.map((day) => <span key={day}>{day}</span>)}
+          </div>
+          <div className="admin-month-grid">
+            {monthDays.map((key) => {
+              const dayEntries = entriesForDay(calendarEntries, key);
+              const isOutside = key.slice(0, 7) !== visibleMonth;
+              const isPast = key < todayKey;
+              const tones = new Set(dayEntries.map(entryTone));
+              const state = !dashboard.configured
+                ? "bez dat"
+                : dayEntries.length
+                  ? eventCountLabel(dayEntries.length)
+                  : isPast
+                    ? "uplynulo"
+                    : "volno";
+              return (
+                <button
+                  type="button"
+                  key={key}
+                  className={`admin-month-day${key === selectedDate ? " is-selected" : ""}${key === todayKey ? " is-today" : ""}${isOutside ? " is-outside" : ""}${isPast ? " is-past" : ""}${!dashboard.configured ? " is-unavailable" : ""}`}
+                  onClick={() => selectCalendarDay(key)}
+                  aria-pressed={key === selectedDate}
+                  aria-label={`${PRAGUE_DATE.format(pragueInstant(key, 12 * 60))}: ${state}`}
+                >
+                  <span className="admin-month-day-number">{Number(key.slice(-2))}</span>
+                  <span className="admin-month-day-state">{state}</span>
+                  <span className="admin-month-day-dots" aria-hidden="true">
+                    {dashboard.configured && !dayEntries.length && !isPast ? <i className="is-free" /> : null}
+                    {tones.has("pending") ? <i className="is-pending" /> : null}
+                    {tones.has("busy") ? <i className="is-busy" /> : null}
+                    {tones.has("blocked") ? <i className="is-blocked" /> : null}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <aside className="admin-day-panel" aria-live="polite">
+          <div className="admin-day-panel-head">
+            <div>
+              <span className="admin-calendar-kicker">Vybraný den</span>
+              <h3>{PRAGUE_DATE.format(pragueInstant(selectedDate, 12 * 60))}</h3>
+            </div>
+            {selectedDate === todayKey ? <span className="admin-day-today">Dnes</span> : null}
+          </div>
+          <p className="admin-day-summary">
+            {!dashboard.configured
+              ? "Po připojení databáze se zde zobrazí dostupnost jednotlivých časů."
+              : selectedEntries.length
+                ? `${eventCountLabel(selectedEntries.length)} v kalendáři. Přesné časy jsou zvýrazněné níže.`
+                : selectedDate < todayKey
+                  ? "Tento den už uplynul."
+                  : "Den je zatím bez rezervace nebo blokace."}
+          </p>
+
+          <div className="admin-slot-grid" aria-label={`Časové sloty pro ${PRAGUE_DATE.format(pragueInstant(selectedDate, 12 * 60))}`}>
+            {slots.map(({ minutes, entry, past }) => {
+              const tone = entry ? entryTone(entry) : !dashboard.configured ? "unavailable" : past ? "past" : "free";
+              const label = entry
+                ? entry.status === "pending"
+                  ? "Čeká"
+                  : entry.entryType === "block"
+                    ? "Blok"
+                    : "Obsazeno"
+                : !dashboard.configured
+                  ? "Bez dat"
+                  : past
+                    ? "Minulo"
+                    : "Volno";
+              return (
+                <div
+                  className={`admin-time-slot is-${tone}`}
+                  key={minutes}
+                  title={entry ? `${range(entry)} · ${entry.title}` : undefined}
+                >
+                  <strong>{slotTime(minutes)}</strong>
+                  <span>{label}</span>
+                </div>
+              );
+            })}
+          </div>
+
+          {selectedEntries.length ? (
+            <div className="admin-day-events">
+              {selectedEntries.map((entry) => (
+                <article className={`is-${entryTone(entry)}`} key={entry.id}>
+                  <time>{range(entry)}</time>
+                  <div>
+                    <strong>{entry.title}</strong>
+                    <span>{statusLabel(entry)}{entry.location ? ` · ${entry.location}` : ""}</span>
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : null}
+        </aside>
+      </div>
 
       {pending.length > 0 ? (
         <div className="admin-pending-list">

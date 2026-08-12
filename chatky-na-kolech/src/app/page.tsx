@@ -174,7 +174,10 @@ export default function HomePage() {
           <div className="path-stack">
             {paths.map((p, i) => (
               <Reveal key={p.id} delay={(Math.min(i + 1, 3) as 1 | 2 | 3)}>
-                <article className={`path-card path-card--${p.id}`} id={p.id}>
+                <article
+                  className={`path-card path-card--${p.id}${i % 2 ? " is-reverse" : ""}`}
+                  id={p.id}
+                >
                   <div className="path-card-media">
                     <Image
                       src={p.image}

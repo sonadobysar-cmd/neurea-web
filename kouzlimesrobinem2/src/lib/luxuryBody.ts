@@ -142,7 +142,7 @@ export const luxuryBodyTemplate = `<a class="skip-link" href="#main-content">Př
         </div>
         <div class="booking-grid">
           <label><span>Datum *</span><input name="date" type="date" required></label>
-          <label><span>Začátek *</span><input name="time" type="time" min="07:00" max="23:00" step="900" required></label>
+          <label><span>Začátek *</span><input name="time" type="time" min="00:00" max="23:59" step="900" required></label>
           <label><span>Délka rezervace *</span><select name="duration" required>
             <option value="60">1 hodina</option>
             <option value="90">1,5 hodiny</option>

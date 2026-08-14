@@ -9,6 +9,7 @@ import {
   markNotificationSent,
   readBookingDashboard,
   reviewBooking,
+  saveBookingWorkingHours,
 } from "@/lib/bookings/store";
 import { isAdminAuthenticated } from "@/lib/cms/auth";
 import { readSiteContent } from "@/lib/cms/store";
@@ -85,6 +86,24 @@ export async function PATCH(request: Request) {
   const id = String(body?.id ?? "");
   const status = String(body?.status ?? "");
   const adminNote = String(body?.adminNote ?? "").trim().slice(0, 2000);
+  if (body?.action === "working-hours") {
+    try {
+      const workingHours = await saveBookingWorkingHours(body.workingHours);
+      return NextResponse.json({ ok: true, workingHours });
+    } catch (error) {
+      if (error instanceof Error && error.message === "INVALID_WORKING_HOURS") {
+        return NextResponse.json(
+          { ok: false, error: "Zkontrolujte objednávací hodiny u všech dnů." },
+          { status: 400 },
+        );
+      }
+      console.error("[robin/admin-bookings] working hours failed", error);
+      return NextResponse.json(
+        { ok: false, error: "Objednávací hodiny se nepodařilo uložit." },
+        { status: 503 },
+      );
+    }
+  }
   if (UUID_RE.test(id) && body?.action === "notify-robin") {
     const entry = await getEntry(id);
     if (!entry || entry.entryType !== "booking") {

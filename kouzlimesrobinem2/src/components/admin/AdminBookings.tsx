@@ -1,7 +1,12 @@
 "use client";
 
 import { FormEvent, useMemo, useState } from "react";
-import type { BookingDashboard, CalendarEntry } from "@/lib/bookings/types";
+import { timeToMinutes, workingDayForDateKey } from "@/lib/bookings/schedule";
+import type {
+  BookingDashboard,
+  BookingWorkingDay,
+  CalendarEntry,
+} from "@/lib/bookings/types";
 
 const PRAGUE_DATE = new Intl.DateTimeFormat("cs-CZ", {
   timeZone: "Europe/Prague",
@@ -31,6 +36,15 @@ const PRAGUE_PARTS = new Intl.DateTimeFormat("en-CA", {
   hourCycle: "h23",
 });
 const WEEKDAYS = ["Po", "Út", "St", "Čt", "Pá", "So", "Ne"];
+const WORKING_DAYS = [
+  { weekday: 1, label: "Pondělí" },
+  { weekday: 2, label: "Úterý" },
+  { weekday: 3, label: "Středa" },
+  { weekday: 4, label: "Čtvrtek" },
+  { weekday: 5, label: "Pátek" },
+  { weekday: 6, label: "Sobota" },
+  { weekday: 0, label: "Neděle" },
+];
 const CALENDAR_START_MINUTES = 7 * 60;
 const CALENDAR_END_MINUTES = 23 * 60;
 const SLOT_MINUTES = 30;
@@ -123,7 +137,7 @@ function range(entry: CalendarEntry) {
 }
 
 function statusLabel(entry: CalendarEntry) {
-  if (entry.entryType === "block") return "Blokováno";
+  if (entry.entryType === "block") return "Vlastní akce";
   return {
     pending: "Čeká na schválení",
     approved: "Potvrzeno",
@@ -149,6 +163,8 @@ export function AdminBookings({
   const [notice, setNotice] = useState("");
   const [notes, setNotes] = useState<Record<string, string>>({});
   const [blockOpen, setBlockOpen] = useState(false);
+  const [hoursOpen, setHoursOpen] = useState(false);
+  const [workingHoursDraft, setWorkingHoursDraft] = useState(initial.workingHours);
   const todayKey = dateKey(new Date());
   const [visibleMonth, setVisibleMonth] = useState(todayKey.slice(0, 7));
   const [selectedDate, setSelectedDate] = useState(todayKey);
@@ -172,22 +188,39 @@ export function AdminBookings({
     () => entriesForDay(calendarEntries, selectedDate),
     [calendarEntries, selectedDate],
   );
+  const selectedWorkingDay = useMemo(
+    () => workingDayForDateKey(dashboard.workingHours, selectedDate),
+    [dashboard.workingHours, selectedDate],
+  );
   const slots = useMemo(
-    () =>
-      Array.from(
-        { length: (CALENDAR_END_MINUTES - CALENDAR_START_MINUTES) / SLOT_MINUTES },
+    () => {
+      const workingStart = timeToMinutes(selectedWorkingDay.start);
+      const workingEnd = timeToMinutes(selectedWorkingDay.end);
+      const calendarStart = selectedWorkingDay.enabled
+        ? Math.min(CALENDAR_START_MINUTES, workingStart)
+        : CALENDAR_START_MINUTES;
+      const calendarEnd = selectedWorkingDay.enabled
+        ? Math.max(CALENDAR_END_MINUTES, workingEnd)
+        : CALENDAR_END_MINUTES;
+      return Array.from(
+        { length: Math.ceil((calendarEnd - calendarStart) / SLOT_MINUTES) },
         (_, index) => {
-          const minutes = CALENDAR_START_MINUTES + index * SLOT_MINUTES;
+          const minutes = calendarStart + index * SLOT_MINUTES;
           const start = pragueInstant(selectedDate, minutes).getTime();
           const end = pragueInstant(selectedDate, minutes + SLOT_MINUTES).getTime();
           const entry = selectedEntries.find(
             (candidate) =>
               new Date(candidate.startAt).getTime() < end && new Date(candidate.endAt).getTime() > start,
           );
-          return { minutes, entry, past: end <= Date.now() };
+          const orderable =
+            selectedWorkingDay.enabled &&
+            minutes >= workingStart &&
+            minutes + SLOT_MINUTES <= workingEnd;
+          return { minutes, entry, past: end <= Date.now(), orderable };
         },
-      ),
-    [selectedDate, selectedEntries],
+      );
+    },
+    [selectedDate, selectedEntries, selectedWorkingDay],
   );
   const grouped = useMemo(() => {
     const groups = new Map<string, CalendarEntry[]>();
@@ -218,6 +251,48 @@ export function AdminBookings({
         pendingCount: entries.filter((entry) => entry.status === "pending").length,
       };
     });
+  }
+
+  function updateWorkingDay(weekday: number, patch: Partial<BookingWorkingDay>) {
+    setWorkingHoursDraft((current) => ({
+      ...current,
+      days: current.days.map((day) =>
+        day.weekday === weekday ? { ...day, ...patch } : day,
+      ),
+    }));
+  }
+
+  async function saveWorkingHours(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const invalidDay = workingHoursDraft.days.find(
+      (day) => day.enabled && timeToMinutes(day.end) <= timeToMinutes(day.start),
+    );
+    if (invalidDay) {
+      setNotice("Konec objednávací doby musí být později než začátek.");
+      return;
+    }
+    setBusyId("working-hours");
+    setNotice("");
+    try {
+      const response = await fetch("/api/admin/bookings", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "working-hours",
+          workingHours: workingHoursDraft,
+        }),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Objednávací hodiny se nepodařilo uložit.");
+      setDashboard((current) => ({ ...current, workingHours: data.workingHours }));
+      setWorkingHoursDraft(data.workingHours);
+      setHoursOpen(false);
+      setNotice("Objednávací hodiny jsou uložené a veřejný formulář se jimi řídí.");
+    } catch (error) {
+      setNotice(error instanceof Error ? error.message : "Objednávací hodiny se nepodařilo uložit.");
+    } finally {
+      setBusyId("");
+    }
   }
 
   async function review(entry: CalendarEntry, status: "approved" | "declined") {
@@ -279,7 +354,7 @@ export function AdminBookings({
       replaceEntry(data.entry);
       setNotice(
         entry.entryType === "block"
-          ? "Blokace je uvolněná."
+          ? "Vlastní akce je uvolněná."
           : data.emailSent === false
             ? "Termín je uvolněný, ale e-mail klientovi se nepodařilo odeslat. Kontaktujte ho prosím ručně."
             : "Termín je uvolněný a klient dostal e-mail.",
@@ -322,7 +397,7 @@ export function AdminBookings({
       }));
       form.reset();
       setBlockOpen(false);
-      setNotice("Termín je v Robinově kalendáři zablokovaný.");
+      setNotice("Vlastní akce je uložená a její čas se veřejnosti zobrazí jako obsazený.");
     } catch (error) {
       setNotice(error instanceof Error ? error.message : "Termín se nepodařilo zablokovat.");
     } finally {
@@ -343,12 +418,41 @@ export function AdminBookings({
             ) : null}
           </div>
           <p className="admin-help">
-            Žádost drží zvolený čas. Potvrďte ji, zamítněte, nebo přidejte vlastní blokaci.
+            Žádost drží zvolený čas. Robin si zde nastaví objednávací dobu i přidá vlastní akce.
           </p>
         </div>
-        <button type="button" className="admin-booking-add" onClick={() => setBlockOpen((open) => !open)}>
-          {blockOpen ? "Zavřít" : "+ Blokovat termín"}
-        </button>
+        <div className="admin-booking-actions">
+          <button
+            type="button"
+            className="admin-booking-add is-secondary"
+            aria-expanded={hoursOpen}
+            onClick={() => {
+              if (hoursOpen) {
+                setWorkingHoursDraft(dashboard.workingHours);
+                setHoursOpen(false);
+              } else {
+                setBlockOpen(false);
+                setHoursOpen(true);
+              }
+            }}
+          >
+            {hoursOpen ? "Zavřít hodiny" : "Objednávací hodiny"}
+          </button>
+          <button
+            type="button"
+            className="admin-booking-add"
+            aria-expanded={blockOpen}
+            onClick={() => {
+              if (!blockOpen) {
+                setHoursOpen(false);
+                setWorkingHoursDraft(dashboard.workingHours);
+              }
+              setBlockOpen((open) => !open);
+            }}
+          >
+            {blockOpen ? "Zavřít akci" : "+ Přidat vlastní akci"}
+          </button>
+        </div>
       </div>
 
       {!dashboard.configured ? (
@@ -359,11 +463,68 @@ export function AdminBookings({
       {dashboard.error ? <div className="admin-booking-warning">{dashboard.error}</div> : null}
       {notice ? <div className="admin-booking-notice" role="status">{notice}</div> : null}
 
+      {hoursOpen ? (
+        <form className="admin-working-hours" onSubmit={saveWorkingHours}>
+          <div className="admin-working-hours-head">
+            <div>
+              <h3>Kdy se mohou klienti objednávat</h3>
+              <p>Vypnutý den se na webu zobrazí jako nedostupný. Časy platí v českém časovém pásmu.</p>
+            </div>
+            <span>Europe/Prague</span>
+          </div>
+          <div className="admin-working-hours-grid">
+            {WORKING_DAYS.map(({ weekday, label }) => {
+              const day = workingHoursDraft.days.find((candidate) => candidate.weekday === weekday)!;
+              return (
+                <div className={`admin-working-day${day.enabled ? " is-enabled" : ""}`} key={weekday}>
+                  <label className="admin-working-day-toggle">
+                    <input
+                      type="checkbox"
+                      checked={day.enabled}
+                      onChange={(event) => updateWorkingDay(weekday, { enabled: event.target.checked })}
+                    />
+                    <span>{label}</span>
+                  </label>
+                  <label>
+                    <span>Od</span>
+                    <input
+                      type="time"
+                      step={900}
+                      value={day.start}
+                      disabled={!day.enabled}
+                      aria-label={`${label} od`}
+                      onChange={(event) => updateWorkingDay(weekday, { start: event.target.value })}
+                    />
+                  </label>
+                  <label>
+                    <span>Do</span>
+                    <input
+                      type="time"
+                      step={900}
+                      value={day.end}
+                      disabled={!day.enabled}
+                      aria-label={`${label} do`}
+                      onChange={(event) => updateWorkingDay(weekday, { end: event.target.value })}
+                    />
+                  </label>
+                </div>
+              );
+            })}
+          </div>
+          <div className="admin-working-hours-footer">
+            <p>Existující potvrzené akce zůstanou v kalendáři i po změně pracovní doby.</p>
+            <button type="submit" disabled={busyId === "working-hours"}>
+              {busyId === "working-hours" ? "Ukládám…" : "Uložit objednávací hodiny"}
+            </button>
+          </div>
+        </form>
+      ) : null}
+
       {blockOpen ? (
         <form className="admin-block-form" onSubmit={addBlock} key={selectedDate}>
           <label>
-            <span>Název blokace *</span>
-            <input name="title" required maxLength={160} placeholder="Např. soukromá akce" />
+            <span>Název vlastní akce *</span>
+            <input name="title" required maxLength={160} placeholder="Např. vystoupení na oslavě" />
           </label>
           <label>
             <span>Začátek *</span>
@@ -378,7 +539,7 @@ export function AdminBookings({
             <input name="note" maxLength={2000} placeholder="Návštěvníci ji neuvidí" />
           </label>
           <button type="submit" disabled={busyId === "new-block"}>
-            {busyId === "new-block" ? "Ukládám…" : "Zablokovat čas"}
+            {busyId === "new-block" ? "Ukládám…" : "Přidat akci do kalendáře"}
           </button>
         </form>
       ) : null}
@@ -401,9 +562,10 @@ export function AdminBookings({
 
           <div className="admin-calendar-legend" aria-label="Legenda kalendáře">
             <span><i className="is-free" />Volno</span>
+            <span><i className="is-closed" />Mimo objednávání</span>
             <span><i className="is-pending" />Čeká</span>
             <span><i className="is-busy" />Potvrzeno</span>
-            <span><i className="is-blocked" />Blokováno</span>
+            <span><i className="is-blocked" />Vlastní akce</span>
           </div>
 
           <div className="admin-month-weekdays" aria-hidden="true">
@@ -415,10 +577,13 @@ export function AdminBookings({
               const isOutside = key.slice(0, 7) !== visibleMonth;
               const isPast = key < todayKey;
               const tones = new Set(dayEntries.map(entryTone));
+              const workingDay = workingDayForDateKey(dashboard.workingHours, key);
               const state = !dashboard.configured
                 ? "bez dat"
                 : dayEntries.length
                   ? eventCountLabel(dayEntries.length)
+                  : !workingDay.enabled
+                    ? "bez objednávání"
                   : isPast
                     ? "uplynulo"
                     : "volno";
@@ -434,7 +599,8 @@ export function AdminBookings({
                   <span className="admin-month-day-number">{Number(key.slice(-2))}</span>
                   <span className="admin-month-day-state">{state}</span>
                   <span className="admin-month-day-dots" aria-hidden="true">
-                    {dashboard.configured && !dayEntries.length && !isPast ? <i className="is-free" /> : null}
+                    {dashboard.configured && !dayEntries.length && !isPast && workingDay.enabled ? <i className="is-free" /> : null}
+                    {dashboard.configured && !dayEntries.length && !workingDay.enabled ? <i className="is-closed" /> : null}
                     {tones.has("pending") ? <i className="is-pending" /> : null}
                     {tones.has("busy") ? <i className="is-busy" /> : null}
                     {tones.has("blocked") ? <i className="is-blocked" /> : null}
@@ -458,22 +624,32 @@ export function AdminBookings({
               ? "Po připojení databáze se zde zobrazí dostupnost jednotlivých časů."
               : selectedEntries.length
                 ? `${eventCountLabel(selectedEntries.length)} v kalendáři. Přesné časy jsou zvýrazněné níže.`
+                : !selectedWorkingDay.enabled
+                  ? "V tento den Robin nepřijímá online rezervace. Vlastní akci sem ale může přidat kdykoli."
                 : selectedDate < todayKey
                   ? "Tento den už uplynul."
-                  : "Den je zatím bez rezervace nebo blokace."}
+                  : `Objednávat lze ${selectedWorkingDay.start}–${selectedWorkingDay.end}. Den je zatím volný.`}
           </p>
 
           <div className="admin-slot-grid" aria-label={`Časové sloty pro ${PRAGUE_DATE.format(pragueInstant(selectedDate, 12 * 60))}`}>
-            {slots.map(({ minutes, entry, past }) => {
-              const tone = entry ? entryTone(entry) : !dashboard.configured ? "unavailable" : past ? "past" : "free";
+            {slots.map(({ minutes, entry, past, orderable }) => {
+              const tone = entry
+                ? entryTone(entry)
+                : !dashboard.configured || !orderable
+                  ? "unavailable"
+                  : past
+                    ? "past"
+                    : "free";
               const label = entry
                 ? entry.status === "pending"
                   ? "Čeká"
                   : entry.entryType === "block"
-                    ? "Blok"
+                    ? "Akce"
                     : "Obsazeno"
                 : !dashboard.configured
                   ? "Bez dat"
+                  : !orderable
+                    ? "Mimo dobu"
                   : past
                     ? "Minulo"
                     : "Volno";

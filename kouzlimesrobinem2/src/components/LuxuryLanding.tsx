@@ -36,7 +36,7 @@ export function LuxuryLanding({
       try {
         await loadScript("robin2-balloon-data", "/robin2-balloon-data.js");
         if (!cancelled) await loadScript("luxury-init", "/luxury.js");
-        if (!cancelled) await loadScript("robin-merge-init", "/robin-merge.js?v=5");
+        if (!cancelled) await loadScript("robin-merge-init", "/robin-merge.js?v=6");
       } catch (err) {
         console.error(err);
       }

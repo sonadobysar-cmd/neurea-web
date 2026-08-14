@@ -1,6 +1,18 @@
 export type BookingStatus = "pending" | "approved" | "declined" | "cancelled";
 export type CalendarEntryType = "booking" | "block";
 
+export type BookingWorkingDay = {
+  weekday: number;
+  enabled: boolean;
+  start: string;
+  end: string;
+};
+
+export type BookingWorkingHours = {
+  timezone: "Europe/Prague";
+  days: BookingWorkingDay[];
+};
+
 export type CalendarEntry = {
   id: string;
   entryType: CalendarEntryType;
@@ -26,5 +38,6 @@ export type BookingDashboard = {
   configured: boolean;
   pendingCount: number;
   entries: CalendarEntry[];
+  workingHours: BookingWorkingHours;
   error?: string;
 };

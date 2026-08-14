@@ -10,7 +10,7 @@ export default async function AdminBookingsPage() {
         <div>
           <span className="admin-page-kicker">Kalendář</span>
           <h1>Rezervace</h1>
-          <p>Schvalování poptávek, odmítnutí termínů a vlastní blokace v jednom přehledu.</p>
+          <p>Objednávací hodiny, schvalování poptávek a Robinovy vlastní akce v jednom přehledu.</p>
         </div>
       </header>
       <AdminBookings initial={bookings} showTitle={false} />

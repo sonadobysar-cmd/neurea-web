@@ -4,6 +4,7 @@ import {
   createBooking,
   isBookingDatabaseConfigured,
   isOverlapError,
+  isWorkingHoursError,
   markNotificationSent,
 } from "@/lib/bookings/store";
 import { formatBookingRange } from "@/lib/bookings/format";
@@ -186,6 +187,12 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ ok: true, pending: true, robinNotified });
   } catch (error) {
+    if (isWorkingHoursError(error)) {
+      return NextResponse.json(
+        { ok: false, error: "Tento čas je mimo Robinovu objednávací dobu. Vyberte prosím jiný termín." },
+        { status: 409 },
+      );
+    }
     if (isOverlapError(error)) {
       return NextResponse.json(
         { ok: false, error: "Tento čas už je obsazený nebo čeká na schválení. Vyberte prosím jiný." },

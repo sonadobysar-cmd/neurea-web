@@ -514,6 +514,7 @@
   var bookingForm = document.getElementById("bookingForm");
   var bookingSuccess = document.getElementById("bookingSuccess");
   var bookingAvailability = document.getElementById("bookingAvailability");
+  var bookingWorkingDay = null;
   var turnstileSiteKey = window.__ROBIN_TURNSTILE_SITE_KEY || "";
   var turnstileWidgets = { contact: null, booking: null };
 
@@ -727,17 +728,49 @@
     return year + "-" + month + "-" + day;
   }
 
+  function timeMinutes(value) {
+    var parts = String(value || "").split(":").map(Number);
+    return parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])
+      ? parts[0] * 60 + parts[1]
+      : NaN;
+  }
+
+  function applyWorkingHours(day) {
+    bookingWorkingDay = day || null;
+    if (!bookingForm) return;
+    var timeInput = bookingForm.querySelector('input[name="time"]');
+    if (!timeInput) return;
+    if (!day) {
+      timeInput.disabled = false;
+      return;
+    }
+    if (!day.enabled) {
+      timeInput.value = "";
+      timeInput.disabled = true;
+      return;
+    }
+    timeInput.disabled = false;
+    timeInput.min = day.start;
+    timeInput.max = day.end;
+    var selected = timeMinutes(timeInput.value);
+    if (selected < timeMinutes(day.start) || selected >= timeMinutes(day.end)) {
+      timeInput.value = "";
+    }
+  }
+
   function updateAvailability() {
     if (!bookingForm || !bookingAvailability) return;
     var dateInput = bookingForm.querySelector('input[name="date"]');
     var value = dateInput && dateInput.value;
     if (!value) {
+      applyWorkingHours(null);
       bookingAvailability.textContent = "";
       return;
     }
     var from = new Date(value + "T00:00:00");
     var to = new Date(from.getTime() + 24 * 60 * 60 * 1000);
-    bookingAvailability.textContent = "Kontroluji obsazené časy…";
+    applyWorkingHours(null);
+    bookingAvailability.textContent = "Kontroluji objednávací dobu a obsazené časy…";
     fetch(
       "/api/bookings/availability?from=" +
         encodeURIComponent(from.toISOString()) +
@@ -755,9 +788,20 @@
             "Online kalendář se právě dokončuje. Termín můžete zatím domluvit v kontaktním formuláři níže.";
           return;
         }
+        var workingHours = result.data.workingHours || null;
+        applyWorkingHours(workingHours);
+        if (workingHours && !workingHours.enabled) {
+          bookingAvailability.textContent =
+            "V tento den Robin nepřijímá online rezervace. Vyberte prosím jiný den.";
+          return;
+        }
+        var hoursText = workingHours
+          ? "Objednávat lze " + workingHours.start + "–" + workingHours.end + ". "
+          : "";
         var busy = result.data.busy || [];
         if (!busy.length) {
-          bookingAvailability.textContent = "Tento den zatím nemá Robin v kalendáři žádný obsazený čas.";
+          bookingAvailability.textContent =
+            hoursText + "Tento den zatím nemá Robin v kalendáři žádný obsazený čas.";
           return;
         }
         var tf = new Intl.DateTimeFormat("cs-CZ", {
@@ -765,6 +809,7 @@
           minute: "2-digit",
         });
         bookingAvailability.textContent =
+          hoursText +
           "Obsazené časy: " +
           busy
             .map(function (item) {
@@ -774,6 +819,7 @@
           ".";
       })
       .catch(function () {
+        applyWorkingHours(null);
         bookingAvailability.textContent = "Obsazenost se teď nepodařilo načíst. Termín se ověří při odeslání.";
       });
   }
@@ -804,6 +850,25 @@
       if (!date || !time || !duration || isNaN(start.getTime())) {
         showBookingError("Vyberte prosím datum, čas a délku rezervace.");
         return;
+      }
+      if (bookingWorkingDay && !bookingWorkingDay.enabled) {
+        showBookingError("V tento den Robin nepřijímá online rezervace. Vyberte prosím jiný den.");
+        return;
+      }
+      if (bookingWorkingDay && bookingWorkingDay.enabled) {
+        var selectedStart = timeMinutes(time);
+        var workingStart = timeMinutes(bookingWorkingDay.start);
+        var workingEnd = timeMinutes(bookingWorkingDay.end);
+        if (selectedStart < workingStart || selectedStart + duration > workingEnd) {
+          showBookingError(
+            "Celá rezervace musí být mezi " +
+              bookingWorkingDay.start +
+              " a " +
+              bookingWorkingDay.end +
+              ".",
+          );
+          return;
+        }
       }
       if (!eventType || !location) {
         showBookingError("Vyberte typ akce a zadejte místo konání.");

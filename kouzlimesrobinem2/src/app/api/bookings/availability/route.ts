@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
-import { isBookingDatabaseConfigured, readBusyIntervals } from "@/lib/bookings/store";
+import { workingDayForDateKey } from "@/lib/bookings/schedule";
+import {
+  isBookingDatabaseConfigured,
+  readBookingWorkingHours,
+  readBusyIntervals,
+} from "@/lib/bookings/store";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -20,7 +25,21 @@ export async function GET(request: Request) {
     return NextResponse.json({ ok: false, error: "Neplatný rozsah." }, { status: 400 });
   }
   try {
-    return NextResponse.json({ configured: true, busy: await readBusyIntervals(from, to) });
+    const [busy, workingHours] = await Promise.all([
+      readBusyIntervals(from, to),
+      readBookingWorkingHours(),
+    ]);
+    const dayKey = new Intl.DateTimeFormat("en-CA", {
+      timeZone: "Europe/Prague",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).format(from);
+    return NextResponse.json({
+      configured: true,
+      busy,
+      workingHours: workingDayForDateKey(workingHours, dayKey),
+    });
   } catch (error) {
     console.error("[robin/bookings] availability failed", error);
     return NextResponse.json({ configured: true, busy: [] }, { status: 503 });

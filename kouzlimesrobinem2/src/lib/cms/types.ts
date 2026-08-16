@@ -1,5 +1,9 @@
 import defaultContent from "@/data/default-content.json";
-import { ANALYTICS_PRIVACY_NOTICE, LEGAL_DEFAULTS } from "@/data/legal-defaults";
+import {
+  ANALYTICS_PRIVACY_NOTICE,
+  GOOGLE_CALENDAR_PRIVACY_NOTICE,
+  LEGAL_DEFAULTS,
+} from "@/data/legal-defaults";
 
 export type LegalSection = {
   heading: string;
@@ -145,6 +149,12 @@ export function mergeContent(partial: unknown): SiteContent {
     if (replacement) measurement.body = replacement.body;
     merged.legal.privacy.lead = LEGAL_DEFAULTS.privacy.lead;
     merged.legal.privacy.updated = LEGAL_DEFAULTS.privacy.updated;
+  }
+  const recipients = merged.legal.privacy.sections.find((section) =>
+    section.heading.toLowerCase().includes("komu údaje"),
+  );
+  if (recipients && !recipients.body.includes("volitelné propojení s Google Kalendářem")) {
+    recipients.body = `${recipients.body}\n\n${GOOGLE_CALENDAR_PRIVACY_NOTICE}`;
   }
   return merged;
 }

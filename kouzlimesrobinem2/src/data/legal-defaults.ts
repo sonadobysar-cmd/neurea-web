@@ -3,6 +3,9 @@ import type { LegalPagesContent } from "@/lib/cms/types";
 export const ANALYTICS_PRIVACY_NOTICE =
   "Pro soukromý přehled v administraci web eviduje zahájení 30minutové návštěvní relace, vstupní stránku, doménu zdroje, zemi a obecný typ zařízení a prohlížeče. Neukládá jméno, kontakt ani IP adresu; IP se použije pouze krátkodobě pro odvození země a ochranu proti zneužití. Identifikátor relace zůstává jen v dočasném úložišti prohlížeče bez cookies. Anonymní technické záznamy jsou uloženy ve Vercel Blob nejdéle 90 dní.";
 
+export const GOOGLE_CALENDAR_PRIVACY_NOTICE =
+  "Pokud správce aktivuje volitelné propojení s Google Kalendářem, údaje schválené rezervace (zejména termín, typ a místo akce, jméno, kontakt a související poznámky) mohou být zapsány do jeho soukromého Google Kalendáře. Google tyto údaje zpracovává jako poskytovatel kalendářové služby podle svých příslušných smluvních a bezpečnostních podmínek. Propojení lze kdykoliv odvolat v administraci webu.";
+
 export const LEGAL_DEFAULTS: LegalPagesContent = {
   terms: {
     title: "Obchodní podmínky",
@@ -72,7 +75,7 @@ export const LEGAL_DEFAULTS: LegalPagesContent = {
       },
       {
         heading: "4. Komu údaje předáváme",
-        body: "Údaje používáme primárně my. Pro hosting využíváme Vercel, pro databázi rezervací Neon a pro transakční e-maily Resend. Tito zpracovatelé údaje zpracovávají pro provoz služby podle příslušných smluvních a bezpečnostních podmínek.",
+        body: `Údaje používáme primárně my. Pro hosting využíváme Vercel, pro databázi rezervací Neon a pro transakční e-maily Resend. Tito zpracovatelé údaje zpracovávají pro provoz služby podle příslušných smluvních a bezpečnostních podmínek.\n\n${GOOGLE_CALENDAR_PRIVACY_NOTICE}`,
       },
       {
         heading: "5. Doba uložení",

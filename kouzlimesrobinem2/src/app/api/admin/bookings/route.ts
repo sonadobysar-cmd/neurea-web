@@ -15,6 +15,12 @@ import { isAdminAuthenticated } from "@/lib/cms/auth";
 import { readSiteContent } from "@/lib/cms/store";
 import { adminUrl, escapeEmailHtml, resolveRobinEmail, sendEmail } from "@/lib/email";
 import { isSameOrigin } from "@/lib/request";
+import {
+  GoogleCalendarUnavailableError,
+  hasGoogleCalendarConflict,
+  removeEntryFromGoogleCalendar,
+  syncEntryToGoogleCalendar,
+} from "@/lib/google-calendar/store";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -62,9 +68,22 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "Vyplňte název a platný termín." }, { status: 400 });
   }
   try {
+    if (await hasGoogleCalendarConflict(startAt, endAt)) {
+      return NextResponse.json(
+        { ok: false, error: "Tento čas je obsazený v Google Kalendáři." },
+        { status: 409 },
+      );
+    }
     const entry = await createCalendarBlock({ title, note, startAt, endAt });
-    return NextResponse.json({ ok: true, entry });
+    const googleSync = await syncEntryToGoogleCalendar(entry);
+    return NextResponse.json({ ok: true, entry, googleSync });
   } catch (error) {
+    if (error instanceof GoogleCalendarUnavailableError) {
+      return NextResponse.json(
+        { ok: false, error: "Google Kalendář se právě nepodařilo ověřit. Zkuste to za chvíli." },
+        { status: 503 },
+      );
+    }
     if (isOverlapError(error)) {
       return NextResponse.json(
         { ok: false, error: "Tento čas se překrývá s jinou rezervací nebo blokací." },
@@ -132,8 +151,27 @@ export async function PATCH(request: Request) {
   }
 
   try {
+    if (status === "approved") {
+      const candidate = await getEntry(id);
+      if (!candidate || candidate.entryType !== "booking" || candidate.status !== "pending") {
+        return NextResponse.json({ ok: false, error: "Rezervace nebyla nalezena." }, { status: 404 });
+      }
+      if (await hasGoogleCalendarConflict(new Date(candidate.startAt), new Date(candidate.endAt))) {
+        return NextResponse.json(
+          {
+            ok: false,
+            error: "Mezitím přibyla událost v Google Kalendáři. Rezervace zůstala čekat na rozhodnutí.",
+          },
+          { status: 409 },
+        );
+      }
+    }
     const entry = await reviewBooking(id, status, adminNote);
     if (!entry) return NextResponse.json({ ok: false, error: "Rezervace nebyla nalezena." }, { status: 404 });
+
+    const googleSync = status === "approved"
+      ? await syncEntryToGoogleCalendar(entry)
+      : { attempted: false, synced: false };
 
     let emailSent = true;
     if (entry.customerEmail) {
@@ -155,8 +193,17 @@ export async function PATCH(request: Request) {
           : `<h2>K vašemu termínu</h2><p>Termín <strong>${escapeEmailHtml(range)}</strong> bohužel nebyl potvrzen.</p>${adminNote ? `<p><strong>Robinova poznámka:</strong><br>${escapeEmailHtml(adminNote).replace(/\n/g, "<br>")}</p>` : ""}<p>Odpovězte na tento e-mail nebo pošlete novou žádost s jiným termínem.</p>`,
       });
     }
-    return NextResponse.json({ ok: true, entry, emailSent });
+    return NextResponse.json({ ok: true, entry, emailSent, googleSync });
   } catch (error) {
+    if (error instanceof GoogleCalendarUnavailableError) {
+      return NextResponse.json(
+        {
+          ok: false,
+          error: "Google Kalendář se právě nepodařilo ověřit. Rezervace zůstala čekat na rozhodnutí.",
+        },
+        { status: 503 },
+      );
+    }
     console.error("[robin/admin-bookings] review failed", error);
     return NextResponse.json({ ok: false, error: "Změnu se nepodařilo uložit." }, { status: 503 });
   }
@@ -171,8 +218,13 @@ export async function DELETE(request: Request) {
   if (!UUID_RE.test(id)) {
     return NextResponse.json({ ok: false, error: "Neplatná položka." }, { status: 400 });
   }
+  const existing = await getEntry(id);
+  if (!existing || existing.entryType === "google") {
+    return NextResponse.json({ ok: false, error: "Položka nebyla nalezena." }, { status: 404 });
+  }
   const entry = await cancelCalendarEntry(id);
   if (!entry) return NextResponse.json({ ok: false, error: "Položka nebyla nalezena." }, { status: 404 });
+  const googleSync = await removeEntryFromGoogleCalendar(entry.id);
   let emailSent = true;
   if (entry.entryType === "booking" && entry.customerEmail) {
     const bookingRange = formatBookingRange(entry);
@@ -184,5 +236,5 @@ export async function DELETE(request: Request) {
       html: `<h2>Změna termínu</h2><p>Termín <strong>${escapeEmailHtml(bookingRange)}</strong> byl zrušen. Robin vás bude případně kontaktovat ohledně náhradního termínu.</p>`,
     });
   }
-  return NextResponse.json({ ok: true, entry, emailSent });
+  return NextResponse.json({ ok: true, entry, emailSent, googleSync });
 }

@@ -785,6 +785,7 @@
       .then(function (result) {
         if (!result.ok || !result.data.configured) {
           bookingAvailability.textContent =
+            result.data.error ||
             "Online kalendář se právě dokončuje. Termín můžete zatím domluvit v kontaktním formuláři níže.";
           return;
         }

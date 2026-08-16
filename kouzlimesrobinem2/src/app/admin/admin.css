@@ -755,6 +755,312 @@
   border-color: rgba(247, 194, 107, 0.35);
 }
 
+.admin-google-calendar {
+  display: grid;
+  gap: 15px;
+  padding: 20px;
+  border: 1px solid rgba(105, 149, 255, 0.28);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 88% 0%, rgba(66, 133, 244, 0.13), transparent 35%),
+    #211910;
+}
+
+.admin-google-calendar.is-compact {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  padding: 17px 19px;
+}
+
+.admin-google-calendar.is-compact .admin-google-head {
+  min-width: 0;
+}
+
+.admin-google-manage {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 14px;
+  border: 1px solid rgba(105, 149, 255, 0.34);
+  border-radius: 999px;
+  color: #a9c4ff;
+  font-size: 11px;
+  font-weight: 800;
+  text-align: center;
+  text-decoration: none;
+}
+
+.admin-google-head {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 13px;
+  align-items: center;
+}
+
+.admin-google-head h2,
+.admin-google-head p {
+  margin: 0;
+}
+
+.admin-google-head h2 {
+  font: 400 27px/1.1 "Instrument Serif", Georgia, serif;
+}
+
+.admin-google-head p {
+  max-width: 720px;
+  margin-top: 5px;
+  color: rgba(248, 241, 228, 0.62);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.admin-google-mark {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: linear-gradient(145deg, #4285f4, #34a853);
+  color: white;
+  font-size: 22px;
+  font-weight: 900;
+  box-shadow: 0 8px 24px rgba(66, 133, 244, 0.2);
+}
+
+.admin-google-state {
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(248, 241, 228, 0.07);
+  color: rgba(248, 241, 228, 0.58);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.admin-google-state.is-connected {
+  background: rgba(119, 190, 132, 0.12);
+  color: #a9dfb2;
+}
+
+.admin-google-empty,
+.admin-google-account,
+.admin-google-actions,
+.admin-google-reconnect {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.admin-google-empty,
+.admin-google-account,
+.admin-google-reconnect {
+  padding: 15px;
+  border-radius: 13px;
+  background: #17120c;
+  border: 1px solid rgba(248, 241, 228, 0.1);
+}
+
+.admin-google-empty > div,
+.admin-google-account > div {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.admin-google-empty strong,
+.admin-google-account strong {
+  overflow-wrap: anywhere;
+  font-size: 14px;
+}
+
+.admin-google-empty span,
+.admin-google-account span {
+  color: rgba(248, 241, 228, 0.56);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.admin-google-connect,
+.admin-google-account a,
+.admin-google-reconnect a,
+.admin-google-actions button {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  text-align: center;
+  text-decoration: none;
+}
+
+.admin-google-connect,
+.admin-google-actions button {
+  border: 0;
+  padding: 10px 15px;
+  background: #4285f4;
+  color: white;
+  cursor: pointer;
+}
+
+.admin-google-account a,
+.admin-google-reconnect a {
+  flex: none;
+  padding: 9px 13px;
+  border: 1px solid rgba(105, 149, 255, 0.35);
+  color: #a9c4ff;
+}
+
+.admin-google-disabled {
+  flex: none;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(248, 241, 228, 0.07);
+  font-size: 10px !important;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.admin-google-form {
+  display: grid;
+  gap: 13px;
+}
+
+.admin-google-calendars {
+  min-width: 0;
+  margin: 0;
+  padding: 15px;
+  border: 1px solid rgba(248, 241, 228, 0.1);
+  border-radius: 13px;
+  background: #17120c;
+}
+
+.admin-google-calendars legend {
+  padding: 0 5px;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.admin-google-calendars > p {
+  margin: 0 0 11px;
+  color: rgba(248, 241, 228, 0.55);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.admin-google-calendars > div {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.admin-google-calendars label {
+  min-width: 0;
+  min-height: 58px;
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  gap: 9px;
+  align-items: center;
+  padding: 9px 11px;
+  border-radius: 10px;
+  background: rgba(248, 241, 228, 0.04);
+  border: 1px solid rgba(248, 241, 228, 0.08);
+  cursor: pointer;
+}
+
+.admin-google-calendars input {
+  width: 18px;
+  height: 18px;
+  accent-color: #4285f4;
+}
+
+.admin-google-calendars label > i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #4285f4;
+}
+
+.admin-google-calendars label > span {
+  min-width: 0;
+  display: grid;
+  gap: 3px;
+}
+
+.admin-google-calendars strong,
+.admin-google-calendars small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-google-calendars strong {
+  font-size: 12px;
+}
+
+.admin-google-calendars small,
+.admin-google-destination small {
+  color: rgba(248, 241, 228, 0.5);
+  font-size: 10px;
+}
+
+.admin-google-destination {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.55fr) minmax(220px, 1fr);
+  gap: 7px 13px;
+  align-items: center;
+  padding: 14px 15px;
+  border-radius: 13px;
+  background: #17120c;
+  border: 1px solid rgba(248, 241, 228, 0.1);
+}
+
+.admin-google-destination > span {
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.admin-google-destination select {
+  width: 100%;
+  min-height: 44px;
+  padding: 9px 11px;
+  border: 1px solid rgba(248, 241, 228, 0.16);
+  border-radius: 10px;
+  background: #2a2117;
+  color: #f8f1e4;
+  font: inherit;
+  font-size: 12px;
+}
+
+.admin-google-destination small {
+  grid-column: 2;
+}
+
+.admin-google-actions {
+  justify-content: flex-start;
+}
+
+.admin-google-actions button.is-danger {
+  border: 1px solid rgba(255, 180, 168, 0.3);
+  background: transparent;
+  color: #ffb4a8;
+}
+
+.admin-google-actions button:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+.admin-google-reconnect p {
+  margin: 0;
+  color: rgba(248, 241, 228, 0.65);
+  font-size: 13px;
+}
+
 .admin-booking-head,
 .admin-booking-title,
 .admin-booking-links,
@@ -954,6 +1260,11 @@
 .admin-calendar-legend i.is-blocked,
 .admin-month-day-dots i.is-blocked {
   background: #ff9b8c;
+}
+
+.admin-calendar-legend i.is-google,
+.admin-month-day-dots i.is-google {
+  background: #77a8ff;
 }
 
 .admin-month-weekdays,
@@ -1182,6 +1493,18 @@
 .admin-day-events span {
   color: rgba(248, 241, 228, 0.5);
   font-size: 9px;
+}
+
+.admin-day-events article.is-google {
+  border-left-color: #77a8ff;
+}
+
+.admin-day-events article > a {
+  flex: none;
+  color: #a9c4ff;
+  font-size: 10px;
+  font-weight: 800;
+  text-decoration: none;
 }
 
 .admin-block-form {
@@ -1494,6 +1817,10 @@
   border-left-color: #f7c26b;
 }
 
+.admin-calendar-event.is-google {
+  border-left-color: #77a8ff;
+}
+
 .admin-calendar-event time {
   color: #f7c26b;
   font-size: 12px;
@@ -1530,6 +1857,19 @@
   min-height: 44px;
   padding: 8px 11px;
   cursor: pointer;
+}
+
+.admin-calendar-event-link {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 10px;
+  border: 1px solid rgba(105, 149, 255, 0.3);
+  border-radius: 999px;
+  color: #a9c4ff;
+  font-size: 10px;
+  font-weight: 800;
+  text-decoration: none;
 }
 
 @media (max-width: 980px) {
@@ -1642,8 +1982,25 @@
   .admin-block-form,
   .admin-booking-card,
   .admin-calendar-day,
-  .admin-working-hours-grid {
+  .admin-working-hours-grid,
+  .admin-google-calendars > div {
     grid-template-columns: 1fr;
+  }
+
+  .admin-google-destination {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-google-destination small {
+    grid-column: 1;
+  }
+
+  .admin-google-calendar.is-compact {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-google-manage {
+    justify-self: start;
   }
 
   .admin-calendar-event {
@@ -1707,6 +2064,40 @@
 
   .admin-booking-head {
     display: grid;
+  }
+
+  .admin-google-calendar {
+    padding: 16px;
+  }
+
+  .admin-google-head {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .admin-google-state {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+
+  .admin-google-empty,
+  .admin-google-account,
+  .admin-google-reconnect,
+  .admin-google-actions {
+    display: grid;
+    justify-items: stretch;
+  }
+
+  .admin-google-connect,
+  .admin-google-account a,
+  .admin-google-reconnect a,
+  .admin-google-actions button,
+  .admin-google-manage {
+    width: 100%;
+  }
+
+  .admin-google-disabled {
+    justify-self: start;
   }
 
   .admin-booking-actions {

@@ -32,6 +32,17 @@ python3 scripts/build-kouzlimesrobinem2.py
 - **Rezervace:** `/admin/rezervace`
 - **Statistiky:** `/admin/statistiky`
 
+### Volitelné propojení Google Kalendáře
+
+Po nastavení OAuth proměnných v `.env.example` si Robin připojí účet sám v `/admin/google-kalendar`.
+Vybrané Google kalendáře blokují veřejné termíny a schválené rezervace i vlastní akce se zapisují do zvoleného Robinova kalendáře. Obnovovací token je v Neonu uložený šifrovaně; heslo ke Google účtu aplikace nikdy nedostane.
+
+Povolená návratová adresa v Google Cloud:
+
+```text
+https://kouzlimesrobinem2.vercel.app/api/admin/google-calendar/callback
+```
+
 ## Lokálně
 
 ```bash

@@ -118,6 +118,7 @@ function entriesForDay(entries: CalendarEntry[], key: string) {
 
 function entryTone(entry: CalendarEntry) {
   if (entry.status === "pending") return "pending";
+  if (entry.entryType === "google") return "google";
   if (entry.entryType === "block") return "blocked";
   return "busy";
 }
@@ -137,6 +138,9 @@ function range(entry: CalendarEntry) {
 }
 
 function statusLabel(entry: CalendarEntry) {
+  if (entry.entryType === "google") {
+    return entry.sourceLabel ? `Google · ${entry.sourceLabel}` : "Google Kalendář";
+  }
   if (entry.entryType === "block") return "Vlastní akce";
   return {
     pending: "Čeká na schválení",
@@ -307,11 +311,14 @@ export function AdminBookings({
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "Změnu se nepodařilo uložit.");
       replaceEntry(data.entry);
+      const googleWarning = data.googleSync?.attempted && data.googleSync?.synced === false
+        ? " Zápis do Google Kalendáře se nepodařil; propojení prosím zkontrolujte."
+        : "";
       setNotice(
         data.emailSent === false
-          ? "Změna je uložená, ale e-mail klientovi se nepodařilo odeslat. Kontaktujte ho prosím ručně."
+          ? `Změna je uložená, ale e-mail klientovi se nepodařilo odeslat. Kontaktujte ho prosím ručně.${googleWarning}`
           : status === "approved"
-            ? "Termín je potvrzený a klient dostal e-mail."
+            ? `Termín je potvrzený a klient dostal e-mail.${googleWarning}`
             : "Termín je zamítnutý a klient dostal e-mail.",
       );
     } catch (error) {
@@ -352,12 +359,15 @@ export function AdminBookings({
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "Termín se nepodařilo uvolnit.");
       replaceEntry(data.entry);
+      const googleWarning = data.googleSync?.attempted && data.googleSync?.synced === false
+        ? " Událost se nepodařilo odstranit z Google Kalendáře."
+        : "";
       setNotice(
         entry.entryType === "block"
-          ? "Vlastní akce je uvolněná."
+          ? `Vlastní akce je uvolněná.${googleWarning}`
           : data.emailSent === false
-            ? "Termín je uvolněný, ale e-mail klientovi se nepodařilo odeslat. Kontaktujte ho prosím ručně."
-            : "Termín je uvolněný a klient dostal e-mail.",
+            ? `Termín je uvolněný, ale e-mail klientovi se nepodařilo odeslat. Kontaktujte ho prosím ručně.${googleWarning}`
+            : `Termín je uvolněný a klient dostal e-mail.${googleWarning}`,
       );
     } catch (error) {
       setNotice(error instanceof Error ? error.message : "Termín se nepodařilo uvolnit.");
@@ -397,7 +407,13 @@ export function AdminBookings({
       }));
       form.reset();
       setBlockOpen(false);
-      setNotice("Vlastní akce je uložená a její čas se veřejnosti zobrazí jako obsazený.");
+      setNotice(
+        data.googleSync?.attempted && data.googleSync?.synced === false
+          ? "Vlastní akce je uložená na webu, ale zápis do Google Kalendáře se nepodařil."
+          : data.googleSync?.synced
+            ? "Vlastní akce je uložená na webu i v Google Kalendáři."
+            : "Vlastní akce je uložená a její čas se veřejnosti zobrazí jako obsazený.",
+      );
     } catch (error) {
       setNotice(error instanceof Error ? error.message : "Termín se nepodařilo zablokovat.");
     } finally {
@@ -566,6 +582,7 @@ export function AdminBookings({
             <span><i className="is-pending" />Čeká</span>
             <span><i className="is-busy" />Potvrzeno</span>
             <span><i className="is-blocked" />Vlastní akce</span>
+            <span><i className="is-google" />Google</span>
           </div>
 
           <div className="admin-month-weekdays" aria-hidden="true">
@@ -604,6 +621,7 @@ export function AdminBookings({
                     {tones.has("pending") ? <i className="is-pending" /> : null}
                     {tones.has("busy") ? <i className="is-busy" /> : null}
                     {tones.has("blocked") ? <i className="is-blocked" /> : null}
+                    {tones.has("google") ? <i className="is-google" /> : null}
                   </span>
                 </button>
               );
@@ -645,6 +663,8 @@ export function AdminBookings({
                   ? "Čeká"
                   : entry.entryType === "block"
                     ? "Akce"
+                    : entry.entryType === "google"
+                      ? "Google"
                     : "Obsazeno"
                 : !dashboard.configured
                   ? "Bez dat"
@@ -675,6 +695,9 @@ export function AdminBookings({
                     <strong>{entry.title}</strong>
                     <span>{statusLabel(entry)}{entry.location ? ` · ${entry.location}` : ""}</span>
                   </div>
+                  {entry.externalUrl ? (
+                    <a href={entry.externalUrl} target="_blank" rel="noreferrer">Otevřít ↗</a>
+                  ) : null}
                 </article>
               ))}
             </div>
@@ -742,13 +765,17 @@ export function AdminBookings({
             </div>
             <div className="admin-calendar-events">
               {entries.map((entry) => (
-                <article key={entry.id} className={`admin-calendar-event is-${entry.status}`}>
+                <article key={entry.id} className={`admin-calendar-event is-${entry.status}${entry.entryType === "google" ? " is-google" : ""}`}>
                   <time>{range(entry)}</time>
                   <div>
                     <strong>{entry.title}</strong>
                     <span>{statusLabel(entry)}{entry.location ? ` · ${entry.location}` : ""}</span>
                   </div>
-                  {entry.status === "approved" ? (
+                  {entry.externalUrl ? (
+                    <a className="admin-calendar-event-link" href={entry.externalUrl} target="_blank" rel="noreferrer">
+                      Google ↗
+                    </a>
+                  ) : entry.status === "approved" && entry.entryType !== "google" ? (
                     <button type="button" onClick={() => cancel(entry)} disabled={busyId === entry.id}>
                       Uvolnit
                     </button>

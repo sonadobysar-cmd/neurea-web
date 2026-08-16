@@ -7,6 +7,7 @@ import { type ReactNode, useState } from "react";
 const navigation = [
   { href: "/admin", label: "Přehled", short: "Přehled" },
   { href: "/admin/rezervace", label: "Rezervace", short: "Rezervace" },
+  { href: "/admin/google-kalendar", label: "Google kalendář", short: "Google kalendář" },
   { href: "/admin/statistiky", label: "Statistiky", short: "Statistiky" },
   { href: "/admin/obsah", label: "Obsah webu", short: "Obsah" },
   { href: "/admin/fotky", label: "Fotky a galerie", short: "Fotky" },

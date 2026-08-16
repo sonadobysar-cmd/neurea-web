@@ -5,6 +5,10 @@ import {
   readBookingWorkingHours,
   readBusyIntervals,
 } from "@/lib/bookings/store";
+import {
+  GoogleCalendarUnavailableError,
+  readGoogleBusyIntervals,
+} from "@/lib/google-calendar/store";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -25,10 +29,12 @@ export async function GET(request: Request) {
     return NextResponse.json({ ok: false, error: "Neplatný rozsah." }, { status: 400 });
   }
   try {
-    const [busy, workingHours] = await Promise.all([
+    const [localBusy, googleBusy, workingHours] = await Promise.all([
       readBusyIntervals(from, to),
+      readGoogleBusyIntervals(from, to),
       readBookingWorkingHours(),
     ]);
+    const busy = [...localBusy, ...googleBusy].sort((a, b) => a.startAt.localeCompare(b.startAt));
     const dayKey = new Intl.DateTimeFormat("en-CA", {
       timeZone: "Europe/Prague",
       year: "numeric",
@@ -42,6 +48,15 @@ export async function GET(request: Request) {
     });
   } catch (error) {
     console.error("[robin/bookings] availability failed", error);
-    return NextResponse.json({ configured: true, busy: [] }, { status: 503 });
+    return NextResponse.json(
+      {
+        configured: true,
+        busy: [],
+        error: error instanceof GoogleCalendarUnavailableError
+          ? "Obsazenost z Google Kalendáře se právě nepodařilo ověřit."
+          : "Obsazenost se právě nepodařilo ověřit.",
+      },
+      { status: 503 },
+    );
   }
 }

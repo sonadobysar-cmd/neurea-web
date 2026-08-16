@@ -152,6 +152,8 @@ function mapRow(row: DbRow): CalendarEntry {
     updatedAt: iso(row.updated_at)!,
     reviewedAt: iso(row.reviewed_at),
     notificationSentAt: iso(row.notification_sent_at),
+    sourceLabel: null,
+    externalUrl: null,
   };
 }
 

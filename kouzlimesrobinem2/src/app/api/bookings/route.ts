@@ -12,6 +12,10 @@ import { adminUrl, escapeEmailHtml, resolveRobinEmail, sendEmail } from "@/lib/e
 import { readSiteContent } from "@/lib/cms/store";
 import { getClientIp, isSameOrigin } from "@/lib/request";
 import { turnstileError, verifyTurnstile } from "@/lib/turnstile";
+import {
+  GoogleCalendarUnavailableError,
+  hasGoogleCalendarConflict,
+} from "@/lib/google-calendar/store";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -132,6 +136,27 @@ export async function POST(request: Request) {
   if (!turnstile.ok) {
     const error = turnstileError(turnstile);
     return NextResponse.json({ ok: false, error: error.message }, { status: error.status });
+  }
+
+  try {
+    if (await hasGoogleCalendarConflict(startAt, endAt)) {
+      return NextResponse.json(
+        { ok: false, error: "Tento čas už má Robin obsazený v kalendáři. Vyberte prosím jiný." },
+        { status: 409 },
+      );
+    }
+  } catch (error) {
+    if (error instanceof GoogleCalendarUnavailableError) {
+      return NextResponse.json(
+        { ok: false, error: "Robinův kalendář se právě nepodařilo ověřit. Zkuste to prosím za chvíli." },
+        { status: 503 },
+      );
+    }
+    console.error("[robin/bookings] Google conflict check failed", error);
+    return NextResponse.json(
+      { ok: false, error: "Robinův kalendář se právě nepodařilo ověřit. Zkuste to prosím za chvíli." },
+      { status: 503 },
+    );
   }
 
   try {

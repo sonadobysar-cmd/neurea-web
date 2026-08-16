@@ -1,5 +1,5 @@
 export type BookingStatus = "pending" | "approved" | "declined" | "cancelled";
-export type CalendarEntryType = "booking" | "block";
+export type CalendarEntryType = "booking" | "block" | "google";
 
 export type BookingWorkingDay = {
   weekday: number;
@@ -32,6 +32,8 @@ export type CalendarEntry = {
   updatedAt: string;
   reviewedAt: string | null;
   notificationSentAt: string | null;
+  sourceLabel: string | null;
+  externalUrl: string | null;
 };
 
 export type BookingDashboard = {

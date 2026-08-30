@@ -27,6 +27,10 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://clinic-samer.vercel.app"),
   title: "MUDr. Samer Asad · Gynekologie & IVF",
   description: "Diskrétní gynekologická péče a IVF v Praze.",
+  icons: {
+    icon: "/clinic-samer-ai-mark.png",
+    apple: "/clinic-samer-ai-mark.png",
+  },
   openGraph: {
     title: "Clinic Samer",
     description: "Gynekologie · IVF · Praha",

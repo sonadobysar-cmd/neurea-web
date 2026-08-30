@@ -33,8 +33,9 @@ export default function RealizacePage() {
           <p className="eyebrow">Důkaz</p>
           <h1>Realizace tiny houses na kolech</h1>
           <p>
-            Skutečné domy z naší dílny — exteriéry na louce, interiéry ze smrku,
-            kulaté střechy i moderní domy s plochou střechou. Každý s koly.
+            Každý tiny house vzniká pro jiného člověka, jiné místo a jiný způsob
+            využití. Prohlédněte si skutečné domy z naší dílny — každý je
+            originál.
           </p>
         </div>
       </header>

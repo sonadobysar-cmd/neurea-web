@@ -2054,6 +2054,166 @@ p {
   border-top-color: var(--line-light);
 }
 
+/* ——— Porovnávací návrhy A/B ——— */
+.proposal-switcher {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 75;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.42rem;
+  border: 1px solid rgba(250, 246, 240, 0.18);
+  border-radius: 999px;
+  background: rgba(26, 20, 16, 0.9);
+  color: var(--paper);
+  box-shadow: 0 12px 35px rgba(26, 20, 16, 0.22);
+  backdrop-filter: blur(14px);
+}
+
+.proposal-switcher > span {
+  padding: 0 0.55rem 0 0.7rem;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.62;
+}
+
+.proposal-switcher a {
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  transition: background 0.25s, color 0.25s;
+}
+
+.proposal-switcher a.is-active {
+  background: var(--oak);
+  color: var(--ink);
+}
+
+/* ——— Tři možnosti využití ——— */
+.use-cases {
+  overflow: hidden;
+}
+
+.use-cases-head {
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.use-case-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.use-case-card {
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 1.25rem;
+  background: var(--sand);
+  transition: transform 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out);
+}
+
+.use-case-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 24px 55px rgba(58, 38, 22, 0.11);
+}
+
+.use-case-media {
+  position: relative;
+  min-height: 15rem;
+  margin: 0.75rem 0.75rem 0;
+  overflow: hidden;
+  border-radius: 5.75rem 0.4rem 0.4rem 0.4rem;
+}
+
+.use-case-card--2 .use-case-media {
+  border-radius: 0.4rem 5.75rem 0.4rem 0.4rem;
+}
+
+.use-case-media img {
+  object-fit: cover;
+  transition: transform 0.75s var(--ease-out);
+}
+
+.use-case-card:hover .use-case-media img {
+  transform: scale(1.035);
+}
+
+.use-case-copy {
+  display: flex;
+  min-height: 20rem;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1.5rem;
+}
+
+.use-case-number {
+  color: var(--oak);
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.85rem;
+}
+
+.use-case-copy h3 {
+  max-width: 13ch;
+  margin-bottom: 0.8rem;
+  font-size: clamp(1.55rem, 3vw, 2rem);
+}
+
+.use-case-copy p {
+  flex: 1;
+  margin-bottom: 1.4rem;
+  color: var(--muted);
+  font-size: 0.94rem;
+  line-height: 1.65;
+}
+
+.proposal-existing-paths {
+  border-top: 1px solid var(--line);
+  background: var(--mist);
+}
+
+@media (min-width: 760px) {
+  .use-case-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .use-case-media {
+    min-height: clamp(15rem, 24vw, 22rem);
+  }
+}
+
+@media (max-width: 759px) {
+  .proposal-switcher {
+    right: 0.7rem;
+    bottom: calc(0.7rem + env(safe-area-inset-bottom));
+    padding: 0.3rem;
+  }
+
+  .proposal-switcher > span {
+    display: none;
+  }
+
+  .proposal-switcher a {
+    width: 1.9rem;
+    height: 1.9rem;
+  }
+
+  .use-case-copy {
+    min-height: 0;
+  }
+}
+
 /* ——— Path cards (4 systematické cesty) ——— */
 .path-stack {
   display: grid;
@@ -2817,7 +2977,7 @@ p {
   background: var(--sand);
   position: sticky;
   top: var(--nav-h);
-  z-index: 20;
+  z-index: 50;
 }
 
 .cfg-topbar .cfg-steps {

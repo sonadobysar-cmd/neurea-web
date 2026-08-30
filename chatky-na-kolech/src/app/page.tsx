@@ -15,6 +15,80 @@ import {
   wheelPoints,
 } from "@/data/content";
 
+const proposalNav = [
+  { href: "#na-miru", label: "Na míru" },
+  { href: "/atelier", label: "Výroba" },
+  { href: "/realizace", label: "Realizace" },
+  { href: "#kontakt", label: "Kontakt" },
+] as const;
+
+const useCases = [
+  {
+    title: "Bydlení a zahrada",
+    text: "Celoroční bydlení, zahradní domek pro hosty nebo samostatné místo k odpočinku. Bez typového katalogu — podle vás, pozemku a způsobu využití.",
+    image: "/media/realizace/tiny-12x4.jpg",
+    alt: "Dřevěný tiny house na zahradě pro bydlení a odpočinek",
+  },
+  {
+    title: "Kancelář / home office",
+    text: "Klid na práci pár kroků od domu. Tiny house může fungovat jako plnohodnotná zahradní kancelář nebo samostatné zázemí pro firmu.",
+    image: "/media/realizace/tiny-12x4-interior.jpg",
+    alt: "Světlý interiér tiny house vhodný jako kancelář nebo home office",
+  },
+  {
+    title: "Podnikání",
+    text: "Ubytování v přírodě, bistro, provozovna nebo jiný vlastní projekt. Navrhneme prostor podle reálného provozu, ne podle hotového modelu.",
+    image: "/media/realizace/sirek.jpg",
+    alt: "Tiny house umístěný v přírodě pro podnikatelský projekt",
+  },
+] as const;
+
+function UseCasesSection() {
+  return (
+    <section className="section section-paper use-cases" id="na-miru">
+      <div className="wrap">
+        <Reveal>
+          <div className="section-head wide use-cases-head">
+            <div>
+              <p className="eyebrow">Jeden tiny. Spousta možností.</p>
+              <h2>Tiny house na míru vašemu životu</h2>
+            </div>
+            <p>
+              Nevyrábíme katalogové domky, ze kterých si musíte vybrat. Každý
+              tiny house vzniká podle konkrétního místa a způsobu využití.
+            </p>
+          </div>
+        </Reveal>
+
+        <div className="use-case-grid">
+          {useCases.map((item, i) => (
+            <Reveal key={item.title} delay={(Math.min(i + 1, 3) as 1 | 2 | 3)}>
+              <article className={`use-case-card use-case-card--${i + 1}`}>
+                <div className="use-case-media">
+                  <Image
+                    src={item.image}
+                    alt={item.alt}
+                    fill
+                    sizes="(max-width: 760px) 100vw, 33vw"
+                  />
+                </div>
+                <div className="use-case-copy">
+                  <span className="use-case-number">0{i + 1}</span>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                  <Link href="#kontakt" className="audience-cta">
+                    Probrat záměr <ArrowIcon />
+                  </Link>
+                </div>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function CtaBand({
   title,
   text,
@@ -59,7 +133,14 @@ function CtaBand({
   );
 }
 
-export default function HomePage() {
+export default async function HomePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ varianta?: string }>;
+}) {
+  const { varianta } = await searchParams;
+  const proposal = varianta === "b" ? "b" : varianta === "a" ? "a" : null;
+  const proposalHref = proposal ? `/?varianta=${proposal}` : "/";
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -79,7 +160,30 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <SiteNav darkHero />
+      <SiteNav
+        darkHero
+        navItems={proposal ? proposalNav : undefined}
+        homeHref={proposalHref}
+        ctaLabel={proposal ? "Spustit konfigurátor" : undefined}
+      />
+
+      {proposal && (
+        <aside className="proposal-switcher" aria-label="Porovnání návrhů">
+          <span>Porovnání</span>
+          <Link
+            href="/?varianta=a"
+            className={proposal === "a" ? "is-active" : ""}
+          >
+            A
+          </Link>
+          <Link
+            href="/?varianta=b"
+            className={proposal === "b" ? "is-active" : ""}
+          >
+            B
+          </Link>
+        </aside>
+      )}
 
       <section className="hero">
         <div className="hero-media">
@@ -101,8 +205,9 @@ export default function HomePage() {
             <span className="hero-accent">na kolech</span>
           </h1>
           <p className="hero-lead">
-            Moderní tiny house z dřeva s charakterem. Homologovaný podvozek —
-            bydlení, Airbnb i rekonstrukce kempů. Dům, který s vámi jede.
+            {proposal
+              ? "Moderní tiny house ze dřeva s charakterem. Celoroční bydlení, home office i prostor pro podnikání. Dům, který vzniká podle vás."
+              : "Moderní tiny house z dřeva s charakterem. Homologovaný podvozek — bydlení, Airbnb i rekonstrukce kempů. Dům, který s vámi jede."}
           </p>
           <div className="hero-stats" aria-label="Parametry">
             <div>
@@ -123,8 +228,8 @@ export default function HomePage() {
               Spustit konfigurátor
               <ArrowIcon />
             </Link>
-            <Link href="/#cesty" className="btn btn-ghost-light">
-              Vybrat cestu
+            <Link href={proposal ? "#na-miru" : "/#cesty"} className="btn btn-ghost-light">
+              {proposal ? "Možnosti využití" : "Vybrat cestu"}
             </Link>
           </div>
           <div className="hero-scroll">
@@ -154,8 +259,14 @@ export default function HomePage() {
         </div>
       </div>
 
+      {proposal && <UseCasesSection />}
+
       {/* Systém: 4 cesty */}
-      <section className="section section-paper" id="cesty">
+      {(!proposal || proposal === "b") && (
+        <section
+          className={`section section-paper${proposal === "b" ? " proposal-existing-paths" : ""}`}
+          id="cesty"
+        >
         <div className="wrap">
           <Reveal>
             <div className="section-head wide">
@@ -210,7 +321,8 @@ export default function HomePage() {
             ))}
           </div>
         </div>
-      </section>
+        </section>
+      )}
 
       <section className="section section-ink" id="kola">
         <div className="wrap">
@@ -255,7 +367,9 @@ export default function HomePage() {
           <Reveal>
             <div className="cfg-teaser">
               <div>
-                <p className="eyebrow">Cesta 01 · Konfigurátor</p>
+                <p className="eyebrow">
+                  {proposal ? "Konfigurátor" : "Cesta 01 · Konfigurátor"}
+                </p>
                 <h2>Sestavte dům. Uvidíte cenu. Pošlete poptávku.</h2>
                 <p>
                   Rozměry, střecha, fasáda, výbava — živý náhled a orientační
@@ -267,8 +381,11 @@ export default function HomePage() {
                     Otevřít konfigurátor
                     <ArrowIcon />
                   </Link>
-                  <Link href="/#renovace" className="btn btn-ghost-light">
-                    Spíš renovace?
+                  <Link
+                    href={proposal ? "#kontakt" : "/#renovace"}
+                    className="btn btn-ghost-light"
+                  >
+                    {proposal ? "Nejdřív probrat záměr" : "Spíš renovace?"}
                   </Link>
                 </div>
               </div>
@@ -372,8 +489,16 @@ export default function HomePage() {
           <Reveal>
             <div className="mt-3">
               <CtaBand
-                title="Nejste si jistí, která cesta je vaše?"
-                text="Napište jednou větou, co řešíte. Ozveme se s doporučením."
+                title={
+                  proposal
+                    ? "Máte představu? Pojďme ji probrat."
+                    : "Nejste si jistí, která cesta je vaše?"
+                }
+                text={
+                  proposal
+                    ? "Nemusíte mít hotový projekt. Stačí popsat, k čemu má tiny house sloužit a kam ho chcete umístit."
+                    : "Napište jednou větou, co řešíte. Ozveme se s doporučením."
+                }
                 primary="Popsat svůj projekt"
                 primaryHref="/#kontakt"
                 secondary="Konfigurátor"
@@ -418,7 +543,9 @@ export default function HomePage() {
                     maxWidth: "16ch",
                   }}
                 >
-                  Popište nám svůj záměr. Ozveme se s dalším krokem.
+                  {proposal
+                    ? "Máte představu? Pojďme ji probrat."
+                    : "Popište nám svůj záměr. Ozveme se s dalším krokem."}
                 </h2>
                 <p
                   style={{
@@ -428,8 +555,9 @@ export default function HomePage() {
                     marginBottom: "1.5rem",
                   }}
                 >
-                  Nový dům, renovace, byznys nebo kemp — vyberte ve formuláři.
-                  Nebo rovnou pošlete konfiguraci.
+                  {proposal
+                    ? "Nemusíte mít hotový projekt ani přesně vědět, jak má váš tiny house vypadat. Řekněte nám, k čemu ho chcete používat, kam ho chcete umístit a jakou máte představu."
+                    : "Nový dům, renovace, byznys nebo kemp — vyberte ve formuláři. Nebo rovnou pošlete konfiguraci."}
                 </p>
                 <p style={{ marginBottom: "0.35rem" }}>
                   <a href={`mailto:${brand.email}`}>{brand.email}</a>
@@ -445,7 +573,7 @@ export default function HomePage() {
               </div>
             </Reveal>
             <Reveal delay={1}>
-              <ContactForm />
+              <ContactForm mode={proposal ? "proposal" : "current"} />
             </Reveal>
           </div>
         </div>

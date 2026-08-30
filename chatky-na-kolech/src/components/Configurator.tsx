@@ -146,7 +146,7 @@ export function Configurator() {
   const facade = FACADES.find((f) => f.id === cfg.facade)!;
   const facadeRate =
     facade.id === "half"
-      ? (HALF_FACADE.woodPerM2 + HALF_FACADE.metalPerM2) / 2
+      ? HALF_FACADE.pricePerM2
       : facade.pricePerM2;
   const showPaint = !facade.includesPaint;
   const showLofts = cfg.roof !== "kulata";
@@ -346,7 +346,7 @@ export function Configurator() {
               <strong>{formatM2(prices.floorArea)}</strong>
             </div>
             <div className="cfg-spec cfg-spec--price">
-              <span>Orientačně</span>
+              <span>Orientačně bez DPH</span>
               <strong>{formatCzk(prices.total)}</strong>
             </div>
           </div>
@@ -428,7 +428,7 @@ export function Configurator() {
                     {FACADES.map((f) => {
                       const rate =
                         f.id === "half"
-                          ? (HALF_FACADE.woodPerM2 + HALF_FACADE.metalPerM2) / 2
+                          ? HALF_FACADE.pricePerM2
                           : f.pricePerM2;
 
                       return (
@@ -597,7 +597,7 @@ export function Configurator() {
                 )}
 
                 <div>
-                  <h3 className="cfg-subhead">Samostatný pokoj</h3>
+                  <h3 className="cfg-subhead">Samostatný pokoj / příčka + dveře</h3>
                   <div className="cfg-cards cfg-cards--row">
                     <button
                       type="button"
@@ -649,7 +649,9 @@ export function Configurator() {
                   </div>
                 </div>
                 <div>
-                  <h3 className="cfg-subhead">Dodatečné zateplení</h3>
+                  <h3 className="cfg-subhead">
+                    Dodatečné zateplení přírodní lněnou izolací
+                  </h3>
                   <div className="cfg-cards cfg-cards--row">
                     <button
                       type="button"
@@ -720,22 +722,23 @@ export function Configurator() {
                     <dd>{cfg.floorHeating === "yes" ? "Ano" : "Ne"}</dd>
                   </div>
                   <div>
-                    <dt>Dodatečné zateplení</dt>
+                    <dt>Dodatečné zateplení lněnou izolací</dt>
                     <dd>{cfg.insulation === "yes" ? "Ano" : "Ne"}</dd>
                   </div>
                   <div>
-                    <dt>Samostatný pokoj</dt>
+                    <dt>Samostatný pokoj / příčka + dveře</dt>
                     <dd>{cfg.room === "yes" ? "Ano" : "Ne"}</dd>
                   </div>
                 </dl>
 
                 <div className="cfg-price-box">
-                  <span>Orientační cena</span>
+                  <span>Orientační cena bez DPH</span>
                   <strong>{formatCzk(prices.total)}</strong>
                 </div>
                 <p className="cfg-price-note">
-                  Výsledná cena je orientační. Přesnou nabídku potvrdíme podle
-                  finálního řešení a místa realizace.
+                  Všechny ceny v konfigurátoru jsou uvedené bez DPH a jsou
+                  orientační. Přesnou nabídku potvrdíme podle finálního řešení
+                  a místa realizace.
                 </p>
 
                 {deliveryStatus === "sent" || deliveryStatus === "mailto" ? (

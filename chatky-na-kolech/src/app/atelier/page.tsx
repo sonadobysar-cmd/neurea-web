@@ -4,7 +4,34 @@ import Link from "next/link";
 import { ArrowIcon } from "@/components/Icons";
 import { Reveal } from "@/components/Reveal";
 import { SiteNav } from "@/components/SiteNav";
-import { media, values } from "@/data/content";
+import { media } from "@/data/content";
+
+const productionPoints = [
+  {
+    title: "Výroba v hale",
+    text: "Stavíme pod střechou, v kontrolovaném prostředí a bez vlivu počasí. Jednotlivé technologické postupy tak máme pod dohledem.",
+  },
+  {
+    title: "Osobní kontrola výroby",
+    text: "Výrobu vede a kontroluje přímo majitel. Komunikujete s člověkem, který váš tiny house skutečně staví.",
+  },
+  {
+    title: "Masivní konstrukce",
+    text: "Používáme konstrukční systém moderní dřevostavby s důrazem na pevnost, mobilitu, stabilitu a dlouhou životnost.",
+  },
+  {
+    title: "Detaily, které rozhodují",
+    text: "Hlídáme skladbu izolací, tepelné mosty, nosné prvky i správné provedení stěn — tedy věci, které po dokončení často nejsou vidět.",
+  },
+  {
+    title: "Každý dům vzniká jinak",
+    text: "Rozměry, dispozici, lofty, okna, koupelnu, kuchyň i technologie řešíme podle toho, jak chcete dům opravdu používat.",
+  },
+  {
+    title: "Stavební zkušenosti",
+    text: "Vycházíme ze zkušeností ze staveb a rekonstrukcí. Tiny house vnímáme jako skutečnou malou dřevostavbu.",
+  },
+] as const;
 
 export const metadata: Metadata = {
   title: "Dílna a výroba tiny house na kolech",
@@ -31,11 +58,11 @@ export default function AtelierPage() {
       <SiteNav />
       <header className="page-hero">
         <div className="wrap">
-          <p className="eyebrow">Dílna</p>
-          <h1>Stavíme tiny houses, které se smí hýbat</h1>
+          <p className="eyebrow">Výroba</p>
+          <h1>Záleží i na tom, co není vidět</h1>
           <p>
-            Nejsme katalog. Jsme dílna s moderním střihem — přírodní dřevo, čisté
-            linie, kola jako součást produktu.
+            Tiny house pro nás není jen hezký výrobek. Stavíme ho jako skutečnou
+            moderní dřevostavbu — od podvozku a konstrukce až po poslední detail.
           </p>
         </div>
       </header>
@@ -57,15 +84,15 @@ export default function AtelierPage() {
             <Reveal delay={1}>
               <div className="split-copy">
                 <p className="eyebrow">Přístup</p>
-                <h2>Od záměru k jednotce, která vydělává nebo bydlí</h2>
+                <h2>Dům musí fungovat jako celek</h2>
                 <p>
-                  Stavíme pro majitele pozemků, provozovatele Airbnb, investory
-                  i provozovatele kempů — pro každého, kdo chce vyměnit staré
-                  chatky za něco, na co jsou hosté pyšní.
+                  Pevnost, mobilita, stabilita a dlouhá životnost nezačínají u
+                  pohledového obkladu. Rozhoduje konstrukce, správná skladba stěn
+                  a promyšlené napojení každého prvku.
                 </p>
                 <p>
-                  Každý projekt začíná otázkou „k čemu to má sloužit“ — ne
-                  „který model z PDF“.
+                  Každý projekt proto začíná tím, jak chcete tiny house skutečně
+                  používat — ne výběrem modelu z katalogu.
                 </p>
                 <Link href="/#kontakt" className="btn btn-ink btn-arrow">
                   Poptat konzultaci
@@ -81,12 +108,12 @@ export default function AtelierPage() {
         <div className="wrap">
           <Reveal>
             <div className="section-head">
-              <p className="eyebrow">Principy</p>
-              <h2>Na čem stojíme</h2>
+              <p className="eyebrow">Pod povrchem</p>
+              <h2>Šest věcí, na kterých záleží</h2>
             </div>
           </Reveal>
           <div className="values">
-            {values.map((v, i) => (
+            {productionPoints.map((v, i) => (
               <Reveal key={v.title} delay={(Math.min(i + 1, 3) as 1 | 2 | 3)}>
                 <div className="value">
                   <h3>{v.title}</h3>
@@ -104,16 +131,16 @@ export default function AtelierPage() {
             <Reveal>
               <div className="split-copy">
                 <p className="eyebrow">Výroba</p>
-                <h2>Hotový dům. Ne staveniště u vás.</h2>
+                <h2>Výroba pod střechou. Kontrola v každém kroku.</h2>
                 <p>
-                  Podvozek, konstrukce, izolace, interiér — skládáme v dílně. K
-                  vám přijede jednotka připravená k životu nebo k první
-                  rezervaci.
+                  Podvozek, konstrukci, izolaci i interiér skládáme v hale bez
+                  vlivu počasí. Výrobu osobně vede člověk, se kterým projekt od
+                  začátku řešíte.
                 </p>
                 <ul className="split-list">
-                  <li>Vlastní výroba a kontrola detailů</li>
-                  <li>Homologovaný podvozek jako standard</li>
-                  <li>Předání včetně zaučení</li>
+                  <li>Kontrolované prostředí a technologické postupy</li>
+                  <li>Moderní konstrukční systém dřevostavby</li>
+                  <li>Osobní kontrola výroby majitelem</li>
                 </ul>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem" }}>
                   <Link href="/konfigurator" className="btn btn-oak btn-arrow">
@@ -157,11 +184,13 @@ export default function AtelierPage() {
             </Reveal>
             <Reveal delay={1}>
               <div className="split-copy">
-                <p className="eyebrow">Detail</p>
-                <h2>Dřevo, které vydrží pohled zblízka</h2>
+                <p className="eyebrow">Na míru</p>
+                <h2>Každý dům vzniká jinak</h2>
                 <p>
-                  Smrkový obklad, loft, černé rámy oken. Interiér, který fotí
-                  hosté — a majitelé v něm chtějí zůstat.
+                  Rozměry, dispozici, počet loftů, velikost oken, koupelnu,
+                  kuchyň i technologie řešíme podle místa a vašeho způsobu
+                  života. Výsledkem není typový domek, ale řešení pro konkrétní
+                  člověka.
                 </p>
                 <Link href="/realizace" className="btn btn-ink btn-arrow">
                   Prohlédnout realizace

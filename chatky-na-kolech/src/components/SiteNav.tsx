@@ -5,7 +5,19 @@ import { useEffect, useState } from "react";
 import { brand, nav } from "@/data/content";
 import { LogoMark } from "./Icons";
 
-export function SiteNav({ darkHero = false }: { darkHero?: boolean }) {
+type NavItem = { href: string; label: string };
+
+export function SiteNav({
+  darkHero = false,
+  navItems = nav,
+  homeHref = "/",
+  ctaLabel = "Konfigurátor",
+}: {
+  darkHero?: boolean;
+  navItems?: readonly NavItem[];
+  homeHref?: string;
+  ctaLabel?: string;
+}) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -31,7 +43,7 @@ export function SiteNav({ darkHero = false }: { darkHero?: boolean }) {
         className={`site-nav${scrolled ? " is-scrolled" : ""}${dark ? " is-dark" : ""}`}
       >
         <div className="wrap nav-inner">
-          <Link href="/" className="brand" onClick={() => setOpen(false)}>
+          <Link href={homeHref} className="brand" onClick={() => setOpen(false)}>
             <LogoMark className="brand-mark" />
             <span className="brand-text">
               <strong>{brand.name}</strong>
@@ -40,7 +52,7 @@ export function SiteNav({ darkHero = false }: { darkHero?: boolean }) {
           </Link>
 
           <nav className="nav-links" aria-label="Hlavní">
-            {nav.map((item) => (
+            {navItems.map((item) => (
               <Link key={item.href} href={item.href}>
                 {item.label}
               </Link>
@@ -48,7 +60,7 @@ export function SiteNav({ darkHero = false }: { darkHero?: boolean }) {
           </nav>
 
           <Link href="/konfigurator" className="btn btn-ink nav-cta">
-            Konfigurátor
+            {ctaLabel}
           </Link>
 
           <button
@@ -71,7 +83,7 @@ export function SiteNav({ darkHero = false }: { darkHero?: boolean }) {
         className={`nav-mobile${open ? " is-open" : ""}`}
         aria-hidden={!open}
       >
-        {nav.map((item) => (
+        {navItems.map((item) => (
           <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
             {item.label}
           </Link>

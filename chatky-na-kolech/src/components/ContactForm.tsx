@@ -6,11 +6,19 @@ import { brand } from "@/data/content";
 import { deliverContact } from "@/lib/contact-client";
 import { ArrowIcon } from "./Icons";
 
-const INTENTS = [
+const CURRENT_INTENTS = [
   { value: "novy", label: "Nový tiny house" },
   { value: "renovace", label: "Opravy & renovace" },
   { value: "byznys", label: "Airbnb & investice" },
   { value: "kempy", label: "Rekonstrukce kempů / výměna chatek" },
+  { value: "jine", label: "Zatím nevím — chci poradit" },
+] as const;
+
+const PROPOSAL_INTENTS = [
+  { value: "bydleni", label: "Celoroční bydlení" },
+  { value: "zahrada", label: "Zahradní domek / prostor pro hosty" },
+  { value: "kancelar", label: "Kancelář / home office" },
+  { value: "podnikani", label: "Podnikání / ubytování / provozovna" },
   { value: "jine", label: "Zatím nevím — chci poradit" },
 ] as const;
 
@@ -20,21 +28,37 @@ const PLACEHOLDERS: Record<string, string> = {
   kempy: "Velikost kempu, počet chatek, sezóna, co vyměnit…",
   jine: "Stručně popište záměr…",
   novy: "Pozemek, lokalita, termín…",
+  bydleni: "Jak chcete v domě bydlet, kam ho chcete umístit, termín…",
+  zahrada: "Pro koho bude domek sloužit, pozemek, termín…",
+  kancelar: "Kolik lidí bude prostor využívat, pozemek, vybavení…",
+  podnikani: "Typ provozu, lokalita, kapacita, termín…",
 };
 
 export function ContactForm({
   submitLabel = "Poslat a domluvit další krok",
+  mode = "current",
 }: {
   submitLabel?: string;
+  mode?: "current" | "proposal";
 }) {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "mailto">(
     "idle",
   );
-  const [intent, setIntent] = useState("novy");
+  const [intent, setIntent] = useState(mode === "proposal" ? "bydleni" : "novy");
+  const intents = mode === "proposal" ? PROPOSAL_INTENTS : CURRENT_INTENTS;
 
   useEffect(() => {
     const q = new URLSearchParams(window.location.search).get("zamer");
-    if (q === "renovace" || q === "byznys" || q === "kempy" || q === "novy") {
+    if (
+      q === "renovace" ||
+      q === "byznys" ||
+      q === "kempy" ||
+      q === "novy" ||
+      q === "bydleni" ||
+      q === "zahrada" ||
+      q === "kancelar" ||
+      q === "podnikani"
+    ) {
       setIntent(q);
     }
     const hash = window.location.hash;
@@ -86,7 +110,7 @@ export function ContactForm({
           value={intent}
           onChange={(e) => setIntent(e.target.value)}
         >
-          {INTENTS.map((i) => (
+          {intents.map((i) => (
             <option key={i.value} value={i.value}>
               {i.label}
             </option>
@@ -111,7 +135,10 @@ export function ContactForm({
           id="msg"
           name="msg"
           required
-          placeholder={PLACEHOLDERS[intent] ?? PLACEHOLDERS.novy}
+          placeholder={
+            PLACEHOLDERS[intent] ??
+            (mode === "proposal" ? PLACEHOLDERS.bydleni : PLACEHOLDERS.novy)
+          }
         />
       </div>
       <button

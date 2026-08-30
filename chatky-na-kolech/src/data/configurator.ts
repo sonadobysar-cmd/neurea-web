@@ -1,5 +1,5 @@
 /** Tiny House FLAX — konfigurátor: ceny a katalog možností.
- *  Ceny jsou orientační placeholdery — snadno upravitelné na jednom místě.
+ *  Ceny jsou orientační a bez DPH — snadno upravitelné na jednom místě.
  */
 
 export const WALL_HEIGHT_DEFAULT = 2.5;
@@ -13,8 +13,8 @@ export const DIMENSIONS = {
 
 /** Základní cena za m² podlahové plochy */
 export const BASE_PRICE = {
-  under30: 48_000, // Cena A
-  over30: 44_000, // Cena B
+  under30: 23_000,
+  over30: 25_000,
 } as const;
 
 export const ROOF_TYPES = [
@@ -36,7 +36,7 @@ export const ROOF_TYPES = [
     id: "kulata",
     label: "Kulatá",
     desc: "Jen při šířce 2,5 m · příplatek dle plochy",
-    surchargePerM2: 3_200,
+    surchargePerM2: 1_000,
     requiresWidth: 2.5,
   },
 ] as const;
@@ -48,7 +48,7 @@ export const FACADES = [
     id: "smrk",
     label: "Smrk",
     desc: "Včetně nátěru",
-    pricePerM2: 1_850,
+    pricePerM2: 1_950,
     includesPaint: true,
     woodShare: 1,
     metalShare: 0,
@@ -59,7 +59,7 @@ export const FACADES = [
     id: "thermo",
     label: "Thermoborovice",
     desc: "Tepelně upravené dřevo",
-    pricePerM2: 2_450,
+    pricePerM2: 2_300,
     includesPaint: false,
     woodShare: 1,
     metalShare: 0,
@@ -70,7 +70,7 @@ export const FACADES = [
     id: "modrin",
     label: "Modřín",
     desc: "Přirozeně odolný",
-    pricePerM2: 2_750,
+    pricePerM2: 2_600,
     includesPaint: false,
     woodShare: 1,
     metalShare: 0,
@@ -81,7 +81,7 @@ export const FACADES = [
     id: "plech",
     label: "Plech",
     desc: "Falcový / trapéz",
-    pricePerM2: 2_150,
+    pricePerM2: 1_800,
     includesPaint: false,
     woodShare: 0,
     metalShare: 1,
@@ -92,8 +92,7 @@ export const FACADES = [
     id: "half",
     label: "50 % dřevo / 50 % plech",
     desc: "Thermoborovice + antracitový plech",
-    /** u half se použijí WOOD_HALF + METAL_HALF */
-    pricePerM2: 0,
+    pricePerM2: 2_000,
     includesPaint: false,
     woodShare: 0.5,
     metalShare: 0.5,
@@ -104,15 +103,14 @@ export const FACADES = [
 
 export type FacadeId = (typeof FACADES)[number]["id"];
 
-/** Ceny pro variantu 50/50 */
+/** Pevná sazba pro kombinovanou fasádu podle podkladů klienta. */
 export const HALF_FACADE = {
-  woodPerM2: 2_450, // thermoborovice jako výchozí dřevo v kombinaci
-  metalPerM2: 2_150,
+  pricePerM2: 2_000,
 } as const;
 
 export const PAINT = {
   none: { id: "none" as const, label: "Bez nátěru", pricePerM2: 0 },
-  yes: { id: "yes" as const, label: "S nátěrem", pricePerM2: 380 },
+  yes: { id: "yes" as const, label: "S nátěrem Osmo", pricePerM2: 260 },
 };
 
 export const BATHROOM = {
@@ -123,15 +121,15 @@ export const BATHROOM = {
 export const BATHROOM_VARIANTS = [
   {
     id: "sprcha",
-    label: "Sprcha nebo vana",
-    desc: "S obkladem Rocko",
-    price: 95_000,
+    label: "Obklad u sprchy nebo vany",
+    desc: "Kompletní vybavení · velkoformátový obklad v místě sprchy nebo vany",
+    price: 85_000,
   },
   {
     id: "komplet",
     label: "Kompletní koupelna",
-    desc: "Celý obklad Rocko",
-    price: 165_000,
+    desc: "Kompletní vybavení · velkoformátový obklad stěn a stropu",
+    price: 115_000,
   },
 ] as const;
 
@@ -139,18 +137,18 @@ export type BathVariantId = (typeof BATHROOM_VARIANTS)[number]["id"];
 
 export const FLOOR_HEATING = {
   none: { id: "none" as const, label: "Ne", price: 0 },
-  under30: { id: "yes" as const, label: "Ano", priceUnder30: 58_000, priceOver30: 82_000 },
+  under30: { id: "yes" as const, label: "Ano", priceUnder30: 40_000, priceOver30: 55_000 },
 };
 
 export const INSULATION = {
   none: { id: "none" as const, label: "Ne", pricePerM2: 0 },
-  yes: { id: "yes" as const, label: "Ano", pricePerM2: 520 },
+  yes: { id: "yes" as const, label: "Ano", pricePerM2: 220 },
 };
 
 export const LOFTS = [
   { id: "none", label: "Bez loftu", price: 0, count: 0 },
-  { id: "one", label: "1 loft", price: 48_000, count: 1 },
-  { id: "two", label: "2 samostatné lofty", price: 88_000, count: 2 },
+  { id: "one", label: "1 loft", price: 20_000, count: 1 },
+  { id: "two", label: "2 samostatné lofty", price: 40_000, count: 2 },
 ] as const;
 
 export type LoftId = (typeof LOFTS)[number]["id"];
@@ -165,20 +163,20 @@ export const KITCHEN_VARIANTS = [
     id: "m3",
     label: "3 moduly",
     desc: "Dřez, malá lednice, dvouplotýnková varná deska",
-    price: 72_000,
+    price: 70_000,
   },
   {
     id: "m4",
     label: "4 moduly",
     desc:
       "Výbava jako u 3 modulů + větší pracovní plocha nebo lednice, případně malá lednice a vestavná trouba",
-    price: 105_000,
+    price: 100_000,
   },
   {
     id: "m56",
     label: "5–6 modulů",
     desc: "Dřez, velká lednice, 4 plotýnky, vestavná trouba, více úložného prostoru",
-    price: 148_000,
+    price: 130_000,
   },
 ] as const;
 
@@ -186,7 +184,7 @@ export type KitchenVariantId = (typeof KITCHEN_VARIANTS)[number]["id"];
 
 export const ROOM = {
   none: { id: "none" as const, label: "Ne", price: 0 },
-  yes: { id: "yes" as const, label: "Ano", price: 62_000 },
+  yes: { id: "yes" as const, label: "Ano", price: 20_000 },
 };
 
 export const INCLUDED = [
@@ -303,10 +301,7 @@ export function calcPrices(state: ConfigState): PriceBreakdown {
   const facadeOpt = FACADES.find((f) => f.id === state.facade)!;
   let facade = 0;
   if (facadeOpt.id === "half") {
-    facade = Math.round(
-      (wallArea / 2) * HALF_FACADE.woodPerM2 +
-        (wallArea / 2) * HALF_FACADE.metalPerM2
-    );
+    facade = Math.round(wallArea * HALF_FACADE.pricePerM2);
   } else {
     facade = Math.round(wallArea * facadeOpt.pricePerM2);
   }

@@ -33,17 +33,36 @@ export default async function ServicesPage({
         </div>
       </section>
 
-      <section className="section" style={{ paddingTop: 0 }}>
-        <div className="container service-grid">
+      <section className="section services-catalog-section" style={{ paddingTop: 0 }}>
+        <div className="container services-catalog-grid">
           {dict.services.items.map((item, i) => (
             <Reveal key={item.id} delay={i * 0.05}>
-              <article className="service-card">
-                <div className="num">0{i + 1}</div>
+              <article
+                className={`service-detail-card service-detail-card-${i + 1}`}
+                id={item.id}
+              >
+                <div className="service-detail-topline">
+                  <span>0{i + 1}</span>
+                  <span>{dict.services.eyebrow}</span>
+                </div>
                 <h3>{item.title}</h3>
                 <p>{item.text}</p>
+                <Link href={`/${locale}/booking`} className="service-detail-link">
+                  {dict.nav.book} <span aria-hidden="true">→</span>
+                </Link>
               </article>
             </Reveal>
           ))}
+          <Reveal className="services-price-jump-wrap" delay={0.12}>
+            <Link href="#pricing" className="services-price-jump">
+              <span className="eyebrow eyebrow-on-dark">{dict.pricing.eyebrow}</span>
+              <div>
+                <h3>{dict.pricing.title}</h3>
+                <p>{dict.pricing.lead}</p>
+              </div>
+              <span aria-hidden="true">↓</span>
+            </Link>
+          </Reveal>
         </div>
       </section>
 

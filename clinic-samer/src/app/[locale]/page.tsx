@@ -26,8 +26,11 @@ export default async function HomePage({
   const locale = raw as Locale;
   const dict = getDictionary(locale);
   const approved = await listReviews({ status: "approved" });
-  const featured = dict.services.items.slice(0, 3);
+  const featured = dict.services.items.slice(0, 4);
   const pricedById = new Map(pricedServices.map((service) => [service.id, service]));
+  const priceHighlights = ["gyn-exam", "online-consultation", "co2-laser"]
+    .map((id) => pricedById.get(id))
+    .filter((service): service is PricedService => Boolean(service?.price));
   const gallery = [
     { src: "/photos/gallery-01.png", position: "center 38%" },
     { src: "/photos/gallery-02.png", position: "center 52%" },
@@ -132,7 +135,7 @@ export default async function HomePage({
                   </div>
                   <h3>{item.title}</h3>
                   <p>{item.text}</p>
-                  <Link href={`/${locale}/services`} className="service-card-link">
+                  <Link href={`/${locale}/services#${item.id}`} className="service-card-link">
                     {dict.services.viewAll} <span aria-hidden="true">↗</span>
                   </Link>
                 </article>
@@ -140,11 +143,22 @@ export default async function HomePage({
             ))}
           </div>
           <Reveal>
-            <div className="section-action">
-              <Link href={`/${locale}/services`} className="btn btn-ghost">
-                {dict.services.viewAll}
-              </Link>
-            </div>
+            <Link href={`/${locale}/services#pricing`} className="service-price-feature">
+              <div className="service-price-intro">
+                <span className="eyebrow eyebrow-on-dark">{dict.pricing.eyebrow}</span>
+                <h3>{dict.pricing.eyebrow}</h3>
+                <p>{dict.pricing.lead}</p>
+              </div>
+              <div className="service-price-highlights">
+                {priceHighlights.map((service) => (
+                  <div key={service.id}>
+                    <span>{service.name[locale]}</span>
+                    <strong>{service.price}</strong>
+                  </div>
+                ))}
+              </div>
+              <span className="service-price-arrow" aria-hidden="true">↗</span>
+            </Link>
           </Reveal>
         </div>
       </section>

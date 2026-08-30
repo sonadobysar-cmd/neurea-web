@@ -20,6 +20,9 @@ export function SiteNav({
   const scrolled = useScrolled();
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const normalizedPath = pathname.replace(/\/$/, "") || "/";
+  const isHome = normalizedPath === `/${locale}`;
+  const pageSolid = solid || !isHome;
 
   const links = [
     { href: `/${locale}`, label: dict.nav.home },
@@ -50,9 +53,9 @@ export function SiteNav({
 
   return (
     <header
-      className={`site-nav${scrolled || solid ? " is-solid" : ""}${
-        open ? " is-open" : ""
-      }`}
+      className={`site-nav${scrolled || pageSolid ? " is-solid" : ""}${
+        pageSolid ? " is-page-nav" : ""
+      }${scrolled ? " is-scrolled" : ""}${open ? " is-open" : ""}`}
     >
       <div className="container nav-inner">
         <Link
@@ -65,7 +68,11 @@ export function SiteNav({
 
         <nav className="nav-links" aria-label="Primary">
           {links.map((l) => (
-            <Link key={l.href} href={l.href}>
+            <Link
+              key={l.href}
+              href={l.href}
+              aria-current={normalizedPath === l.href ? "page" : undefined}
+            >
               {l.label}
             </Link>
           ))}

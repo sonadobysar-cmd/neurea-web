@@ -2059,3 +2059,67 @@ body {
   background: #c9c134;
   padding-bottom: calc(30px + env(safe-area-inset-bottom));
 }
+
+/* Mobilní rytmus sekcí a formulář bez přetékání v Safari */
+@media (max-width: 640px) {
+  .luxury-root .marquee {
+    display: none;
+  }
+
+  .luxury-root .cards-sec {
+    padding-top: 68px;
+    padding-bottom: 52px;
+  }
+
+  .luxury-root .gal-sec {
+    padding-top: 68px;
+  }
+
+  .luxury-root .quote {
+    padding-top: 68px;
+    padding-bottom: 56px;
+  }
+
+  .luxury-root .price-sec {
+    padding-top: 68px;
+    padding-bottom: 72px;
+  }
+
+  .luxury-root .price-tickets {
+    margin-top: 46px;
+  }
+
+  .luxury-root .booking-form,
+  .luxury-root .booking-success {
+    max-width: 100%;
+    padding: 24px 18px;
+  }
+
+  .luxury-root .booking-form,
+  .luxury-root .booking-form > *,
+  .luxury-root .booking-grid,
+  .luxury-root .booking-grid label,
+  .luxury-root .booking-step-head > div {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .luxury-root .booking-grid input,
+  .luxury-root .booking-grid select,
+  .luxury-root .booking-grid textarea {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .luxury-root .booking-grid input[type="date"],
+  .luxury-root .booking-grid input[type="time"] {
+    inline-size: 100%;
+    min-inline-size: 0;
+    max-inline-size: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+}

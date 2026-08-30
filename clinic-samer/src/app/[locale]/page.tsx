@@ -226,12 +226,17 @@ export default async function HomePage({
           <Reveal delay={0.1}>
             <div className="split-copy">
               <span className="eyebrow">{dict.about.eyebrow}</span>
-              <h2 className="display">{dict.about.title}</h2>
+              <h2 className="display doctor-name">{dict.about.doctorTitle}</h2>
+              <p className="doctor-role">{dict.about.doctorRole}</p>
+              <p className="doctor-claim">{dict.about.title}</p>
               <p className="lead">{dict.about.lead}</p>
               <p className="body-copy">{dict.about.doctorBio}</p>
               <div className="team-chip">
-                <strong>{dict.about.nurseTitle}</strong>
-                <span>{dict.about.nurseRole}</span>
+                <span className="team-chip-label">{dict.about.teamLabel}</span>
+                <div>
+                  <strong>{dict.about.nurseTitle}</strong>
+                  <span>{dict.about.nurseRole}</span>
+                </div>
               </div>
               <div className="section-action">
                 <Link href={`/${locale}/booking`} className="btn btn-primary">

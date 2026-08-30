@@ -58,11 +58,13 @@ export type Dictionary = {
     title: string;
     lead: string;
     doctorTitle: string;
+    doctorRole: string;
     doctorBio: string;
     membershipsTitle: string;
     memberships: string[];
     nurseTitle: string;
     nurseRole: string;
+    teamLabel: string;
     cta: string;
   };
   atmosphere: {
@@ -244,6 +246,7 @@ const cs: Dictionary = {
     title: "Lékař, kterému můžete říct vše",
     lead: "Cílem je příjemné a diskrétní prostředí — pomoc v běžných i složitějších situacích, v ambulanci i při hospitalizaci.",
     doctorTitle: "MUDr. Samer Asad",
+    doctorRole: "Gynekolog a porodník",
     doctorBio:
       "Lékařská fakulta Univerzity Palackého. Specializace v gynekologii a porodnictví, odborná způsobilost v neplodnosti a asistované reprodukci. Licence pro samostatnou praxi.",
     membershipsTitle: "Členství",
@@ -255,6 +258,7 @@ const cs: Dictionary = {
     ],
     nurseTitle: "Nataliia Asad, DiS.",
     nurseRole: "Zdravotní sestra",
+    teamLabel: "Tým ordinace",
     cta: "Domluvit konzultaci",
   },
   atmosphere: {
@@ -443,6 +447,7 @@ const en: Dictionary = {
     title: "A doctor you can tell everything",
     lead: "A pleasant, discreet setting — support in everyday and complex situations, in the clinic and during hospital care.",
     doctorTitle: "MUDr. Samer Asad",
+    doctorRole: "Gynaecologist and obstetrician",
     doctorBio:
       "Faculty of Medicine, Palacký University. Specialist in gynaecology and obstetrics, with expertise in infertility and assisted reproduction. Licensed for independent practice.",
     membershipsTitle: "Memberships",
@@ -454,6 +459,7 @@ const en: Dictionary = {
     ],
     nurseTitle: "Nataliia Asad, DiS.",
     nurseRole: "Nurse",
+    teamLabel: "Practice team",
     cta: "Book a consultation",
   },
   atmosphere: {
@@ -642,6 +648,7 @@ const de: Dictionary = {
     title: "Ein Arzt, dem Sie alles sagen können",
     lead: "Angenehme, diskrete Umgebung — Hilfe in alltäglichen und komplexen Situationen, in der Praxis und bei stationärer Behandlung.",
     doctorTitle: "MUDr. Samer Asad",
+    doctorRole: "Facharzt für Gynäkologie und Geburtshilfe",
     doctorBio:
       "Medizinische Fakultät der Palacký-Universität. Spezialisierung in Gynäkologie und Geburtshilfe, Expertise in Infertilität und assistierter Reproduktion. Zulassung für selbstständige Praxis.",
     membershipsTitle: "Mitgliedschaften",
@@ -653,6 +660,7 @@ const de: Dictionary = {
     ],
     nurseTitle: "Nataliia Asad, DiS.",
     nurseRole: "Krankenschwester",
+    teamLabel: "Praxisteam",
     cta: "Beratung vereinbaren",
   },
   atmosphere: {
@@ -841,6 +849,7 @@ const it: Dictionary = {
     title: "Un medico a cui potete dire tutto",
     lead: "Ambiente piacevole e discreto — aiuto nelle situazioni quotidiane e complesse, in ambulatorio e in ospedale.",
     doctorTitle: "MUDr. Samer Asad",
+    doctorRole: "Ginecologo e ostetrico",
     doctorBio:
       "Facoltà di Medicina, Università Palacký. Specializzazione in ginecologia e ostetricia, competenza in infertilità e riproduzione assistita. Licenza per pratica indipendente.",
     membershipsTitle: "Affiliazioni",
@@ -852,6 +861,7 @@ const it: Dictionary = {
     ],
     nurseTitle: "Nataliia Asad, DiS.",
     nurseRole: "Infermiera",
+    teamLabel: "Team dello studio",
     cta: "Prenota una consulenza",
   },
   atmosphere: {
@@ -1040,6 +1050,7 @@ const ar: Dictionary = {
     title: "طبيب يمكنكنّ إخباره بكل شيء",
     lead: "بيئة لطيفة وسرية — مساعدة في الحالات اليومية والمعقدة، في العيادة وعند الاستشفاء.",
     doctorTitle: "الدكتور سامر أسعد",
+    doctorRole: "اختصاصي أمراض النساء والتوليد",
     doctorBio:
       "كلية الطب، جامعة بالاتسكي. تخصص في طب النساء والتوليد، وكفاءة في العقم والإنجاب المساعد. ترخيص للممارسة المستقلة.",
     membershipsTitle: "العضويات",
@@ -1051,6 +1062,7 @@ const ar: Dictionary = {
     ],
     nurseTitle: "Nataliia Asad, DiS.",
     nurseRole: "ممرضة",
+    teamLabel: "فريق العيادة",
     cta: "احجزي استشارة",
   },
   atmosphere: {

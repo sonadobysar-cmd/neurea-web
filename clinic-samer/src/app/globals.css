@@ -1713,73 +1713,45 @@ body {
 }
 
 .brand-logo,
-.clinic-monogram {
-  width: 3rem;
-  height: 3rem;
+.clinic-wordmark {
+  width: auto;
+  min-width: 7.25rem;
+  height: auto;
   filter: none;
   color: var(--rose-ink);
 }
 
-.clinic-monogram {
+.clinic-wordmark {
   display: grid;
-  place-items: center;
-}
-
-.clinic-monogram-frame {
-  position: relative;
-  display: block;
-  width: 100%;
-  height: 100%;
-  border: 1px solid currentColor;
-  border-radius: 48% 48% 44% 44% / 39% 39% 61% 61%;
-}
-
-.clinic-monogram-frame::before {
-  content: "";
-  position: absolute;
-  inset: 0.26rem;
-  border: 1px solid currentColor;
-  border-bottom-color: transparent;
-  border-radius: inherit;
-  opacity: 0.22;
-}
-
-.clinic-monogram-s {
-  position: absolute;
-  left: 0.55rem;
-  top: 0.18rem;
-  font-family: var(--font-display), Georgia, serif;
-  font-size: 2rem;
-  font-style: italic;
-  font-weight: 500;
+  gap: 0.08rem;
   line-height: 1;
-  letter-spacing: -0.12em;
 }
 
-.clinic-monogram-a {
-  position: absolute;
-  right: 0.5rem;
-  bottom: 0.44rem;
+.clinic-wordmark-kicker {
+  display: block;
   font-family: var(--font-sans), system-ui, sans-serif;
-  font-size: 0.6rem;
+  font-size: 0.52rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--champagne-deep);
 }
 
-.clinic-monogram-dot {
-  position: absolute;
-  top: -0.2rem;
-  left: 50%;
-  width: 0.34rem;
-  height: 0.34rem;
-  border-radius: 50%;
-  background: var(--champagne);
-  box-shadow: 0 0 0 3px rgba(251, 248, 244, 0.35);
-  transform: translateX(-50%);
+.clinic-wordmark-name {
+  display: block;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: 1.48rem;
+  font-weight: 500;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
 }
 
-.site-nav:not(.is-solid) .clinic-monogram {
+.site-nav:not(.is-solid) .clinic-wordmark {
   color: #fffaf6;
+}
+
+.site-nav:not(.is-solid) .clinic-wordmark-kicker {
+  color: rgba(255, 250, 246, 0.7);
 }
 
 .brand-lockup strong {
@@ -1838,8 +1810,8 @@ body {
 
 .hero h1 em {
   color: #efe4ed;
-  font-style: italic;
-  font-weight: 400;
+  font-style: normal;
+  font-weight: 300;
 }
 
 .hero-lead {

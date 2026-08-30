@@ -16,13 +16,13 @@ export default function Icon() {
           borderRadius: 20,
           background: "#4b334f",
           color: "#fffaf5",
-          fontFamily: "serif",
-          fontSize: 34,
-          fontStyle: "italic",
-          letterSpacing: -3,
+          fontFamily: "sans-serif",
+          fontSize: 36,
+          fontStyle: "normal",
+          letterSpacing: 0,
         }}
       >
-        SA
+        S
       </div>
     ),
     size

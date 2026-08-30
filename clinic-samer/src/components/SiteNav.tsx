@@ -61,10 +61,6 @@ export function SiteNav({
           onClick={() => setOpen(false)}
         >
           <ClinicLogo className="brand-logo" title={dict.brand.short} />
-          <span className="brand-text">
-            <strong>{dict.brand.short}</strong>
-            <span>{dict.brand.tagline}</span>
-          </span>
         </Link>
 
         <nav className="nav-links" aria-label="Primary">

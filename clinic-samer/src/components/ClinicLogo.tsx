@@ -1,4 +1,4 @@
-/** Typographic SA monogram — quiet, clinical and intentionally minimal. */
+/** Restrained wordmark — no symbol, no decorative medical cliché. */
 export function ClinicLogo({
   className = "",
   title = "Clinic Samer",
@@ -7,12 +7,9 @@ export function ClinicLogo({
   title?: string;
 }) {
   return (
-    <span className={`clinic-monogram ${className}`} role="img" aria-label={title}>
-      <span className="clinic-monogram-frame" aria-hidden="true">
-        <span className="clinic-monogram-s">S</span>
-        <span className="clinic-monogram-a">A</span>
-        <span className="clinic-monogram-dot" />
-      </span>
+    <span className={`clinic-wordmark ${className}`} role="img" aria-label={title}>
+      <span className="clinic-wordmark-kicker" aria-hidden="true">Clinic</span>
+      <span className="clinic-wordmark-name" aria-hidden="true">Samer</span>
     </span>
   );
 }

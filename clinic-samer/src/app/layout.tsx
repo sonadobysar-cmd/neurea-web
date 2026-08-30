@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import { Newsreader, Noto_Sans_Arabic, Plus_Jakarta_Sans } from "next/font/google";
+import { Noto_Sans_Arabic, Outfit, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
-const display = Newsreader({
+const display = Outfit({
   subsets: ["latin", "latin-ext"],
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
+  weight: ["300", "400", "500", "600", "700"],
   variable: "--font-display",
   display: "swap",
 });

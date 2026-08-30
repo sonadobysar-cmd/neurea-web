@@ -397,7 +397,7 @@
     function renderReward(pick, done) {
       if (!pick) return;
       var label = done
-        ? "Už jsi praskl(a) 2× — teď objednej Robina naživo"
+        ? "Co si přestat hrát, ale vidět vše na živo?"
         : "Robin ti vyrobil " + pick.lbl;
       reward.innerHTML =
         '<img src="' +
@@ -786,7 +786,7 @@
         if (!result.ok || !result.data.configured) {
           bookingAvailability.textContent =
             result.data.error ||
-            "Online kalendář se právě dokončuje. Termín můžete zatím domluvit v kontaktním formuláři níže.";
+            "Online kalendář se právě dokončuje. Termín můžete zatím domluvit telefonicky nebo e-mailem níže.";
           return;
         }
         var workingHours = result.data.workingHours || null;

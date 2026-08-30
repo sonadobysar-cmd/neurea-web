@@ -537,7 +537,6 @@ export function AdminEditor({
           <Field label="Telefon (odkaz, např. +420…)" value={content.contact.phoneHref} onChange={(v) => patch("contact", { ...content.contact, phoneHref: v })} />
           <Field label="E-mail" value={content.contact.email} onChange={(v) => patch("contact", { ...content.contact, email: v })} />
         </div>
-        <Field label="Děkovací text" value={content.contact.thanks} onChange={(v) => patch("contact", { ...content.contact, thanks: v })} multiline />
         <p className="admin-help">
           Rezervace, jejich schválení a blokace vlastních termínů najdete na samostatné stránce „Rezervace“.
         </p>

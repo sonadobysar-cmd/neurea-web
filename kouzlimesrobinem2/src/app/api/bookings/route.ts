@@ -29,6 +29,7 @@ const EVENT_TYPES = new Set([
   "Svatba",
   "Jiná akce",
 ]);
+const ALLOWED_DURATIONS_MS = new Set([30, 45, 60].map((minutes) => minutes * 60_000));
 const RATE_LIMIT_MAX = 4;
 const RATE_LIMIT_WINDOW_MS = 10 * 60_000;
 const rateLimits = new Map<string, { count: number; resetAt: number }>();
@@ -118,11 +119,10 @@ export async function POST(request: Request) {
     Number.isNaN(endAt.getTime()) ||
     startAt.getTime() < Date.now() + 2 * 60 * 60_000 ||
     startAt.getTime() > Date.now() + 2 * 365 * 24 * 60 * 60_000 ||
-    duration < 30 * 60_000 ||
-    duration > 24 * 60 * 60_000
+    !ALLOWED_DURATIONS_MS.has(duration)
   ) {
     return NextResponse.json(
-      { ok: false, error: "Vyberte platný budoucí termín a délku akce." },
+      { ok: false, error: "Vyberte platný budoucí termín a délku vystoupení." },
       { status: 400 },
     );
   }
@@ -181,7 +181,7 @@ export async function POST(request: Request) {
       `Jméno: ${name}`,
       `E-mail: ${email}`,
       `Telefon: ${phone}`,
-      guestCount ? `Počet hostů: ${guestCount}` : null,
+      guestCount ? `Počet diváků: ${guestCount}` : null,
       message ? `Poznámka: ${message}` : null,
     ].filter(Boolean).join("\n");
 
@@ -193,7 +193,7 @@ export async function POST(request: Request) {
         idempotencyKey: `booking-${entry.id}-robin-v1`,
         subject: `[Rezervace čeká] ${eventType} — ${name}`,
         text: `Nová žádost o termín čeká na schválení.\n\n${details}\n\nSchválit nebo zamítnout: ${adminUrl()}`,
-        html: `<h2>Nová žádost čeká na schválení</h2><p><strong>Termín:</strong> ${escapeEmailHtml(range)}</p><p><strong>Akce:</strong> ${escapeEmailHtml(eventType)}</p><p><strong>Místo:</strong> ${escapeEmailHtml(location)}</p><p><strong>Klient:</strong> ${escapeEmailHtml(name)} · <a href="mailto:${escapeEmailHtml(email)}">${escapeEmailHtml(email)}</a> · ${escapeEmailHtml(phone)}</p>${guestCount ? `<p><strong>Počet hostů:</strong> ${guestCount}</p>` : ""}${message ? `<p><strong>Poznámka:</strong><br>${escapeEmailHtml(message).replace(/\n/g, "<br>")}</p>` : ""}<p><a href="${adminUrl()}">Otevřít schválení v administraci</a></p>`,
+        html: `<h2>Nová žádost čeká na schválení</h2><p><strong>Termín:</strong> ${escapeEmailHtml(range)}</p><p><strong>Akce:</strong> ${escapeEmailHtml(eventType)}</p><p><strong>Místo:</strong> ${escapeEmailHtml(location)}</p><p><strong>Klient:</strong> ${escapeEmailHtml(name)} · <a href="mailto:${escapeEmailHtml(email)}">${escapeEmailHtml(email)}</a> · ${escapeEmailHtml(phone)}</p>${guestCount ? `<p><strong>Počet diváků:</strong> ${guestCount}</p>` : ""}${message ? `<p><strong>Poznámka:</strong><br>${escapeEmailHtml(message).replace(/\n/g, "<br>")}</p>` : ""}<p><a href="${adminUrl()}">Otevřít schválení v administraci</a></p>`,
       });
       if (robinNotified) {
         await markNotificationSent(entry.id).catch((error) => {

@@ -800,7 +800,7 @@ function eventPayload(entry: CalendarEntry) {
         entry.customerEmail ? `E-mail: ${entry.customerEmail}` : null,
         entry.customerPhone ? `Telefon: ${entry.customerPhone}` : null,
         entry.eventType ? `Typ akce: ${entry.eventType}` : null,
-        entry.guestCount ? `Počet hostů: ${entry.guestCount}` : null,
+        entry.guestCount ? `Počet diváků: ${entry.guestCount}` : null,
         entry.message ? `Poznámka klienta: ${entry.message}` : null,
         entry.adminNote ? `Robinova poznámka: ${entry.adminNote}` : null,
       ]

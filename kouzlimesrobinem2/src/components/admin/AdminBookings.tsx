@@ -719,7 +719,7 @@ export function AdminBookings({
                   {entry.customerPhone ? <a href={`tel:${entry.customerPhone}`}>{entry.customerPhone}</a> : null}
                   {entry.customerEmail ? <a href={`mailto:${entry.customerEmail}`}>{entry.customerEmail}</a> : null}
                 </div>
-                {entry.guestCount ? <p>Počet hostů: {entry.guestCount}</p> : null}
+                {entry.guestCount ? <p>Počet diváků: {entry.guestCount}</p> : null}
                 {entry.message ? <p className="admin-booking-message">{entry.message}</p> : null}
                 {!entry.notificationSentAt ? (
                   <div className="admin-booking-email-warning">

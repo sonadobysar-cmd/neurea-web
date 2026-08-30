@@ -127,7 +127,7 @@ nav{position:sticky;top:0;z-index:50;background:rgba(252,248,239,.86);backdrop-f
 .pcard[data-i="0"]{transform:translateX(-50%) translateX(-232px) rotate(-10deg);z-index:1}
 .pcard[data-i="1"]{transform:translateX(-50%) rotate(0);z-index:2}
 .pcard[data-i="2"]{transform:translateX(-50%) translateX(232px) rotate(10deg);z-index:1}
-.pcard:hover,.pcard:focus-visible{transform:translateX(-50%) translate(var(--tx,0),-34px) rotate(0) scale(1.035);z-index:5;outline:none}
+.pcard:hover,.pcard:focus-visible{transform:translateX(-50%) translate(var(--tx,0),-34px) rotate(0);z-index:5;outline:none}
 .pcard:hover .pc-face,.pcard:focus-visible .pc-face{box-shadow:0 44px 90px -30px rgba(238,139,0,.5)}
 .pcard[data-i="0"]:hover,.pcard[data-i="0"]:focus-visible{--tx:-232px}
 .pcard[data-i="2"]:hover,.pcard[data-i="2"]:focus-visible{--tx:232px}

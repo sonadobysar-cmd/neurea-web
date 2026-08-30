@@ -898,6 +898,51 @@ img {
   line-height: 1.58;
 }
 
+section.about-profile-section {
+  padding-top: 0;
+}
+
+.about-profile-card {
+  align-items: start;
+  gap: clamp(2.25rem, 4vw, 4rem);
+  padding: clamp(1rem, 2vw, 1.5rem);
+  border: 1px solid rgba(168, 137, 114, 0.16);
+  border-radius: 2.25rem;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(216, 205, 221, 0.22), transparent 34%),
+    rgba(255, 253, 249, 0.72);
+  box-shadow: 0 28px 78px rgba(48, 31, 52, 0.065);
+}
+
+.about-profile-card > div,
+.about-profile-copy {
+  min-width: 0;
+}
+
+.about-profile-card .split-media {
+  width: 100%;
+  margin: 0;
+}
+
+.about-profile-copy {
+  padding: clamp(1rem, 2.6vw, 2rem) clamp(0.35rem, 1.5vw, 1.15rem)
+    clamp(1rem, 2vw, 1.5rem) 0;
+}
+
+.about-profile-copy > .doctor-role {
+  margin-top: -0.4rem;
+}
+
+@media (max-width: 980px) {
+  .about-profile-card {
+    gap: 2rem;
+  }
+
+  .about-profile-copy {
+    padding: 0 0.65rem 0.65rem;
+  }
+}
+
 .gallery {
   display: grid;
   grid-template-columns: 1.45fr 1fr 1fr;

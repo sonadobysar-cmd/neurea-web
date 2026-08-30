@@ -34,8 +34,8 @@ export default async function AboutPage({
         </div>
       </section>
 
-      <section className="section" style={{ paddingTop: 0 }}>
-        <div className="container split">
+      <section className="section about-profile-section">
+        <div className="container split about-profile-card">
           <Reveal>
             <div className="split-media">
               <Image
@@ -48,7 +48,7 @@ export default async function AboutPage({
             </div>
           </Reveal>
           <Reveal delay={0.08}>
-            <div>
+            <div className="about-profile-copy">
               <h2
                 className="display"
                 style={{
@@ -59,6 +59,7 @@ export default async function AboutPage({
               >
                 {dict.about.doctorTitle}
               </h2>
+              <p className="doctor-role">{dict.about.doctorRole}</p>
               <p className="lead">{dict.about.doctorBio}</p>
               <h3
                 style={{
@@ -116,8 +117,12 @@ export default async function AboutPage({
                 </>
               )}
               <div className="team-chip">
-                <strong>{dict.about.nurseTitle}</strong>
-                <span>{dict.about.nurseRole}</span>
+                <span className="team-chip-label">{dict.about.teamLabel}</span>
+                <div>
+                  <strong>{dict.about.nurseTitle}</strong>
+                  <span>{dict.about.nurseRole}</span>
+                  <p className="team-chip-bio">{dict.about.nurseBio}</p>
+                </div>
               </div>
               <div style={{ marginTop: "1.75rem" }}>
                 <Link href={`/${locale}/booking`} className="btn btn-primary">

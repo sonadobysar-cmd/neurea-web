@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Reveal } from "@/components/Reveal";
 import {
+  priceCategories,
   priceNotes,
   pricedServices,
 } from "@/data/clinic-catalog";
@@ -18,6 +19,7 @@ export default async function ServicesPage({
   const locale = raw as Locale;
   const dict = getDictionary(locale);
   const notes = priceNotes[locale];
+  const pricedById = new Map(pricedServices.map((service) => [service.id, service]));
 
   return (
     <>
@@ -45,7 +47,7 @@ export default async function ServicesPage({
         </div>
       </section>
 
-      <section className="section section-soft">
+      <section className="section section-soft" id="pricing">
         <div className="container">
           <Reveal>
             <span className="eyebrow">{dict.pricing.eyebrow}</span>
@@ -64,31 +66,37 @@ export default async function ServicesPage({
             </p>
           </Reveal>
 
-          <Reveal delay={0.06}>
-            <div className="price-table-wrap">
-              <table className="price-table">
-                <thead>
-                  <tr>
-                    <th>{dict.services.eyebrow}</th>
-                    <th>{dict.pricing.priceCol}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {pricedServices.map((s) => (
-                    <tr key={s.id}>
-                      <td>{s.name[locale]}</td>
-                      <td>
-                        {s.price ?? dict.pricing.onRequest}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </Reveal>
+          <div className="pricing-category-grid">
+            {priceCategories.map((category, i) => (
+              <Reveal key={category.id} delay={i * 0.06}>
+                <article className="pricing-category-card">
+                  <header>
+                    <span>0{i + 1}</span>
+                    <div>
+                      <h3>{category.title[locale]}</h3>
+                      <p>{category.description[locale]}</p>
+                    </div>
+                  </header>
+                  <div className="pricing-category-list">
+                    {category.serviceIds.map((id) => {
+                      const service = pricedById.get(id);
+                      if (!service) return null;
+
+                      return (
+                        <div className="pricing-category-row" key={service.id}>
+                          <span>{service.name[locale]}</span>
+                          <strong>{service.price ?? dict.pricing.onRequest}</strong>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </article>
+              </Reveal>
+            ))}
+          </div>
 
           <Reveal delay={0.1}>
-            <div className="price-notes">
+            <div className="price-notes price-notes-panel">
               <h3>{dict.pricing.notesTitle}</h3>
               <ul>
                 {notes.map((n) => (

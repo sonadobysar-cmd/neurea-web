@@ -7,6 +7,13 @@ export type PricedService = {
   priceNote?: Record<"cs" | "en" | "de" | "it" | "ar", string>;
 };
 
+export type PriceCategory = {
+  id: "general" | "fertility" | "specialized";
+  title: Record<"cs" | "en" | "de" | "it" | "ar", string>;
+  description: Record<"cs" | "en" | "de" | "it" | "ar", string>;
+  serviceIds: string[];
+};
+
 export const pricedServices: PricedService[] = [
   {
     id: "online-consultation",
@@ -243,6 +250,84 @@ export const pricedServices: PricedService[] = [
       it: "Medicina alternativa",
       ar: "طب بديل",
     },
+  },
+];
+
+export const priceCategories: PriceCategory[] = [
+  {
+    id: "general",
+    title: {
+      cs: "Gynekologie & prevence",
+      en: "Gynaecology & prevention",
+      de: "Gynäkologie & Vorsorge",
+      it: "Ginecologia & prevenzione",
+      ar: "طب النساء والوقاية",
+    },
+    description: {
+      cs: "Pravidelná péče, diagnostika a vyšetření pro jistotu v každé životní etapě.",
+      en: "Routine care, diagnostics and examinations for confidence at every stage of life.",
+      de: "Regelmäßige Betreuung, Diagnostik und Untersuchungen für jede Lebensphase.",
+      it: "Cure regolari, diagnostica ed esami per ogni fase della vita.",
+      ar: "رعاية دورية وتشخيص وفحوصات تمنحك الثقة في كل مرحلة من الحياة.",
+    },
+    serviceIds: [
+      "gyn-exam",
+      "online-consultation",
+      "complex-gyn",
+      "routine",
+      "ultrasound",
+      "cytology",
+      "contraception",
+      "hpv",
+      "sti",
+      "culture",
+      "breast",
+    ],
+  },
+  {
+    id: "fertility",
+    title: {
+      cs: "Plodnost & těhotenství",
+      en: "Fertility & pregnancy",
+      de: "Kinderwunsch & Schwangerschaft",
+      it: "Fertilità & gravidanza",
+      ar: "الخصوبة والحمل",
+    },
+    description: {
+      cs: "Od prvního rozhovoru přes vyšetření páru až po citlivou péči v těhotenství.",
+      en: "From the first conversation and couple diagnostics to considerate pregnancy care.",
+      de: "Vom ersten Gespräch über die Paardiagnostik bis zur einfühlsamen Schwangerschaftsbegleitung.",
+      it: "Dal primo colloquio e dalla diagnosi di coppia alla cura attenta in gravidanza.",
+      ar: "من الاستشارة الأولى وفحوصات الزوجين إلى رعاية الحمل باهتمام وخصوصية.",
+    },
+    serviceIds: [
+      "pregnancy",
+      "prenatal-4d",
+      "infertility",
+      "reproductive",
+      "amh",
+      "hormones",
+      "thyroid",
+      "genetic",
+    ],
+  },
+  {
+    id: "specialized",
+    title: {
+      cs: "Specializovaná péče",
+      en: "Specialist care",
+      de: "Spezialisierte Versorgung",
+      it: "Cure specialistiche",
+      ar: "الرعاية المتخصصة",
+    },
+    description: {
+      cs: "Moderní ambulantní postupy volené vždy podle konkrétní indikace a vašich potřeb.",
+      en: "Modern outpatient procedures selected for your specific indication and needs.",
+      de: "Moderne ambulante Verfahren, passend zu Ihrer individuellen Indikation und Situation.",
+      it: "Procedure ambulatoriali moderne scelte secondo l'indicazione e le esigenze individuali.",
+      ar: "إجراءات حديثة للعيادات الخارجية تُختار وفق الحالة والاحتياجات الفردية.",
+    },
+    serviceIds: ["diagnostic", "cryo", "co2-laser", "alt-med"],
   },
 ];
 

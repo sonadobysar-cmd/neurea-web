@@ -5,6 +5,11 @@ import { Reveal } from "@/components/Reveal";
 import { getDictionary } from "@/data/i18n/dictionaries";
 import { ReviewsRatingSummary } from "@/components/ReviewsRatingSummary";
 import {
+  priceCategories,
+  pricedServices,
+  type PricedService,
+} from "@/data/clinic-catalog";
+import {
   showcaseReviews,
   ZNAMYLEKAR_URL,
 } from "@/data/showcase-reviews";
@@ -22,6 +27,15 @@ export default async function HomePage({
   const dict = getDictionary(locale);
   const approved = await listReviews({ status: "approved" });
   const featured = dict.services.items.slice(0, 3);
+  const pricedById = new Map(pricedServices.map((service) => [service.id, service]));
+  const gallery = [
+    { src: "/photos/gallery-01.png", position: "center 38%" },
+    { src: "/photos/gallery-02.png", position: "center 52%" },
+    { src: "/photos/family-story-01.webp", position: "center 42%" },
+    { src: "/photos/gallery-03.png", position: "center 38%" },
+    { src: "/photos/family-story-02.webp", position: "center 34%" },
+    { src: "/photos/family-story-03.webp", position: "center 38%" },
+  ];
   const displayReviews =
     approved.length > 0
       ? approved.slice(0, 4).map((r) => ({
@@ -108,15 +122,19 @@ export default async function HomePage({
               <p className="lead">{dict.services.lead}</p>
             </div>
           </Reveal>
-          <div className="feature-rows">
+          <div className="service-editorial-grid">
             {featured.map((item, i) => (
               <Reveal key={item.id} delay={i * 0.08}>
-                <article className="feature-row">
-                  <span className="num">0{i + 1}</span>
-                  <div>
-                    <h3>{item.title}</h3>
-                    <p>{item.text}</p>
+                <article className={`service-editorial-card service-editorial-card-${i + 1}`}>
+                  <div className="service-editorial-topline">
+                    <span className="num">0{i + 1}</span>
+                    <span>{dict.services.eyebrow}</span>
                   </div>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                  <Link href={`/${locale}/services`} className="service-card-link">
+                    {dict.services.viewAll} <span aria-hidden="true">↗</span>
+                  </Link>
                 </article>
               </Reveal>
             ))}
@@ -126,6 +144,58 @@ export default async function HomePage({
               <Link href={`/${locale}/services`} className="btn btn-ghost">
                 {dict.services.viewAll}
               </Link>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="section pricing-preview-section">
+        <div className="container">
+          <Reveal>
+            <div className="pricing-preview-head">
+              <div>
+                <span className="eyebrow">{dict.pricing.eyebrow}</span>
+                <h2 className="display">{dict.pricing.title}</h2>
+              </div>
+              <p className="lead">{dict.pricing.lead}</p>
+            </div>
+          </Reveal>
+
+          <div className="pricing-preview-grid">
+            {priceCategories.map((category, i) => {
+              const services = category.serviceIds
+                .map((id) => pricedById.get(id))
+                .filter(
+                  (service): service is PricedService => Boolean(service?.price)
+                )
+                .slice(0, 2);
+
+              return (
+                <Reveal key={category.id} delay={i * 0.06}>
+                  <article className="pricing-preview-card">
+                    <span className="pricing-category-index">0{i + 1}</span>
+                    <h3>{category.title[locale]}</h3>
+                    <p>{category.description[locale]}</p>
+                    <div className="pricing-preview-list">
+                      {services.map((service) => (
+                        <div key={service.id}>
+                          <span>{service.name[locale]}</span>
+                          <strong>{service.price}</strong>
+                        </div>
+                      ))}
+                    </div>
+                  </article>
+                </Reveal>
+              );
+            })}
+          </div>
+
+          <Reveal>
+            <div className="section-action pricing-preview-action">
+              <Link href={`/${locale}/services#pricing`} className="btn btn-primary">
+                {dict.pricing.title}
+              </Link>
+              <span>{dict.pricing.sourceNote}</span>
             </div>
           </Reveal>
         </div>
@@ -174,35 +244,21 @@ export default async function HomePage({
             </div>
           </Reveal>
           <Reveal>
-            <div className="gallery gallery-warm">
-              <div className="gallery-item">
-                <Image
-                  src="/photos/gallery-01.png"
-                  alt={dict.about.doctorTitle}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 400px"
-                  className="gallery-photo"
-                />
-              </div>
-              <div className="gallery-item">
-                <Image
-                  src="/photos/gallery-02.png"
-                  alt={dict.about.doctorTitle}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 400px"
-                  className="gallery-photo"
-                />
-              </div>
-              <div className="gallery-item">
-                <Image
-                  src="/photos/gallery-03.png"
-                  alt={dict.about.doctorTitle}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 400px"
-                  className="gallery-photo"
-                />
-              </div>
+            <div className="gallery gallery-warm gallery-stories">
+              {gallery.map((image, i) => (
+                <figure className={`gallery-item gallery-item-${i + 1}`} key={image.src}>
+                  <Image
+                    src={image.src}
+                    alt={`${dict.atmosphere.title} ${i + 1}`}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1100px) 50vw, 380px"
+                    className="gallery-photo"
+                    style={{ objectPosition: image.position }}
+                  />
+                </figure>
+              ))}
             </div>
+            <p className="gallery-consent-note">{dict.atmosphere.consent}</p>
           </Reveal>
         </div>
       </section>

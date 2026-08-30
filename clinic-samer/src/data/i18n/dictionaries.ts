@@ -69,6 +69,7 @@ export type Dictionary = {
     eyebrow: string;
     title: string;
     lead: string;
+    consent: string;
   };
   reviews: {
     eyebrow: string;
@@ -197,24 +198,24 @@ const cs: Dictionary = {
   },
   services: {
     eyebrow: "Služby",
-    title: "Komplexní péče bez spěchu",
-    lead: "Od prevence po IVF — jedna ordinace, kontinuální péče a prostor na otázky.",
+    title: "Péče, která navazuje. A dává smysl.",
+    lead: "Nemusíte pokaždé začínat znovu. Od prevence přes cestu k miminku až po specializovanou léčbu známe váš příběh a vysvětlíme každý další krok.",
     viewAll: "Všechny služby",
     items: [
       {
         id: "gyn",
         title: "Ambulantní gynekologie",
-        text: "Prevence, diagnostika, antikoncepce, péče o těhotné a perioperační podpora.",
+        text: "Pravidelné kontroly i chvíle, kdy potřebujete rychlou odpověď. Citlivé vyšetření, moderní diagnostika a plán, kterému rozumíte.",
       },
       {
         id: "ivf",
         title: "Diagnostika neplodnosti & IVF",
-        text: "Vyšetření páru, reprodukční medicína a mimotělní oplodnění s jasným plánem.",
+        text: "Když se početí nedaří, začneme důkladně — u ženy i muže. Výsledky spojíme do srozumitelného plánu bez zbytečného čekání.",
       },
       {
         id: "laser",
         title: "Laser & plazma terapie",
-        text: "Moderní řešení intimní problematiky pomocí CO₂ laseru a plazmy.",
+        text: "Šetrná moderní péče při změnách po porodu, v menopauze, při intimním diskomfortu nebo lehké inkontinenci — vždy podle indikace.",
       },
       {
         id: "pregnancy",
@@ -257,9 +258,10 @@ const cs: Dictionary = {
     cta: "Domluvit konzultaci",
   },
   atmosphere: {
-    eyebrow: "Prostor",
-    title: "Klid, který cítíte hned u dveří",
-    lead: "Ordinace v Branické — diskrétní, světlá a připravená na to, abyste se nemusely spěchat.",
+    eyebrow: "Příběhy rodin",
+    title: "Okamžiky, které dávají naší práci smysl",
+    lead: "Za každou fotografií je jiná cesta. Spojuje je důvěra, kontinuita péče a radost z nového začátku.",
+    consent: "Fotografie jsou zveřejněny se souhlasem rodin.",
   },
   reviews: {
     eyebrow: "Recenze",
@@ -458,6 +460,7 @@ const en: Dictionary = {
     eyebrow: "Space",
     title: "Calm you feel at the door",
     lead: "Our Branická practice — discreet, bright and ready so you never have to rush.",
+    consent: "The photographs are published with the families' consent.",
   },
   reviews: {
     eyebrow: "Reviews",
@@ -656,6 +659,7 @@ const de: Dictionary = {
     eyebrow: "Raum",
     title: "Ruhe, die Sie an der Tür spüren",
     lead: "Praxis in der Branická — diskret, hell und so, dass Sie sich nie beeilen müssen.",
+    consent: "Die Fotos werden mit Einwilligung der Familien veröffentlicht.",
   },
   reviews: {
     eyebrow: "Bewertungen",
@@ -854,6 +858,7 @@ const it: Dictionary = {
     eyebrow: "Spazio",
     title: "Calma che sentite alla porta",
     lead: "Studio in Branická — discreto, luminoso e pensato perché non dobbiate mai avere fretta.",
+    consent: "Le fotografie sono pubblicate con il consenso delle famiglie.",
   },
   reviews: {
     eyebrow: "Recensioni",
@@ -1052,6 +1057,7 @@ const ar: Dictionary = {
     eyebrow: "المكان",
     title: "هدوء تشعرن به عند الباب",
     lead: "عيادتنا في برانيتسكا — سرية ومضيئة ومصممة حتى لا تضطررن للاستعجال.",
+    consent: "نُشرت الصور بموافقة العائلات.",
   },
   reviews: {
     eyebrow: "التقييمات",

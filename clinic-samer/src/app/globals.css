@@ -1549,6 +1549,16 @@ img {
   .nav-panel-inner .btn {
     justify-content: center;
     margin-top: 0.35rem;
+    color: #fffaf6;
+    background: linear-gradient(135deg, #4d3551, #3f2b43);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 14px 34px rgba(48, 31, 52, 0.2);
+  }
+
+  .nav-panel-inner .btn:hover,
+  .nav-panel-inner .btn:focus-visible {
+    color: #fffaf6;
+    background: #38263c;
   }
 
   .form-grid {

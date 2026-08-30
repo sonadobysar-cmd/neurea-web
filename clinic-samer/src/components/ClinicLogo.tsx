@@ -1,8 +1,4 @@
-"use client";
-
-import Image from "next/image";
-
-/** Compact clinic mark in the original lilac palette. */
+/** Typographic SA monogram — quiet, clinical and intentionally minimal. */
 export function ClinicLogo({
   className = "",
   title = "Clinic Samer",
@@ -11,13 +7,12 @@ export function ClinicLogo({
   title?: string;
 }) {
   return (
-    <Image
-      src="/logo.svg"
-      alt={title}
-      width={120}
-      height={120}
-      className={className}
-      priority
-    />
+    <span className={`clinic-monogram ${className}`} role="img" aria-label={title}>
+      <span className="clinic-monogram-frame" aria-hidden="true">
+        <span className="clinic-monogram-s">S</span>
+        <span className="clinic-monogram-a">A</span>
+        <span className="clinic-monogram-dot" />
+      </span>
+    </span>
   );
 }

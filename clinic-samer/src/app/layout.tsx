@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { Noto_Sans_Arabic, Outfit, Plus_Jakarta_Sans } from "next/font/google";
+import { Newsreader, Noto_Sans_Arabic, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
-const display = Outfit({
+const display = Newsreader({
   subsets: ["latin", "latin-ext"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
   variable: "--font-display",
   display: "swap",
 });
@@ -24,11 +25,20 @@ const arabic = Noto_Sans_Arabic({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://clinic-samer.vercel.app"),
   title: "MUDr. Samer Asad · Gynekologie & IVF",
   description: "Diskrétní gynekologická péče a IVF v Praze.",
-  icons: {
-    icon: "/logo.svg",
-    apple: "/logo.svg",
+  openGraph: {
+    title: "Clinic Samer",
+    description: "Gynekologie · IVF · Praha",
+    type: "website",
+    images: [{ url: "/og.png", width: 1672, height: 941, alt: "Clinic Samer" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Clinic Samer",
+    description: "Gynekologie · IVF · Praha",
+    images: ["/og.png"],
   },
 };
 

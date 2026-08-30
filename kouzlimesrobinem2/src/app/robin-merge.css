@@ -181,26 +181,60 @@ body {
 
 /* 9) Galerie — pojízdný pás + lightbox */
 .gal-viewport {
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
   padding-bottom: 30px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overscroll-behavior-inline: contain;
+  -webkit-overflow-scrolling: touch;
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
   mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
 }
 
+.gal-viewport::-webkit-scrollbar,
+.luxury-root .moments-viewport::-webkit-scrollbar {
+  display: none;
+}
+
 .strip--marquee {
   width: max-content;
-  animation: galMarquee 48s linear infinite;
+  overflow: visible;
+  animation: none;
+  transform: none;
+  cursor: grab;
+}
+
+.strip--marquee:active {
+  cursor: grabbing;
+}
+
+.gallery-controls {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 2px auto 0;
+  padding-inline: 16px;
+}
+
+.gallery-controls button {
+  width: 48px;
+  height: 48px;
+  border: 1.5px solid rgba(32, 20, 6, 0.35);
+  border-radius: 50%;
+  background: rgba(252, 248, 239, 0.78);
+  color: var(--ink);
+  font: 400 32px/1 var(--serif);
   cursor: pointer;
+  box-shadow: 0 10px 24px -18px rgba(32, 20, 6, 0.5);
 }
 
-.gal-viewport:hover .strip--marquee {
-  animation-play-state: paused;
-}
-
-@keyframes galMarquee {
-  to {
-    transform: translateX(calc(-50% - 11px));
-  }
+.gallery-controls span {
+  color: var(--ink-soft);
+  font: 700 10px/1.2 var(--sans);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 .gph[data-lightbox] {
@@ -1783,8 +1817,13 @@ nav.is-open .nav-toggle span:nth-child(3) {
 }
 
 .luxury-root .moments-viewport {
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
   padding-bottom: 36px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overscroll-behavior-inline: contain;
+  -webkit-overflow-scrolling: touch;
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
   mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
 }
@@ -1796,8 +1835,7 @@ nav.is-open .nav-toggle span:nth-child(3) {
 .luxury-root .moments-strip {
   gap: 18px;
   padding-top: 40px;
-  animation-duration: 58s;
-  animation-direction: reverse;
+  animation: none;
 }
 
 .luxury-root .moments-strip .mph {
@@ -1859,4 +1897,165 @@ nav.is-open .nav-toggle span:nth-child(3) {
   .luxury-root .moments-strip .mph.wide {
     width: 260px;
   }
+}
+
+/* Finální mobilní a tabletová kompozice hero sekce */
+@media (min-width: 641px) and (max-width: 960px) {
+  .luxury-root .hero {
+    padding-block: clamp(44px, 7vw, 72px);
+  }
+
+  .luxury-root .hero-grid {
+    grid-template-columns: minmax(0, 1.08fr) minmax(260px, 0.92fr);
+    gap: clamp(24px, 4vw, 42px);
+    align-items: center;
+  }
+
+  .luxury-root .hero-copy {
+    justify-content: center;
+    padding: 0;
+  }
+
+  .luxury-root .hero h1 {
+    margin-top: 0;
+    font-size: clamp(48px, 7.2vw, 68px);
+    line-height: 0.96;
+  }
+
+  .luxury-root .hero h1 em {
+    color: var(--ink);
+  }
+
+  .luxury-root .hero .lead {
+    margin-top: 24px;
+    color: #49331d;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.62;
+  }
+
+  .luxury-root .hero .cta-row {
+    margin-top: 24px;
+    gap: 12px;
+  }
+
+  .luxury-root .hero-visual {
+    width: min(100%, 340px);
+    margin: 0 auto;
+  }
+
+  .luxury-root .hero-luxe .arch img {
+    object-position: center 38%;
+  }
+}
+
+@media (max-width: 640px) {
+  .luxury-root .hero {
+    padding: clamp(30px, 7vw, 44px) 0 clamp(52px, 11vw, 72px);
+  }
+
+  .luxury-root .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .luxury-root .hero-copy {
+    display: contents;
+  }
+
+  .luxury-root .hero h1 {
+    order: 1;
+    margin: 0;
+    font-size: clamp(43px, 13vw, 58px);
+    line-height: 0.96;
+    letter-spacing: -0.025em;
+  }
+
+  .luxury-root .hero h1 em {
+    color: var(--ink);
+  }
+
+  .luxury-root .hero-visual {
+    order: 2;
+    width: 100%;
+    margin: clamp(24px, 7vw, 34px) auto 0;
+  }
+
+  .luxury-root .hero-luxe .arch {
+    aspect-ratio: 4 / 3;
+    border-radius: 16px;
+  }
+
+  .luxury-root .hero-luxe .arch img {
+    object-position: center 38%;
+  }
+
+  .luxury-root .hero .lead {
+    order: 3;
+    max-width: none;
+    margin-top: 24px;
+    color: #3d2b18;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.62;
+  }
+
+  .luxury-root .hero .cta-row {
+    order: 4;
+    margin-top: 24px;
+    gap: 12px;
+  }
+
+  .luxury-root .hero .btn {
+    min-height: 54px;
+  }
+
+  .luxury-root .hero .seal {
+    width: 82px;
+    height: 82px;
+    top: -18px;
+    right: 8px;
+  }
+
+  .luxury-root .gallery-controls {
+    display: flex;
+  }
+
+  .luxury-root .gal-hint {
+    max-width: 30ch;
+    line-height: 1.55;
+  }
+
+  .luxury-root .gal-viewport,
+  .luxury-root .moments-viewport {
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 2%, #000 98%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 2%, #000 98%, transparent);
+  }
+
+  .luxury-root .gph {
+    width: min(76vw, 290px);
+  }
+
+  .luxury-root .gph.wide {
+    width: min(86vw, 340px);
+  }
+
+  .luxury-root .pcard[data-i="0"] .ph img {
+    object-position: center top;
+  }
+}
+
+/* iOS používá při pružném doscrollování pozadí html; držíme barvu patičky i pod safe-area. */
+html {
+  background: #c9c134;
+}
+
+body {
+  min-height: 100dvh;
+}
+
+.luxury-root footer {
+  background: #c9c134;
+  padding-bottom: calc(30px + env(safe-area-inset-bottom));
 }

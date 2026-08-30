@@ -91,12 +91,17 @@ export const luxuryBodyTemplate = `<a class="skip-link" href="#main-content">Př
     <div>
       <h2>{{cms.gallery.titleBefore}}<em>{{cms.gallery.titleEm}}</em></h2>
     </div>
-    <p class="gal-hint">Klikněte na fotku<svg class="st"><use href="#star"/></svg></p>
+    <p class="gal-hint">Posuňte galerii · klepněte na fotku<svg class="st"><use href="#star"/></svg></p>
   </div>
   <div class="gal-viewport">
     <div class="strip strip--marquee" id="strip">
       {{cms.gallery.images}}
     </div>
+  </div>
+  <div class="gallery-controls" aria-label="Ovládání galerie">
+    <button type="button" data-gallery-step="-1" data-gallery-track="strip" aria-label="Předchozí fotografie">‹</button>
+    <span>Tažením procházet</span>
+    <button type="button" data-gallery-step="1" data-gallery-track="strip" aria-label="Další fotografie">›</button>
   </div>
 </section>
 
@@ -219,6 +224,11 @@ export const luxuryBodyTemplate = `<a class="skip-link" href="#main-content">Př
     <div class="strip strip--marquee moments-strip" id="moments-strip" data-lb-group>
       {{cms.moments.images}}
     </div>
+  </div>
+  <div class="gallery-controls" aria-label="Ovládání galerie fotografií z akcí">
+    <button type="button" data-gallery-step="-1" data-gallery-track="moments-strip" aria-label="Předchozí fotografie">‹</button>
+    <span>Tažením procházet</span>
+    <button type="button" data-gallery-step="1" data-gallery-track="moments-strip" aria-label="Další fotografie">›</button>
   </div>
 </section>
 

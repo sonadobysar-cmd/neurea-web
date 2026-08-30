@@ -1,40 +1,11 @@
 import { notFound } from "next/navigation";
 import { Reveal } from "@/components/Reveal";
+import { ReviewForm } from "@/components/ReviewForm";
 import { getDictionary } from "@/data/i18n/dictionaries";
 import { ReviewsRatingSummary } from "@/components/ReviewsRatingSummary";
 import { showcaseReviews } from "@/data/showcase-reviews";
 import { isLocale, type Locale } from "@/lib/locales";
 import { listReviews } from "@/lib/store";
-
-const PROFILE_URL = "https://www.znamylekar.cz/profil/samer-asad";
-
-const reviewCta: Record<Locale, { title: string; text: string; button: string }> = {
-  cs: {
-    title: "Podělte se o svou zkušenost",
-    text: "Hodnocení sbíráme na ověřeném profilu ZnámyLékař, kde je mohou bezpečně najít i další pacientky.",
-    button: "Napsat ověřené hodnocení",
-  },
-  en: {
-    title: "Share your experience",
-    text: "Reviews are collected on the verified ZnámyLékař profile, where other patients can find them safely.",
-    button: "Write a verified review",
-  },
-  de: {
-    title: "Teilen Sie Ihre Erfahrung",
-    text: "Bewertungen sammeln wir im verifizierten ZnámyLékař-Profil, wo andere Patientinnen sie sicher finden können.",
-    button: "Verifizierte Bewertung schreiben",
-  },
-  it: {
-    title: "Condividi la tua esperienza",
-    text: "Le recensioni vengono raccolte sul profilo verificato ZnámyLékař, dove altre pazienti possono trovarle in sicurezza.",
-    button: "Scrivi una recensione verificata",
-  },
-  ar: {
-    title: "شاركي تجربتك",
-    text: "نجمع التقييمات في ملف ZnámyLékař الموثق حتى تتمكن المريضات الأخريات من العثور عليها بأمان.",
-    button: "كتابة تقييم موثق",
-  },
-};
 
 export default async function ReviewsPage({
   params,
@@ -45,7 +16,6 @@ export default async function ReviewsPage({
   if (!isLocale(raw)) notFound();
   const locale = raw as Locale;
   const dict = getDictionary(locale);
-  const cta = reviewCta[locale];
   const approved = await listReviews({ status: "approved" });
   const items =
     approved.length > 0
@@ -100,19 +70,12 @@ export default async function ReviewsPage({
                 className="display"
                 style={{ fontSize: "2rem", marginTop: 0, color: "var(--rose-ink)" }}
               >
-                {cta.title}
+                {dict.reviews.formTitle}
               </h2>
               <p className="lead" style={{ marginBottom: "1.5rem" }}>
-                {cta.text}
+                {dict.reviews.formLead}
               </p>
-              <a
-                className="btn btn-primary"
-                href={PROFILE_URL}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {cta.button}
-              </a>
+              <ReviewForm locale={locale} dict={dict} />
             </div>
           </Reveal>
         </div>

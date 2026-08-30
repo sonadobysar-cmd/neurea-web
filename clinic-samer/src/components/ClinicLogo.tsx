@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-/** Quiet, modern SA monogram that follows the original lilac identity. */
+/** Luxury serif SA monogram with bloom */
 export function ClinicLogo({
   className = "",
   title = "Clinic Samer",
@@ -12,7 +12,7 @@ export function ClinicLogo({
 }) {
   return (
     <Image
-      src="/logo.svg"
+      src="/logo-mark.png"
       alt={title}
       width={120}
       height={120}

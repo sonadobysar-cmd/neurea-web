@@ -9,17 +9,6 @@ export type PricedService = {
 
 export const pricedServices: PricedService[] = [
   {
-    id: "online-consultation",
-    name: {
-      cs: "Online konzultace",
-      en: "Online consultation",
-      de: "Online-Beratung",
-      it: "Consulto online",
-      ar: "استشارة عبر الإنترنت",
-    },
-    price: "1 500 Kč",
-  },
-  {
     id: "gyn-exam",
     name: {
       cs: "Gynekologické vyšetření",
@@ -99,17 +88,6 @@ export const pricedServices: PricedService[] = [
       it: "Assistenza in gravidanza",
       ar: "رعاية الحمل",
     },
-  },
-  {
-    id: "prenatal-4d",
-    name: {
-      cs: "Prenatální péče, genetické testy a ultrazvuk 4D",
-      en: "Prenatal care, genetic tests and 4D ultrasound",
-      de: "Pränatalvorsorge, Gentests und 4D-Ultraschall",
-      it: "Cure prenatali, test genetici ed ecografia 4D",
-      ar: "رعاية ما قبل الولادة والفحوصات الجينية والموجات 4D",
-    },
-    price: "2 500 Kč",
   },
   {
     id: "infertility",
@@ -222,17 +200,6 @@ export const pricedServices: PricedService[] = [
       ar: "العلاج بالتبريد",
     },
     price: "1 000 Kč",
-  },
-  {
-    id: "co2-laser",
-    name: {
-      cs: "CO₂ laserová gynekologie — balíček 3 procedur",
-      en: "CO₂ laser gynaecology — package of 3 procedures",
-      de: "CO₂-Lasergynäkologie — Paket mit 3 Behandlungen",
-      it: "Ginecologia laser CO₂ — pacchetto di 3 procedure",
-      ar: "ليزر CO₂ النسائي — باقة من 3 جلسات",
-    },
-    price: "7 000 Kč",
   },
   {
     id: "alt-med",

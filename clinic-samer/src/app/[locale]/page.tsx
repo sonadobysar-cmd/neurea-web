@@ -28,9 +28,6 @@ export default async function HomePage({
   const approved = await listReviews({ status: "approved" });
   const featured = dict.services.items.slice(0, 4);
   const pricedById = new Map(pricedServices.map((service) => [service.id, service]));
-  const priceHighlights = ["gyn-exam", "online-consultation", "co2-laser"]
-    .map((id) => pricedById.get(id))
-    .filter((service): service is PricedService => Boolean(service?.price));
   const gallery = [
     { src: "/photos/gallery-01.png", position: "center 38%" },
     { src: "/photos/gallery-02.png", position: "center 52%" },
@@ -143,19 +140,17 @@ export default async function HomePage({
             ))}
           </div>
           <Reveal>
-            <Link href={`/${locale}/services#pricing`} className="service-price-feature">
-              <div className="service-price-intro">
-                <span className="eyebrow eyebrow-on-dark">{dict.pricing.eyebrow}</span>
+            <Link
+              href={`/${locale}/services#pricing`}
+              className="service-price-feature service-price-feature-pure"
+            >
+              <div className="service-price-pure-topline">
+                <span>05</span>
+                <span>{dict.pricing.eyebrow}</span>
+              </div>
+              <div className="service-price-pure-copy">
                 <h3>{dict.pricing.eyebrow}</h3>
                 <p>{dict.pricing.lead}</p>
-              </div>
-              <div className="service-price-highlights">
-                {priceHighlights.map((service) => (
-                  <div key={service.id}>
-                    <span>{service.name[locale]}</span>
-                    <strong>{service.price}</strong>
-                  </div>
-                ))}
               </div>
               <span className="service-price-arrow" aria-hidden="true">↗</span>
             </Link>

@@ -68,22 +68,23 @@ export default async function ServicesPage({
 
       <section className="section section-soft" id="pricing">
         <div className="container">
-          <Reveal>
-            <span className="eyebrow">{dict.pricing.eyebrow}</span>
-            <h2
-              className="display"
-              style={{
-                fontSize: "clamp(2rem, 3.5vw, 2.8rem)",
-                color: "var(--rose-ink)",
-                margin: "0.35rem 0 0.85rem",
-              }}
-            >
-              {dict.pricing.title}
-            </h2>
-            <p className="lead" style={{ maxWidth: "42rem" }}>
-              {dict.pricing.lead}
-            </p>
-          </Reveal>
+          <div className="pricing-section-head">
+            <Reveal>
+              <div>
+                <span className="eyebrow">{dict.pricing.eyebrow}</span>
+                <h2 className="display">{dict.pricing.title}</h2>
+                <p className="lead">{dict.pricing.lead}</p>
+              </div>
+            </Reveal>
+            <Reveal delay={0.06}>
+              <Link
+                href={`/${locale}/booking`}
+                className="btn btn-primary pricing-booking-cta"
+              >
+                {dict.nav.book}
+              </Link>
+            </Reveal>
+          </div>
 
           <div className="pricing-category-grid">
             {priceCategories.map((category, i) => (

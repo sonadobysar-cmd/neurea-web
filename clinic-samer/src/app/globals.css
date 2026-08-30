@@ -980,6 +980,39 @@ img {
   box-shadow: 0 22px 50px rgba(58, 42, 50, 0.05);
 }
 
+.booking-card-title {
+  margin: 0.7rem 0 1rem;
+  color: var(--rose-ink);
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: clamp(1.9rem, 3vw, 2.45rem);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1.12;
+}
+
+.booking-points {
+  display: grid;
+  gap: 0.75rem;
+  margin: 1.6rem 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--stone);
+}
+
+.booking-points li {
+  position: relative;
+  padding-left: 1.65rem;
+}
+
+.booking-points li::before {
+  position: absolute;
+  left: 0;
+  top: 0.05rem;
+  content: "✓";
+  color: var(--rose-deep);
+  font-weight: 700;
+}
+
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;

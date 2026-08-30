@@ -4,22 +4,26 @@ import { createHmac, timingSafeEqual } from "crypto";
 const COOKIE = "clinic_admin_session";
 
 function secret() {
-  return process.env.ADMIN_PASSWORD || "samer-admin-2026";
+  return process.env.ADMIN_PASSWORD || null;
 }
 
 export function signToken(password: string) {
-  return createHmac("sha256", secret()).update(password).digest("hex");
+  const key = secret();
+  if (!key) return "";
+  return createHmac("sha256", key).update(password).digest("hex");
 }
 
 export function verifyPassword(password: string) {
-  return password === secret();
+  const key = secret();
+  return Boolean(key && password === key);
 }
 
 export async function isAdminAuthenticated() {
   const jar = await cookies();
   const token = jar.get(COOKIE)?.value;
-  if (!token) return false;
-  const expected = signToken(secret());
+  const key = secret();
+  if (!token || !key) return false;
+  const expected = signToken(key);
   try {
     return timingSafeEqual(Buffer.from(token), Buffer.from(expected));
   } catch {

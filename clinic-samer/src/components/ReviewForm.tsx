@@ -1,8 +1,30 @@
-"use client";
-
-import { FormEvent, useState } from "react";
 import type { Dictionary } from "@/data/i18n/dictionaries";
 import type { Locale } from "@/lib/locales";
+
+const PROFILE_URL = "https://www.znamylekar.cz/profil/samer-asad";
+
+const copy: Record<Locale, { text: string; button: string }> = {
+  cs: {
+    text: "Hodnocení sbíráme na ověřeném profilu ZnámyLékař, kde je bezpečně najdou také další pacientky.",
+    button: "Napsat ověřené hodnocení",
+  },
+  en: {
+    text: "Reviews are collected on the verified ZnámyLékař profile, where other patients can also find them safely.",
+    button: "Write a verified review",
+  },
+  de: {
+    text: "Bewertungen sammeln wir im verifizierten ZnámyLékař-Profil, wo andere Patientinnen sie sicher finden können.",
+    button: "Verifizierte Bewertung schreiben",
+  },
+  it: {
+    text: "Le recensioni vengono raccolte sul profilo verificato ZnámyLékař, dove altre pazienti possono trovarle in sicurezza.",
+    button: "Scrivi una recensione verificata",
+  },
+  ar: {
+    text: "نجمع التقييمات في ملف ZnámyLékař الموثق حتى تتمكن المريضات الأخريات من العثور عليها بأمان.",
+    button: "كتابة تقييم موثق",
+  },
+};
 
 export function ReviewForm({
   locale,
@@ -11,85 +33,25 @@ export function ReviewForm({
   locale: Locale;
   dict: Dictionary;
 }) {
-  const [rating, setRating] = useState(5);
-  const [status, setStatus] = useState<"idle" | "loading" | "ok" | "err">(
-    "idle"
-  );
-
-  async function onSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const data = new FormData(form);
-    setStatus("loading");
-    try {
-      const res = await fetch("/api/reviews", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: data.get("name"),
-          text: data.get("text"),
-          rating,
-          locale,
-        }),
-      });
-      if (!res.ok) throw new Error("fail");
-      form.reset();
-      setRating(5);
-      setStatus("ok");
-    } catch {
-      setStatus("err");
-    }
-  }
-
-  if (status === "ok") {
-    return (
-      <div className="success-box">
-        <h3>{dict.reviews.success}</h3>
-        <p>{dict.reviews.successHint}</p>
-      </div>
-    );
-  }
+  const content = copy[locale];
 
   return (
-    <form className="form-grid" onSubmit={onSubmit}>
-      <div className="field span-2">
-        <label htmlFor="r-name">{dict.reviews.name}</label>
-        <input id="r-name" name="name" required autoComplete="name" />
+    <div>
+      <div className="book-summary" style={{ marginTop: 0 }}>
+        <strong>{dict.reviews.countHint}</strong>
+        <br />
+        {content.text}
       </div>
-      <div className="field span-2">
-        <label>{dict.reviews.rating}</label>
-        <div className="rating-pick" role="group" aria-label={dict.reviews.rating}>
-          {[1, 2, 3, 4, 5].map((n) => (
-            <button
-              key={n}
-              type="button"
-              className={n <= rating ? "is-on" : undefined}
-              onClick={() => setRating(n)}
-              aria-pressed={n <= rating}
-            >
-              {n}
-            </button>
-          ))}
-        </div>
-      </div>
-      <div className="field span-2">
-        <label htmlFor="r-text">{dict.reviews.text}</label>
-        <textarea id="r-text" name="text" required minLength={12} />
-      </div>
-      <div className="span-2">
-        <button
+      <div className="book-nav">
+        <a
           className="btn btn-primary"
-          type="submit"
-          disabled={status === "loading"}
+          href={PROFILE_URL}
+          target="_blank"
+          rel="noopener noreferrer"
         >
-          {status === "loading" ? dict.common.loading : dict.reviews.submit}
-        </button>
-        {status === "err" && (
-          <p style={{ color: "var(--rose-deep)", marginTop: "0.75rem" }}>
-            {dict.common.error}
-          </p>
-        )}
+          {content.button}
+        </a>
       </div>
-    </form>
+    </div>
   );
 }

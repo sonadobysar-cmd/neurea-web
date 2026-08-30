@@ -352,6 +352,10 @@ img {
   color: var(--rose-ink);
 }
 
+.nav-links .nav-pricing-link {
+  display: none;
+}
+
 .lang-switch {
   display: flex;
   align-items: center;
@@ -1539,6 +1543,32 @@ img {
     padding: 0.75rem 0.9rem;
     border-radius: 0.85rem;
     color: var(--rose-ink);
+  }
+
+  .nav-panel-inner .nav-pricing-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0.1rem 0 0.25rem;
+    padding: 0.95rem 1rem;
+    border: 1px solid rgba(168, 137, 114, 0.22);
+    color: var(--rose-ink);
+    background:
+      radial-gradient(circle at 100% 0%, rgba(216, 205, 221, 0.38), transparent 52%),
+      rgba(255, 253, 249, 0.9);
+    box-shadow: 0 12px 30px rgba(48, 31, 52, 0.055);
+    font-weight: 600;
+  }
+
+  .nav-panel-inner .nav-pricing-card::after {
+    content: "↗";
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    border: 1px solid rgba(75, 51, 79, 0.16);
+    border-radius: 50%;
+    font-size: 0.8rem;
   }
 
   .nav-panel-inner .lang-switch {

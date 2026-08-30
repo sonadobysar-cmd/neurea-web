@@ -24,9 +24,18 @@ export function SiteNav({
   const isHome = normalizedPath === `/${locale}`;
   const pageSolid = solid || !isHome;
 
-  const links = [
+  const links: Array<{
+    href: string;
+    label: string;
+    pricing?: boolean;
+  }> = [
     { href: `/${locale}`, label: dict.nav.home },
     { href: `/${locale}/services`, label: dict.nav.services },
+    {
+      href: `/${locale}/services#pricing`,
+      label: dict.pricing.eyebrow,
+      pricing: true,
+    },
     { href: `/${locale}/about`, label: dict.nav.about },
     { href: `/${locale}/reviews`, label: dict.nav.reviews },
     { href: `/${locale}/contact`, label: dict.nav.contact },
@@ -71,6 +80,7 @@ export function SiteNav({
             <Link
               key={l.href}
               href={l.href}
+              className={l.pricing ? "nav-pricing-link" : undefined}
               aria-current={normalizedPath === l.href ? "page" : undefined}
             >
               {l.label}
@@ -111,7 +121,12 @@ export function SiteNav({
       <div className="nav-panel" id="mobile-nav" hidden={!open}>
         <div className="container nav-panel-inner">
           {links.map((l) => (
-            <Link key={l.href} href={l.href} onClick={() => setOpen(false)}>
+            <Link
+              key={l.href}
+              href={l.href}
+              className={l.pricing ? "nav-pricing-card" : undefined}
+              onClick={() => setOpen(false)}
+            >
               {l.label}
             </Link>
           ))}

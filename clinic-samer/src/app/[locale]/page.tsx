@@ -236,6 +236,7 @@ export default async function HomePage({
                 <div>
                   <strong>{dict.about.nurseTitle}</strong>
                   <span>{dict.about.nurseRole}</span>
+                  <p className="team-chip-bio">{dict.about.nurseBio}</p>
                 </div>
               </div>
               <div className="section-action">

@@ -64,6 +64,7 @@ export type Dictionary = {
     memberships: string[];
     nurseTitle: string;
     nurseRole: string;
+    nurseBio: string;
     teamLabel: string;
     cta: string;
   };
@@ -258,6 +259,8 @@ const cs: Dictionary = {
     ],
     nurseTitle: "Nataliia Asad, DiS.",
     nurseRole: "Zdravotní sestra",
+    nurseBio:
+      "Nataliia pomáhá vytvářet klidné a vstřícné prostředí, aby se každá pacientka cítila vítaná a vždy věděla, co ji čeká.",
     teamLabel: "Tým ordinace",
     cta: "Domluvit konzultaci",
   },
@@ -459,6 +462,8 @@ const en: Dictionary = {
     ],
     nurseTitle: "Nataliia Asad, DiS.",
     nurseRole: "Nurse",
+    nurseBio:
+      "Nataliia helps create a calm, welcoming atmosphere so every patient feels at ease and always knows what to expect.",
     teamLabel: "Practice team",
     cta: "Book a consultation",
   },
@@ -660,6 +665,8 @@ const de: Dictionary = {
     ],
     nurseTitle: "Nataliia Asad, DiS.",
     nurseRole: "Krankenschwester",
+    nurseBio:
+      "Nataliia trägt zu einer ruhigen, herzlichen Atmosphäre bei, damit sich jede Patientin willkommen fühlt und stets weiß, was sie erwartet.",
     teamLabel: "Praxisteam",
     cta: "Beratung vereinbaren",
   },
@@ -861,6 +868,8 @@ const it: Dictionary = {
     ],
     nurseTitle: "Nataliia Asad, DiS.",
     nurseRole: "Infermiera",
+    nurseBio:
+      "Nataliia contribuisce a creare un ambiente sereno e accogliente, affinché ogni paziente si senta a proprio agio e sappia sempre cosa aspettarsi.",
     teamLabel: "Team dello studio",
     cta: "Prenota una consulenza",
   },
@@ -1062,6 +1071,8 @@ const ar: Dictionary = {
     ],
     nurseTitle: "Nataliia Asad, DiS.",
     nurseRole: "ممرضة",
+    nurseBio:
+      "تساعد ناتاليا في خلق أجواء هادئة ومرحِّبة، لتشعر كل مريضة بالراحة وتعرف دائمًا ما الذي ينتظرها.",
     teamLabel: "فريق العيادة",
     cta: "احجزي استشارة",
   },

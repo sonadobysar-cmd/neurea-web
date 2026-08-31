@@ -24,18 +24,21 @@ const proposalNav = [
 
 const useCases = [
   {
+    icon: "home",
     title: "Bydlení a zahrada",
     text: "Celoroční bydlení, zahradní domek pro hosty nebo samostatné místo k odpočinku. Bez typového katalogu — podle vás, pozemku a způsobu využití.",
     image: "/media/realizace/tiny-12x4.jpg",
     alt: "Dřevěný tiny house na zahradě pro bydlení a odpočinek",
   },
   {
+    icon: "office",
     title: "Kancelář / home office",
     text: "Klid na práci pár kroků od domu. Tiny house může fungovat jako plnohodnotná zahradní kancelář nebo samostatné zázemí pro firmu.",
     image: "/media/realizace/tiny-12x4-interior.jpg",
     alt: "Světlý interiér tiny house vhodný jako kancelář nebo home office",
   },
   {
+    icon: "business",
     title: "Podnikání",
     text: "Ubytování v přírodě, bistro, provozovna nebo jiný vlastní projekt. Navrhneme prostor podle reálného provozu, ne podle hotového modelu.",
     image: "/media/realizace/sirek.jpg",
@@ -43,15 +46,43 @@ const useCases = [
   },
 ] as const;
 
+function UseCaseIcon({ kind }: { kind: (typeof useCases)[number]["icon"] }) {
+  if (kind === "office") {
+    return (
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <rect x="5.5" y="7" width="21" height="15" rx="1.5" />
+        <path d="M12 27h8M16 22v5" />
+      </svg>
+    );
+  }
+
+  if (kind === "business") {
+    return (
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <path d="M5 13h22l-2-7H7l-2 7Z" />
+        <path d="M7 13v13h18V13M12 26v-8h8v8" />
+        <path d="M5 13c0 2 1.5 3 3 3s3-1 3-3c0 2 1.5 3 3 3s3-1 3-3c0 2 1.5 3 3 3s3-1 3-3c0 2 1.5 3 3 3s3-1 3-3" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+      <path d="m4 15 12-9 12 9" />
+      <path d="M7 13.5V27h18V13.5M13 27v-8h6v8" />
+    </svg>
+  );
+}
+
 function UseCasesSection() {
   return (
     <section className="section section-paper use-cases" id="na-miru">
       <div className="wrap">
         <Reveal>
-          <div className="section-head wide use-cases-head">
+          <div className="section-head use-cases-head">
             <div>
               <p className="eyebrow">Jeden tiny. Spousta možností.</p>
-              <h2>Tiny house na míru vašemu životu</h2>
+              <h2>Využijte svůj tiny house naplno</h2>
             </div>
             <p>
               Nevyrábíme katalogové domky, ze kterých si musíte vybrat. Každý
@@ -72,12 +103,15 @@ function UseCasesSection() {
                     sizes="(max-width: 760px) 100vw, 33vw"
                   />
                 </div>
+                <span className="use-case-icon">
+                  <UseCaseIcon kind={item.icon} />
+                </span>
                 <div className="use-case-copy">
                   <span className="use-case-number">0{i + 1}</span>
                   <h3>{item.title}</h3>
                   <p>{item.text}</p>
-                  <Link href="#kontakt" className="audience-cta">
-                    Probrat záměr <ArrowIcon />
+                  <Link href="#cesty" className="audience-cta">
+                    Zjistit více <ArrowIcon />
                   </Link>
                 </div>
               </article>
@@ -133,14 +167,7 @@ function CtaBand({
   );
 }
 
-export default async function HomePage({
-  searchParams,
-}: {
-  searchParams: Promise<{ varianta?: string }>;
-}) {
-  const { varianta } = await searchParams;
-  const proposal = varianta === "b" ? "b" : varianta === "a" ? "a" : null;
-  const proposalHref = proposal ? `/?varianta=${proposal}` : "/";
+export default function HomePage() {
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -162,30 +189,12 @@ export default async function HomePage({
       />
       <SiteNav
         darkHero
-        navItems={proposal ? proposalNav : undefined}
-        homeHref={proposalHref}
-        ctaLabel={proposal ? "Spustit konfigurátor" : undefined}
+        navItems={proposalNav}
+        homeHref="/"
+        ctaLabel="Spustit konfigurátor"
       />
 
-      {proposal && (
-        <aside className="proposal-switcher" aria-label="Porovnání návrhů">
-          <span>Porovnání</span>
-          <Link
-            href="/?varianta=a"
-            className={proposal === "a" ? "is-active" : ""}
-          >
-            A
-          </Link>
-          <Link
-            href="/?varianta=b"
-            className={proposal === "b" ? "is-active" : ""}
-          >
-            B
-          </Link>
-        </aside>
-      )}
-
-      <section className="hero">
+      <section className="hero hero--selected">
         <div className="hero-media">
           <Image
             src={media.hero}
@@ -205,9 +214,8 @@ export default async function HomePage({
             <span className="hero-accent">na kolech</span>
           </h1>
           <p className="hero-lead">
-            {proposal
-              ? "Moderní tiny house ze dřeva s charakterem. Celoroční bydlení, home office i prostor pro podnikání. Dům, který vzniká podle vás."
-              : "Moderní tiny house z dřeva s charakterem. Homologovaný podvozek — bydlení, Airbnb i rekonstrukce kempů. Dům, který s vámi jede."}
+            Moderní tiny house ze dřeva s charakterem. Celoroční bydlení, home
+            office i prostor pro podnikání. Dům, který vzniká podle vás.
           </p>
           <div className="hero-stats" aria-label="Parametry">
             <div>
@@ -228,8 +236,8 @@ export default async function HomePage({
               Spustit konfigurátor
               <ArrowIcon />
             </Link>
-            <Link href={proposal ? "#na-miru" : "/#cesty"} className="btn btn-ghost-light">
-              {proposal ? "Možnosti využití" : "Vybrat cestu"}
+            <Link href="#na-miru" className="btn btn-ghost-light">
+              Možnosti využití
             </Link>
           </div>
           <div className="hero-scroll">
@@ -259,20 +267,16 @@ export default async function HomePage({
         </div>
       </div>
 
-      {proposal && <UseCasesSection />}
+      <UseCasesSection />
 
       {/* Systém: 4 cesty */}
-      {(!proposal || proposal === "b") && (
-        <section
-          className={`section section-paper${proposal === "b" ? " proposal-existing-paths" : ""}`}
-          id="cesty"
-        >
+      <section className="section section-paper proposal-existing-paths" id="cesty">
         <div className="wrap">
           <Reveal>
             <div className="section-head wide">
               <div>
-                <p className="eyebrow">Systém</p>
-                <h2>Čtyři cesty. Bez typových katalogů.</h2>
+                <p className="eyebrow">Jak začít</p>
+                <h2>Čtyři cesty k vašemu projektu</h2>
               </div>
               <p>
                 Neprodáváme „model A / model B“. Řešíme váš záměr — nový dům,
@@ -321,8 +325,7 @@ export default async function HomePage({
             ))}
           </div>
         </div>
-        </section>
-      )}
+      </section>
 
       <section className="section section-ink" id="kola">
         <div className="wrap">
@@ -367,9 +370,7 @@ export default async function HomePage({
           <Reveal>
             <div className="cfg-teaser">
               <div>
-                <p className="eyebrow">
-                  {proposal ? "Konfigurátor" : "Cesta 01 · Konfigurátor"}
-                </p>
+                <p className="eyebrow">Konfigurátor</p>
                 <h2>Sestavte dům. Uvidíte cenu. Pošlete poptávku.</h2>
                 <p>
                   Rozměry, střecha, fasáda, výbava — živý náhled a orientační
@@ -382,10 +383,10 @@ export default async function HomePage({
                     <ArrowIcon />
                   </Link>
                   <Link
-                    href={proposal ? "#kontakt" : "/#renovace"}
+                    href="#kontakt"
                     className="btn btn-ghost-light"
                   >
-                    {proposal ? "Nejdřív probrat záměr" : "Spíš renovace?"}
+                    Nejdřív probrat záměr
                   </Link>
                 </div>
               </div>
@@ -489,16 +490,8 @@ export default async function HomePage({
           <Reveal>
             <div className="mt-3">
               <CtaBand
-                title={
-                  proposal
-                    ? "Máte představu? Pojďme ji probrat."
-                    : "Nejste si jistí, která cesta je vaše?"
-                }
-                text={
-                  proposal
-                    ? "Nemusíte mít hotový projekt. Stačí popsat, k čemu má tiny house sloužit a kam ho chcete umístit."
-                    : "Napište jednou větou, co řešíte. Ozveme se s doporučením."
-                }
+                title="Máte představu? Pojďme ji probrat."
+                text="Nemusíte mít hotový projekt. Stačí popsat, k čemu má tiny house sloužit a kam ho chcete umístit."
                 primary="Popsat svůj projekt"
                 primaryHref="/#kontakt"
                 secondary="Konfigurátor"
@@ -543,9 +536,7 @@ export default async function HomePage({
                     maxWidth: "16ch",
                   }}
                 >
-                  {proposal
-                    ? "Máte představu? Pojďme ji probrat."
-                    : "Popište nám svůj záměr. Ozveme se s dalším krokem."}
+                  Máte představu? Pojďme ji probrat.
                 </h2>
                 <p
                   style={{
@@ -555,9 +546,9 @@ export default async function HomePage({
                     marginBottom: "1.5rem",
                   }}
                 >
-                  {proposal
-                    ? "Nemusíte mít hotový projekt ani přesně vědět, jak má váš tiny house vypadat. Řekněte nám, k čemu ho chcete používat, kam ho chcete umístit a jakou máte představu."
-                    : "Nový dům, renovace, byznys nebo kemp — vyberte ve formuláři. Nebo rovnou pošlete konfiguraci."}
+                  Nemusíte mít hotový projekt ani přesně vědět, jak má váš tiny
+                  house vypadat. Řekněte nám, k čemu ho chcete používat, kam ho
+                  chcete umístit a jakou máte představu.
                 </p>
                 <p style={{ marginBottom: "0.35rem" }}>
                   <a href={`mailto:${brand.email}`}>{brand.email}</a>
@@ -573,7 +564,7 @@ export default async function HomePage({
               </div>
             </Reveal>
             <Reveal delay={1}>
-              <ContactForm mode={proposal ? "proposal" : "current"} />
+              <ContactForm mode="proposal" />
             </Reveal>
           </div>
         </div>

@@ -1899,6 +1899,32 @@ nav.is-open .nav-toggle span:nth-child(3) {
   }
 }
 
+/* Desktopová navigace musí být viditelná už při prvním vykreslení stránky.
+   Pevné neprůhledné pozadí zároveň obchází občasné zpožděné překreslení
+   kombinace position: sticky + backdrop-filter v desktopových prohlížečích. */
+@media (min-width: 961px) {
+  .luxury-root > nav {
+    position: fixed;
+    inset: 0 0 auto;
+    width: 100%;
+    z-index: 500;
+    background: #fcf8ef;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    opacity: 1;
+    visibility: visible;
+    transform: translateZ(0);
+  }
+
+  .luxury-root > main {
+    padding-top: 74px;
+  }
+
+  html {
+    scroll-padding-top: 74px;
+  }
+}
+
 /* Finální mobilní a tabletová kompozice hero sekce */
 @media (min-width: 641px) and (max-width: 960px) {
   .luxury-root .hero {
@@ -2044,6 +2070,11 @@ nav.is-open .nav-toggle span:nth-child(3) {
   .luxury-root .pcard[data-i="0"] .ph img {
     object-position: center top;
   }
+}
+
+/* Robin chce úvodní popis vždy černý; text samotný zůstává editovatelný v administraci. */
+.luxury-root .hero .lead {
+  color: #201406;
 }
 
 /* iOS používá při pružném doscrollování pozadí html; držíme barvu patičky i pod safe-area. */

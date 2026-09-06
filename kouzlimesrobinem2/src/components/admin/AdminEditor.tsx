@@ -534,7 +534,6 @@ export function AdminEditor({
           <Field label="Nadpis před" value={content.contact.titleBefore} onChange={(v) => patch("contact", { ...content.contact, titleBefore: v })} />
           <Field label="Zvýraznění" value={content.contact.titleEm} onChange={(v) => patch("contact", { ...content.contact, titleEm: v })} />
           <Field label="Telefon (zobrazení)" value={content.contact.phoneDisplay} onChange={(v) => patch("contact", { ...content.contact, phoneDisplay: v })} />
-          <Field label="Telefon (odkaz, např. +420…)" value={content.contact.phoneHref} onChange={(v) => patch("contact", { ...content.contact, phoneHref: v })} />
           <Field label="E-mail" value={content.contact.email} onChange={(v) => patch("contact", { ...content.contact, email: v })} />
         </div>
         <p className="admin-help">

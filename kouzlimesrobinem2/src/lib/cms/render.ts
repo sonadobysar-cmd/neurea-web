@@ -18,17 +18,6 @@ function safeUrl(s: string): string {
   return "";
 }
 
-function safeTel(s: string): string {
-  const cleaned = s.replace(/[^\d+]/g, "");
-  return esc(cleaned || s);
-}
-
-function safeMailto(s: string): string {
-  const v = s.trim();
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return "";
-  return esc(v);
-}
-
 const SUIT_HREF: Record<string, string> = {
   h: "#s-h",
   d: "#s-d",
@@ -176,8 +165,7 @@ export function renderLuxuryBody(content: SiteContent, template: string): string
     "{{cms.contact.titleBefore}}": esc(c.contact.titleBefore),
     "{{cms.contact.titleEm}}": esc(c.contact.titleEm),
     "{{cms.contact.phoneDisplay}}": esc(c.contact.phoneDisplay),
-    "{{cms.contact.phoneHref}}": safeTel(c.contact.phoneHref),
-    "{{cms.contact.email}}": safeMailto(c.contact.email),
+    "{{cms.contact.email}}": esc(c.contact.email),
     "{{cms.contact.thanks}}": esc(c.contact.thanks),
     "{{cms.footer.copy}}": esc(c.footer.copy),
   };

@@ -235,8 +235,8 @@ export const luxuryBodyTemplate = `<a class="skip-link" href="#main-content">Př
 <section class="contact" id="kontakt">
   <div class="wrap reveal">
     <h2>{{cms.contact.titleBefore}}<em>{{cms.contact.titleEm}}</em></h2>
-    <a class="big-tel" href="tel:{{cms.contact.phoneHref}}" aria-label="Zavolat Robinovi na {{cms.contact.phoneDisplay}}">{{cms.contact.phoneDisplay}}</a>
-    <a class="mail" href="mailto:{{cms.contact.email}}">{{cms.contact.email}}</a>
+    <span class="big-tel">{{cms.contact.phoneDisplay}}</span>
+    <span class="mail">{{cms.contact.email}}</span>
   </div>
 </section>
 

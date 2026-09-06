@@ -1377,17 +1377,18 @@ nav.is-open .nav-toggle span:nth-child(3) {
 
 .luxury-root .contact .big-tel,
 .luxury-root .contact .mail {
-  cursor: pointer;
+  cursor: text;
   text-decoration: none;
   pointer-events: auto;
+  user-select: text;
 }
 
-.luxury-root .contact .big-tel:hover::after {
-  transform: scaleX(1);
+.luxury-root .contact .big-tel::after {
+  display: none;
 }
 
 .luxury-root .contact .mail:hover {
-  color: var(--saffron);
+  color: var(--ink-soft);
 }
 
 .luxury-root .btn-amber {

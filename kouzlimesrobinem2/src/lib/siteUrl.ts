@@ -1,4 +1,4 @@
-const FALLBACK_SITE_URL = "https://kouzlimesrobinem2.vercel.app";
+const FALLBACK_SITE_URL = "https://www.kouzlimesrobinem.cz";
 
 export function getSiteUrl(): string {
   const candidate =

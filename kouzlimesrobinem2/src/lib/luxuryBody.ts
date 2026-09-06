@@ -110,7 +110,7 @@ export const luxuryBodyTemplate = `<a class="skip-link" href="#main-content">Př
   <button class="lightbox-prev" type="button" aria-label="Předchozí fotka">‹</button>
   <button class="lightbox-next" type="button" aria-label="Další fotka">›</button>
   <figure class="lightbox-inner">
-    <img id="lightbox-img" src="" alt="">
+    <img id="lightbox-img" alt="">
     <figcaption id="lightbox-cap"></figcaption>
   </figure>
 </div>
